@@ -8,7 +8,7 @@ import {
     useColorModeValue,
   } from "@chakra-ui/react";
   import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
-  import InputSwap from "./InputSwap"
+  import InputSwap from "../InputToken"
 
 const Swap: React.FC = () => {
     return (

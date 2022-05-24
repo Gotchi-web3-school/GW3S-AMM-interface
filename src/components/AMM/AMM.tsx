@@ -1,6 +1,7 @@
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from "@chakra-ui/react"
 import Swap from "./Swap/Swap"
-import Analytics from "./Swap/Analytics"
+import AddLiquidity from "./AddLiquidity/AddLiquidity"
+import Analytics from "./Analytics"
 
 const AMM: React.FC = () => {
     return (
@@ -12,8 +13,8 @@ const AMM: React.FC = () => {
             pt={5}
             px={{ base: 2, sm: 5, md: 17 }}
             py={4}
-            mt="8rem"
-            rounded="xl"
+            mt="6rem"
+            borderRadius={"3xl"}
             shadow="lg"
             bg={useColorModeValue("white", "gray.800")}
             zIndex={1}
@@ -24,10 +25,11 @@ const AMM: React.FC = () => {
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel p={0}>
+                    <TabPanel>
                         <Swap />
                     </TabPanel>
                     <TabPanel>
+                        <AddLiquidity />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

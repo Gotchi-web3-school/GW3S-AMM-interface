@@ -1,7 +1,7 @@
 import { Box, Text, Button, Input, Flex, Stack, Spacer, useColorModeValue } from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
 
-const InputSwap: React.FC = () => {
+const InputToken : React.FC = () => {
   return (
     <Box
       p="1rem"
@@ -46,4 +46,4 @@ const InputSwap: React.FC = () => {
   )
 }
 
-export default InputSwap
+export default InputToken
