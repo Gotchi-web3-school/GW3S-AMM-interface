@@ -11,11 +11,11 @@ import {
 const AddLiquidity: React.FC = () => {
     return (
       <Box >
-        <InputToken />
+        <InputToken idx={0} />
         <Center>
           <AddIcon my="4"/>
         </Center>
-        <InputToken />
+        <InputToken idx={1} />
 
         <PoolShare />
 

@@ -1,8 +1,13 @@
-import { Box, Text, Button, Input, Flex, Stack, Spacer, useColorModeValue } from "@chakra-ui/react"
+import { Box, Text, Button, Input, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
+import ModalTokens from "../Modal/ModalToken"
 
-const InputToken : React.FC = () => {
+const InputToken : React.FC<{idx: number}> = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
+    <>
+    <ModalTokens isOpen={isOpen} onClose={onClose} idx={props.idx} />
     <Box
       p="1rem"
       border={"1px"}
@@ -28,12 +33,12 @@ const InputToken : React.FC = () => {
               fontSize="2xl"
               fontWeight="bold"
               color={useColorModeValue("gray.900", "white")}
-              value={0}
               id="swap"
               required
             />
             <Button
               color={useColorModeValue("gray.900", "white")}
+              onClick={onOpen}
               size="sm"
             >
               <QuestionOutlineIcon mx="2" color={useColorModeValue("black", "white")} />
@@ -43,6 +48,7 @@ const InputToken : React.FC = () => {
           </Flex>
         </Stack>
     </Box>
+    </>
   )
 }
 

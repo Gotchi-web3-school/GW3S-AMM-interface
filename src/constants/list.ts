@@ -15,7 +15,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
     "tokens": [
         {
         "name": "GW3S Dai Stablecoin",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "DAI",
         "decimals": 18,
         "chainId": 80001,
@@ -23,15 +23,15 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
         "name": "GW3S Aavegotchi GHST Token",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "GHST",
         "decimals": 18,
         "chainId": 80001,
-        "logoURI": "https://aavegotchi.com/images/ghsttoken.svg"
+        "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
         },
         {
             "name": "GW3S Aavegotchi FUD",
-            "address": "",
+            "address": "0x0000000000000000000000000000000000000000",
             "symbol": "FUD",
             "decimals": 18,
             "chainId": 80001,
@@ -39,7 +39,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
             "name": "GW3S  Aavegotchi FOMO",
-            "address": "",
+            "address": "0x0000000000000000000000000000000000000000",
             "symbol": "FOMO",
             "decimals": 18,
             "chainId": 80001,
@@ -47,7 +47,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
             "name": "GW3S Aavegotchi ALPHA",
-            "address": "",
+            "address": "0x0000000000000000000000000000000000000000",
             "symbol": "ALPHA",
             "decimals": 18,
             "chainId": 80001,
@@ -55,7 +55,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
             "name": "GW3S  Aavegotchi KEK",
-            "address": "",
+            "address": "0x0000000000000000000000000000000000000000",
             "symbol": "KEK",
             "decimals": 18,
             "chainId": 80001,
@@ -63,7 +63,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
         "name": "GW3S  Aave",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "AAVE",
         "decimals": 18,
         "chainId": 80001,
@@ -71,15 +71,15 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
         "name": "GW3S  Uniswap",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "UNI",
         "decimals": 18,
         "chainId": 80001,
-        "logoURI": "https://raw.githubusercontent.com/sameepsi/quickswap-interface/master/public/favicon1.png"
+        "logoURI": "https://cryptologos.cc/logos/uniswap-uni-logo.png?v=022"
         },
         {
         "name": "GW3S  USD Coin",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "USDC",
         "decimals": 6,
         "chainId": 80001,
@@ -87,7 +87,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
         "name": "GW3S Ether",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "ETH",
         "decimals": 18,
         "chainId": 80001,
@@ -95,7 +95,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
         "name": "GW3S  Tether USD",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "USDT",
         "decimals": 6,
         "chainId": 80001,
@@ -103,7 +103,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
         "name": "GW3S  Wrapped Matic",
-        "address": "",
+        "address": "0x0000000000000000000000000000000000000000",
         "symbol": "WMATIC",
         "decimals": 18,
         "chainId": 80001,
@@ -111,7 +111,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
             "name": "GW3S  Wrapped BTC",
-            "address": "",
+            "address": "0x0000000000000000000000000000000000000000",
             "symbol": "WBTC",
             "decimals": 8,
             "chainId": 80001,
@@ -119,7 +119,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         },
         {
             "name": "ChainLink Token",
-            "address": "",
+            "address": "0x0000000000000000000000000000000000000000",
             "symbol": "LINK",
             "decimals": 18,
             "chainId": 80001,

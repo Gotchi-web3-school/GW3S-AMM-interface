@@ -13,13 +13,13 @@ import {
 const Swap: React.FC = () => {
     return (
       <Box >
-        <InputSwap />
+        <InputSwap idx={0} />
           <Center m={-4} zIndex={2}>
             <Button bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
               <ArrowDownIcon  />
             </Button>
           </Center>
-        <InputSwap />
+        <InputSwap idx={1} />
 
         <Stack direction={'row'} m="4" >
           <Text fontSize="sm" fontWeight="bold">Price</Text>
