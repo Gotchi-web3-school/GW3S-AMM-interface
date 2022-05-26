@@ -6,12 +6,16 @@ import {
   Stack,
   useColorModeValue,
   useBreakpointValue,
+  useColorMode,
 } from '@chakra-ui/react';
+import {  SunIcon, MoonIcon, } from '@chakra-ui/icons'
 import {useWeb3React} from '@web3-react/core';
 import { injected } from '../../lib/connectors';
   
 const Navbar: React.FC = () => {
   const {chainId, account, active, activate, deactivate} = useWeb3React();
+
+  const { colorMode, toggleColorMode } = useColorMode()
 
   const handleConnect = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -63,6 +67,9 @@ const Navbar: React.FC = () => {
             }}
             onClick={handleConnect}>
             {active ? account : "Connect"}
+          </Button>
+          <Button onClick={toggleColorMode}>
+            {colorMode === 'light' ? <SunIcon />: <MoonIcon />}
           </Button>
         </Stack>
 

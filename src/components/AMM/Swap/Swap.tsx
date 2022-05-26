@@ -15,7 +15,7 @@ const Swap: React.FC = () => {
       <Box >
         <InputSwap />
           <Center m={-4} zIndex={2}>
-            <Button  border="2px solid" borderColor="gray.700" bg="gray.900" _hover={{bg: "purple.800",}} p="3">
+            <Button bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
               <ArrowDownIcon  />
             </Button>
           </Center>

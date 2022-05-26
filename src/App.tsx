@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <Box
       h='calc(100vh)'
       bgGradient={useColorModeValue(
-        "white",
+        "linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)",
         "linear(gray.800, purple.900, purple.800, purple.900, gray.800)"
       )}>
       <Navbar />
