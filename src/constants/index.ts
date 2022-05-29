@@ -1,5 +1,4 @@
-import { JSBI, Percent, Token, ChainId } from '@uniswap/sdk';
-import { DEFAULT_TOKEN_LIST_URL } from "./list"
+import { Token, TokenAmount, Pair, Route, Percent, JSBI} from "quickswap-sdk"
 
 export enum TxnType {
   SWAP,
@@ -61,7 +60,7 @@ export const GlobalValue = {
     ), // 15%
   },
   tokens: {
-    MATIC: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
+    MATIC: new Token(80001, '0xc0FFee0000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
     AAVE: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
     GHST: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
     MATIC3: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
@@ -71,7 +70,32 @@ export const GlobalValue = {
   },
 };
 
-// a list of tokens by chain
-type ChainTokenList = {
-  readonly [chainId in ChainId]: Token[];
-};
+
+export const defaultToken = GlobalValue.tokens.MATIC
+export const defaultTokenAmount: TokenAmount = new TokenAmount(defaultToken, "0")
+export const defaultTokenAmount2: TokenAmount = new TokenAmount(GlobalValue.tokens.AAVE, "10")
+export const defaultPair: Pair = new Pair(defaultTokenAmount, defaultTokenAmount2)
+export const defaultRoute: Route = new Route([defaultPair], defaultToken)
+//export const defaultTrade: Trade =  new Trade(defaultRoute, defaultTokenAmount, TradeType.EXACT_INPUT)
+export const defaultPercent: Percent = new Percent("0", "100")
+
+/*
+export const defaultPrice: Price = new Price({
+  baseAmount: CurrencyAmount.fromRawAmount(defaultToken, 1),
+  quoteAmount: CurrencyAmount.fromRawAmount(defaultToken, 54321)
+})
+
+export const initialTradeState: Trade = {
+    route: defaultRoute,
+    amount: defaultTokenAmount,
+    tradeType: TradeType.EXACT_INPUT,
+    inputAmount: defaultTokenAmount,
+    outputAmount: defaultTokenAmount,
+    executionPrice: Price,
+    nextMidPrice: Price,
+    slippage: defaultPercent,
+    priceImpact: Price,
+    minimumAmountOut: defaultTokenAmount,
+    maximumAmountIn: defaultTokenAmount,
+}
+*/

@@ -1,12 +1,14 @@
-import { useState } from "react"
-import { Box, Text, Button, Input, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
+import { useState, useContext } from "react"
+import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
+import { Box, Text, Button, Input, Image, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
-import ModalTokens from "../Modal/ModalToken"
+import ModalTokens from "../../Modal/ModalToken"
 
-const InputToken : React.FC<{idx: number}> = (props) => {
+const InputToken0 : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [tokenAmount, setTokenAmount] = useState<string>("")
-  //const {token0, token1} = useContext(AddLiquidityContext)
+  const { token0, token0Logo } = useContext(AddLiquidityContext)
+  const color = useColorModeValue("black", "white")
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setTokenAmount(e.target.value)
@@ -14,7 +16,7 @@ const InputToken : React.FC<{idx: number}> = (props) => {
 
   return (
     <>
-    <ModalTokens isOpen={isOpen} onClose={onClose} idx={props.idx} />
+    <ModalTokens isOpen={isOpen} onClose={onClose} idx={0} />
     <Box
       p="1rem"
       border={"1px"}
@@ -49,9 +51,10 @@ const InputToken : React.FC<{idx: number}> = (props) => {
               color={useColorModeValue("gray.900", "white")}
               onClick={onOpen}
               size="sm"
+              p="5"
             >
-              <QuestionOutlineIcon mx="2" color={useColorModeValue("black", "white")} />
-              {}
+              {token0Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token0Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
+              {token0.symbol}
               <ArrowDownIcon mx="2" />
             </Button>
           </Flex>
@@ -61,4 +64,4 @@ const InputToken : React.FC<{idx: number}> = (props) => {
   )
 }
 
-export default InputToken
+export default InputToken0

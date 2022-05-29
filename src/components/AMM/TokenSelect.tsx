@@ -1,16 +1,16 @@
-import { Token } from "@uniswap/sdk";
 import { Text, Image, Spacer } from "@chakra-ui/react"
+import { SelectToken } from "../../models";
 
-const TokenSelect: React.FC<{token: Token, logo: string}> = (props) => {
+const TokenSelect: React.FC<{token: SelectToken}> = ({ token }) => {
     return (
         <>
             <Image
             borderRadius='full'
             boxSize='30px'
-            src={props.logo}
-            alt={props.token.name}
+            src={token.logoURI}
+            alt={token.name}
             />
-            <Text pl="4">{props.token.symbol}</Text>
+            <Text pl="4">{token.symbol}</Text>
             <Spacer />
             <Text>0</Text>
         </>

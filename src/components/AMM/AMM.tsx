@@ -2,6 +2,7 @@ import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from
 import Swap from "./Swap/Swap"
 import AddLiquidity from "./AddLiquidity/AddLiquidity"
 import Analytics from "./Analytics"
+import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider"
 
 const AMM: React.FC = () => {
     return (
@@ -29,7 +30,9 @@ const AMM: React.FC = () => {
                         <Swap />
                     </TabPanel>
                     <TabPanel>
-                        <AddLiquidity />
+                        <AddLiquidityContextProvider>
+                            <AddLiquidity />
+                        </AddLiquidityContextProvider>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

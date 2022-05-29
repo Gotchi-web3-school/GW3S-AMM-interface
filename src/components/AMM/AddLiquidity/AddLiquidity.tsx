@@ -5,17 +5,18 @@ import {
     Center,
   } from "@chakra-ui/react";
   import { AddIcon } from '@chakra-ui/icons'
-  import InputToken from "../InputToken"
+  import InputToken0 from "./InputToken0"
+  import InputToken1 from "./InputToken1"
   import PoolShare from "./PoolShare";
 
 const AddLiquidity: React.FC = () => {
     return (
       <Box >
-        <InputToken idx={0} />
+        <InputToken0 />
         <Center>
           <AddIcon my="4"/>
         </Center>
-        <InputToken idx={1} />
+        <InputToken1 />
 
         <PoolShare />
 
