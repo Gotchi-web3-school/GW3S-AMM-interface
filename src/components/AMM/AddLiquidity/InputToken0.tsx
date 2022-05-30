@@ -7,7 +7,7 @@ import ModalTokens from "../../Modal/ModalToken"
 const InputToken0 : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [tokenAmount, setTokenAmount] = useState<string>("")
-  const { token0, token0Logo } = useContext(AddLiquidityContext)
+  const { token0, token0Logo, token0Balance } = useContext(AddLiquidityContext)
   const color = useColorModeValue("black", "white")
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -24,11 +24,11 @@ const InputToken0 : React.FC = () => {
       borderColor={"gray.700"}>
         <Stack direction="row">
           <Text mb="2" textAlign="left">
-            From
+            Token 0
           </Text>
           <Spacer />
           <Text fontSize="xs" mb="2" textAlign="left">
-            Balance:
+            Balance: {token0Balance}
           </Text>
         </Stack>
         <Stack spacing="6">
@@ -54,7 +54,7 @@ const InputToken0 : React.FC = () => {
               p="5"
             >
               {token0Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token0Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
-              {token0.symbol}
+              {token0?.symbol ?? ''}
               <ArrowDownIcon mx="2" />
             </Button>
           </Flex>

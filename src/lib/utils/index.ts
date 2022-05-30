@@ -16,4 +16,10 @@ export const fetchTokenData = async (address: string, chainId: number, provider:
     const symbol: string = await erc20.symbol()
     await Promise.all([token, name, symbol])
     return ({name: name, symbol: symbol, decimals: token.decimals, address: token.address, chainId: token.chainId, logoURI: ""})
-} 
+}
+
+export const fetchBalance = async(tokenAddress: string, userAdress: string, provider: any) => {
+    const erc20 = new ethers.Contract(tokenAddress, abis.erc20, provider)
+    const balance = await erc20.balanceOf(userAdress)
+    return(ethers.utils.formatEther(balance))
+}

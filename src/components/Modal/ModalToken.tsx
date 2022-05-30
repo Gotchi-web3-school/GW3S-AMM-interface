@@ -25,7 +25,7 @@ import {
 
 const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
   let { newToken, token0, token1 } = useContext(AddLiquidityContext)
-  const { library } = useWeb3React()
+  const { library, chainId } = useWeb3React()
   const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST_URL.tokens)
   const [searchInput, setSearchInput] = useState("")
   const [isSearching, setIsSearching] = useState(false)
@@ -41,14 +41,14 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
   }
 
   useEffect(() => {
-    if (searchInput.length === 42) {
+    if (searchInput.length === 42 && chainId) {
       setIsSearching(true)
-      fetchTokenData(searchInput, 80001, library).then(result => {
+      fetchTokenData(searchInput, chainId, library).then(result => {
         setSearchedToken(result)
         setIsSearching(false)
       })
     }
-  }, [searchInput, library])
+  }, [searchInput, library, chainId])
   
   return (
       <Modal
@@ -82,7 +82,7 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
             {searchInput ? 
               <Box h="50%">
                 {isSearching ? <Spinner m="5" p="2" /> : searchedToken && 
-                  <Button disabled={token0.address === searchedToken.address || token1.address === searchedToken.address} onClick={handleSearchButton} w="100%" py="2rem" borderRadius={"0"} bg="0">
+                  <Button disabled={token0?.address === searchedToken.address || token1?.address === searchedToken.address} onClick={handleSearchButton} w="100%" py="2rem" borderRadius={"0"} bg="0">
                     <TokenSelect token={searchedToken} />
                   </Button>
                 }
@@ -91,7 +91,7 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
               <Stack >
                 {DEFAULT_TOKEN_LIST_URL.tokens.map((token, key) => {
                   tokens[key] = token
-                  const isDisabled = token0.address === token.address || token1.address === token.address
+                  const isDisabled = token0?.address === token.address || token1?.address === token.address
                     return (
                       <Button disabled={isDisabled} py="2rem" borderRadius={"0"} bg="0" key={key} onClick={e => newToken(idx, tokens[key], onClose)}>
                         <TokenSelect token={token} />

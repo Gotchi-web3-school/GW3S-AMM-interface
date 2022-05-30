@@ -1,7 +1,7 @@
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from "@chakra-ui/react"
 import Swap from "./Swap/Swap"
 import AddLiquidity from "./AddLiquidity/AddLiquidity"
-import Analytics from "./Analytics"
+import Analytics from "./Swap/Analytics"
 import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider"
 
 const AMM: React.FC = () => {
