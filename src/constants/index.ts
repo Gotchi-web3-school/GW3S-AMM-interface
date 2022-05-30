@@ -1,5 +1,5 @@
 /* eslint-disable no-multi-str */
-import { Percent, JSBI} from "quickswap-sdk"
+import {Percent, JSBI} from "quickswap-sdk"
 
 export enum TxnType {
   SWAP,
@@ -65,6 +65,7 @@ export const GlobalValue = {
 export const abis = {
   erc20: [
     "function balanceOf(address owner) view returns (uint256)",
+    "function allowance(address owner, address spender) view returns (uint256)",
     "function totalSupply() view returns (uint256)",
     "function decimals() view returns (uint8)",
     "function name() view returns (string)",
@@ -102,12 +103,12 @@ export const abis = {
     "function burn(address to) external returns (uint amount0, uint amount1)",
   ],
   factory: [
-    "function getPair(address tokenA, address tokenB) external view returns (address pair)",
-    "function allPairs(uint) external view returns (address pair)",
+    "function getPair(address, address) public view returns (address)",
+    "function allPairs(uint) external view returns (address)",
     "function allPairsLength() external view returns (uint)",
     "function feeTo() external view returns (address)",
     "function feeToSetter() external view returns (address)",
-    "function createPair(address tokenA, address tokenB) external returns (address pair)",
+    "function createPair(address, address) external returns (address)",
   ],
   router2: [
     "function factory() external pure returns (address)",
@@ -203,5 +204,48 @@ export const abis = {
     "function getAmountIn(uint amountOut, uint reserveIn, uint reserveOut) external pure returns (uint amountIn)",
     "function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts)",
     "function getAmountsIn(uint amountOut, address[] calldata path) external view returns (uint[] memory amounts)",
+
+    // Uniswap Router 2
+    "function removeLiquidityETHSupportingFeeOnTransferTokens(\
+      address token,\
+      uint liquidity,\
+      uint amountTokenMin,\
+      uint amountETHMin,\
+      address to,\
+      uint deadline\
+  ) external returns (uint amountETH)",
+
+  "function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(\
+      address token,\
+      uint liquidity,\
+      uint amountTokenMin,\
+      uint amountETHMin,\
+      address to,\
+      uint deadline,\
+      bool approveMax, uint8 v, bytes32 r, bytes32 s\
+  ) external returns (uint amountETH)",
+
+  "function swapExactTokensForTokensSupportingFeeOnTransferTokens(\
+      uint amountIn,\
+      uint amountOutMin,\
+      address[] calldata path,\
+      address to,\
+      uint deadline\
+  ) external",
+
+  "function swapExactETHForTokensSupportingFeeOnTransferTokens(\
+      uint amountOutMin,\
+      address[] calldata path,\
+      address to,\
+      uint deadline\
+  ) external payable",
+
+  "function swapExactTokensForETHSupportingFeeOnTransferTokens(\
+      uint amountIn,\
+      uint amountOutMin,\
+      address[] calldata path,\
+      address to,\
+      uint deadline\
+  ) external"
   ],
 }

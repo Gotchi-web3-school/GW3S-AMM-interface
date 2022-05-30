@@ -1,6 +1,9 @@
 import { Text, Stack, Box, Center, Spacer } from "@chakra-ui/react"
+import { useContext } from "react"
+import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 
 const PoolShare: React.FC = () => {
+    const { isPool } = useContext(AddLiquidityContext)
     return (
         <Box
             mt="2rem"

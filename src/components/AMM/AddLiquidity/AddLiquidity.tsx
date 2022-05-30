@@ -1,18 +1,17 @@
-import {
-    Stack,
-    Button,
-    Box,
-    Center,
-  } from "@chakra-ui/react";
-  import { AddIcon } from '@chakra-ui/icons'
-  import InputToken0 from "./InputToken0"
-  import InputToken1 from "./InputToken1"
-  import PoolShare from "./PoolShare";
-  import { useWeb3React } from "@web3-react/core";
-  import { injected } from '../../../lib/connectors';
+import { useContext } from "react"
+import { useWeb3React } from "@web3-react/core";
+import {Button, Box, Center, Stack } from "@chakra-ui/react";
+import { AddIcon } from '@chakra-ui/icons'
+import { injected } from '../../../lib/connectors';
+import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
+import InputToken0 from "./InputToken0"
+import InputToken1 from "./InputToken1"
+import PoolShare from "./PoolShare";
+import MintButton from "./MintButton";
 
 const AddLiquidity: React.FC = () => {
   const web3 = useWeb3React()
+  const { pair, isApproved, token0, token1 } = useContext(AddLiquidityContext)
 
   return (
     <Box >
@@ -22,15 +21,16 @@ const AddLiquidity: React.FC = () => {
       </Center>
       <InputToken1 />
 
-      <PoolShare />
+      {pair && <PoolShare />}
+      <Stack mt="3"  direction="row">
+        {!isApproved.token0 ? <Button bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">Approve {token0?.symbol}</Button> : ""}
+        {!isApproved.token1 ? <Button bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">Approve {token1?.symbol}</Button> : ""}
+      </Stack>
 
       {!web3.active ? 
-        <Button mt="3" w="100%" onClick={() =>  web3.activate(injected)}>Connect</Button>
+        <Button mt="3" w="100%" h="4rem" onClick={() =>  web3.activate(injected)}>Connect</Button>
         : 
-        <Stack direction={'row'} m="4" >
-          <Button w="100%" h="3rem">Approve</Button>
-          <Button w="100%" h="3rem">Swap</Button>
-        </Stack>
+        <MintButton />
       }
     </Box>
   )
