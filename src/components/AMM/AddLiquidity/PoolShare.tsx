@@ -7,7 +7,7 @@ const PoolShare: React.FC = () => {
             border={"1px"}
             borderRadius={"3xl"}
             borderColor={"gray.700"}>
-            <Text p="3">Prices and pool share</Text>
+            <Text p="3">Initial prices and pool share</Text>
             <Stack 
                 direction={"row"}  
                 p="1rem"

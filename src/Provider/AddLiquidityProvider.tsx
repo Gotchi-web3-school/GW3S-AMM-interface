@@ -10,18 +10,24 @@ export const AddLiquidityContext = createContext<{
     token0: Token | undefined,
     token0Logo: string | undefined,
     token0Balance: string | undefined,
+    token0Amount: string | undefined,
     token1: Token | undefined, 
     token1Logo: string | undefined,
     token1Balance: string | undefined,
+    token1Amount: string | undefined,
+    handleAmount: (idx: number, amount: string) => void,
     newToken: (idx: number, token: SelectToken, onClose: () => void) => void,
     pair: Pair | undefined,
 }>({
     token0: defaultToken,
     token0Logo: "",
     token0Balance: "",
+    token0Amount: "",
     token1: defaultToken,
     token1Logo: "",
     token1Balance: "",
+    token1Amount: "",
+    handleAmount: (idx: number, amount: string) => {},
     newToken: (idx: number, token: SelectToken, onClose: () => void) => {},
     pair: defaultPair
 });
@@ -31,9 +37,11 @@ export const AddLiquidityContextProvider = (props: any) => {
     const [token0, setToken0] = useState<Token | undefined>()
     const [token0Logo, setToken0Logo] = useState<string | undefined>("")
     const [token0Balance, setToken0Balance] = useState<string | undefined>("")
+    const [token0Amount, setToken0Amount] = useState<string | undefined>("")
     const [token1, setToken1] = useState<Token | undefined>()
     const [token1Logo, setToken1Logo] = useState<string | undefined>("")
     const [token1Balance, setToken1Balance] = useState<string | undefined>("")
+    const [token1Amount, setToken1Amount] = useState<string | undefined>("")
     const [pair] = useState<Pair | undefined>()
 
     const newToken = useCallback((idx: number, token: SelectToken, onClose: () => void) => {
@@ -42,6 +50,10 @@ export const AddLiquidityContextProvider = (props: any) => {
         idx === 0 ? setToken0(newToken) : setToken1(newToken);
         idx === 0 ? setToken0Logo(token.logoURI) : setToken1Logo(token.logoURI);
         onClose();
+    }, [])
+
+    const handleAmount = useCallback((idx: number, amount: string) => {
+        idx === 0 ? setToken0Amount(amount) : setToken1Amount(amount);
     }, [])
 
     useEffect(() => {
@@ -61,7 +73,7 @@ export const AddLiquidityContextProvider = (props: any) => {
     }, [token1, account, library])
 
     return (
-    <AddLiquidityContext.Provider value={{token0, token0Logo, token0Balance, token1, token1Logo, token1Balance, newToken, pair}}>
+    <AddLiquidityContext.Provider value={{token0, token0Logo, token0Balance, token0Amount, token1, token1Logo, token1Balance, token1Amount, newToken, handleAmount, pair}}>
         {props.children}
     </AddLiquidityContext.Provider>)
 }

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useContext } from "react"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import { Box, Text, Button, Input, Image, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
@@ -6,13 +6,8 @@ import ModalTokens from "../../Modal/ModalToken"
 
 const InputToken0 : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [tokenAmount, setTokenAmount] = useState<string>("")
-  const { token0, token0Logo, token0Balance } = useContext(AddLiquidityContext)
+  const { token0, token0Logo, token0Balance, token0Amount, handleAmount } = useContext(AddLiquidityContext)
   const color = useColorModeValue("black", "white")
-
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setTokenAmount(e.target.value)
-  }
 
   return (
     <>
@@ -43,8 +38,8 @@ const InputToken0 : React.FC = () => {
               fontWeight="bold"
               color={useColorModeValue("gray.900", "white")}
               id="swap"
-              value={tokenAmount}
-              onChange={onChange}
+              value={token0Amount}
+              onChange={e => handleAmount(0, e.target.value)}
               required
             />
             {token0 ?
