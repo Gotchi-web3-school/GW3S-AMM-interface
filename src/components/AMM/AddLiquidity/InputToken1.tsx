@@ -47,16 +47,15 @@ const InputToken1: React.FC = () => {
               onChange={onChange}
               required
             />
-            <Button
-              color={useColorModeValue("gray.900", "white")}
-              onClick={onOpen}
-              size="sm"
-              p="5"
-            >
+            {token1 ?
+            <Button color={color} onClick={onOpen} size="sm" p="5">
               {token1Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token1Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
               {token1?.symbol ?? ''}
               <ArrowDownIcon mx="2" />
             </Button>
+            :
+            <Button bg="blue.500" onClick={onOpen}><Text px="5" >Select a token<ArrowDownIcon ml="2" /></Text></Button>
+            } 
           </Flex>
         </Stack>
     </Box>
