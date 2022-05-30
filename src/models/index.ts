@@ -1,8 +1,9 @@
 export type SelectToken = {
-    name: string;
+    name: string | undefined;
     address: string;
-    symbol: string;
+    symbol: string | undefined;
     decimals: number;
     chainId: number;
-    logoURI: string;
+    logoURI?: string | undefined;
+    isSearched?: boolean;
 }

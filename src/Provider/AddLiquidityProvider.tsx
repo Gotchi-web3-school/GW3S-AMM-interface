@@ -4,12 +4,11 @@ import { defaultPair, defaultToken } from "../constants";
 import { SelectToken } from "../models";
 
 
-
 export const AddLiquidityContext = createContext<{
     token0: Token,
-    token0Logo: string,
+    token0Logo: string | undefined,
     token1: Token, 
-    token1Logo: string,
+    token1Logo: string | undefined,
     newToken: (idx: number, token: SelectToken, onClose: () => void) => void,
     pair: Pair,
 }>({
@@ -23,9 +22,9 @@ export const AddLiquidityContext = createContext<{
 
 export const AddLiquidityContextProvider = (props: any) => {
     const [token0, setToken0] = useState<Token>(new Token(ChainId.MUMBAI, '0xc0FFee0000000000000000000000000000000000', 18, 'HOT', 'Caffeine'))
-    const [token0Logo, setToken0Logo] = useState("")
+    const [token0Logo, setToken0Logo] = useState<string | undefined>("")
     const [token1, setToken1] = useState<Token>(new Token(ChainId.MUMBAI, '0xDeCAf00000000000000000000000000000000000', 18, 'NOT', 'Caffeine'))
-    const [token1Logo, setToken1Logo] = useState("")
+    const [token1Logo, setToken1Logo] = useState<string | undefined>("")
     const [pair] = useState<Pair>(new Pair(new TokenAmount(token0, '2000000000000000000'), new TokenAmount(token1, '1000000000000000000')))
 
     const newToken = (idx: number, token: SelectToken, onClose: () => void) => {

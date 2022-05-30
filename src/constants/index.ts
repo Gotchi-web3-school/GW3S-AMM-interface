@@ -70,6 +70,16 @@ export const GlobalValue = {
   },
 };
 
+export const abis = {
+  erc20: [
+    "function balanceOf(address owner) view returns (uint256)",
+    "function decimals() view returns (uint8)",
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function transfer(address to, uint amount) returns (bool)",
+    "event Transfer(address indexed from, address indexed to, uint amount)"
+  ]
+}
 
 export const defaultToken = GlobalValue.tokens.MATIC
 export const defaultTokenAmount: TokenAmount = new TokenAmount(defaultToken, "0")
