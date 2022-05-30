@@ -1,4 +1,5 @@
-import { Token, TokenAmount, Pair, Route, Percent, JSBI} from "quickswap-sdk"
+/* eslint-disable no-multi-str */
+import { Percent, JSBI} from "quickswap-sdk"
 
 export enum TxnType {
   SWAP,
@@ -59,53 +60,148 @@ export const GlobalValue = {
       GlobalConst.utils.BIPS_BASE,
     ), // 15%
   },
-  tokens: {
-    MATIC: new Token(80001, '0xc0FFee0000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
-    AAVE: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
-    GHST: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
-    MATIC3: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
-    MATIC4: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
-    MATIC5: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
-    MATIC6: new Token(80001, '0x0000000000000000000000000000000000000000', 18, 'WMATIC', 'GW3S  Wrapped Matic'),
-  },
 };
 
 export const abis = {
   erc20: [
     "function balanceOf(address owner) view returns (uint256)",
+    "function totalSupply() view returns (uint256)",
     "function decimals() view returns (uint8)",
     "function name() view returns (string)",
     "function symbol() view returns (string)",
     "function transfer(address to, uint amount) returns (bool)",
     "event Transfer(address indexed from, address indexed to, uint amount)"
-  ]
+  ],
+  pair: [
+    "function name() external pure returns (string memory)",
+    "function symbol() external pure returns (string memory)",
+    "function decimals() external pure returns (uint8)",
+    "function totalSupply() external view returns (uint)",
+    "function balanceOf(address owner) external view returns (uint)",
+    "function allowance(address owner, address spender) external view returns (uint)",
+    "function approve(address spender, uint value) external returns (bool)",
+    "function transfer(address to, uint value) external returns (bool)",
+    "function transferFrom(address from, address to, uint value) external returns (bool)",
+    "function DOMAIN_SEPARATOR() external view returns (bytes32)",
+    "function PERMIT_TYPEHASH() external pure returns (bytes32)",
+    "function nonces(address owner) external view returns (uint)",
+    "function permit(address owner, address spender, uint value, uint deadline, uint8 v, bytes32 r, bytes32 s) external",
+    "function MINIMUM_LIQUIDITY() external pure returns (uint)",
+    "function factory() external view returns (address);",
+    "function token0() external view returns (address)",
+    "function token1() external view returns (address)",
+    "function getReserves() external view returns (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast)",
+    "function price0CumulativeLast() external view returns (uint)",
+    "function price1CumulativeLast() external view returns (uint)",
+    "function kLast() external view returns (uint)",
+    "function mint(address to) external returns (uint liquidity)",
+    "function burn(address to) external returns (uint amount0, uint amount1)",
+    "function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data) external",
+    "function skim(address to) external",
+    "function sync() external",
+    "function burn(address to) external returns (uint amount0, uint amount1)",
+  ],
+  factory: [
+    "function getPair(address tokenA, address tokenB) external view returns (address pair)",
+    "function allPairs(uint) external view returns (address pair)",
+    "function allPairsLength() external view returns (uint)",
+    "function feeTo() external view returns (address)",
+    "function feeToSetter() external view returns (address)",
+    "function createPair(address tokenA, address tokenB) external returns (address pair)",
+  ],
+  router2: [
+    "function factory() external pure returns (address)",
+    "function WETH() external pure returns (address)",
+
+    "function addLiquidity(\
+        address tokenA,\
+        address tokenB,\
+        uint amountADesired,\
+        uint amountBDesired,\
+        uint amountAMin,\
+        uint amountBMin,\
+        address to,\
+        uint deadline\
+    ) external returns (uint amountA, uint amountB, uint liquidity)",
+
+    "function addLiquidityETH(\
+        address token,\
+        uint amountTokenDesired,\
+        uint amountTokenMin,\
+        uint amountETHMin,\
+        address to,\
+        uint deadline\
+    ) external payable returns (uint amountToken, uint amountETH, uint liquidity)",
+
+    "function removeLiquidity(\
+        address tokenA,\
+        address tokenB,\
+        uint liquidity,\
+        uint amountAMin,\
+        uint amountBMin,\
+        address to,\
+        uint deadline\
+    ) external returns (uint amountA, uint amountB)",
+
+    "function removeLiquidityETH(\
+        address token,\
+        uint liquidity,\
+        uint amountTokenMin,\
+        uint amountETHMin,\
+        address to,\
+        uint deadline\
+    ) external returns (uint amountToken, uint amountETH)",
+
+    "function removeLiquidityWithPermit(\
+        address tokenA,\
+        address tokenB,\
+        uint liquidity,\
+        uint amountAMin,\
+        uint amountBMin,\
+        address to,\
+        uint deadline,\
+        bool approveMax, uint8 v, bytes32 r, bytes32 s\
+    ) external returns (uint amountA, uint amountB)",
+
+    "function removeLiquidityETHWithPermit(\
+        address token,\
+        uint liquidity,\
+        uint amountTokenMin,\
+        uint amountETHMin,\
+        address to,\
+        uint deadline,\
+        bool approveMax, uint8 v, bytes32 r, bytes32 s\
+    ) external returns (uint amountToken, uint amountETH)",
+
+    "function swapExactTokensForTokens(\
+        uint amountIn,\
+        uint amountOutMin,\
+        address[] calldata path,\
+        address to,\
+        uint deadline\
+    ) external returns (uint[] memory amounts)",
+
+    "function swapTokensForExactTokens(\
+        uint amountOut,\
+        uint amountInMax,\
+        address[] calldata path,\
+        address to,\
+        uint deadline\
+    ) external returns (uint[] memory amounts)",
+
+    "function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable\
+        returns (uint[] memory amounts)",
+    "function swapTokensForExactETH(uint amountOut, uint amountInMax, address[] calldata path, address to, uint deadline) external\
+        returns (uint[] memory amounts)",
+    "function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) external\
+        returns (uint[] memory amounts)",
+    "function swapETHForExactTokens(uint amountOut, address[] calldata path, address to, uint deadline) external payable\
+        returns (uint[] memory amounts)",
+
+    "function quote(uint amountA, uint reserveA, uint reserveB) external pure returns (uint amountB)",
+    "function getAmountOut(uint amountIn, uint reserveIn, uint reserveOut) external pure returns (uint amountOut)",
+    "function getAmountIn(uint amountOut, uint reserveIn, uint reserveOut) external pure returns (uint amountIn)",
+    "function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts)",
+    "function getAmountsIn(uint amountOut, address[] calldata path) external view returns (uint[] memory amounts)",
+  ],
 }
-
-export const defaultToken = GlobalValue.tokens.MATIC
-export const defaultTokenAmount: TokenAmount = new TokenAmount(defaultToken, "0")
-export const defaultTokenAmount2: TokenAmount = new TokenAmount(GlobalValue.tokens.AAVE, "10")
-export const defaultPair: Pair = new Pair(defaultTokenAmount, defaultTokenAmount2)
-export const defaultRoute: Route = new Route([defaultPair], defaultToken)
-//export const defaultTrade: Trade =  new Trade(defaultRoute, defaultTokenAmount, TradeType.EXACT_INPUT)
-export const defaultPercent: Percent = new Percent("0", "100")
-
-/*
-export const defaultPrice: Price = new Price({
-  baseAmount: CurrencyAmount.fromRawAmount(defaultToken, 1),
-  quoteAmount: CurrencyAmount.fromRawAmount(defaultToken, 54321)
-})
-
-export const initialTradeState: Trade = {
-    route: defaultRoute,
-    amount: defaultTokenAmount,
-    tradeType: TradeType.EXACT_INPUT,
-    inputAmount: defaultTokenAmount,
-    outputAmount: defaultTokenAmount,
-    executionPrice: Price,
-    nextMidPrice: Price,
-    slippage: defaultPercent,
-    priceImpact: Price,
-    minimumAmountOut: defaultTokenAmount,
-    maximumAmountIn: defaultTokenAmount,
-}
-*/
