@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ColorModeScript } from '@chakra-ui/react'
 import { Web3ReactProvider } from '@web3-react/core';
+import { ContractProvider } from "./Provider/ContractsProvider"
 import { ChakraProvider } from '@chakra-ui/react';
 import { getLibrary } from './lib/utils';
 import App from './App';
@@ -16,9 +17,11 @@ root.render(
   <React.StrictMode>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <Web3ReactProvider getLibrary={getLibrary}>
-      <ChakraProvider>
-        <App />
-      </ChakraProvider>
+      <ContractProvider>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </ContractProvider>
     </Web3ReactProvider>
   </React.StrictMode>
 );

@@ -29,6 +29,10 @@ export const fetchApproved = async(pair: Pair, tokenAmount: TokenAmount[], userA
     const token1 = new ethers.Contract(pair.token1.address, abis.erc20, provider);
     const approved0: BigintIsh = await token0.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
     const approved1: BigintIsh = await token1.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
+    console.log(await token0.name())
+    console.log(await token1.name())
+    console.log("approved token0:", approved0)
+    console.log("approved token1:", approved1)
     return ({token0: tokenAmount[0].lessThan(approved0), token1: tokenAmount[1].lessThan(approved1)})
 }
 

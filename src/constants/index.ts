@@ -14,6 +14,7 @@ export const GlobalConst = {
     ZERO_ADDRESS: '0x0000000000000000000000000000000000000000',
   },
   utils: {
+    MAX_INT: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     QUICK_CONVERSION_RATE: 1000,
     ONEDAYSECONDS: 60 * 60 * 24,
     DQUICKFEE: 0.04,

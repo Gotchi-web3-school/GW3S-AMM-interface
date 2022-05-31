@@ -92,8 +92,8 @@ export const AddLiquidityContextProvider = (props: any) => {
         }
     }, [pair, account, library, token0, token1, token0Amount, token1Amount])
         
-        return (
-            <AddLiquidityContext.Provider value={{token0, token0Logo, token0Balance, token0Amount, token1, token1Logo, token1Balance, token1Amount, newToken, handleAmount, pair, isPool, isApproved}}>
+    return (
+        <AddLiquidityContext.Provider value={{token0, token0Logo, token0Balance, token0Amount, token1, token1Logo, token1Balance, token1Amount, newToken, handleAmount, pair, isPool, isApproved}}>
         {props.children}
-    </AddLiquidityContext.Provider>)
+        </AddLiquidityContext.Provider>)
 }

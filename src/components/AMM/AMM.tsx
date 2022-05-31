@@ -31,7 +31,7 @@ const AMM: React.FC = () => {
                     </TabPanel>
                     <TabPanel>
                         <AddLiquidityContextProvider>
-                            <AddLiquidity />
+                          <AddLiquidity />
                         </AddLiquidityContextProvider>
                     </TabPanel>
                 </TabPanels>

@@ -21,14 +21,14 @@ const PoolShare: React.FC = () => {
                 justifyContent="center">
                 <Box>
                     <Center>
-                        <Text>{pair?.token1Price.toSignificant(2)}</Text>
+                        <Text>{pair?.token0Price.toSignificant(2)}</Text>
                     </Center>
                     <Text fontSize="sm">{token0?.symbol} per {token1?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Center>
-                        <Text>{pair?.token0Price.toSignificant(2)}</Text>
+                        <Text>{pair?.token1Price.toSignificant(2)}</Text>
                     </Center>
                     <Text fontSize="sm">{token1?.symbol} per {token0?.symbol}</Text>
                 </Box>
