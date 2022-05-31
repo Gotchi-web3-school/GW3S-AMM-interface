@@ -19,11 +19,11 @@ const InputToken1: React.FC = () => {
       borderColor={"gray.700"}>
         <Stack direction="row">
           <Text mb="2" textAlign="left">
-            Token 1
+            Token B
           </Text>
           <Spacer />
           <Text fontSize="xs" mb="2" textAlign="left">
-            Balance: {token1Balance}
+            Balance: {token1Balance?.toFixed(2) ?? '-'}
           </Text>
         </Stack>
         <Stack spacing="6">
@@ -42,6 +42,7 @@ const InputToken1: React.FC = () => {
               onChange={e => handleAmount(1, e.target.value)}
               required
             />
+            <Button onClick={e => handleAmount(1, token1Balance?.toSignificant().toString() ?? "0")} size={"sm"} bg="blue.500" mt="1" mr="3">Max</Button>
             {token1 ?
             <Button color={color} onClick={onOpen} size="sm" p="5">
               {token1Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token1Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
