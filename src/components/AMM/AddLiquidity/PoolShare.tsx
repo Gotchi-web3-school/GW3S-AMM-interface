@@ -3,7 +3,8 @@ import { useContext } from "react"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 
 const PoolShare: React.FC = () => {
-    const { isPool } = useContext(AddLiquidityContext)
+    const { isPool, pair, token0, token1} = useContext(AddLiquidityContext)
+
     return (
         <Box
             mt="2rem"
@@ -20,21 +21,21 @@ const PoolShare: React.FC = () => {
                 justifyContent="center">
                 <Box>
                     <Center>
-                        <Text>10</Text>
+                        <Text>{pair?.token1Price.toSignificant(2)}</Text>
                     </Center>
-                    <Text fontSize="sm">DAI per MATIC</Text>
+                    <Text fontSize="sm">{token0?.symbol} per {token1?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Center>
-                        <Text>0.1</Text>
+                        <Text>{pair?.token0Price.toSignificant(2)}</Text>
                     </Center>
-                    <Text fontSize="sm">MATIC per DAI</Text>
+                    <Text fontSize="sm">{token1?.symbol} per {token0?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Center>
-                        <Text>10%</Text>
+                        <Text>{isPool ? "" : "100%"}</Text>
                     </Center>
                     <Text fontSize="sm">Share of pool</Text>
                 </Box>

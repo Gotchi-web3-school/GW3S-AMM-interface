@@ -49,7 +49,6 @@ export const AddLiquidityContextProvider = (props: any) => {
     const [isApproved, setIsApproved] = useState<{token0: boolean, token1: boolean}>({token0: true, token1: true})
 
     const newToken = useCallback((idx: number, token: SelectToken, onClose: () => void) => {
-        console.log(token)
         const newToken = new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)
         idx === 0 ? setToken0(newToken) : setToken1(newToken);
         idx === 0 ? setToken0Logo(token.logoURI) : setToken1Logo(token.logoURI);
@@ -78,20 +77,23 @@ export const AddLiquidityContextProvider = (props: any) => {
         }
     }, [token1, account, library])
     
-    // Fetch Datas
+    // Set Pair
     useEffect(() => {
-        if (token0 && token1 && token0Amount && token1Amount && pair === undefined)
-        setPair(new Pair(new TokenAmount(token0, token0Amount), new TokenAmount(token1, token1Amount)));
-        if (pair && token0 && token1 && account) {
+        if (token0 && token1 && token0Amount && token1Amount) {
+            setPair(new Pair(new TokenAmount(token0, token0Amount), new TokenAmount(token1, token1Amount)));
+        }
+    }, [token0, token1, token0Amount, token1Amount])
+    
+    useEffect(() => {
+        if (pair && account && token0 && token1) {
             const amount: TokenAmount[] = [new TokenAmount(token0, token0Amount), new TokenAmount(token1, token1Amount)]
             fetchApproved(pair, amount, account, library).then(result => setIsApproved(result))
             isPoolCreated(pair, library).then(result => setIspool(result))
         }
-    }, [pair, token0, token1, token0Amount, token1Amount, library, account])
-    
-    console.log(pair ? pair.liquidityToken : "")
-    return (
-    <AddLiquidityContext.Provider value={{token0, token0Logo, token0Balance, token0Amount, token1, token1Logo, token1Balance, token1Amount, newToken, handleAmount, pair, isPool, isApproved}}>
+    }, [pair, account, library, token0, token1, token0Amount, token1Amount])
+        
+        return (
+            <AddLiquidityContext.Provider value={{token0, token0Logo, token0Balance, token0Amount, token1, token1Logo, token1Balance, token1Amount, newToken, handleAmount, pair, isPool, isApproved}}>
         {props.children}
     </AddLiquidityContext.Provider>)
 }

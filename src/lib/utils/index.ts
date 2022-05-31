@@ -43,3 +43,8 @@ export const isPoolCreated = async(pair: Pair, provider: any) => {
     const pool = await factory.getPair(pair.token0.address, pair.token1.address);
     return pool !== GlobalConst.addresses.ZERO_ADDRESS;
 }
+
+export const fetchPairData = async(token0: Token, token1: Token, provider: any) => {
+    const token0Token1 = await Fetcher.fetchPairData(token0, token1, provider)
+    console.log(token0Token1)
+}
