@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useCallback } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { Token, Pair, TokenAmount } from "quickswap-sdk"
 import { SelectToken } from "../models";
-import { fetchBalance, fetchApproved, isPoolCreated } from "../lib/utils";
+import { fetchBalance, fetchApproved, isPoolCreated, createPair } from "../lib/utils";
 import {ethers} from "ethers"
 
 export const AddLiquidityContext = createContext<{
@@ -68,7 +68,7 @@ export const AddLiquidityContextProvider = (props: any) => {
             .then(result => setToken0Balance(new TokenAmount(token0, ethers.utils.parseEther(result).toString())))
             
         }
-    }, [token0, account, library, token0Amount])
+    }, [token0, account, library])
     
     // update token 1
     useEffect(() => {
@@ -81,16 +81,14 @@ export const AddLiquidityContextProvider = (props: any) => {
     
     // Set Pair
     useEffect(() => {
-        if (token0 && token1 && token0Amount && token1Amount) {
-            setPair(new Pair(new TokenAmount(token0, ethers.utils.parseEther(token0Amount).toString()), new TokenAmount(token1, ethers.utils.parseEther(token1Amount).toString())));
-        }
+        if (token0 && token1)
+            createPair(token0, token0Amount, token1, token1Amount).then(result => setPair(result))
     }, [token0, token1, token0Amount, token1Amount])
     
+    // set isPoolCreated
     useEffect(() => {
-        if (pair && account && token0 && token1 && token0Amount && token1Amount) {
-            const amount: TokenAmount[] = [new TokenAmount(token0, ethers.utils.parseEther(token0Amount).toString()), new TokenAmount(token1, ethers.utils.parseEther(token1Amount).toString())]
-            console.log(amount[0].toFixed(2))
-            fetchApproved(pair, amount, account, library).then(result => setIsApproved(result))
+        if (pair && account && token0 && token1 && token0Amount > '0' && token1Amount > '0') {
+            fetchApproved(pair, account, library).then(result => setIsApproved(result))
             isPoolCreated(pair, library).then(result => setIspool(result))
         }
     }, [pair, account, library, token0, token1, token0Amount, token1Amount])

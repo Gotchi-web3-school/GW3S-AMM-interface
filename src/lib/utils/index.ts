@@ -24,12 +24,12 @@ export const fetchBalance = async(tokenAddress: string, userAdress: string, prov
     return(ethers.utils.formatEther(balance));
 }
 
-export const fetchApproved = async(pair: Pair, tokenAmount: TokenAmount[], userAdress: string, provider: any) => {
+export const fetchApproved = async(pair: Pair, userAdress: string, provider: any) => {
     const token0 = new ethers.Contract(pair.token0.address, abis.erc20, provider);
     const token1 = new ethers.Contract(pair.token1.address, abis.erc20, provider);
     const approved0: BigintIsh = await token0.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
     const approved1: BigintIsh = await token1.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
-    return ({token0: tokenAmount[0].lessThan(approved0), token1: tokenAmount[1].lessThan(approved1)})
+    return ({token0: pair.reserve0.lessThan(approved0), token1: pair.reserve1.lessThan(approved1)})
 }
 
 export const getShareOfPool = async(pair: Pair, amoutA: string, provider: any) => {
@@ -47,4 +47,16 @@ export const isPoolCreated = async(pair: Pair, provider: any) => {
 export const fetchPairData = async(token0: Token, token1: Token, provider: any) => {
     const token0Token1 = await Fetcher.fetchPairData(token0, token1, provider)
     console.log(token0Token1)
+}
+
+export const createPair = async(token0: Token, token0Amount: string, token1: Token, token1Amount: string) => {
+    try {
+        if (token0Amount > "0" && token1Amount > "0") {
+            const pair = new Pair(new TokenAmount(token0, ethers.utils.parseEther(token0Amount).toString()), new TokenAmount(token1, ethers.utils.parseEther(token1Amount).toString()))
+            console.log(pair)
+            return (pair)
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }

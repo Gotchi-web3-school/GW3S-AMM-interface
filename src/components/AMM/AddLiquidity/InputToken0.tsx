@@ -29,13 +29,14 @@ const InputToken0 : React.FC = () => {
         <Stack spacing="6">
           <Flex color="white">
             <Input
-              variant="unstyled"
-              name="from"
-              type="number"
-              placeholder="0.0"
               mr="5px"
               fontSize="2xl"
               fontWeight="bold"
+              variant="unstyled"
+              min={0}
+              name="from"
+              type="number"
+              placeholder="0.0"
               color={useColorModeValue("gray.900", "white")}
               id="swap"
               value={token0Amount}
