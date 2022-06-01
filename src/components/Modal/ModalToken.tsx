@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { AddLiquidityContext } from "../../Provider/AddLiquidityProvider"
-import { DEFAULT_TOKEN_LIST_URL } from "../../constants/list"
+import { useWeb3React } from "@web3-react/core";
 import {
     Stack,
     Box,
@@ -17,10 +16,12 @@ import {
     ModalCloseButton,
     useColorModeValue,
   } from '@chakra-ui/react'
-  import { SelectToken } from "../../models"
-  import { fetchTokenData } from "../../lib/utils"
-  import TokenSelect from "../AMM/TokenSelect"
-  import { useWeb3React } from "@web3-react/core";
+import { AddLiquidityContext } from "../../Provider/AddLiquidityProvider"
+import { DEFAULT_TOKEN_LIST_URL } from "../../constants/list"
+import { SelectToken } from "../../models"
+import { fetchTokenData } from "../../lib/utils"
+import TokenSelect from "../AMM/TokenSelect"
+import { Token } from "quickswap-sdk";
 
 
 const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
@@ -83,7 +84,7 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
               <Box h="50%">
                 {isSearching ? <Spinner m="5" p="2" /> : searchedToken && 
                   <Button disabled={token0?.address === searchedToken.address || token1?.address === searchedToken.address} onClick={handleSearchButton} w="100%" py="2rem" borderRadius={"0"} bg="0">
-                    <TokenSelect token={searchedToken} />
+                    <TokenSelect token={new Token(searchedToken.chainId, searchedToken.address, searchedToken.decimals)} img={""} />
                   </Button>
                 }
               </Box>
@@ -93,8 +94,8 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
                   tokens[key] = token
                   const isDisabled = token0?.address === token.address || token1?.address === token.address
                     return (
-                      <Button disabled={isDisabled} py="2rem" borderRadius={"0"} bg="0" key={key} onClick={e => newToken(idx, tokens[key], onClose)}>
-                        <TokenSelect token={token} />
+                      <Button disabled={isDisabled} py="2rem" borderRadius={"0"} bg="0" key={key} onClick={() => newToken(idx, tokens[key], onClose)}>
+                        <TokenSelect token={new Token(token.chainId, token.address, token.decimals)} img={token.logoURI} />
                       </Button>)
                   }
                 )}

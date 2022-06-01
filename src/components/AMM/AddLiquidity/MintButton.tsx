@@ -12,9 +12,10 @@ const MintButton: React.FC = () => {
             <>
             {token0Amount && token1Amount ?
                 <>
-                {(token0Balance?.equalTo(JSBI.BigInt(token0Amount)) || token0Balance?.greaterThan(JSBI.BigInt(token0Amount))) && (token1Balance?.equalTo(JSBI.BigInt(token1Amount)) || token1Balance?.greaterThan(JSBI.BigInt(token1Amount))) ?
+                {(token0Balance?.equalTo(JSBI.BigInt(token0Amount)) || token0Balance?.greaterThan(JSBI.BigInt(token0Amount))) &&
+                 (token1Balance?.equalTo(JSBI.BigInt(token1Amount)) || token1Balance?.greaterThan(JSBI.BigInt(token1Amount))) ?
                     <>
-                    { isPool ? 
+                    {isPool ? 
                         <Button mt="5" w="100%" h="3.5rem" bg="blue.500" >Add Liquidity</Button>
                         :
                         <Button disabled={disabled} mt="5" w="100%" h="3.5rem" bg={disabled ? "gray.700" : "blue.500"} >Create pool</Button>

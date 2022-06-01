@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import { Box, Text, Button, Input, Image, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
+import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import ModalTokens from "../../Modal/ModalToken"
 
 const InputToken1: React.FC = () => {
