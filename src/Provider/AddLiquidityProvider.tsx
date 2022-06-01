@@ -81,17 +81,22 @@ export const AddLiquidityContextProvider = (props: any) => {
     
     // Set Pair
     useEffect(() => {
-        if (token0 && token1)
-            createPair(token0, token0Amount, token1, token1Amount).then(result => setPair(result))
+        if (token0 && token1) {
+            const identifier = setTimeout(() => {
+                createPair(token0, token0Amount, token1, token1Amount).then(result => setPair(result))
+            }, 500)
+
+            return () => clearTimeout(identifier)
+        }
     }, [token0, token1, token0Amount, token1Amount])
     
     // set isPoolCreated
     useEffect(() => {
-        if (pair && account && token0 && token1 && token0Amount > '0' && token1Amount > '0') {
+        if (pair && account && token0 && token1) {
             fetchApproved(pair, account, library).then(result => setIsApproved(result))
             isPoolCreated(pair, library).then(result => setIspool(result))
         }
-    }, [pair, account, library, token0, token1, token0Amount, token1Amount])
+    }, [pair, account, library, token0, token1])
         
     return (
         <AddLiquidityContext.Provider value={{token0, token0Logo, token0Balance, token0Amount, token1, token1Logo, token1Balance, token1Amount, newToken, handleAmount, pair, isPool, isApproved}}>
