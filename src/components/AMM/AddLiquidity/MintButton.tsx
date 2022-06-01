@@ -3,17 +3,16 @@ import { Button, Container, Text } from "@chakra-ui/react"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 
 const MintButton: React.FC = () => {
-    const { isPool, pair, token0, token1, token0Amount, token1Amount, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
+    const { isPool, pair, token0, token1, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
 
     return (
         <>
         {token0 && token1 ?
             <>
-            {token0Amount >'0' && token1Amount > '0' ?
+            {pair ?
                 <>
-                {token0Balance && token1Balance && 
-                 (pair?.reserve0.lessThan(token0Balance) || pair?.reserve0.equalTo(token0Balance)) &&
-                 (pair?.reserve1.lessThan(token1Balance) || pair?.reserve1.equalTo(token1Balance)) ?
+                {(pair?.reserve0.lessThan(token0Balance ?? '0') || pair?.reserve0.equalTo(token0Balance ?? '0')) &&
+                 (pair?.reserve1.lessThan(token1Balance ?? '0') || pair?.reserve1.equalTo(token1Balance ?? '0')) ?
                     <>
                     {isPool ? 
                         <Button mt="5" w="100%" h="3.5rem" bg="blue.500" >Add Liquidity</Button>

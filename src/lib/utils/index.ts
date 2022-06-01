@@ -29,7 +29,7 @@ export const fetchApproved = async(pair: Pair, userAdress: string, provider: any
     const token1 = new ethers.Contract(pair.token1.address, abis.erc20, provider);
     const approved0: BigintIsh = await token0.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
     const approved1: BigintIsh = await token1.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
-    return ({token0: pair.reserve0.lessThan(approved0), token1: pair.reserve1.lessThan(approved1)})
+    return ({token1: pair.reserve0.lessThan(approved0), token0: pair.reserve1.lessThan(approved1)})
 }
 
 export const getShareOfPool = async(pair: Pair, amoutA: string, provider: any) => {
