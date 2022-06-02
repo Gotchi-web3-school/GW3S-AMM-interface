@@ -23,7 +23,6 @@ export const ContractProvider = (props: any) => {
     const pair = new ethers.Contract(GlobalConst.addresses.ZERO_ADDRESS, abis.pair, library?.getSigner(account) ?? library)
     const ERC20 = new ethers.Contract(GlobalConst.addresses.ZERO_ADDRESS, abis.erc20, library?.getSigner(account) ?? library)
 
-    console.log(pair)
   
   return (
     <ContractContext.Provider value={{ factory, router2, pair, ERC20 }}>
