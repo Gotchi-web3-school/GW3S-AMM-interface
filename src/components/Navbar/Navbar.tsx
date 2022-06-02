@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import {  SunIcon, MoonIcon, } from '@chakra-ui/icons'
 import {useWeb3React} from '@web3-react/core';
-import { injected } from '../../lib/connectors';
+import { injected } from '../../connectors/connectors';
   
 const Navbar: React.FC = () => {
   const {chainId, account, active, activate, deactivate} = useWeb3React();

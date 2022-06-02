@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useCallback } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { Token, Pair, TokenAmount } from "quickswap-sdk"
 import { SelectToken } from "../models";
-import { fetchBalance, fetchApproved, isPoolCreated, createPair } from "../lib/utils";
+import { fetchBalance, fetchApproved, isPoolCreated, createPair } from "../utils";
 import {ethers} from "ethers"
 
 export const AddLiquidityContext = createContext<{

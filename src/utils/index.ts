@@ -1,6 +1,6 @@
 import { Web3Provider } from '@ethersproject/providers';
-import { BigintIsh, Fetcher, Pair, Token, TokenAmount } from 'quickswap-sdk';
-import { abis, GlobalConst} from '../../constants';
+import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount, JSBI } from 'quickswap-sdk';
+import { abis, GlobalConst} from '../constants';
 import { ethers } from "ethers";
 
 export function getLibrary(provider: any): Web3Provider {
@@ -27,19 +27,21 @@ export const fetchBalance = async(tokenAddress: string, userAdress: string, prov
 export const fetchApproved = async(pair: Pair, userAdress: string, provider: any) => {
     const token0 = new ethers.Contract(pair.token0.address, abis.erc20, provider);
     const token1 = new ethers.Contract(pair.token1.address, abis.erc20, provider);
-    const approved0: BigintIsh = await token0.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
-    const approved1: BigintIsh = await token1.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
+    const approved0: BigintIsh = await token0.allowance(userAdress, GlobalConst.addresses.uniswapRouter);
+    const approved1: BigintIsh = await token1.allowance(userAdress, GlobalConst.addresses.uniswapRouter);
+    console.log(approved0)
+    console.log(approved1)
     return ({token1: pair.reserve0.lessThan(approved0), token0: pair.reserve1.lessThan(approved1)})
 }
 
 export const getShareOfPool = async(pair: Pair, amoutA: string, provider: any) => {
-    const router2 = new ethers.Contract(GlobalConst.addresses.ROUTER_ADDRESS, abis.router2, provider);
+    const router2 = new ethers.Contract(GlobalConst.addresses.uniswapRouter, abis.router2, provider);
     const quote = await router2.quote( pair.reserve0, pair.reserve1);
     console.log(quote)
 }
 
 export const isPoolCreated = async(pair: Pair, provider: any) => {
-    const factory = new ethers.Contract(GlobalConst.addresses.FACTORY_ADDRESS, abis.factory, provider);
+    const factory = new ethers.Contract(GlobalConst.addresses.uniswapFactory, abis.factory, provider);
     const pool = await factory.getPair(pair.token0.address, pair.token1.address);
     return pool !== GlobalConst.addresses.ZERO_ADDRESS;
 }
@@ -59,4 +61,11 @@ export const createPair = async(token0: Token, token0Amount: string, token1: Tok
     } catch (error) {
         console.log(error)
     }
+}
+
+
+export function calculateSlippageAmount(value: TokenAmount, slippage: Percent): [JSBI, JSBI] {
+    const ONE = new Fraction('1', '1');
+    if (slippage.lessThan('0') || slippage.greaterThan(ONE)) throw new Error('Unexpected slippage')
+    return [value.multiply(ONE.subtract(slippage)).quotient, value.multiply(ONE.add(slippage)).quotient]
 }
