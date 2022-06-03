@@ -14,16 +14,16 @@ const MintButton: React.FC = () => {
     const { isPool, pair, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
     const handleCreatePool = async() => {
         try {
-            if (pair && router2 && token0 && token1 && factory && token0Amount && token1Amount) {
+            if (pair && router2 && factory) {
                 const  slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
-                const amountA = token0Amount?.bigAmount ?? new TokenAmount(token0, JSBI.BigInt(ethers.utils.parseEther(token0Amount.value)));
-                const amountB = token0Amount?.bigAmount ?? new TokenAmount(token1, JSBI.BigInt(ethers.utils.parseEther(token1Amount.value)));
+                const amountA = pair.reserve0;
+                const amountB = pair.reserve1;
                 const minAmount0 = calculateSlippageAmount(amountA, slippage)
                 const minAmount1 = calculateSlippageAmount(amountB, slippage)
                 const deadline = await library.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
 
-                console.log(token0.address)
-                console.log(token1.address)
+                console.log(pair.token0.address)
+                console.log(pair.token1.address)
                 console.log(amountA.raw.toString())
                 console.log(amountB.raw.toString())
                 console.log(minAmount0[0].toString())
@@ -32,8 +32,8 @@ const MintButton: React.FC = () => {
                 console.log(deadline)
 
                 const gas = await router2.estimateGas.addLiquidity(
-                    token0.address,
-                    token1.address,
+                    pair.token0.address,
+                    pair.token1.address,
                     amountA.raw.toString(),
                     amountB.raw.toString(),
                     ethers.utils.parseEther(minAmount0[0].toString()),
@@ -46,8 +46,8 @@ const MintButton: React.FC = () => {
                 console.log(ethers.utils.formatEther(gas.toString()))
                 
                 const tx = await router2.addLiquidity(
-                    token0.address,
-                    token1.address,
+                    pair.token0.address,
+                    pair.token1.address,
                     amountA.raw.toString(),
                     amountB.raw.toString(),
                     ethers.utils.parseEther(minAmount0[0].toString()),
@@ -75,7 +75,7 @@ const MintButton: React.FC = () => {
                     {isPool ? 
                         <Button onClick={handleCreatePool} mt="5" w="100%" h="3.5rem" bg="blue.500" >Add Liquidity</Button>
                         :
-                        <Button onClick={handleCreatePool} disabled={!isApproved.token0 || !isApproved.token1} mt="5" w="100%" h="3.5rem" bg={!isApproved.token0 || !isApproved.token1 ? "gray.700" : "blue.500"} >Create pool</Button>
+                        <Button onClick={handleCreatePool} disabled={!isApproved?.token0  || !isApproved.token1} mt="5" w="100%" h="3.5rem" bg={!isApproved?.token0 || !isApproved.token1 ? "gray.700" : "blue.500"} >Create pool</Button>
                     }
                     </>
                     :

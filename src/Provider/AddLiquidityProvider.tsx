@@ -11,16 +11,16 @@ export const AddLiquidityContext = createContext<{
     token0Logo: string | undefined,
     token0Balance: TokenAmount| undefined,
     token0Amount: {value: string, bigAmount: TokenAmount | undefined} | undefined,
-    token1: Token | undefined, 
+    token1: Token | undefined, 
     token1Logo: string | undefined,
     token1Balance: TokenAmount| undefined,
     token1Amount: {value: string, bigAmount: TokenAmount | undefined} | undefined,
     handleInputAmount: (idx: number, amount: string) => void,
     newToken: (idx: number, token: SelectToken, onClose: () => void) => void,
-    pair: Pair | undefined,
+    pair: Pair | undefined,
     isPool: Boolean,
     reserves: Fraction,
-    isApproved: {token0: boolean, token1: boolean},
+    isApproved: {token0: boolean, token1: boolean} | undefined,
 }>({
     token0: undefined,
     token0Logo: "",
@@ -35,7 +35,7 @@ export const AddLiquidityContext = createContext<{
     pair: undefined,
     isPool: false,
     reserves: new Fraction("0", "0"),
-    isApproved: {token0: true, token1: true},
+    isApproved: undefined,
 });
 
 export const AddLiquidityContextProvider = (props: any) => {
@@ -52,12 +52,13 @@ export const AddLiquidityContextProvider = (props: any) => {
     const [pair, setPair] = useState<Pair | undefined>()
     const [isPool, setIspool] = useState<Boolean>(false)
     const [reserves, setReserves] = useState<Fraction>(new Fraction("0", "0"))
-    const [isApproved, setIsApproved] = useState<{token0: boolean, token1: boolean}>({token0: true, token1: true})
+    const [isApproved, setIsApproved] = useState<{token0: boolean, token1: boolean} | undefined>()
 
     const newToken = useCallback((idx: number, token: SelectToken, onClose: () => void) => {
         const newToken = new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)
         idx === 0 ? setToken0(newToken) : setToken1(newToken);
         idx === 0 ? setToken0Logo(token.logoURI) : setToken1Logo(token.logoURI);
+        setIsApproved(undefined)
         onClose();
     }, [])
 
@@ -104,18 +105,18 @@ export const AddLiquidityContextProvider = (props: any) => {
     // Set Pair and check if a pool is instanciated
     useEffect(() => {
         if (token0 && token1) {
-            createPair(token0, token1).then(async (result) => {
+            createPair(token0, token0Amount?.value, token1, token1Amount?.value).then(async (result) => {
                 result && await isPoolCreated(result, library).then(result => setIspool(result))
                 setPair(result)
             })
         }
-    }, [token0, token1, library])
+    }, [token0, token1, library, token0Amount?.value, token1Amount?.value])
     
     // Check for approval
     useEffect(() => {
-        if (pair && account && token0 && token1)
+        if (pair && account && isApproved === undefined)
             fetchApproved(pair, account, library).then(result => setIsApproved(result))
-    }, [pair, account, library, token0, token1])
+    }, [pair, account, library, isApproved])
     
     // Fetch reserve of the pool
     useEffect(() => {

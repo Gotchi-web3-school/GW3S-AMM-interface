@@ -14,7 +14,7 @@ import MintButton from "./MintButton";
 
 const AddLiquidity: React.FC = () => {
   const {active, activate} = useWeb3React();
-  const { pair, isApproved } = useContext(AddLiquidityContext);
+  const { pair, isApproved, token0, token0Amount} = useContext(AddLiquidityContext);
   const { ERC20 } = useContext(ContractContext);
   const [loading0, setLoading0] = useState<boolean>(false)
   const [loading1, setLoading1] = useState<boolean>(false)
@@ -27,13 +27,16 @@ const AddLiquidity: React.FC = () => {
       const receipt = await tx.wait()
       console.log(receipt)
       idx === 0 ? setLoading0(false) : setLoading1(false)
-      idx === 0 ? isApproved.token0 = true : isApproved.token1 = true
+      if (isApproved) 
+        idx === 0 ? isApproved.token0 = true : isApproved.token1 = true
     } catch (error) {
       console.log(error)
       idx === 0 ? setLoading0(false) : setLoading1(false)
     }
   }
- 
+ console.log('pair 0 =>', pair?.token0.symbol, pair?.reserve0.toExact())
+ console.log('token 0 =>', token0?.symbol, token0Amount?.value)
+ console.log(pair?.token1.symbol, pair?.reserve1.toExact())
   return (
     <Box >
       <InputToken0 />
@@ -44,8 +47,8 @@ const AddLiquidity: React.FC = () => {
 
       {pair && <PoolShare />}
       <Stack mt="3"  direction="row">
-        {!isApproved.token0 && pair ? <Button disabled={loading0} key={0} onClick={e => handleClickButton(pair.token0, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading0 ? <Spinner /> : `Approve ${pair.token0?.symbol}`}</Button> : ""}
-        {!isApproved.token1 && pair ? <Button disabled={loading1} key={1} onClick={e => handleClickButton(pair.token1, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading1 ? <Spinner /> : `Approve ${pair.token1?.symbol}`}</Button> : ""}
+        {!isApproved?.token0 && pair ? <Button disabled={loading0} key={0} onClick={e => handleClickButton(pair.token0, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading0 ? <Spinner /> : `Approve ${pair.token0?.symbol}`}</Button> : ""}
+        {!isApproved?.token1 && pair ? <Button disabled={loading1} key={1} onClick={e => handleClickButton(pair.token1, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading1 ? <Spinner /> : `Approve ${pair.token1?.symbol}`}</Button> : ""}
       </Stack>
 
       {!active ? 

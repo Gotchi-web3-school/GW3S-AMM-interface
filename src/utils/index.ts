@@ -60,9 +60,10 @@ export const fetchReserves = async(pair: Pair, factory: ethers.Contract, pairCon
     }
 } 
 
-export const createPair = async(token0: Token, token1: Token) => {
+export const createPair = async(token0: Token, amount0: string = "0", token1: Token, amount1: string = "0") => {
     try {
-        return new Pair(new TokenAmount(token0, ethers.utils.parseEther('0').toString()), new TokenAmount(token1, ethers.utils.parseEther('0').toString()))
+        const pair = new Pair(new TokenAmount(token0, ethers.utils.parseEther(amount0).toString()), new TokenAmount(token1, ethers.utils.parseEther(amount1).toString()))
+        return pair;
     } catch (error) {
         console.log(error)
     }
@@ -88,7 +89,8 @@ export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount,
     return (balanceA > 0 && balanceB > 0 && amountA <= balanceA && amountB <= balanceB)
 }
 
-export const rate = (reserves: Fraction, amount0: string, amount1: string) => {
+export const rate = (reserves: Fraction, amount0: string = "0", amount1: string = "0") => {
+    console.log(reserves)
     if (parseInt(reserves.toSignificant(2))) {
         return reserves.toSignificant(2)
     } else {
