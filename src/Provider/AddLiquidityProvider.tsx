@@ -62,8 +62,6 @@ export const AddLiquidityContextProvider = (props: any) => {
     }, [])
 
     const handleInputAmount = useCallback((idx: number, inputAmount: string) => {
-        console.log(isPool)
-      
         if (isPool && token1 && token0 && parseFloat(inputAmount) > 0) {
             const amount = new TokenAmount(idx ? token1 : token0, JSBI.BigInt(ethers.utils.parseEther(inputAmount)))
             if (idx) {

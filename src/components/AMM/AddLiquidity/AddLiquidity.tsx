@@ -33,7 +33,7 @@ const AddLiquidity: React.FC = () => {
       idx === 0 ? setLoading0(false) : setLoading1(false)
     }
   }
-
+ 
   return (
     <Box >
       <InputToken0 />
