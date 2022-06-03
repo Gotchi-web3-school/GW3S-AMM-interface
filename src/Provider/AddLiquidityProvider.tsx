@@ -67,19 +67,17 @@ export const AddLiquidityContextProvider = (props: any) => {
             if (idx) {
                 const pairedAmount = new TokenAmount(token0, amount.multiply(reserves.numerator).divide(reserves.denominator).quotient)
                 const pairedInputAmount = amount.multiply(reserves.numerator).divide(reserves.denominator).toSignificant(3)
-                console.log(pairedInputAmount)
                 setToken1Amount({value: inputAmount, bigAmount: amount})
                 setToken0Amount({value: pairedInputAmount, bigAmount: pairedAmount})
             } else {
-                const pairedAmount = new TokenAmount(token0, amount.multiply(reserves.denominator).divide(reserves.numerator).quotient)
+                const pairedAmount = new TokenAmount(token1, JSBI.BigInt(ethers.utils.parseEther(amount.multiply(reserves.denominator).divide(reserves.numerator).quotient.toString())))
                 const pairedInputAmount = amount.multiply(reserves.denominator).divide(reserves.numerator).toSignificant(3)
-                console.log(pairedInputAmount)
                 setToken0Amount({value: inputAmount, bigAmount: amount})
                 setToken1Amount({value: pairedInputAmount, bigAmount: pairedAmount})
             }
         } else {
-            setToken0Amount({value: inputAmount, bigAmount: undefined})
-            setToken1Amount({value: inputAmount, bigAmount: undefined});
+           idx ? setToken1Amount({value: inputAmount, bigAmount: undefined}) :  setToken0Amount({value: inputAmount, bigAmount: undefined});
+           
         }
     }, [isPool, reserves, token0, token1])
 
@@ -104,14 +102,10 @@ export const AddLiquidityContextProvider = (props: any) => {
     // Set Pair and check if a pool is instanciated
     useEffect(() => {
         if (token0 && token1) {
-            const identifier = setTimeout(() => {
-                createPair(token0, token1).then(result => {
-                    setPair(result)
-                    result && isPoolCreated(result, library).then(result => setIspool(result))
-                })
-            }, 500)
-
-            return () => clearTimeout(identifier)
+            createPair(token0, token1).then(async (result) => {
+                result && await isPoolCreated(result, library).then(result => setIspool(result))
+                setPair(result)
+            })
         }
     }, [token0, token1, library])
     
@@ -121,11 +115,11 @@ export const AddLiquidityContextProvider = (props: any) => {
             fetchApproved(pair, account, library).then(result => setIsApproved(result))
     }, [pair, account, library, token0, token1])
     
-    // If pool is already created
+    // Fetch reserve of the pool
     useEffect(() => {
         if (isPool && contract.factory && contract.pair && pair)
             fetchReserves(pair, contract.factory, contract.pair).then(result => setReserves(result ?? new Fraction("0", "0")))
-    }, [pair, isPool, contract])
+    }, [isPool, contract, pair])
 
         
     return (

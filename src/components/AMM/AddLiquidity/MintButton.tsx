@@ -4,7 +4,7 @@ import { ethers } from "ethers"
 import { useWeb3React } from "@web3-react/core"
 import { Percent, JSBI } from "quickswap-sdk"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
-import { calculateSlippageAmount } from "../../../utils"
+import { calculateSlippageAmount, isSufficientBalance } from "../../../utils"
 import { GlobalConst } from "../../../constants"
 import { ContractContext } from "../../../Provider/ContractsProvider"
 
@@ -67,10 +67,9 @@ const MintButton: React.FC = () => {
         <>
         {token0 && token1 ?
             <>
-            {pair ?
+            {token0Amount?.value && token1Amount?.value ?
                 <>
-                {(pair?.reserve0.lessThan(token0Balance ?? '0') || pair?.reserve0.equalTo(token0Balance ?? '0')) &&
-                 (pair?.reserve1.lessThan(token1Balance ?? '0') || pair?.reserve1.equalTo(token1Balance ?? '0')) ?
+                {token0Balance && token1Balance && isSufficientBalance(token0Amount.value, token0Balance, token1Amount.value, token1Balance) ?
                     <>
                     {isPool ? 
                         <Button onClick={handleCreatePool} mt="5" w="100%" h="3.5rem" bg="blue.500" >Add Liquidity</Button>

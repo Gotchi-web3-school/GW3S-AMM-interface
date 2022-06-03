@@ -79,3 +79,11 @@ export const calculateShare = async(token0: Token, token0Amount: TokenAmount, re
     const percentageShare = new Percent(token0Amount.raw, reserve0.add(token0Amount).quotient)
     return ethers.utils.formatEther(percentageShare.toSignificant(2));
 }
+
+export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount, amount1: string, token1Balance: TokenAmount) => {
+    const amountA = parseFloat(amount0);
+    const amountB = parseFloat(amount1);
+    const balanceA = parseFloat(token0Balance.toExact());
+    const balanceB = parseFloat(token1Balance.toExact());
+    return (balanceA > 0 && balanceB > 0 && amountA <= balanceA && amountB <= balanceB)
+}
