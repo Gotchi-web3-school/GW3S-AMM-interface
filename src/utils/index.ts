@@ -87,3 +87,11 @@ export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount,
     const balanceB = parseFloat(token1Balance.toExact());
     return (balanceA > 0 && balanceB > 0 && amountA <= balanceA && amountB <= balanceB)
 }
+
+export const rate = (reserves: Fraction, amount0: string, amount1: string) => {
+    if (parseInt(reserves.toSignificant(2))) {
+        return reserves.toSignificant(2)
+    } else {
+        return parseFloat(amount0 ?? '0') / parseFloat(amount1 ?? '0')
+    }
+}

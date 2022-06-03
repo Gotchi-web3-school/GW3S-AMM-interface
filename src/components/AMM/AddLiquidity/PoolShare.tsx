@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect } from "react"
 import { Text, Stack, Box, Center, Spacer } from "@chakra-ui/react"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
-import { calculateShare } from "../../../utils"
+import { calculateShare, rate } from "../../../utils"
 
 const PoolShare: React.FC = () => {
-    const { isPool, token0, token1, reserves, token0Amount} = useContext(AddLiquidityContext)
+    const { isPool, token0, token1, reserves, token0Amount, token1Amount} = useContext(AddLiquidityContext)
     const [share, setShare] = useState<string>("100")
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const PoolShare: React.FC = () => {
             }
         }
     }, [isPool, token0, token0Amount, reserves])
-
+    console.log(reserves.toSignificant(2))
     return (
         <Box
             mt="2rem"
@@ -34,14 +34,14 @@ const PoolShare: React.FC = () => {
                 justifyContent="center">
                 <Box>
                     <Center>
-                        <Text>{reserves.toSignificant(2)}</Text>
+                        <Text>{rate(reserves, token0Amount?.value ?? '0', token1Amount?.value ?? '0')}</Text>
                     </Center>
                     <Text fontSize="sm">{token0?.symbol} per {token1?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Center>
-                        <Text>{reserves.invert().toSignificant(2)}</Text>
+                        <Text>{rate(reserves, token1Amount?.value ?? '0', token0Amount?.value ?? '0')}</Text>
                     </Center>
                     <Text fontSize="sm">{token1?.symbol} per {token0?.symbol}</Text>
                 </Box>
