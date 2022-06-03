@@ -32,7 +32,7 @@ export const fetchApproved = async(pair: Pair, userAdress: string, provider: any
     return ({token1: pair.reserve0.lessThan(approved0), token0: pair.reserve1.lessThan(approved1)})
 }
 
-export const getShareOfPool = async(pair: Pair, amoutA: string, provider: any) => {
+export const getShareOfPool = async(pair: Pair, provider: any) => {
     const router2 = new ethers.Contract(GlobalConst.addresses.ROUTER_ADDRESS, abis.router2, provider);
     const quote = await router2.quote( pair.reserve0, pair.reserve1);
     console.log(quote)
@@ -49,21 +49,33 @@ export const fetchPairData = async(token0: Token, token1: Token, provider: any) 
     console.log(token0Token1)
 }
 
-export const createPair = async(token0: Token, token0Amount: string, token1: Token, token1Amount: string) => {
+export const fetchReserves = async(pair: Pair, factory: ethers.Contract, pairContract: ethers.Contract) => {
     try {
-        if (token0Amount > "0" && token1Amount > "0") {
-            const pair = new Pair(new TokenAmount(token0, ethers.utils.parseEther(token0Amount).toString()), new TokenAmount(token1, ethers.utils.parseEther(token1Amount).toString()))
-            console.log(pair)
-            return (pair)
-        }
+        const pairAddress = await factory.getPair(pair.token0.address, pair.token1.address)
+        const pairInstance = pairContract.attach(pairAddress)
+        const reserves = await pairInstance.getReserves()
+        return new Fraction(reserves[0], reserves[1])
+    } catch (error) {
+        console.log(error)
+    }
+} 
+
+export const createPair = async(token0: Token, token1: Token) => {
+    try {
+        return new Pair(new TokenAmount(token0, ethers.utils.parseEther('0').toString()), new TokenAmount(token1, ethers.utils.parseEther('0').toString()))
     } catch (error) {
         console.log(error)
     }
 }
 
-
 export function calculateSlippageAmount(value: TokenAmount, slippage: Percent): [JSBI, JSBI] {
     const ONE = new Fraction('1', '1');
     if (slippage.lessThan('0') || slippage.greaterThan(ONE)) throw new Error('Unexpected slippage')
     return [value.multiply(ONE.subtract(slippage)).quotient, value.multiply(ONE.add(slippage)).quotient]
+}
+
+export const calculateShare = async(token0: Token, token0Amount: TokenAmount, reserves: Fraction) => {
+    const reserve0 = new TokenAmount(token0, reserves.numerator)
+    const percentageShare = new Percent(token0Amount.raw, reserve0.add(token0Amount).quotient)
+    return ethers.utils.formatEther(percentageShare.toSignificant(2));
 }

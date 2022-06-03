@@ -19,7 +19,8 @@ const AddLiquidity: React.FC = () => {
   const [loading0, setLoading0] = useState<boolean>(false)
   const [loading1, setLoading1] = useState<boolean>(false)
 
-  const handleClickButton = async (token: Token, tokenAmount: string, idx: number) => {
+  const handleClickButton = async (token: Token, idx: number) => {
+    try {
       const contract = ERC20?.attach(token.address)
       const tx = await contract?.approve(GlobalConst.addresses.ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
       idx === 0 ? setLoading0(true) : setLoading1(true)
@@ -27,6 +28,10 @@ const AddLiquidity: React.FC = () => {
       console.log(receipt)
       idx === 0 ? setLoading0(false) : setLoading1(false)
       idx === 0 ? isApproved.token0 = true : isApproved.token1 = true
+    } catch (error) {
+      console.log(error)
+      idx === 0 ? setLoading0(false) : setLoading1(false)
+    }
   }
 
   return (
@@ -39,8 +44,8 @@ const AddLiquidity: React.FC = () => {
 
       {pair && <PoolShare />}
       <Stack mt="3"  direction="row">
-        {!isApproved.token0 && token0 && token0Amount ? <Button disabled={loading0} key={0} onClick={e => handleClickButton(token0, token0Amount, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading0 ? <Spinner /> : `Approve ${token0?.symbol}`}</Button> : ""}
-        {!isApproved.token1 && token1 && token1Amount? <Button disabled={loading1} key={1} onClick={e => handleClickButton(token1, token1Amount, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading1 ? <Spinner /> : `Approve ${token1?.symbol}`}</Button> : ""}
+        {!isApproved.token0 && token0 && token0Amount ? <Button disabled={loading0} key={0} onClick={e => handleClickButton(token0, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading0 ? <Spinner /> : `Approve ${token0?.symbol}`}</Button> : ""}
+        {!isApproved.token1 && token1 && token1Amount? <Button disabled={loading1} key={1} onClick={e => handleClickButton(token1, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{loading1 ? <Spinner /> : `Approve ${token1?.symbol}`}</Button> : ""}
       </Stack>
 
       {!active ? 

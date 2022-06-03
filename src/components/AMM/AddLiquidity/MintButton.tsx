@@ -9,36 +9,49 @@ import { GlobalConst } from "../../../constants"
 import { ContractContext } from "../../../Provider/ContractsProvider"
 
 const MintButton: React.FC = () => {
-    const { router2, factory } = useContext(ContractContext) 
+    const { router2, factory } = useContext(ContractContext)
     const { library, account } = useWeb3React()
-    const { isPool, pair, token0, token1, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
+    const { isPool, pair, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
     const handleCreatePool = async() => {
         try {
-            if (pair && router2 && token0 && token1 && factory) {
+            if (pair && router2 && token0 && token1 && factory && token0Amount?.bigAmount && token1Amount?.bigAmount) {
                 const  slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
-                const minAmount0 = calculateSlippageAmount(pair?.reserve0, slippage)
-                const minAmount1 = calculateSlippageAmount(pair?.reserve1, slippage)
+                const minAmount0 = calculateSlippageAmount(token0Amount.bigAmount, slippage)
+                const minAmount1 = calculateSlippageAmount(token1Amount.bigAmount, slippage)
                 const deadline = await library.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
-                // console.log(token0.address)
-                // console.log(token1.address)
-                // console.log(ethers.BigNumber.from(pair.reserve0.raw.toString()))
-                // console.log(ethers.BigNumber.from(pair.reserve1.raw.toString()))
-                // console.log(ethers.utils.parseEther(minAmount0[0].toString()))
-                // console.log(ethers.utils.parseEther(minAmount1[0].toString()))
-                // console.log(account)
-                // console.log(deadline)
-            
-                
-                const tx = await router2.addLiquidity(
+
+                console.log(token0.address)
+                console.log(token1.address)
+                console.log(token0Amount.bigAmount.raw)
+                console.log(token1Amount.bigAmount.raw)
+                console.log(minAmount0[0])
+                console.log(minAmount1[1])
+                console.log(account)
+                console.log(deadline)
+
+                const gas = await router2.estimateGas.addLiquidity(
                     token0.address,
                     token1.address,
-                    ethers.BigNumber.from(pair.reserve0.raw.toString()),
-                    ethers.BigNumber.from(pair.reserve1.raw.toString()),
+                    token0Amount.bigAmount.raw,
+                    token1Amount.bigAmount.raw,
                     ethers.utils.parseEther(minAmount0[0].toString()),
                     ethers.utils.parseEther(minAmount1[0].toString()),
                     account,
                     deadline,
-                    {gasLimit: 20000000}
+                    {gasLimit: 3000000}
+                ) 
+                console.log(gas)
+                
+                const tx = await router2.addLiquidity(
+                    token0.address,
+                    token1.address,
+                    token0Amount.bigAmount.raw,
+                    token1Amount.bigAmount.raw,
+                    ethers.utils.parseEther(minAmount0[0].toString()),
+                    ethers.utils.parseEther(minAmount1[0].toString()),
+                    account,
+                    deadline,
+                    {gasLimit: 3000000}
                 ) 
                 // const tx = await factory.createPair(token0.address, token1.address)
                 const receipt = await tx.wait()
