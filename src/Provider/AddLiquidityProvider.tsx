@@ -62,22 +62,26 @@ export const AddLiquidityContextProvider = (props: any) => {
     }, [])
 
     const handleInputAmount = useCallback((idx: number, inputAmount: string) => {
-        if (isPool && token1 && token0 && inputAmount > "0") {
+        console.log(isPool)
+      
+        if (isPool && token1 && token0 && parseFloat(inputAmount) > 0) {
             const amount = new TokenAmount(idx ? token1 : token0, JSBI.BigInt(ethers.utils.parseEther(inputAmount)))
             if (idx) {
                 const pairedAmount = new TokenAmount(token0, amount.multiply(reserves.numerator).divide(reserves.denominator).quotient)
-                const pairedInputAmount = amount.multiply(reserves.numerator).divide(reserves.denominator).toSignificant(3)
+                const pairedInputAmount = amount.multiply(reserves.numerator).divide(reserves.denominator).toSignificant(2)
                 setToken1Amount({value: inputAmount, bigAmount: amount})
                 setToken0Amount({value: pairedInputAmount, bigAmount: pairedAmount})
             } else {
                 const pairedAmount = new TokenAmount(token1, JSBI.BigInt(ethers.utils.parseEther(amount.multiply(reserves.denominator).divide(reserves.numerator).quotient.toString())))
-                const pairedInputAmount = amount.multiply(reserves.denominator).divide(reserves.numerator).toSignificant(3)
+                const pairedInputAmount = amount.multiply(reserves.denominator).divide(reserves.numerator).toSignificant(2)
                 setToken0Amount({value: inputAmount, bigAmount: amount})
                 setToken1Amount({value: pairedInputAmount, bigAmount: pairedAmount})
             }
+        } else if (inputAmount === "" && isPool) {
+            setToken1Amount({value: inputAmount, bigAmount: undefined})
+            setToken0Amount({value: inputAmount, bigAmount: undefined});
         } else {
-           idx ? setToken1Amount({value: inputAmount, bigAmount: undefined}) :  setToken0Amount({value: inputAmount, bigAmount: undefined});
-           
+            idx ? setToken1Amount({value: inputAmount, bigAmount: undefined}) :  setToken0Amount({value: inputAmount, bigAmount: undefined});
         }
     }, [isPool, reserves, token0, token1])
 

@@ -43,7 +43,7 @@ const InputToken1: React.FC = () => {
               onChange={e => handleInputAmount(1, e.target.value)}
               required
             />
-            <Button onClick={() => handleInputAmount(1, token1Balance?.toSignificant(2).toString() ?? "0")} size={"sm"} bg="blue.500" mt="1" mr="3">Max</Button>
+            <Button onClick={() => handleInputAmount(1, token1Balance?.toFixed(0) ?? "0")} size={"sm"} bg="blue.500" mt="1" mr="3">Max</Button>
             {token1 ?
             <Button color={color} onClick={onOpen} size="sm" p="5">
               {token1Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token1Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
