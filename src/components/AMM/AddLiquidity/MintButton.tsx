@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { Button, Container, Text } from "@chakra-ui/react"
 import { ethers } from "ethers"
 import { useWeb3React } from "@web3-react/core"
-import { Percent, JSBI } from "quickswap-sdk"
+import { Percent, JSBI, TokenAmount } from "quickswap-sdk"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import { calculateSlippageAmount, isSufficientBalance } from "../../../utils"
 import { GlobalConst } from "../../../constants"
@@ -14,46 +14,48 @@ const MintButton: React.FC = () => {
     const { isPool, pair, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
     const handleCreatePool = async() => {
         try {
-            if (pair && router2 && token0 && token1 && factory && token0Amount?.bigAmount && token1Amount?.bigAmount) {
+            if (pair && router2 && token0 && token1 && factory && token0Amount && token1Amount) {
                 const  slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
-                const minAmount0 = calculateSlippageAmount(token0Amount.bigAmount, slippage)
-                const minAmount1 = calculateSlippageAmount(token1Amount.bigAmount, slippage)
+                const amountA = token0Amount?.bigAmount ?? new TokenAmount(token0, JSBI.BigInt(ethers.utils.parseEther(token0Amount.value)));
+                const amountB = token0Amount?.bigAmount ?? new TokenAmount(token1, JSBI.BigInt(ethers.utils.parseEther(token1Amount.value)));
+                const minAmount0 = calculateSlippageAmount(amountA, slippage)
+                const minAmount1 = calculateSlippageAmount(amountB, slippage)
                 const deadline = await library.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
 
                 console.log(token0.address)
                 console.log(token1.address)
-                console.log(token0Amount.bigAmount.raw)
-                console.log(token1Amount.bigAmount.raw)
-                console.log(minAmount0[0])
-                console.log(minAmount1[1])
+                console.log(amountA.raw.toString())
+                console.log(amountB.raw.toString())
+                console.log(minAmount0[0].toString())
+                console.log(minAmount1[1].toString())
                 console.log(account)
                 console.log(deadline)
 
                 const gas = await router2.estimateGas.addLiquidity(
                     token0.address,
                     token1.address,
-                    token0Amount.bigAmount.raw,
-                    token1Amount.bigAmount.raw,
+                    amountA.raw.toString(),
+                    amountB.raw.toString(),
                     ethers.utils.parseEther(minAmount0[0].toString()),
                     ethers.utils.parseEther(minAmount1[0].toString()),
                     account,
                     deadline,
                     {gasLimit: 3000000}
                 ) 
-                console.log(gas)
+
+                console.log(ethers.utils.formatEther(gas.toString()))
                 
                 const tx = await router2.addLiquidity(
                     token0.address,
                     token1.address,
-                    token0Amount.bigAmount.raw,
-                    token1Amount.bigAmount.raw,
+                    amountA.raw.toString(),
+                    amountB.raw.toString(),
                     ethers.utils.parseEther(minAmount0[0].toString()),
                     ethers.utils.parseEther(minAmount1[0].toString()),
                     account,
                     deadline,
-                    {gasLimit: 3000000}
+                    {gasLimit: gas}
                 ) 
-                // const tx = await factory.createPair(token0.address, token1.address)
                 const receipt = await tx.wait()
                 console.log(receipt)
                 
@@ -61,7 +63,6 @@ const MintButton: React.FC = () => {
         } catch (error) {
             console.log(error)
         }
-
     }
     return (
         <>
