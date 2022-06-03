@@ -14,7 +14,7 @@ import MintButton from "./MintButton";
 
 const AddLiquidity: React.FC = () => {
   const {active, activate} = useWeb3React();
-  const { pair, isApproved, token0, token0Amount} = useContext(AddLiquidityContext);
+  const { pair, isApproved } = useContext(AddLiquidityContext);
   const { ERC20 } = useContext(ContractContext);
   const [loading0, setLoading0] = useState<boolean>(false)
   const [loading1, setLoading1] = useState<boolean>(false)
@@ -34,9 +34,7 @@ const AddLiquidity: React.FC = () => {
       idx === 0 ? setLoading0(false) : setLoading1(false)
     }
   }
- console.log('pair 0 =>', pair?.token0.symbol, pair?.reserve0.toExact())
- console.log('token 0 =>', token0?.symbol, token0Amount?.value)
- console.log(pair?.token1.symbol, pair?.reserve1.toExact())
+
   return (
     <Box >
       <InputToken0 />

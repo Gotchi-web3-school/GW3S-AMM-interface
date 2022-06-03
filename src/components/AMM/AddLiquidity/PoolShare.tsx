@@ -2,10 +2,9 @@ import { useState, useContext, useEffect } from "react"
 import { Text, Stack, Box, Center, Spacer } from "@chakra-ui/react"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import { calculateShare, rate } from "../../../utils"
-import { Pair } from "quickswap-sdk"
 
 const PoolShare: React.FC = () => {
-    const { isPool, token0, token1, reserves, token0Amount, token1Amount, pair} = useContext(AddLiquidityContext)
+    const { isPool, token0, reserves, token0Amount, pair} = useContext(AddLiquidityContext)
     const [share, setShare] = useState<string>("100")
 
     useEffect(() => {

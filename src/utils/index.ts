@@ -32,22 +32,12 @@ export const fetchApproved = async(pair: Pair, userAdress: string, provider: any
     return ({token0: pair.reserve0.lessThan(approved0), token1: pair.reserve1.lessThan(approved1)})
 }
 
-export const getShareOfPool = async(pair: Pair, provider: any) => {
-    const router2 = new ethers.Contract(GlobalConst.addresses.ROUTER_ADDRESS, abis.router2, provider);
-    const quote = await router2.quote( pair.reserve0, pair.reserve1);
-    console.log(quote)
-}
-
 export const isPoolCreated = async(pair: Pair, provider: any) => {
     const factory = new ethers.Contract(GlobalConst.addresses.FACTORY_ADDRESS, abis.factory, provider);
     const pool = await factory.getPair(pair.token0.address, pair.token1.address);
     return pool !== GlobalConst.addresses.ZERO_ADDRESS;
 }
 
-export const fetchPairData = async(token0: Token, token1: Token, provider: any) => {
-    const token0Token1 = await Fetcher.fetchPairData(token0, token1, provider)
-    console.log(token0Token1)
-}
 
 export const fetchReserves = async(pair: Pair, factory: ethers.Contract, pairContract: ethers.Contract) => {
     try {
@@ -90,7 +80,6 @@ export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount,
 }
 
 export const rate = (reserves: Fraction, amount0: string = "0", amount1: string = "0") => {
-    console.log(reserves)
     if (parseInt(reserves.toSignificant(2))) {
         return reserves.toSignificant(2)
     } else {
