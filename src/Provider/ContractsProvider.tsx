@@ -1,8 +1,8 @@
 import { createContext } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers"
-import { GlobalConst } from "../constants"
-import { abis } from "../constants/abis"
+import { GlobalConst } from "../Constants"
+import { abis } from "../Constants/abis"
 
 export const ContractContext = createContext<{
     factory: ethers.Contract | undefined,

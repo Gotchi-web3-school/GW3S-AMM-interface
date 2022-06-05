@@ -2,11 +2,11 @@ import { useContext, useState } from "react"
 import { useWeb3React } from "@web3-react/core";
 import {Button, Box, Center, Stack, Spinner } from "@chakra-ui/react";
 import { AddIcon } from '@chakra-ui/icons';
-import { injected } from '../../../connectors/connectors';
+import { injected } from '../../../Connectors/connectors';
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider";
 import { ContractContext } from "../../../Provider/ContractsProvider";
 import { Token } from "quickswap-sdk";
-import { GlobalConst } from "../../../constants";
+import { GlobalConst } from "../../../Constants";
 import InputToken0 from "./InputToken0";
 import InputToken1 from "./InputToken1";
 import PoolShare from "./PoolShare";

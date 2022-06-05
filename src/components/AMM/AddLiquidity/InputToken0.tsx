@@ -6,7 +6,7 @@ import ModalTokens from "../../Modal/ModalToken"
 
 const InputToken0 : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { token0, token0Logo, token0Balance, token0Amount, handleInputAmount } = useContext(AddLiquidityContext)
+  const { token0, token0Logo, token0Balance, token0Amount, dispatch } = useContext(AddLiquidityContext)
   const color = useColorModeValue("black", "white")
 
   return (
@@ -40,19 +40,27 @@ const InputToken0 : React.FC = () => {
               color={useColorModeValue("gray.900", "white")}
               id="swap"
               value={token0Amount?.value ?? ''}
-              onChange={e => handleInputAmount(0, e.target.value)}
+              onChange={e => dispatch({type: "HANDLE_INPUTS", payload: {id: 0, amount: e.target.value}})}
               required
             />
-            <Button onClick={() => handleInputAmount(0, token0Balance?.toFixed(0) ?? "0")} size={"sm"} bg="blue.500" mt="1" mr="3">Max</Button>
-            {token0 ?
-            <Button color={color} onClick={onOpen} size="sm" p="5">
-              {token0Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token0Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
-              {token0?.symbol ?? ''}
-              <ArrowDownIcon mx="2" />
+            <Button 
+              onClick={() => dispatch({type: "HANDLE_INPUTS", payload: {id: 0, amount: token0Balance?.toFixed(0) ?? "0"}})} 
+              size={"sm"} 
+              bg="blue.500" 
+              mt="1" 
+              mr="3">
+              Max
             </Button>
-            :
-            <Button bg="blue.500" onClick={onOpen}><Text px="5" >Select a token<ArrowDownIcon ml="2" /></Text></Button>
-            } 
+
+            {token0 ?
+              <Button color={color} onClick={onOpen} size="sm" p="5">
+                {token0Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token0Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
+                {token0?.symbol ?? ''}
+                <ArrowDownIcon mx="2" />
+              </Button>
+              :
+              <Button bg="blue.500" onClick={onOpen}><Text px="5" >Select a token<ArrowDownIcon ml="2" /></Text></Button>
+            }
           </Flex>
         </Stack>
     </Box>

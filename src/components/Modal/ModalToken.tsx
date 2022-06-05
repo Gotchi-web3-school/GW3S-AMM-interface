@@ -17,15 +17,15 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
 import { AddLiquidityContext } from "../../Provider/AddLiquidityProvider"
-import { DEFAULT_TOKEN_LIST_URL } from "../../constants/list"
-import { SelectToken } from "../../models"
+import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
+import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../utils"
 import TokenSelect from "../AMM/TokenSelect"
 import { Token } from "quickswap-sdk";
 
 
 const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
-  let { newToken, token0, token1 } = useContext(AddLiquidityContext)
+  let { token0, token1, dispatch } = useContext(AddLiquidityContext)
   const { library, chainId } = useWeb3React()
   const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST_URL.tokens)
   const [searchInput, setSearchInput] = useState("")
@@ -35,7 +35,8 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
   const handleSearchButton = () => {
     if (searchedToken) {
       tokens.unshift(searchedToken)
-      newToken(idx, searchedToken, onClose)
+      dispatch({type: "SET_TOKEN", payload: {id: idx, token: searchedToken}})
+      onClose()
       setSearchInput("")
       setSearchedToken(null)
     }
@@ -94,9 +95,16 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
                   tokens[key] = token
                   const isDisabled = token0?.address === token.address || token1?.address === token.address
                     return (
-                      <Button disabled={isDisabled} py="2rem" borderRadius={"0"} bg="0" key={key} onClick={() => newToken(idx, tokens[key], onClose)}>
+                      <Button 
+                        disabled={isDisabled} 
+                        py="2rem" borderRadius={"0"} 
+                        bg="0" 
+                        key={key} 
+                        onClick={() =>  dispatch({type: "SET_TOKEN", payload: {id: idx, token: tokens[key], onClose: onClose}})}
+                      >
                         <TokenSelect token={new Token(token.chainId, token.address, token.decimals)} img={token.logoURI} />
-                      </Button>)
+                      </Button>
+                    )
                   }
                 )}
               </Stack>

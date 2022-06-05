@@ -5,7 +5,7 @@ import { useWeb3React } from "@web3-react/core"
 import { Percent, JSBI } from "quickswap-sdk"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import { calculateSlippageAmount, isSufficientBalance } from "../../../utils"
-import { GlobalConst } from "../../../constants"
+import { GlobalConst } from "../../../Constants"
 import { ContractContext } from "../../../Provider/ContractsProvider"
 
 const MintButton: React.FC = () => {

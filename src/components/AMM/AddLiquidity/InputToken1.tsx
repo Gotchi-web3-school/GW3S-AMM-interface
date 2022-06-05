@@ -6,7 +6,7 @@ import ModalTokens from "../../Modal/ModalToken"
 
 const InputToken1: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const {token1, token1Logo, token1Balance, token1Amount, handleInputAmount} = useContext(AddLiquidityContext)
+  const {token1, token1Logo, token1Balance, token1Amount, dispatch} = useContext(AddLiquidityContext)
   const color = useColorModeValue("black", "white")
 
   return (
@@ -40,10 +40,10 @@ const InputToken1: React.FC = () => {
               color={useColorModeValue("gray.900", "white")}
               id="swap"
               value={token1Amount?.value ?? ''}
-              onChange={e => handleInputAmount(1, e.target.value)}
+              onChange={e =>  dispatch({type: "HANDLE_INPUTS", payload: {id: 1, amount: e.target.value}})}
               required
             />
-            <Button onClick={() => handleInputAmount(1, token1Balance?.toFixed(0) ?? "0")} size={"sm"} bg="blue.500" mt="1" mr="3">Max</Button>
+            <Button onClick={() => dispatch({type: "HANDLE_INPUTS", payload: {id: 1, amount: token1Balance?.toFixed(0) ?? "0"}})} size={"sm"} bg="blue.500" mt="1" mr="3">Max</Button>
             {token1 ?
             <Button color={color} onClick={onOpen} size="sm" p="5">
               {token1Logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={token1Logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
