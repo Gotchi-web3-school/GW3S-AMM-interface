@@ -39,13 +39,14 @@ export const isPoolCreated = async(pair: Pair, provider: any): Promise<boolean> 
     return pool !== GlobalConst.addresses.ZERO_ADDRESS;
 }
 
-
-export const fetchReserves = async(pair: Pair, contract: any): Promise<Fraction> => {
+export const fetchReserves = async(pair: Pair, token0: Token, contract: any): Promise<Fraction> => {
     try {
         const pairAddress = await contract.factory.getPair(pair.token0.address, pair.token1.address)
         const pairInstance = contract.pair.attach(pairAddress)
         const reserves = await pairInstance.getReserves()
-        return new Fraction(reserves[0], reserves[1])
+        const reserve0 = pair.token0.equals(token0) ? reserves[0] : reserves[1]
+        const reserve1 = pair.token1.equals(token0) ? reserves[0] : reserves[1]
+        return new Fraction(reserve0, reserve1)
     } catch (error) {
         console.log(error)
         return new Fraction('1', '1')
@@ -59,7 +60,7 @@ export function calculateSlippageAmount(value: TokenAmount, slippage: Percent): 
 }
 
 export const calculateShare = (pair: Pair, token0Amount: TokenAmount, reserves: Fraction): string => {
-    const reserve0 = new TokenAmount(token0Amount.token, pair.token0.equals(token0Amount.token) ? reserves.numerator : reserves.denominator)
+    const reserve0 = new TokenAmount(token0Amount.token, reserves.numerator)
     const newTotal = reserve0.add(token0Amount)
     const result = token0Amount.multiply("100").divide(newTotal).toSignificant(2)
     return result;

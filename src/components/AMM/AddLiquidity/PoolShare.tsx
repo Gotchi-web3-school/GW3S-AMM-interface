@@ -4,7 +4,7 @@ import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import { calculateShare, rate } from "../../../utils"
 
 const PoolShare: React.FC = () => {
-    const { isPool, reserves, token0Amount, token1Amount, pair} = useContext(AddLiquidityContext)
+    const { isPool, reserves, token0Amount, token0, token1, token1Amount, pair} = useContext(AddLiquidityContext)
     const [share, setShare] = useState<string>("100")
 
     useEffect(() => {
@@ -37,14 +37,14 @@ const PoolShare: React.FC = () => {
                     <Center>
                         <Text>{isPool ? reserves.toSignificant(2) : rate(token0Amount?.value, token1Amount?.value)}</Text>
                     </Center>
-                    <Text fontSize="sm">{pair?.token0?.symbol} per {pair?.token1?.symbol}</Text>
+                    <Text fontSize="sm">{token0?.symbol} per {token1?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Center>
                         <Text>{isPool ? reserves.invert().toSignificant(2) : rate(token1Amount?.value, token0Amount?.value)}</Text>
                     </Center>
-                    <Text fontSize="sm">{pair?.token1?.symbol} per {pair?.token0?.symbol}</Text>
+                    <Text fontSize="sm">{token1?.symbol} per {token0?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>

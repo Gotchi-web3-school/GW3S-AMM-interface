@@ -60,17 +60,17 @@ export const AddLiquidityContextProvider = (props: any) => {
     useEffect(() => {
         if (pair) {
             isPoolCreated(pair, library).then(isPool => {
-                if (isPool) {
+                if (isPool && token0) {
                     console.log("New pool found!")
                     dispatch({type: "SET_ISPOOL", payload: {isPool: true}})
-                    fetchReserves(pair, contract)
+                    fetchReserves(pair, token0, contract)
                     .then(reserves => dispatch({type: "SET_RESERVES", payload: {reserves: reserves}}))
                 } else {
                     dispatch({type: "SET_ISPOOL", payload: {isPool: false}})
                 }
             })
         }
-    }, [pair, library, contract])
+    }, [pair, token0, library, contract])
     
     // Check for approval
     useEffect(() => {
