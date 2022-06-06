@@ -41,7 +41,7 @@ export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
             {gasLimit: 3000000}
         ) 
 
-        console.log("Gas cost: " + ethers.utils.formatEther(gas?.toString() ?? ""))
+        console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + "MATIC"))
         
         const transaction = await tx.router2?.addLiquidity(
             tx.pair?.token0.address,
