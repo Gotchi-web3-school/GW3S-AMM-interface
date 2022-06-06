@@ -4,7 +4,7 @@ import { ColorModeScript } from '@chakra-ui/react'
 import { Web3ReactProvider } from '@web3-react/core';
 import { ContractProvider } from "./Provider/ContractsProvider"
 import { ChakraProvider } from '@chakra-ui/react';
-import { getLibrary } from './utils';
+import { getLibrary } from './lib/utils';
 import App from './App';
 import theme from './theme'
 

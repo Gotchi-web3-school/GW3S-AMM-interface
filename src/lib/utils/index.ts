@@ -1,8 +1,8 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount, JSBI } from 'quickswap-sdk';
-import { abis, GlobalConst} from '../Constants';
+import { abis, GlobalConst} from '../../Constants';
 import { ethers } from "ethers";
-import { SelectToken } from '../Models';
+import { SelectToken } from '../../Models';
 
 export function getLibrary(provider: any): Web3Provider {
     const library = new Web3Provider(provider, 'any');

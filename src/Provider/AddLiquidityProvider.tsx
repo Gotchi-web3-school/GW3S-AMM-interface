@@ -3,7 +3,7 @@ import { Fraction} from "quickswap-sdk"
 import { useWeb3React } from "@web3-react/core";
 import { addLiquidityReducer } from "../Reducers/addLiquidityReducer";
 import { AddLiquidity } from "../Models";
-import { fetchBalance, fetchApproved, isPoolCreated, fetchReserves } from "../utils";
+import { fetchBalance, fetchApproved, isPoolCreated, fetchReserves } from "../lib/utils";
 import { ContractContext } from "./ContractsProvider";
 
 const defaultContext = {

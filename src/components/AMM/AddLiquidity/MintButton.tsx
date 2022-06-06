@@ -1,69 +1,32 @@
 import { useContext } from "react"
 import { Button, Container, Text } from "@chakra-ui/react"
-import { ethers } from "ethers"
 import { useWeb3React } from "@web3-react/core"
-import { Percent, JSBI } from "quickswap-sdk"
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
-import { calculateSlippageAmount, isSufficientBalance } from "../../../utils"
-import { GlobalConst } from "../../../Constants"
+import { isSufficientBalance } from "../../../lib/utils"
 import { ContractContext } from "../../../Provider/ContractsProvider"
+import { addLiquidityTx } from "../../../lib/smart-contracts/addLiquidity"
 
 const MintButton: React.FC = () => {
-    const { router2, factory } = useContext(ContractContext)
+    const contract = useContext(ContractContext)
     const { library, account } = useWeb3React()
     const { isPool, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance, pair } = useContext(AddLiquidityContext)
-    const handleCreatePool = async() => {
+
+    const handleAddLiquidityTx = () => {
         try {
-            console.log(router2 , factory , pair , token0Amount?.toExact() , token1Amount?.toExact())
-            if (router2 && factory && pair && token0Amount && token1Amount) {
-                const slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
-                const amountA = pair.token0.equals(token0Amount.token) ? token0Amount : token1Amount;
-                const amountB =  pair.token1.equals(token0Amount.token) ? token0Amount : token1Amount;
-                const minAmount0 = calculateSlippageAmount(amountA, slippage)
-                const minAmount1 = calculateSlippageAmount(amountB, slippage)
-                const deadline = await library.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
-
-                console.log("token A: " + pair.token0.address)
-                console.log("token B: " + pair.token1.address)
-                console.log("amount A: " + amountA.raw.toString())
-                console.log("amount B: " + amountB.raw.toString())
-                console.log("minimum amount A: " + ethers.utils.parseEther(minAmount0[0].toString()).toString())
-                console.log("minimum amount B: " + ethers.utils.parseEther(minAmount1[0].toString()).toString())
-                console.log("account address: " + account)
-                console.log("deadline: " + deadline)
-
-                const gas = await router2.estimateGas.addLiquidity(
-                    pair.token0.address,
-                    pair.token1.address,
-                    amountA.raw.toString(),
-                    amountB.raw.toString(),
-                    ethers.utils.parseEther(minAmount0[0].toString()),
-                    ethers.utils.parseEther(minAmount1[0].toString()),
-                    account,
-                    deadline,
-                    {gasLimit: 3000000}
-                ) 
-
-                console.log("Gas cost: " + ethers.utils.formatEther(gas.toString()))
-                
-                const tx = await router2.addLiquidity(
-                    pair.token0.address,
-                    pair.token1.address,
-                    amountA.raw.toString(),
-                    amountB.raw.toString(),
-                    ethers.utils.parseEther(minAmount0[0].toString()),
-                    ethers.utils.parseEther(minAmount1[0].toString()),
-                    account,
-                    deadline,
-                    {gasLimit: gas}
-                ) 
-                const receipt = await tx.wait()
-                console.log(receipt)
+            if (token0Amount && token1Amount) {
+                addLiquidityTx({
+                    router2: contract.router2,
+                    pair: pair,
+                    amount0: token0Amount,
+                    amount1: token1Amount,
+                    userAddress: account ?? "",
+                }, library).then()
             }
         } catch (error) {
             console.log(error)
         }
     }
+
     return (
         <>
         {token0 && token1 ?
@@ -73,9 +36,9 @@ const MintButton: React.FC = () => {
                 {token0Balance && token1Balance && isSufficientBalance(token0Amount.toExact(), token0Balance, token1Amount.toExact(), token1Balance) ?
                     <>
                     {isPool ? 
-                        <Button onClick={handleCreatePool} mt="5" w="100%" h="3.5rem" bg="blue.500" >Add Liquidity</Button>
+                        <Button onClick={handleAddLiquidityTx}  disabled={!isApproved?.token0  || !isApproved.token1} mt="5" w="100%" h="3.5rem" bg="blue.500" >Add Liquidity</Button>
                         :
-                        <Button onClick={handleCreatePool} disabled={!isApproved?.token0  || !isApproved.token1} mt="5" w="100%" h="3.5rem" bg={!isApproved?.token0 || !isApproved.token1 ? "gray.700" : "blue.500"} >Create pool</Button>
+                        <Button onClick={handleAddLiquidityTx} disabled={!isApproved?.token0  || !isApproved.token1} mt="5" w="100%" h="3.5rem" bg={!isApproved?.token0 || !isApproved.token1 ? "gray.700" : "blue.500"} >Create pool</Button>
                     }
                     </>
                     :

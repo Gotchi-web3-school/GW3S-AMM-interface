@@ -27,6 +27,14 @@ export type AddLiquidity = {
     dispatch: (action: any, state?: Object,) => void,
 }
 
+export type AddLiquidityTx = {
+    router2: ethers.Contract,
+    pair: Pair,
+    amount0: TokenAmount,
+    amount1: TokenAmount,
+    userAddress: string,
+}
+
 export type Contract = {
     factory: ethers.Contract | undefined,
     router2: ethers.Contract | undefined, 

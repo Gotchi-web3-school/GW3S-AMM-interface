@@ -19,7 +19,7 @@ import {
 import { AddLiquidityContext } from "../../Provider/AddLiquidityProvider"
 import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
 import { SelectToken } from "../../Models"
-import { fetchTokenData } from "../../utils"
+import { fetchTokenData } from "../../lib/utils"
 import TokenSelect from "../AMM/TokenSelect"
 import { Token } from "quickswap-sdk";
 

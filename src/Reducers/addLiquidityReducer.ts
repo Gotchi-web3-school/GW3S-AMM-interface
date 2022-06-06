@@ -32,15 +32,12 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
                 const inputId = action.payload.id;
                 // Take the entry of user and put it to a big Number
                 const inputAmount = ethers.utils.parseEther(FixedNumber.fromString(action.payload.amount, 18).toString());
-                console.log(inputAmount)
-                console.log(ethers.utils.parseEther(inputAmount.toString()).gt("0"))
                 // If pool is already created
                 if (isPool && token1 && token0 && ethers.utils.parseEther(inputAmount.toString()).gt("0")) {
                     const amount = new TokenAmount(inputId ? token1 : token0, JSBI.BigInt(inputAmount))
                     if (inputId === 0) {
                         // using the entry calcul the rate of the second token
                         const amount1 = JSBI.BigInt(inputAmount.mul(reserves.denominator.toString()).div(reserves.numerator.toString()).toString())
-                        console.log(amount1)
                         const pairedAmount = new TokenAmount(token1, amount1)
                         return {...state, token0Amount: amount, token1Amount: pairedAmount}
                     } else {
