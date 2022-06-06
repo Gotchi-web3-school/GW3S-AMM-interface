@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { useWeb3React } from "@web3-react/core";
-import {Button, Box, Center, Stack, Spinner } from "@chakra-ui/react";
+import {Button, Box, Center, Stack, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon } from '@chakra-ui/icons';
 import { injected } from '../../../Connectors/connectors';
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider";
@@ -16,6 +16,7 @@ const AddLiquidity: React.FC = () => {
   const { active, activate } = useWeb3React();
   const { pair, isApproved } = useContext(AddLiquidityContext);
   const { ERC20 } = useContext(ContractContext);
+  const toast = useToast()
   const [loading0, setLoading0] = useState<boolean>(false)
   const [loading1, setLoading1] = useState<boolean>(false)
 
@@ -24,13 +25,35 @@ const AddLiquidity: React.FC = () => {
       const contract = ERC20?.attach(token.address)
       const tx = await contract?.approve(GlobalConst.addresses.ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
       idx === 0 ? setLoading0(true) : setLoading1(true)
+      toast({
+        title: `Approve: ${token.symbol}`,
+        description: `transaction pending at: ${tx.hash}`,
+        position: "top-right",
+        status: "warning",
+        isClosable: true,
+        })
       const receipt = await tx.wait()
+      toast({
+        title: `Approve: ${token.symbol}`,
+        description: `${token.symbol} token approved successfully !`,
+        position: "top-right",
+        status: "success",
+        duration: 6000,
+        isClosable: true,
+        })
       console.log(receipt)
       idx === 0 ? setLoading0(false) : setLoading1(false)
       if (isApproved) 
         idx === 0 ? isApproved.token0 = true : isApproved.token1 = true
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      toast({
+        position: "bottom-right",
+        title: 'An error occurred.',
+        description: `Add Liquidity: ${error.message}`,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
       idx === 0 ? setLoading0(false) : setLoading1(false)
     }
   }
