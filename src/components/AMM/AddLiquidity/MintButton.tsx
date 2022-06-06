@@ -14,11 +14,11 @@ const MintButton: React.FC = () => {
     const { isPool, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance, pair } = useContext(AddLiquidityContext)
     const handleCreatePool = async() => {
         try {
-            console.log(router2 , factory , pair , token0Amount?.bigAmount , token1Amount?.bigAmount)
-            if (router2 && factory && pair && token0Amount?.bigAmount && token1Amount?.bigAmount) {
+            console.log(router2 , factory , pair , token0Amount?.toExact() , token1Amount?.toExact())
+            if (router2 && factory && pair && token0Amount && token1Amount) {
                 const slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
-                const amountA = pair.token0.equals(token0Amount.bigAmount.token) ? token0Amount.bigAmount : token1Amount.bigAmount;
-                const amountB =  pair.token1.equals(token0Amount.bigAmount.token) ? token0Amount.bigAmount : token1Amount.bigAmount;
+                const amountA = pair.token0.equals(token0Amount.token) ? token0Amount : token1Amount;
+                const amountB =  pair.token1.equals(token0Amount.token) ? token0Amount : token1Amount;
                 const minAmount0 = calculateSlippageAmount(amountA, slippage)
                 const minAmount1 = calculateSlippageAmount(amountB, slippage)
                 const deadline = await library.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
@@ -68,9 +68,9 @@ const MintButton: React.FC = () => {
         <>
         {token0 && token1 ?
             <>
-            {token0Amount?.value && token1Amount?.value ?
+            {token0Amount && token1Amount ?
                 <>
-                {token0Balance && token1Balance && isSufficientBalance(token0Amount.value, token0Balance, token1Amount.value, token1Balance) ?
+                {token0Balance && token1Balance && isSufficientBalance(token0Amount.toExact(), token0Balance, token1Amount.toExact(), token1Balance) ?
                     <>
                     {isPool ? 
                         <Button onClick={handleCreatePool} mt="5" w="100%" h="3.5rem" bg="blue.500" >Add Liquidity</Button>

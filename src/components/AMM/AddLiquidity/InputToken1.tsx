@@ -39,7 +39,7 @@ const InputToken1: React.FC = () => {
               placeholder="0.0"
               color={useColorModeValue("gray.900", "white")}
               id="swap"
-              value={token1Amount?.value ?? ''}
+              value={token1Amount?.toExact() ?? ''}
               onChange={e =>  dispatch({type: "HANDLE_INPUTS", payload: {id: 1, amount: e.target.value}})}
               required
             />
