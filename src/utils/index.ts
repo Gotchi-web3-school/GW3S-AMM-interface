@@ -58,8 +58,8 @@ export function calculateSlippageAmount(value: TokenAmount, slippage: Percent): 
     return [value.multiply(ONE.subtract(slippage)).quotient, value.multiply(ONE.add(slippage)).quotient]
 }
 
-export const calculateShare = (token0: Token, token0Amount: TokenAmount, reserves: Fraction): string => {
-    const reserve0 = new TokenAmount(token0, reserves.numerator)
+export const calculateShare = (pair: Pair, token0Amount: TokenAmount, reserves: Fraction): string => {
+    const reserve0 = new TokenAmount(token0Amount.token, pair.token0.equals(token0Amount.token) ? reserves.numerator : reserves.denominator)
     const newTotal = reserve0.add(token0Amount)
     const result = token0Amount.multiply("100").divide(newTotal).toSignificant(2)
     return result;

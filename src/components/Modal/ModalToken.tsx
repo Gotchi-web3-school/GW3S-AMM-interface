@@ -100,7 +100,7 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
                         py="2rem" borderRadius={"0"} 
                         bg="0" 
                         key={key} 
-                        onClick={() =>  dispatch({type: "SET_TOKEN", payload: {id: idx, token: tokens[key], onClose: onClose}})}
+                        onClick={() =>  {dispatch({type: "SET_TOKEN", payload: {id: idx, token: tokens[key]}});  onClose()}}
                       >
                         <TokenSelect token={new Token(token.chainId, token.address, token.decimals)} img={token.logoURI} />
                       </Button>

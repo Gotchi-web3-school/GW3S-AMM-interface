@@ -11,29 +11,29 @@ import { ContractContext } from "../../../Provider/ContractsProvider"
 const MintButton: React.FC = () => {
     const { router2, factory } = useContext(ContractContext)
     const { library, account } = useWeb3React()
-    const { isPool, pair, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
+    const { isPool, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance } = useContext(AddLiquidityContext)
     const handleCreatePool = async() => {
         try {
-            if (pair && router2 && factory) {
-                const  slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
-                const amountA = pair.reserve0;
-                const amountB = pair.reserve1;
+            if (router2 && factory && token0 && token1 && token0Amount?.bigAmount && token1Amount?.bigAmount) {
+                const slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
+                const amountA = token0Amount.bigAmount;
+                const amountB = token1Amount.bigAmount;
                 const minAmount0 = calculateSlippageAmount(amountA, slippage)
                 const minAmount1 = calculateSlippageAmount(amountB, slippage)
                 const deadline = await library.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
 
-                console.log(pair.token0.address)
-                console.log(pair.token1.address)
+                console.log(token0.address)
+                console.log(token1.address)
                 console.log(amountA.raw.toString())
                 console.log(amountB.raw.toString())
                 console.log(minAmount0[0].toString())
-                console.log(minAmount1[1].toString())
+                console.log(minAmount1[0].toString())
                 console.log(account)
                 console.log(deadline)
 
                 const gas = await router2.estimateGas.addLiquidity(
-                    pair.token0.address,
-                    pair.token1.address,
+                    token1.address,
+                    token0.address,
                     amountA.raw.toString(),
                     amountB.raw.toString(),
                     ethers.utils.parseEther(minAmount0[0].toString()),
@@ -46,8 +46,8 @@ const MintButton: React.FC = () => {
                 console.log(ethers.utils.formatEther(gas.toString()))
                 
                 const tx = await router2.addLiquidity(
-                    pair.token0.address,
-                    pair.token1.address,
+                    token1.address,
+                    token0.address,
                     amountA.raw.toString(),
                     amountB.raw.toString(),
                     ethers.utils.parseEther(minAmount0[0].toString()),
@@ -58,7 +58,6 @@ const MintButton: React.FC = () => {
                 ) 
                 const receipt = await tx.wait()
                 console.log(receipt)
-                
             }
         } catch (error) {
             console.log(error)

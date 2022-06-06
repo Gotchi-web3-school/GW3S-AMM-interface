@@ -4,21 +4,21 @@ import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
 import { calculateShare, rate } from "../../../utils"
 
 const PoolShare: React.FC = () => {
-    const { isPool, token0, token1, reserves, token0Amount, token1Amount, pair} = useContext(AddLiquidityContext)
+    const { isPool, reserves, token0Amount, token1Amount, pair} = useContext(AddLiquidityContext)
     const [share, setShare] = useState<string>("100")
 
     useEffect(() => {
-        if (isPool && token0Amount?.bigAmount && token0 && token1) {
+        if (isPool && token0Amount?.bigAmount && pair) {
             try {
-                setShare(calculateShare(token0, token0Amount.bigAmount, reserves))
+                setShare(calculateShare(pair, token0Amount.bigAmount, reserves))
             } catch (error) {
                 console.log(error)
             }
         } else {
             setShare("100")
         }
-    }, [isPool, token0, token1, token0Amount, reserves])
-
+    }, [isPool, pair, token0Amount, reserves])
+    
     return (
         <Box
             mt="2rem"
@@ -37,14 +37,14 @@ const PoolShare: React.FC = () => {
                     <Center>
                         <Text>{isPool ? reserves.toSignificant(2) : rate(token0Amount?.value, token1Amount?.value)}</Text>
                     </Center>
-                    <Text fontSize="sm">{pair?.token1?.symbol} per {pair?.token0?.symbol}</Text>
+                    <Text fontSize="sm">{pair?.token0?.symbol} per {pair?.token1?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Center>
                         <Text>{isPool ? reserves.invert().toSignificant(2) : rate(token1Amount?.value, token0Amount?.value)}</Text>
                     </Center>
-                    <Text fontSize="sm">{pair?.token0?.symbol} per {pair?.token1?.symbol}</Text>
+                    <Text fontSize="sm">{pair?.token1?.symbol} per {pair?.token0?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>

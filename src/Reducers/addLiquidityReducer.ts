@@ -33,21 +33,21 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
             try {
                 if (isPool && token1 && token0 && parseFloat(inputAmount) > 0) {
                     const amount = new TokenAmount(inputId ? token1 : token0, JSBI.BigInt(ethers.utils.parseEther(inputAmount)))
-                    if (inputId) {
-                        const pairedAmount = new TokenAmount(token0, amount.multiply(reserves.numerator).divide(reserves.denominator).quotient)
+                    if (inputId === 0) {
+                        const pairedAmount = new TokenAmount(token0, JSBI.BigInt(ethers.utils.parseEther(amount.multiply(reserves.denominator).divide(reserves.numerator).toSignificant(18))))
                         const pairedInputAmount = amount.multiply(reserves.numerator).divide(reserves.denominator).toSignificant(18)
-                        return {
-                            ...state,
-                            token0Amount: {value: pairedInputAmount, bigAmount: pairedAmount},
-                            token1Amount: {value: inputAmount, bigAmount: amount},
-                        }
-                    } else {
-                        const pairedAmount = new TokenAmount(token1, JSBI.BigInt(ethers.utils.parseEther(amount.multiply(reserves.denominator).divide(reserves.numerator).quotient.toString())))
-                        const pairedInputAmount = amount.multiply(reserves.denominator).divide(reserves.numerator).toSignificant(18)
                         return {
                             ...state,
                             token0Amount: {value: inputAmount, bigAmount: amount},
                             token1Amount: {value: pairedInputAmount, bigAmount: pairedAmount},
+                        }
+                    } else {
+                        const pairedAmount = new TokenAmount(token1, JSBI.BigInt(ethers.utils.parseEther(amount.multiply(reserves.denominator).divide(reserves.numerator).toSignificant(18))))
+                        const pairedInputAmount = amount.multiply(reserves.denominator).divide(reserves.numerator).toSignificant(18)
+                        return {
+                            ...state,
+                            token0Amount: {value: pairedInputAmount, bigAmount: pairedAmount},
+                            token1Amount: {value: inputAmount, bigAmount: amount},
                         }
                     }
                 } else if (inputAmount === "" && state.isPool) {
