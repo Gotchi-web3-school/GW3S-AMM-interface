@@ -9,7 +9,7 @@ import { addLiquidityTx } from "../../../lib/smart-contracts/addLiquidity"
 const MintButton: React.FC = () => {
     const contract = useContext(ContractContext)
     const { library, account } = useWeb3React()
-    const { isPool, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance, pair } = useContext(AddLiquidityContext)
+    const { isPool, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance, pair, dispatch } = useContext(AddLiquidityContext)
 
     const handleAddLiquidityTx = () => {
         try {
@@ -20,7 +20,7 @@ const MintButton: React.FC = () => {
                     amount0: token0Amount,
                     amount1: token1Amount,
                     userAddress: account ?? "",
-                }, library).then()
+                }, library).then(() => dispatch({type: "RESET"}))
             }
         } catch (error) {
             console.log(error)

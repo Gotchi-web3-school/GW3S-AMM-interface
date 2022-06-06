@@ -64,7 +64,7 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
                     new TokenAmount(token0, ethers.utils.parseEther(token0Amount?.toExact() ?? '0').toString()),
                     new TokenAmount(token1, ethers.utils.parseEther(token1Amount?.toExact() ?? '0').toString()),
                     );
-                return  {...state, pair: pair}
+                return  {...state, pair: pair, isApproved: undefined}
             } else {
                 return {...state}
             }
@@ -77,6 +77,11 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
         
         case "SET_APPROVED":
             return {...state, isApproved: action.payload.isApproved};
+
+        case "RESET":
+            const newToken0 = token0 && new Token(token0.chainId, token0.address, token0.decimals, token0.symbol, token0.name)
+            const newToken1 = token1 && new Token(token1.chainId, token1.address, token1.decimals, token1.symbol, token1.name)
+            return {...state, token0: newToken0, token1: newToken1}
             
       default:
         throw new Error(`Unsupported action type ${action.type} in userReducer`)

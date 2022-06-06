@@ -13,7 +13,7 @@ import PoolShare from "./PoolShare";
 import MintButton from "./MintButton";
 
 const AddLiquidity: React.FC = () => {
-  const {active, activate} = useWeb3React();
+  const { active, activate } = useWeb3React();
   const { pair, isApproved } = useContext(AddLiquidityContext);
   const { ERC20 } = useContext(ContractContext);
   const [loading0, setLoading0] = useState<boolean>(false)
@@ -34,7 +34,7 @@ const AddLiquidity: React.FC = () => {
       idx === 0 ? setLoading0(false) : setLoading1(false)
     }
   }
-  console.log(pair && isApproved?.token0)
+
   return (
     <Box >
       <InputToken0 />
