@@ -28,10 +28,10 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
                 return {...state, token1Balance: new TokenAmount(action.payload.token, ethers.utils.parseEther(action.payload.amount).toString())}
 
         case 'HANDLE_INPUTS':
+            const inputId = action.payload.id;
             try {
-                const inputId = action.payload.id;
                 // Take the entry of user and put it to a big Number
-                const inputAmount = ethers.utils.parseEther(FixedNumber.fromString(action.payload.amount, 18).toString());
+                const inputAmount = ethers.utils.parseEther(FixedNumber.from(action.payload.amount, 18).toString());
                 // If pool is already created
                 if (isPool && token1 && token0 && ethers.utils.parseEther(inputAmount.toString()).gt("0")) {
                     const amount = new TokenAmount(inputId ? token1 : token0, JSBI.BigInt(inputAmount))
@@ -55,7 +55,7 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
             }
             } catch (error) {
                 console.log(error)
-                return {...state, token1Amount: undefined, token0Amount: undefined}         
+                return inputId ? {...state, token1Amount: undefined} : {...state, token0Amount: undefined};
             }
 
         case "SET_PAIR":
