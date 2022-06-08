@@ -11,7 +11,28 @@ export type SelectToken = {
     isSearched?: boolean;
 }
 
+export type PairTokens = {
+    pair: Pair | undefined;
+    logoURI?: {tokenA: string, tokenB: string} | undefined;
+}
+
 export type AddLiquidity = {
+    token0: Token | undefined,
+    token0Logo: string | undefined,
+    token0Balance: TokenAmount| undefined,
+    token0Amount: TokenAmount | undefined,
+    token1: Token | undefined, 
+    token1Logo: string | undefined,
+    token1Balance: TokenAmount| undefined,
+    token1Amount: TokenAmount| undefined,
+    pair: Pair | undefined,
+    isPool: Boolean,
+    isApproved: {token0: boolean, token1: boolean} | undefined,
+    reserves: Fraction,
+    dispatch: (action: any, state?: Object,) => void,
+}
+
+export type RemoveLiquidity = {
     token0: Token | undefined,
     token0Logo: string | undefined,
     token0Balance: TokenAmount| undefined,

@@ -3,6 +3,8 @@ import Swap from "./Swap/Swap"
 import AddLiquidity from "./AddLiquidity/AddLiquidity"
 import Analytics from "./Swap/Analytics"
 import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider"
+import { RemoveLiquidityContextProvider } from "../../Provider/RemoveLiquidityProvider"
+import Pools from "./LiquidityPools/Pools"
 
 const AMM: React.FC = () => {
     return (
@@ -23,6 +25,7 @@ const AMM: React.FC = () => {
                 <TabList mb='2rem'>
                     <Tab>Swap</Tab>
                     <Tab>Add liquidity</Tab>
+                    <Tab>Remove liquidity</Tab>
                 </TabList>
 
                 <TabPanels>
@@ -33,6 +36,11 @@ const AMM: React.FC = () => {
                         <AddLiquidityContextProvider>
                           <AddLiquidity />
                         </AddLiquidityContextProvider>
+                    </TabPanel>
+                    <TabPanel>
+                        <RemoveLiquidityContextProvider>
+                          <Pools />
+                        </RemoveLiquidityContextProvider>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

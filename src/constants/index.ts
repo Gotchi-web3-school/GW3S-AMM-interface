@@ -9,10 +9,13 @@ export enum TxnType {
 
 export const GlobalConst = {
   addresses: {
-    M_ROUTER_ADDRESS: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
-    M_FACTORY_ADDRESS: '0xfd550297e1875eA5C4ecc046c23E84CCa29FD437',
-    ROUTER_ADDRESS: '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff',
-    FACTORY_ADDRESS: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
+    // MY Factory + Router (mumbai)
+    FACTORY_ADDRESS: '0x65899Dc47C2a9C91a06b055C58426d51cC0543BB',
+    ROUTER_ADDRESS: '0xda45E58e16592ff992b338B65Ce315857dF1AB8A',
+
+    // QUICKSWAP Factory + Router (mumbai)
+    //FACTORY_ADDRESS: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
+    //ROUTER_ADDRESS: '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff',
     ZERO_ADDRESS: '0x0000000000000000000000000000000000000000',
   },
   utils: {
@@ -26,7 +29,7 @@ export const GlobalConst = {
     BUNDLE_ID: '1',
     PROPOSAL_LENGTH_IN_DAYS: 7, // TODO this is only approximate, it's actually based on blocks
     NetworkContextName: 'NETWORK',
-    INITIAL_ALLOWED_SLIPPAGE: 50, // default allowed slippage, in bips
+    INITIAL_ALLOWED_SLIPPAGE: "50", // default allowed slippage, in bips
     DEFAULT_DEADLINE_FROM_NOW: 60 * 20, // 20 minutes, denominated in seconds
     BIG_INT_ZERO: JSBI.BigInt(0),
     ONE_BIPS: new Percent(JSBI.BigInt(1), JSBI.BigInt(10000)), // one basis point
@@ -64,6 +67,7 @@ export const GlobalValue = {
     ), // 15%
   },
 };
+
 
 export const abis = {
   erc20: [

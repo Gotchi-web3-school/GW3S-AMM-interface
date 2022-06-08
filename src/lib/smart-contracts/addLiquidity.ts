@@ -25,33 +25,32 @@ export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
         console.log("token B: " + tx.pair?.token1.address)
         console.log("amount A: " + amountA.raw.toString())
         console.log("amount B: " + amountB.raw.toString())
-        console.log("minimum amount A: " + ethers.utils.parseEther(minAmount0[0].toString()).toString())
-        console.log("minimum amount B: " + ethers.utils.parseEther(minAmount1[0].toString()).toString())
+        console.log("minimum amount A: " +  ethers.utils.parseEther(minAmount0[0]))
+        console.log("minimum amount B: " +  ethers.utils.parseEther(minAmount1[0]))
         console.log("userAddress address: " + tx.userAddress)
         console.log("deadline: " + deadline)
     
-        // Estimation of the gas cost
+        //Estimation of the gas cost
         const gas = await tx.router2?.estimateGas.addLiquidity(
             tx.pair?.token0.address,
             tx.pair?.token1.address,
             amountA.raw.toString(),
             amountB.raw.toString(),
-            ethers.utils.parseEther(minAmount0[0].toString()),
-            ethers.utils.parseEther(minAmount1[0].toString()),
+            ethers.utils.parseEther(minAmount0[0]),
+            ethers.utils.parseEther(minAmount1[0]),
             tx.userAddress,
             deadline,
-            {gasLimit: 3000000}
         ) 
     
-        console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + "MATIC"))
+        console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
         const transaction = await tx.router2?.addLiquidity(
             tx.pair?.token0.address,
             tx.pair?.token1.address,
             amountA.raw.toString(),
             amountB.raw.toString(),
-            ethers.utils.parseEther(minAmount0[0].toString()),
-            ethers.utils.parseEther(minAmount1[0].toString()),
+            ethers.utils.parseEther(minAmount0[0]),
+            ethers.utils.parseEther(minAmount1[0]),
             tx.userAddress,
             deadline,
             {gasLimit: gas}
@@ -78,6 +77,7 @@ export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
         console.log(receipt)
         
     } catch (error: any) {
+        console.log(error)
         tx.toast({
             position: "bottom-right",
             title: 'An error occurred.',

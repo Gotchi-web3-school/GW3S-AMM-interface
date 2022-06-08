@@ -1,5 +1,5 @@
 import { AddLiquidity } from "../Models"
-import { Token, TokenAmount, JSBI, Pair } from "quickswap-sdk"
+import { Token, TokenAmount, JSBI, Pair, Fraction } from "quickswap-sdk"
 import { ethers, FixedNumber } from "ethers"
 
 export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquidity => {
@@ -73,7 +73,10 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
             return {...state, isPool: action.payload.isPool};
         
         case "SET_RESERVES":
-            return {...state, reserves: action.payload.reserves};
+            if (action.payload.reserves.numerator.toString() === "0")
+                return {...state, reserves: new Fraction("1", "1")};
+            else
+                return {...state, reserves: action.payload.reserves};
         
         case "SET_APPROVED":
             return {...state, isApproved: action.payload.isApproved};

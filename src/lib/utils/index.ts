@@ -1,5 +1,5 @@
 import { Web3Provider } from '@ethersproject/providers';
-import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount, JSBI } from 'quickswap-sdk';
+import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount } from 'quickswap-sdk';
 import { abis, GlobalConst} from '../../Constants';
 import { ethers } from "ethers";
 import { SelectToken } from '../../Models';
@@ -53,10 +53,10 @@ export const fetchReserves = async(pair: Pair, token0: Token, contract: any): Pr
     }
 } 
 
-export function calculateSlippageAmount(value: TokenAmount, slippage: Percent): [JSBI, JSBI] {
+export function calculateSlippageAmount(value: TokenAmount, slippage: Percent): [string, string] {
     const ONE = new Fraction('1', '1');
     if (slippage.lessThan('0') || slippage.greaterThan(ONE)) throw new Error('Unexpected slippage')
-    return [value.multiply(ONE.subtract(slippage)).quotient, value.multiply(ONE.add(slippage)).quotient]
+    return [value.multiply(ONE.subtract(slippage)).toSignificant(3), value.multiply(ONE.add(slippage)).toSignificant(3)]
 }
 
 export const calculateShare = (pair: Pair, token0Amount: TokenAmount, reserves: Fraction): string => {
