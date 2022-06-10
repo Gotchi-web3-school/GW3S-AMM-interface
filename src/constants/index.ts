@@ -1,5 +1,6 @@
 /* eslint-disable no-multi-str */
-import {Percent, JSBI} from "quickswap-sdk"
+import {Percent, JSBI, Pair, Token, TokenAmount} from "quickswap-sdk"
+import { Pool } from "../Models";
 
 export enum TxnType {
   SWAP,
@@ -68,6 +69,55 @@ export const GlobalValue = {
   },
 };
 
+export const DEFAULT_TOKENS = [
+  new Token( 80001, "0x8086A8fC26e6305bAD05E9347fb14c993c840814", 18, "GHST", "GW3S Aavegotchi GHST Token"),
+  new Token( 80001, "0x9E3bcc9CB64f808cD9F771978D591a15625625E6", 18, "DAI", "GW3S Dai Stablecoin"),
+  new Token( 80001, "0x71D6Ec51a5FB485A6Cdf67dC6D3f1e92D6b89bf1", 18, "ETH", "GW3S Ether"),
+  new Token( 80001, "0x5619C0127CFF69FA1c371B81CcD7BC19423AB886", 18, "FUD", "GW3S Aavegotchi FUD"),
+  new Token( 80001, "0x084a0dD72D769d6f015590D29D125f0884DefC41", 18, "FOMO", "GW3S Aavegotchi FOMO"),
+  new Token( 80001, "0xC9258d7c67eEbD9490f352B04E211fD2D8999e2c", 18, "ALPHA", "GW3S Aavegotchi ALPHA"),
+  new Token( 80001, "0x08B3933C662B1ea64f8A1B0465ceBEbb53C4d564", 18, "KEK", "GW3S Aavegotchi KEK"),
+  new Token( 80001, "0x240c7dc7C2Fb064f0852289F0b756a46FA0fc335", 18, "AAVE", "GW3S Aave"),
+  new Token( 80001, "0xAb11F2308db8ac43703A4d1846c56030E6b61AE1", 18, "UNI", "GW3S Uniswap"),
+  new Token( 80001, "0x1080E133779343e7Cb90bB94a750A7067304791A", 18, "USDC", "GW3S USD Coin"),
+  new Token( 80001, "0x5D116F9aAe59b7c35be7a377E7140fb7C337F285", 18, "USDT", "GW3S Tether USD"),
+  new Token( 80001, "0xC49b0Dd13aa87640Bfa9DCB6B5E84B0453CECBF8", 18, "WMATIC", "GW3S Wrapped Matic"),
+  new Token( 80001, "0xa5F7fBF20922185aDcF07c68e30994959e0CB361", 18, "WBTC", "GW3S Wrapped Bitcoin"),
+  new Token( 80001, "0x6E074085f4f3030cfb0D4E29789233Dac84a2a3B", 18, "LINK", "ChainLink Token"),
+]
+
+export const DEFAULT_LOGOS = [
+  "https://wiki.aavegotchi.com/ghst/ghst.gif",
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+  "https://assets.coingecko.com/coins/images/24736/small/fud.png?1648769512",
+  "https://assets.coingecko.com/coins/images/24737/small/fomo.png?1648769659",
+  "https://assets.coingecko.com/coins/images/24738/small/alpha.png?1648769768",
+  "https://assets.coingecko.com/coins/images/24739/small/kek.png?1648769879",
+  "https://etherscan.io/token/images/aave_32.png",
+  "https://cryptologos.cc/logos/uniswap-uni-logo.png?v=022",
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png",
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png",
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png",
+]
+
+export const DEFAULT_POOLS = [
+  new Pool("GHST - DAI", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[1], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[1]}),
+  new Pool("GHST - WETH", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[2], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[2]}),
+  new Pool("GHST - FUD", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[3], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[3]}),
+  new Pool("GHST - FOMO", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[4], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[4]}),
+  new Pool("GHST - ALPHA", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[5], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[5]}),
+  new Pool("GHST - KEK", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[6], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[6]}),
+  new Pool("GHST - AAVE", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[7], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[7]}),
+  new Pool("GHST - UNI", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[8], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[8]}),
+  new Pool("GHST - USDC", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[9], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[9]}),
+  new Pool("GHST - USDT", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[10], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[10]}),
+  new Pool("GHST - WMATIC", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[11], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[11]}),
+  new Pool("GHST - WBTC", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[12], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[12]}),
+  new Pool("GHST - LINK", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[13], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[13]}),
+]
 
 export const abis = {
   erc20: [

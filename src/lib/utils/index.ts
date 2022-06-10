@@ -76,5 +76,5 @@ export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount,
 
 export const rate = (amount0: string = "0", amount1: string = "0"): number | string => {
     const result = parseFloat(amount0) / parseFloat(amount1)
-    return isNaN(result) ? "0" : result
+    return isNaN(result) ? "0" : result.toPrecision(4)
 }

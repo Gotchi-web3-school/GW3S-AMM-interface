@@ -1,17 +1,4 @@
 export const DEFAULT_TOKEN_LIST_URL = {
-    "name": "GW3S  Quickswap Token List",
-    "timestamp": "2022-05-11T12:14:07.498Z",
-    "version": {
-      "major": 1,
-      "minor": 2,
-      "patch": 34
-    },
-    "tags": {},
-    "logoURI": "ipfs://QmQ9GCVmLQkbPohxKeCYkbpmwfTvHXrY64TmBsPQAZdbqZ",
-    "keywords": [
-        "uniswap",
-        "default"
-    ],
     "tokens": [
         {
         "name": "GW3S Dai Stablecoin",
@@ -54,7 +41,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
             "logoURI": "https://assets.coingecko.com/coins/images/24738/small/alpha.png?1648769768"
         },
         {
-            "name": "GW3S  Aavegotchi KEK",
+            "name": "GW3S Aavegotchi KEK",
             "address": "0x08B3933C662B1ea64f8A1B0465ceBEbb53C4d564",
             "symbol": "KEK",
             "decimals": 18,
@@ -62,7 +49,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
             "logoURI": "https://assets.coingecko.com/coins/images/24739/small/kek.png?1648769879"
         },
         {
-        "name": "GW3S  Aave",
+        "name": "GW3S Aave",
         "address": "0x240c7dc7C2Fb064f0852289F0b756a46FA0fc335",
         "symbol": "AAVE",
         "decimals": 18,
@@ -94,7 +81,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
         },
         {
-        "name": "GW3S  Tether USD",
+        "name": "GW3S Tether USD",
         "address": "0x5D116F9aAe59b7c35be7a377E7140fb7C337F285",
         "symbol": "USDT",
         "decimals": 18,
@@ -102,7 +89,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
         },
         {
-        "name": "GW3S  Wrapped Matic",
+        "name": "GW3S Wrapped Matic",
         "address": "0xC49b0Dd13aa87640Bfa9DCB6B5E84B0453CECBF8",
         "symbol": "WMATIC",
         "decimals": 18,
@@ -110,7 +97,7 @@ export const DEFAULT_TOKEN_LIST_URL = {
         "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"
         },
         {
-            "name": "GW3S  Wrapped BTC",
+            "name": "GW3S Wrapped Bitcoin",
             "address": "0xa5F7fBF20922185aDcF07c68e30994959e0CB361",
             "symbol": "WBTC",
             "decimals": 18,

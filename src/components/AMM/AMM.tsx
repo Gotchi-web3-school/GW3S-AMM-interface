@@ -1,18 +1,21 @@
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from "@chakra-ui/react"
 import Swap from "./Swap/Swap"
 import AddLiquidity from "./AddLiquidity/AddLiquidity"
-import Analytics from "./Swap/Analytics"
+//import Analytics from "./Swap/Analytics"
 import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider"
-import { RemoveLiquidityContextProvider } from "../../Provider/RemoveLiquidityProvider"
-import Pools from "./LiquidityPools/Pools"
+//import { RemoveLiquidityContextProvider } from "../../Provider/RemoveLiquidityProvider"
+import { PoolContextProvider } from "../../Provider/PoolsProvider";
+
+import Pools from "./Pools/Pools"
 
 const AMM: React.FC = () => {
     return (
-        <Flex flexDirection="column">
+        <Flex  flexDirection="column" >
             <Tabs 
             isFitted variant="enclosed"
-            maxW="7xl"
             mx={"auto"}
+            overflow={"scroll"}
+            width="md !important"
             pt={5}
             px={{ base: 2, sm: 5, md: 17 }}
             py={4}
@@ -24,6 +27,7 @@ const AMM: React.FC = () => {
             >
                 <TabList mb='2rem'>
                     <Tab>Swap</Tab>
+                    <Tab>Pools</Tab>
                     <Tab>Add liquidity</Tab>
                     <Tab>Remove liquidity</Tab>
                 </TabList>
@@ -32,19 +36,21 @@ const AMM: React.FC = () => {
                     <TabPanel>
                         <Swap />
                     </TabPanel>
+                    <TabPanel p="0">
+                        <PoolContextProvider>
+                            <AddLiquidityContextProvider>
+                                <Pools />
+                            </AddLiquidityContextProvider>
+                        </PoolContextProvider>
+                    </TabPanel>
                     <TabPanel>
                         <AddLiquidityContextProvider>
                           <AddLiquidity />
                         </AddLiquidityContextProvider>
                     </TabPanel>
-                    <TabPanel>
-                        <RemoveLiquidityContextProvider>
-                          <Pools />
-                        </RemoveLiquidityContextProvider>
-                    </TabPanel>
                 </TabPanels>
             </Tabs>
-            <Analytics />
+            {/* <Analytics /> */}
 
         </Flex>
     )

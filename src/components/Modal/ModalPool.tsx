@@ -16,7 +16,7 @@ import {
     ModalCloseButton,
     useColorModeValue,
   } from '@chakra-ui/react'
-import { AddLiquidityContext } from "../../Provider/AddLiquidityProvider"
+import { PoolContext } from "../../Provider/PoolsProvider"
 import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../lib/utils"
@@ -24,8 +24,8 @@ import TokenSelect from "../AMM/AddLiquidity/TokenSelect"
 import { Token } from "quickswap-sdk";
 
 
-const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
-  let { token0, token1, dispatch } = useContext(AddLiquidityContext)
+const ModalPool: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
+  let { tokenA, tokenB, dispatch } = useContext(PoolContext)
   const { library, chainId } = useWeb3React()
   const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST_URL.tokens)
   const [searchInput, setSearchInput] = useState("")
@@ -35,7 +35,7 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
   const handleSearchButton = () => {
     if (searchedToken) {
       tokens.unshift(searchedToken)
-      dispatch({type: "SET_TOKEN", payload: {id: idx, token: searchedToken}})
+      dispatch({type: "SET_IMPORTED_TOKEN", payload: {id: idx, token: searchedToken}})
       onClose()
       setSearchInput("")
       setSearchedToken(null)
@@ -84,7 +84,7 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
             {searchInput ? 
               <Box h="50%">
                 {isSearching ? <Spinner m="5" p="2" /> : searchedToken && 
-                  <Button disabled={token0?.address === searchedToken.address || token1?.address === searchedToken.address} onClick={handleSearchButton} w="100%" py="2rem" borderRadius={"0"} bg="0">
+                  <Button disabled={tokenA?.address === searchedToken.address || tokenB?.address === searchedToken.address} onClick={handleSearchButton} w="100%" py="2rem" borderRadius={"0"} bg="0">
                     <TokenSelect token={new Token(searchedToken.chainId, searchedToken.address, searchedToken.decimals)} img={""} />
                   </Button>
                 }
@@ -93,14 +93,14 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
               <Stack >
                 {DEFAULT_TOKEN_LIST_URL.tokens.map((token, key) => {
                   tokens[key] = token
-                  const isDisabled = token0?.address === token.address || token1?.address === token.address
+                  const isDisabled = tokenA?.address === token.address || tokenB?.address === token.address
                     return (
                       <Button 
                         disabled={isDisabled} 
                         py="2rem" borderRadius={"0"} 
                         bg="0" 
                         key={key} 
-                        onClick={() =>  {dispatch({type: "SET_TOKEN", payload: {id: idx, token: tokens[key]}});  onClose()}}
+                        onClick={() =>  {dispatch({type: "SET_IMPORTED_TOKEN", payload: {id: idx, token: tokens[key]}});  onClose()}}
                       >
                         <TokenSelect token={new Token(token.chainId, token.address, token.decimals)} img={token.logoURI} />
                       </Button>
@@ -115,4 +115,4 @@ const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}>
   )
 }
 
-export default ModalTokens;
+export default ModalPool;

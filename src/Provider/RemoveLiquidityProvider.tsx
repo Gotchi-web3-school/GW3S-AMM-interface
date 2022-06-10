@@ -2,7 +2,7 @@ import { createContext, useEffect, useContext, useReducer } from "react"
 import { Fraction} from "quickswap-sdk"
 import { useWeb3React } from "@web3-react/core";
 import { addLiquidityReducer } from "../Reducers/addLiquidityReducer";
-import { RemoveLiquidity } from "../Models";
+import { RemoveLiquidityProvider } from "../Models";
 import { fetchBalance, fetchApproved, isPoolCreated, fetchReserves } from "../lib/utils";
 import { ContractContext } from "./ContractsProvider";
 
@@ -22,7 +22,7 @@ const defaultContext = {
     dispatch: (state: {}, action: any) => {},
 } 
 
-export const RemoveLiquidityContext = createContext<RemoveLiquidity>(defaultContext);
+export const RemoveLiquidityContext = createContext<RemoveLiquidityProvider>(defaultContext);
 
 export const RemoveLiquidityContextProvider = (props: any) => {
     const {library, account} = useWeb3React()

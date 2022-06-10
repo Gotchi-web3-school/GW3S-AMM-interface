@@ -12,7 +12,7 @@ import {
 
 const Swap: React.FC = () => {
     return (
-      <Box >
+      <Box overflow={"scroll"} >
         <InputSwap idx={0} />
           <Center m={-4} zIndex={2}>
             <Button bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
