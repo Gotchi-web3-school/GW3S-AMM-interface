@@ -7,14 +7,8 @@ import { fetchBalance, fetchApproved, isPoolCreated, fetchReserves } from "../li
 import { ContractContext } from "./ContractsProvider";
 
 const defaultContext = {
-    token0: undefined,
-    token0Logo: undefined,
-    token0Balance: undefined,
-    token0Amount: undefined,
-    token1: undefined,
-    token1Logo: undefined,
-    token1Balance: undefined,
-    token1Amount: undefined,
+    token0: undefined, token0Logo: undefined, token0Balance: undefined, token0Amount: undefined,
+    token1: undefined, token1Logo: undefined, token1Balance: undefined, token1Amount: undefined,
     pair: undefined,
     isPool: false,
     reserves: new Fraction("1", "1"),
@@ -81,13 +75,8 @@ export const AddLiquidityContextProvider = (props: any) => {
         
     return (
         <AddLiquidityContext.Provider value={{
-            token0,
-            token0Logo, 
-            token0Balance, 
-            token0Amount, 
-            token1, token1Logo, 
-            token1Balance, 
-            token1Amount, 
+            token0, token0Logo, token0Balance, token0Amount, 
+            token1, token1Logo, token1Balance, token1Amount, 
             pair, 
             isPool, 
             isApproved, 

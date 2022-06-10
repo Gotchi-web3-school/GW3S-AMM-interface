@@ -66,6 +66,11 @@ export const calculateShare = (pair: Pair, token0Amount: TokenAmount, reserves: 
     return result;
 }
 
+export const calculatePoolShare = (pair: Pair, contract: any): string => {
+   
+    return "0";
+}
+
 export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount, amount1: string, token1Balance: TokenAmount): boolean => {
     const amountA = parseFloat(amount0);
     const amountB = parseFloat(amount1);

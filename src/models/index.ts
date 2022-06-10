@@ -1,4 +1,4 @@
-import { Token, TokenAmount, Pair, Fraction } from "quickswap-sdk";
+import { Token, TokenAmount, Pair, Fraction, Percent, JSBI } from "quickswap-sdk";
 import { ethers } from "ethers";
 
 export type SelectToken = {
@@ -11,12 +11,6 @@ export type SelectToken = {
     isSearched?: boolean;
 }
 
-export interface IPool {
-    name: string;
-    pair: Pair;
-    logoURI?: {tokenA?: string, tokenB?: string};
-}
-
 export type Contract = {
     factory: ethers.Contract | undefined,
     router2: ethers.Contract | undefined, 
@@ -24,15 +18,48 @@ export type Contract = {
     ERC20: ethers.Contract | undefined,
 }
 
-export class Pool {
+export interface IPool {
+    name: string;
+    pair: Pair;
+    logoURI?: {tokenA?: string, tokenB?: string};
+    balance: string
+    share: Percent
+    isApproved?: boolean
+    totalReserves?: Fraction
+    isPool?: boolean
+    tokenA: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
+    tokenB: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
+}
+
+
+export class Pool implements IPool {
     name: string;
     pair: Pair;
     logoURI?: {tokenA?: string, tokenB?: string}
+    balance: string = "0"
+    share: Percent = new Percent("0", "100")
+    isApproved = false
+    totalReserves: Fraction = new Fraction("1", "1")
+    isPool = false
+    tokenA: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
+    tokenB: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
 
     constructor(name: string, pair: Pair,  logoURI?: {tokenA?: string, tokenB?: string}) {
         this.name = name;
         this.pair = pair;
         this.logoURI = logoURI;
+        this.tokenA = {
+            isApproved: false, 
+            pooled: "0", 
+            input: new TokenAmount(pair.token0, JSBI.BigInt("0")), 
+            balance: new TokenAmount(pair.token0, JSBI.BigInt("0"))
+        }
+        this.tokenB = {
+            isApproved: false, 
+            pooled: "0", 
+            input: new TokenAmount(pair.token1, JSBI.BigInt("0")), 
+            balance: new TokenAmount(pair.token1, JSBI.BigInt("0"))
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { useWeb3React } from "@web3-react/core";
-import {Button, Box, Center, Stack, Spinner, useToast } from "@chakra-ui/react";
-import { AddIcon } from '@chakra-ui/icons';
+import {Button, Box, Text, Center, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
+import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../Connectors/connectors';
 import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider";
 import { ContractContext } from "../../../Provider/ContractsProvider";
@@ -12,7 +12,7 @@ import InputToken1 from "./InputToken1";
 import PoolShare from "./PoolShare";
 import MintButton from "./MintButton";
 
-const AddLiquidity: React.FC = () => {
+const AddLiquidity: React.FC<{setState: React.Dispatch<string>}> = ({setState}) => {
   const { active, activate } = useWeb3React();
   const { pair, isApproved } = useContext(AddLiquidityContext);
   const { ERC20 } = useContext(ContractContext);
@@ -60,6 +60,15 @@ const AddLiquidity: React.FC = () => {
 
   return (
     <Box >
+      <HStack mb="3rem">
+          <Button w="45%" pr="0" bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
+              <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
+          </Button>
+          <Spacer />
+          <Button w="45%" pl="0" bgGradient='linear(to-r, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("pool")}>
+              <Text fontSize={"sm"}>Pools<ChevronRightIcon /></Text>
+          </Button>
+      </HStack>
       <InputToken0 />
       <Center>
         <AddIcon my="4"/>

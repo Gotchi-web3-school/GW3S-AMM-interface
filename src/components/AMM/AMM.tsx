@@ -1,7 +1,5 @@
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from "@chakra-ui/react"
 import Swap from "./Swap/Swap"
-import AddLiquidity from "./AddLiquidity/AddLiquidity"
-//import Analytics from "./Swap/Analytics"
 import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider"
 //import { RemoveLiquidityContextProvider } from "../../Provider/RemoveLiquidityProvider"
 import { PoolContextProvider } from "../../Provider/PoolsProvider";
@@ -28,8 +26,6 @@ const AMM: React.FC = () => {
                 <TabList mb='2rem'>
                     <Tab>Swap</Tab>
                     <Tab>Pools</Tab>
-                    <Tab>Add liquidity</Tab>
-                    <Tab>Remove liquidity</Tab>
                 </TabList>
 
                 <TabPanels>
@@ -42,11 +38,6 @@ const AMM: React.FC = () => {
                                 <Pools />
                             </AddLiquidityContextProvider>
                         </PoolContextProvider>
-                    </TabPanel>
-                    <TabPanel>
-                        <AddLiquidityContextProvider>
-                          <AddLiquidity />
-                        </AddLiquidityContextProvider>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

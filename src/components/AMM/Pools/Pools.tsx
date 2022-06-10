@@ -12,13 +12,13 @@ const Pools: React.FC = () => {
     // const { active, activate } = useWeb3React();
     // const { pair, isApproved } = useContext(AddLiquidityContext);
     // const { ERC20 } = useContext(ContractContext);
-    const [state, setState] = useState("pools")
+    const [state, setState] = useState("pool")
   
     return (
     <Box overflow={"scroll"} maxH="lg">
-        {state === "add" ? <AddLiquidity /> : ""}
+        {state === "add" && <AddLiquidity setState={setState} />}
         {state === "remove" ? "" : ""}
-        {state === "pools" ? 
+        {state === "pool" && 
         <Stack justifyContent={"center"} textAlign="center">
             <HStack mb="5">
                 <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)'  _hover={{bg: 'green.500'}} justifyContent={"left"} onClick={() => setState("add")}><ChevronLeftIcon /><Text fontSize={"sm"}>Add liquidity</Text></Button>
@@ -30,7 +30,7 @@ const Pools: React.FC = () => {
             <Accordion allowMultiple>
                 {pools.map((pool, key) => <PoolCard pool={pool} key={key}/>)}
             </Accordion>
-        </Stack> : ""
+        </Stack>
         }
     </Box>
     )

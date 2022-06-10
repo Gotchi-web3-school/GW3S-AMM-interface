@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { 
     Text, 
     Image,
@@ -12,14 +12,29 @@ import {
 import { QuestionOutlineIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models";
 import PoolData from "./PoolData"
+import AddLiquidityPool from "../AddLiquidity/AddLiquidityPool";
+import { fetchBalances } from "../../../lib/utils/pools";
+import { useWeb3React } from "@web3-react/core";
 
 const PoolCard: React.FC<{pool: IPool}> = ({pool}) => {
+    const {account, library} = useWeb3React()
     const [expanded, setExpanded] = useState(false)
     const [state, setState] = useState("pool")
-    const background = expanded ? "linear(to-b, purple.900, purple.800, purple.900, gray.800)" : ""
+
+    console.log(pool)
+    useEffect(() => {
+        if (expanded && account) {
+            fetchBalances(pool.pair.token0, pool.pair.token1, account, library)
+            .then(resutl => {
+                console.log(resutl)
+                pool.tokenA.balance = resutl.tokenA
+                pool.tokenB.balance = resutl.tokenB
+            })
+       }
+    }, [expanded, pool, account, library])
 
     return (
-    <AccordionItem  m="3" border={"none"} borderTopRadius={expanded ? "xl" : "none"} bgGradient={background}>
+    <AccordionItem  m="3" border={"none"} borderTopRadius={expanded ? "xl" : "none"} bgGradient={expanded ? "linear(to-b, purple.900, purple.800, purple.900, gray.800)" : ""}>
         <Box>
             <AccordionButton
             _expanded={{
@@ -48,7 +63,7 @@ const PoolCard: React.FC<{pool: IPool}> = ({pool}) => {
             </AccordionButton>
             <AccordionPanel pb={4}>
                {state === "pool" && <PoolData pool={pool} setState={setState}/>}
-               {state === "add" && <PoolData pool={pool} setState={setState}/>}
+               {state === "add" && <AddLiquidityPool pool={pool} setState={setState} />}
                {state === "remove" && <PoolData pool={pool} setState={setState}/>}
             </AccordionPanel>
         </Box>
