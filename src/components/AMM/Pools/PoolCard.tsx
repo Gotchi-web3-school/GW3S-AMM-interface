@@ -11,9 +11,11 @@ import {
    } from "@chakra-ui/react"
 import { QuestionOutlineIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models";
+import PoolData from "./PoolData"
 
-const Pool: React.FC<{pool: IPool}> = ({pool}) => {
+const PoolCard: React.FC<{pool: IPool}> = ({pool}) => {
     const [expanded, setExpanded] = useState(false)
+    const [state, setState] = useState("pool")
     const background = expanded ? "linear(to-b, purple.900, purple.800, purple.900, gray.800)" : ""
 
     return (
@@ -45,14 +47,13 @@ const Pool: React.FC<{pool: IPool}> = ({pool}) => {
                 <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
+               {state === "pool" && <PoolData pool={pool} setState={setState}/>}
+               {state === "add" && <PoolData pool={pool} setState={setState}/>}
+               {state === "remove" && <PoolData pool={pool} setState={setState}/>}
             </AccordionPanel>
         </Box>
     </AccordionItem>
     )
 }
 
-export default Pool
+export default PoolCard

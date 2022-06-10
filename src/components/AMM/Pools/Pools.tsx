@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Box, Accordion, Divider, Button, Text, Stack, HStack, Spacer} from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { PoolContext } from "../../../Provider/PoolsProvider";
-import Pool from "./Pool"
+import PoolCard from "./PoolCard"
 import ImportPool from "./ImportPool"
 import AddLiquidity from "../AddLiquidity/AddLiquidity";
 
@@ -21,14 +21,14 @@ const Pools: React.FC = () => {
         {state === "pools" ? 
         <Stack justifyContent={"center"} textAlign="center">
             <HStack mb="5">
-                <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)'  _hover={{bgGradient: 'linear(to-l, green.500, transparent)'}} justifyContent={"left"} onClick={() => setState("add")}><ChevronLeftIcon /><Text fontSize={"sm"}>Add liquidity</Text></Button>
+                <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)'  _hover={{bg: 'green.500'}} justifyContent={"left"} onClick={() => setState("add")}><ChevronLeftIcon /><Text fontSize={"sm"}>Add liquidity</Text></Button>
                 <Spacer />
-                <Button w="45%" pr="0" bgGradient='linear(to-l, red.500, transparent)' _hover={{bgGradient: 'linear(to-r, red.500, transparent)'}} justifyContent={"right"} onClick={() => setState("remove")}><Text fontSize={"sm"}>Remove liquidity</Text><ChevronRightIcon /></Button>
+                <Button w="45%" pr="0" bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"right"} onClick={() => setState("remove")}><Text fontSize={"sm"}>Remove liquidity</Text><ChevronRightIcon /></Button>
             </HStack>
             <ImportPool />            
             <Divider />
             <Accordion allowMultiple>
-                {pools.map((pool, key) => <Pool pool={pool} key={key}/>)}
+                {pools.map((pool, key) => <PoolCard pool={pool} key={key}/>)}
             </Accordion>
         </Stack> : ""
         }
