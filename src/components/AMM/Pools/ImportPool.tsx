@@ -17,7 +17,7 @@ const ImportPool: React.FC = () => {
     return (
         <>
         <ModalPool isOpen={isOpen} onClose={onClose} idx={idx} />
-        <Box p="2rem" my="5rem" borderRadius={"2rem"} justifyContent={"center"} border="1px solid gray">
+        <Box p="2rem" borderRadius={"2rem"} justifyContent={"center"} border="1px solid gray">
           <Flex justifyContent={"center"}>
             {tokenA ?
               <Button color={color} onClick={() => {setIdx(0); onOpen()}} size="sm" p="5">

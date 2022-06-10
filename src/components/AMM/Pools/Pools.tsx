@@ -20,10 +20,10 @@ const Pools: React.FC = () => {
         {state === "remove" ? "" : ""}
         {state === "pools" ? 
         <Stack justifyContent={"center"} textAlign="center">
-            <HStack>
-                <Button w="45%" bg="green.500" onClick={() => setState("add")}><ChevronLeftIcon /><Spacer /><Text w="100%">Add liquidity</Text></Button>
+            <HStack mb="5">
+                <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)'  _hover={{bgGradient: 'linear(to-l, green.500, transparent)'}} justifyContent={"left"} onClick={() => setState("add")}><ChevronLeftIcon /><Text fontSize={"sm"}>Add liquidity</Text></Button>
                 <Spacer />
-                <Button w="45%" bg="red.500" onClick={() => setState("remove")}><Text w="100%">Remove liquidity</Text><Spacer /><ChevronRightIcon /></Button>
+                <Button w="45%" pr="0" bgGradient='linear(to-l, red.500, transparent)' _hover={{bgGradient: 'linear(to-r, red.500, transparent)'}} justifyContent={"right"} onClick={() => setState("remove")}><Text fontSize={"sm"}>Remove liquidity</Text><ChevronRightIcon /></Button>
             </HStack>
             <ImportPool />            
             <Divider />

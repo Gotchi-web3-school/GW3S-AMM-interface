@@ -17,7 +17,7 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
             const amountA = new TokenAmount(tokenA!, "0")
             const amountB = new TokenAmount(tokenB!, "0")
             const pair = new Pair(amountA, amountB)
-            const name = tokenA!.symbol + " / " + tokenB!.symbol
+            const name = tokenA!.symbol + " - " + tokenB!.symbol
             const tokensUri = {tokenA: tokenALogo, tokenB: tokenBLogo}
             const pool = new Pool(name, pair, tokensUri)
             pools.unshift(pool)
