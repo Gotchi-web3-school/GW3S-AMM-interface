@@ -29,19 +29,18 @@ const PoolCard: React.FC<{pool: IPool}> = (props) => {
     const [expanded, setExpanded] = useState(false)
     const [state, setState] = useState("pool")
 
-    console.log(pool)
     useEffect(() => {
-        if (expanded && account) {
+        if (account) {
             dispatch({type: "SET_CARD_POOL_STATE", payload: props.pool})
         }
     }, [expanded, account, props.pool])
 
     useEffect(() => {
-        if (expanded && account) {
+        if (account && pool) {
             fetchPoolBalances(props.pool.pair, account!, contract, library)
             .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
         }
-    }, [expanded, account, library, contract, props.pool])
+    }, [expanded, account, library, contract, props.pool, pool])
 
     /* For addLiquidity
     useEffect(() => {

@@ -1,12 +1,8 @@
 import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image } from "@chakra-ui/react"
 import { QuestionOutlineIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models"
-import { useEffect } from "react"
 
 const PoolData: React.FC<{pool?: IPool, setState: React.Dispatch<string>}> = ({pool, setState}) => {
-    useEffect(() => {
-        
-    }, [])
     return ( 
     <>
         <SimpleGrid columns={2} spacing={3}>
@@ -21,7 +17,7 @@ const PoolData: React.FC<{pool?: IPool, setState: React.Dispatch<string>}> = ({p
                 <Text textAlign={"right"}>{pool?.tokenB?.pooled ?? "0"}</Text>
                 {pool?.tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={pool.tokenB.logo} alt={pool.pair.token1.name}/> : <QuestionOutlineIcon />}
             </Flex>
-            <Text textAlign={"left"}>Your pool share</Text><Text textAlign={"right"}>{pool?.share.toFixed(2) ?? "0"}%</Text>
+            <Text textAlign={"left"}>Your pool share</Text><Text textAlign={"right"}>{pool?.share.toSignificant(2) ?? "0"}%</Text>
         </SimpleGrid>
         <HStack m="5" mt="5rem">
             <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)' _hover={{bg: 'green.500'}} justifyContent={"left"} onClick={() => setState("add")}>
