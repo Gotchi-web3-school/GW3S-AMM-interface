@@ -1,5 +1,5 @@
 /* eslint-disable no-multi-str */
-import {Percent, JSBI, Pair, Token, TokenAmount} from "quickswap-sdk"
+import {Percent, JSBI, Token} from "quickswap-sdk"
 import { Pool } from "../Models";
 
 export enum TxnType {
@@ -104,19 +104,19 @@ export const DEFAULT_LOGOS = [
 ]
 
 export const DEFAULT_POOLS = [
-  new Pool("GHST - DAI", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[1], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[1]}),
-  new Pool("GHST - WETH", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[2], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[2]}),
-  new Pool("GHST - FUD", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[3], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[3]}),
-  new Pool("GHST - FOMO", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[4], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[4]}),
-  new Pool("GHST - ALPHA", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[5], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[5]}),
-  new Pool("GHST - KEK", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[6], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[6]}),
-  new Pool("GHST - AAVE", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[7], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[7]}),
-  new Pool("GHST - UNI", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[8], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[8]}),
-  new Pool("GHST - USDC", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[9], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[9]}),
-  new Pool("GHST - USDT", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[10], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[10]}),
-  new Pool("GHST - WMATIC", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[11], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[11]}),
-  new Pool("GHST - WBTC", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[12], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[12]}),
-  new Pool("GHST - LINK", new Pair(new TokenAmount( DEFAULT_TOKENS[0], "0"), new TokenAmount( DEFAULT_TOKENS[13], "0")), {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[13]}),
+  new Pool("GHST - DAI", DEFAULT_TOKENS[0], DEFAULT_TOKENS[1], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[1]}),
+  new Pool("GHST - WETH", DEFAULT_TOKENS[0], DEFAULT_TOKENS[2], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[2]}),
+  new Pool("GHST - FUD", DEFAULT_TOKENS[0], DEFAULT_TOKENS[3], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[3]}),
+  new Pool("GHST - FOMO", DEFAULT_TOKENS[0], DEFAULT_TOKENS[4], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[4]}),
+  new Pool("GHST - ALPHA", DEFAULT_TOKENS[0], DEFAULT_TOKENS[5], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[5]}),
+  new Pool("GHST - KEK", DEFAULT_TOKENS[0], DEFAULT_TOKENS[6], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[6]}),
+  new Pool("GHST - AAVE", DEFAULT_TOKENS[0], DEFAULT_TOKENS[7], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[7]}),
+  new Pool("GHST - UNI", DEFAULT_TOKENS[0], DEFAULT_TOKENS[8], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[8]}),
+  new Pool("GHST - USDC", DEFAULT_TOKENS[0], DEFAULT_TOKENS[9], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[9]}),
+  new Pool("GHST - USDT", DEFAULT_TOKENS[0], DEFAULT_TOKENS[10], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[10]}),
+  new Pool("GHST - WMATIC", DEFAULT_TOKENS[0], DEFAULT_TOKENS[11], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[11]}),
+  new Pool("GHST - WBTC", DEFAULT_TOKENS[0], DEFAULT_TOKENS[12], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[12]}),
+  new Pool("GHST - LINK", DEFAULT_TOKENS[0], DEFAULT_TOKENS[13], {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[13]}),
 ]
 
 export const abis = {

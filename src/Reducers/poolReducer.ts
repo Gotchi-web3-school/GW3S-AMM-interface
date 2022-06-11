@@ -1,4 +1,4 @@
-import { Token, TokenAmount, Pair } from "quickswap-sdk"
+import { Token} from "quickswap-sdk"
 import { PoolProvider, Pool } from "../Models"
 
 export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
@@ -15,12 +15,9 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
                 return {...state, tokenB: newToken, tokenBLogo: token.logoURI}
 
         case 'SET_POOL':
-            const amountA = new TokenAmount(tokenA!, "0")
-            const amountB = new TokenAmount(tokenB!, "0")
-            const pair = new Pair(amountA, amountB)
             const name = tokenA!.symbol + " - " + tokenB!.symbol
             const tokensUri = {tokenA: tokenALogo, tokenB: tokenBLogo}
-            const newPool = new Pool(name, pair, tokensUri)
+            const newPool = new Pool(name, tokenA!, tokenB!, tokensUri)
             pools.unshift(newPool)
 
             const array: number[] = []
