@@ -37,7 +37,8 @@ const PoolCard: React.FC<{pool: IPool}> = (props) => {
 
     useEffect(() => {
         if (account && pool) {
-            fetchPoolBalances(props.pool.pair, account!, contract, library)
+            console.log(pool)
+            fetchPoolBalances(pool, account!, contract)
             .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
         }
     }, [expanded, account, library, contract, props.pool, pool])
