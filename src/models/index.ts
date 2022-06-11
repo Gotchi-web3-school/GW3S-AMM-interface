@@ -20,6 +20,7 @@ export type Contract = {
 
 export interface IPool {
     name: string;
+    liquidityToken?: Token
     pair: Pair;
     logoURI?: {tokenA?: string, tokenB?: string};
     balance: string
@@ -33,7 +34,8 @@ export interface IPool {
         pooled: string, 
         input: TokenAmount, 
         balance: TokenAmount,
-        logo?: string
+        logo?: string,
+        loading: boolean,
     }
     tokenB: {
         token: Token,
@@ -42,12 +44,14 @@ export interface IPool {
         input: TokenAmount, 
         balance: TokenAmount
         logo?: string
+        loading: boolean,
     }
 }
 
 export class Pool implements IPool {
     name: string;
     pair: Pair;
+    liquidityToken?: Token
     balance: string = "0"
     share: Percent = new Percent("0", "100")
     isApproved = false
@@ -59,7 +63,8 @@ export class Pool implements IPool {
         pooled: string, 
         input: TokenAmount, 
         balance: TokenAmount,
-        logo?: string
+        logo?: string,
+        loading: boolean,
     }
     tokenB: {
         token: Token,
@@ -67,7 +72,8 @@ export class Pool implements IPool {
         pooled: string, 
         input: TokenAmount, 
         balance: TokenAmount
-        logo?: string
+        logo?: string,
+        loading: boolean
     }
 
     constructor(name: string, tokenA: Token, tokenB: Token,  logoURI?: {tokenA?: string, tokenB?: string}) {
@@ -80,6 +86,7 @@ export class Pool implements IPool {
             input: new TokenAmount(tokenA, JSBI.BigInt("0")), 
             balance: new TokenAmount(tokenB, JSBI.BigInt("0")),
             logo: logoURI?.tokenA,
+            loading: false,
         }
         this.tokenB = {
             token: tokenB,
@@ -88,6 +95,7 @@ export class Pool implements IPool {
             input: new TokenAmount(tokenA, JSBI.BigInt("0")), 
             balance: new TokenAmount(tokenB, JSBI.BigInt("0")),
             logo: logoURI?.tokenB,
+            loading: false,
         }
     }
 }

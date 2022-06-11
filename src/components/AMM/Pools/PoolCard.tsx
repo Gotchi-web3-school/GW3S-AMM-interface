@@ -12,8 +12,9 @@ import {
 import { QuestionOutlineIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models";
 import PoolData from "./PoolData"
-import AddLiquidityPool from "../AddLiquidity/AddLiquidityPool";
-import { fetchPoolBalances } from "../../../lib/utils/pools";
+import AddLiquidityPool from "../AddLiquidity/poolCard/AddLiquidityPool";
+import { fetchPoolBalances, getLp} from "../../../lib/utils/pools";
+import { isPoolCreated } from "../../../lib/utils";
 import { useWeb3React } from "@web3-react/core";
 import { ContractContext } from "../../../Provider/ContractsProvider";
 import { poolReducer } from "../../../Reducers/poolReducer";
@@ -32,12 +33,19 @@ const PoolCard: React.FC<{pool: IPool}> = (props) => {
     useEffect(() => {
         if (account) {
             dispatch({type: "SET_CARD_POOL_STATE", payload: props.pool})
+            isPoolCreated(props.pool.pair, library).then(isPool => {
+                if (isPool.result) {
+                    console.log("New pool found!")
+                    getLp(isPool.tokenAddress, contract).then(token => {
+                        dispatch({type: "SET_ISPOOL", payload: token})
+                    })
+                }
+            })
         }
-    }, [expanded, account, props.pool])
+    }, [account, props.pool, library, contract])
 
     useEffect(() => {
-        if (account && pool) {
-            console.log(pool)
+        if (account && pool?.isPool) {
             fetchPoolBalances(pool, account!, contract)
             .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
         }
@@ -85,9 +93,9 @@ const PoolCard: React.FC<{pool: IPool}> = (props) => {
                 <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-               {state === "pool" && <PoolData pool={pool} setState={setState}/>}
-               {pool && state === "add" && <AddLiquidityPool pool={pool} setState={setState} />}
-               {pool && state === "remove" && <PoolData pool={pool} setState={setState}/>}
+               {state === "pool" && <PoolData pool={pool} setState={setState} />}
+               {pool && state === "add" && <AddLiquidityPool pool={pool} setState={setState} dispatch={dispatch} />}
+               {pool && state === "remove" && <AddLiquidityPool pool={pool} setState={setState} dispatch={dispatch} />}
             </AccordionPanel>
         </Box>
     </AccordionItem>

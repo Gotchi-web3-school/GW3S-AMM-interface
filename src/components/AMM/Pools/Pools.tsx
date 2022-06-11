@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { PoolContext } from "../../../Provider/PoolsProvider";
 import PoolCard from "./PoolCard"
 import ImportPool from "./ImportPool"
-import AddLiquidity from "../AddLiquidity/AddLiquidity";
+import AddLiquidity from "../AddLiquidity/raw/AddLiquidity";
 
 
 const Pools: React.FC = () => {

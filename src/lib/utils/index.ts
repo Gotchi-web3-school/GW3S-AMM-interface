@@ -33,10 +33,10 @@ export const fetchApproved = async(pair: Pair, userAdress: string, provider: any
     return ({token0: pair.reserve0.lessThan(approved0), token1: pair.reserve1.lessThan(approved1)})
 }
 
-export const isPoolCreated = async(pair: Pair, provider: any): Promise<boolean> => {
+export const isPoolCreated = async(pair: Pair, provider: any): Promise<{result: boolean, tokenAddress: any}> => {
     const factory = new ethers.Contract(GlobalConst.addresses.FACTORY_ADDRESS, abis.factory, provider);
     const pool = await factory.getPair(pair.token0.address, pair.token1.address);
-    return pool !== GlobalConst.addresses.ZERO_ADDRESS;
+    return {result: pool !== GlobalConst.addresses.ZERO_ADDRESS, tokenAddress: pool};
 }
 
 export const fetchReserves = async(pair: Pair, token0: Token, contract: any): Promise<Fraction> => {

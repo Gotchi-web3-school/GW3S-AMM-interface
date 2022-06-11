@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import { AddLiquidityContext } from "../../../Provider/AddLiquidityProvider"
+import { AddLiquidityContext } from "../../../../Provider/AddLiquidityProvider"
 import { Box, Text, Button, Input, Image, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
-import ModalTokens from "../../Modal/ModalToken"
+import ModalTokens from "../../../Modal/ModalToken"
 
 const InputToken0 : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

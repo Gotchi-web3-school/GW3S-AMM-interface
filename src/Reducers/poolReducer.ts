@@ -36,6 +36,11 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
         case "SET_CARD_POOL_STATE":
             return {...state, pool: action.payload}
         
+        case "SET_ISPOOL":
+            pool!.isPool = true
+            pool!.liquidityToken = action.payload
+            return {...state, pool: pool};
+        
         case "SET_POOL_BALANCE":
             pool!.balance = action.payload.balance.toSignificant(3)
             pool!.tokenA.pooled = action.payload.amountA.toSignificant(3)
@@ -43,7 +48,14 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
             pool!.share = action.payload.share
             //const TokenABalance = new TokenAmount(action.payload.token , ethers.utils.parseEther(action.payload.amount).toString())
             return {...state, pool: pool}
+
+        case "LOADING":
+            action.payload === 0 ? pool!.tokenA.loading = !pool!.tokenA.loading :  pool!.tokenB.loading = !pool!.tokenB.loading
+            return {...state, pool: pool}
         
+        case "APPROVED":
+            action.payload === 0 ? pool!.tokenA.isApproved = true : pool!.tokenB.isApproved = true
+            return {...state, pool: pool}
 
       default:
         throw new Error(`Unsupported action type ${action.type} in userReducer`)

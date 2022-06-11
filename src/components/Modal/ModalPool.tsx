@@ -20,7 +20,7 @@ import { PoolContext } from "../../Provider/PoolsProvider"
 import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../lib/utils"
-import TokenSelect from "../AMM/AddLiquidity/TokenSelect"
+import TokenSelect from "../AMM/AddLiquidity/raw/TokenSelect"
 import { Token } from "quickswap-sdk";
 
 

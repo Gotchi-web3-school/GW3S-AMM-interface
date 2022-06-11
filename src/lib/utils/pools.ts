@@ -12,14 +12,22 @@ export const fetchBalances = async(tokenA: Token, tokenB: Token, userAdress: str
 }
 
 export const fetchPoolBalances = async(pool: IPool, userAdress: string, contract: any): Promise<{balance: TokenAmount, amountA: TokenAmount, amountB: TokenAmount, share: Percent}> => {
-    const poolToken = contract.ERC20.attach(pool.pair.liquidityToken.address)
-    const pairContract = contract.pair.attach(pool.pair.liquidityToken.address);
+    const poolToken = contract.ERC20.attach(pool.liquidityToken?.address)
+    const pairContract = contract.pair.attach(pool.liquidityToken?.address);
     const reserves = await pairContract.getReserves()
-    const totalSupply = await new TokenAmount(pool.pair.liquidityToken, await poolToken.totalSupply())
-    const balance = await new TokenAmount(pool.pair.liquidityToken, await poolToken.balanceOf(userAdress));
+    const totalSupply = await new TokenAmount(pool.liquidityToken!, await poolToken.totalSupply())
+    const balance = await new TokenAmount(pool.liquidityToken!, await poolToken.balanceOf(userAdress));
     const amountA = new TokenAmount(pool.pair.token0, balance.divide(totalSupply).multiply(reserves[0]).quotient);
     const amountB = new TokenAmount(pool.pair.token1, balance.divide(totalSupply).multiply(reserves[1]).quotient);
     const share = new Percent(balance.raw, totalSupply.raw)
 
     return({balance: balance, amountA: pool.pair.token0.equals(pool.tokenA.token) ? amountA : amountB, amountB: pool.pair.token1.equals(pool.tokenB.token) ? amountB : amountA, share: share});
+}
+
+export const getLp = async(lpAddress: string, contract: any): Promise<Token> => {
+    const lp = contract.ERC20.attach(lpAddress)
+    const decimals = await lp.decimals()
+    const symbol = await lp.symbol()
+    const name = await lp.name()
+    return new Token(80001, lpAddress, decimals, symbol, name)
 }
