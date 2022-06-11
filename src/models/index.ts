@@ -27,40 +27,73 @@ export interface IPool {
     isApproved?: boolean
     totalReserves?: Fraction
     isPool?: boolean
-    tokenA: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
-    tokenB: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
+    tokenA: {
+        isApproved: boolean, 
+        pooled: string, 
+        input: TokenAmount, 
+        balance: TokenAmount,
+        logo?: string
+    }
+    tokenB: {
+        isApproved: boolean, 
+        pooled: string, 
+        input: TokenAmount, 
+        balance: TokenAmount
+        logo?: string
+    }
 }
-
 
 export class Pool implements IPool {
     name: string;
     pair: Pair;
-    logoURI?: {tokenA?: string, tokenB?: string}
     balance: string = "0"
     share: Percent = new Percent("0", "100")
     isApproved = false
     totalReserves: Fraction = new Fraction("1", "1")
     isPool = false
-    tokenA: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
-    tokenB: {isApproved: boolean, pooled: string, input: TokenAmount, balance: TokenAmount}
+    tokenA: {
+        isApproved: boolean, 
+        pooled: string, 
+        input: TokenAmount, 
+        balance: TokenAmount,
+        logo?: string
+    }
+    tokenB: {
+        isApproved: boolean, 
+        pooled: string, 
+        input: TokenAmount, 
+        balance: TokenAmount
+        logo?: string
+    }
 
     constructor(name: string, pair: Pair,  logoURI?: {tokenA?: string, tokenB?: string}) {
         this.name = name;
         this.pair = pair;
-        this.logoURI = logoURI;
         this.tokenA = {
             isApproved: false, 
             pooled: "0", 
             input: new TokenAmount(pair.token0, JSBI.BigInt("0")), 
-            balance: new TokenAmount(pair.token0, JSBI.BigInt("0"))
+            balance: new TokenAmount(pair.token0, JSBI.BigInt("0")),
+            logo: logoURI?.tokenA,
         }
         this.tokenB = {
             isApproved: false, 
             pooled: "0", 
             input: new TokenAmount(pair.token1, JSBI.BigInt("0")), 
-            balance: new TokenAmount(pair.token1, JSBI.BigInt("0"))
+            balance: new TokenAmount(pair.token1, JSBI.BigInt("0")),
+            logo: logoURI?.tokenB,
         }
     }
+}
+
+export type PoolProvider = {
+    tokenA: Token | undefined,
+    tokenALogo: string | undefined,
+    tokenB: Token | undefined,
+    tokenBLogo: string | undefined,
+    pools: Pool[],
+    pool?: IPool,
+    dispatch: (action: any, state?: Object,) => void,
 }
 
 export type AddLiquidity = {
@@ -100,14 +133,5 @@ export type RemoveLiquidityProvider = {
     isPool: Boolean,
     isApproved: {token0: boolean, token1: boolean} | undefined,
     reserves: Fraction,
-    dispatch: (action: any, state?: Object,) => void,
-}
-
-export type PoolProvider = {
-    tokenA: Token | undefined,
-    tokenALogo: string | undefined,
-    tokenB: Token | undefined,
-    tokenBLogo: string | undefined,
-    pools: Pool[],
     dispatch: (action: any, state?: Object,) => void,
 }

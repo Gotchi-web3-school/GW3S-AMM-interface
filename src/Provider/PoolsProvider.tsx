@@ -1,9 +1,9 @@
 import { createContext, useReducer } from "react"
 import { DEFAULT_POOLS } from "../Constants";
-import { PoolProvider } from "../Models";
+import { PoolProvider} from "../Models";
 import { poolReducer } from "../Reducers/poolReducer"
 
-const defaultContext = {
+const defaultContext: PoolProvider = {
     tokenA: undefined,
     tokenALogo: undefined,
     tokenB: undefined,

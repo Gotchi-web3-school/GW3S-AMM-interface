@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { TokenAmount, Token } from "quickswap-sdk";
+import { TokenAmount, Token, Pair } from "quickswap-sdk";
 import { abis } from "../../Constants";
 
 export const fetchBalances = async(tokenA: Token, tokenB: Token, userAdress: string, provider: any): Promise<{tokenA: TokenAmount, tokenB: TokenAmount}> => {
@@ -8,4 +8,16 @@ export const fetchBalances = async(tokenA: Token, tokenB: Token, userAdress: str
     const balanceA = new TokenAmount(tokenA, await ERC20tokenA.balanceOf(userAdress));
     const balanceB = new TokenAmount(tokenB, await ERC20tokenB.balanceOf(userAdress));
     return({tokenA: balanceA, tokenB: balanceB});
+}
+
+export const fetchPoolBalances = async(pair: Pair, userAdress: string, contract: any, provider: any): Promise<{balance: TokenAmount, amountA: TokenAmount, amountB: TokenAmount}> => {
+    const poolToken = contract.ERC20.attach(pair.liquidityToken.address)
+    const pairContract = contract.pair.attach(pair.liquidityToken.address);
+    const reserves = await pairContract.getReserves()
+    const totalSupply = await new TokenAmount(pair.liquidityToken, await poolToken.totalSupply())
+    const balance = await new TokenAmount(pair.liquidityToken, await poolToken.balanceOf(userAdress));
+    const amountA = new TokenAmount(pair.token0, balance.divide(totalSupply).multiply(reserves[0]).quotient);
+    const amountB = new TokenAmount(pair.token1, balance.divide(totalSupply).multiply(reserves[1]).quotient);
+
+    return({balance: balance, amountA: amountA, amountB: amountB});
 }

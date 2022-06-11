@@ -9,9 +9,6 @@ import AddLiquidity from "../AddLiquidity/AddLiquidity";
 
 const Pools: React.FC = () => {
     const { pools } = useContext(PoolContext)
-    // const { active, activate } = useWeb3React();
-    // const { pair, isApproved } = useContext(AddLiquidityContext);
-    // const { ERC20 } = useContext(ContractContext);
     const [state, setState] = useState("pool")
   
     return (
