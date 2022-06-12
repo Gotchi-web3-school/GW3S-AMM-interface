@@ -56,10 +56,10 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
             border={expanded ? "solid 1px" : ""} 
             boxShadow={expanded && state === "pool" ? "inset 0 0 50px #a200ff" : 
                        expanded && state === "add" ?  "inset 0 0 50px #00ab33" : 
-                       expanded && state === "remove" ? "inset 0 0 50px #00ab33" : ""} 
+                       expanded && state === "remove" ? "inset 0 0 50px #ff412e" : ""} 
             borderColor={expanded && state === "pool" ? "#a200ff" : 
                          expanded && state === "add" ?  "#00ab33" :
-                         expanded && state === "remove" ? "#00ab33" : ""} 
+                         expanded && state === "remove" ? "#ff412e" : ""} 
             borderRadius={"3xl"}
         >
             <AccordionButton
@@ -80,7 +80,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                     >
                 <Box display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
                     {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionOutlineIcon />}
-                    <Text mx="5">{props.pool.name}</Text>
+                    <Text mx="5" fontWeight={"bold"} textShadow={"1px 1px 10px white"}>{props.pool.name}</Text>
                     {props.pool.tokenB.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : < QuestionOutlineIcon />}
                 </Box>
                 <AccordionIcon />

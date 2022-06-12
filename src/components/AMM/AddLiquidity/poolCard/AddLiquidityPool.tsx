@@ -24,7 +24,6 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
             .then(result => dispatch({type: "SET_POOL_TOKEN_BALANCE", payload: result}))
        }
     }, [pool, account, library, dispatch])
-    console.log(pool.tokenA)
 
     const handleClickButton = async (token: Token, idx: number) => {
         try {
@@ -82,8 +81,8 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 :
                 <>
                     <Stack mt="6"  direction="row">
-                        {pool.tokenA.isApproved ? "" : pool.tokenA.isApproved !== undefined && <Button disabled={pool.tokenA.loading} key={0} onClick={() => handleClickButton(pool.tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}</Button>}
-                        {pool.tokenB.isApproved ? "" : pool.tokenB.isApproved !== undefined && <Button disabled={pool.tokenB.loading} key={1} onClick={() => handleClickButton(pool.tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}</Button>}
+                        {pool.tokenA.isApproved ? "" : pool.tokenA.isApproved && <Button disabled={pool.tokenA.loading} key={0} onClick={() => handleClickButton(pool.tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}</Button>}
+                        {pool.tokenB.isApproved ? "" : pool.tokenB.isApproved && <Button disabled={pool.tokenB.loading} key={1} onClick={() => handleClickButton(pool.tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}</Button>}
                     </Stack>
                     {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton />}
                 </> 
