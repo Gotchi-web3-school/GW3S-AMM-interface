@@ -8,6 +8,7 @@ import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
 import { fetchBalances } from "../../../../lib/utils/pools";
+import { fetchApproved } from "../../../../lib/utils/";
 import MaxButton from "./MaxButton";
 import InputToken from "./InputToken";
 import BabyPoolShare from "./BabyPoolShare";
@@ -24,6 +25,14 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
             .then(result => dispatch({type: "SET_POOL_TOKEN_BALANCE", payload: result}))
        }
     }, [pool, account, library, dispatch])
+
+    // Check for approval
+    useEffect(() => {
+        if (account && pool.tokenA.isApproved === undefined)
+            console.log("Fetch approved")
+            fetchApproved(pool.pair, account!, library)
+            .then(result => dispatch({type: "APPROVED", payload: {isApproved: result}}))
+    }, [pool.pair, account, library, dispatch, pool.tokenA.isApproved])
 
     const handleClickButton = async (token: Token, idx: number) => {
         try {
@@ -66,9 +75,9 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
     return (
         <Box>
             <Box px="5" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
-                <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2)}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
+                <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2) ?? '-'}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
                 <Spacer />
-                <MaxButton token={pool.tokenB} dispatch={dispatch}/><Text fontSize={"xs"}>{pool.tokenB.balance?.toFixed(2)}</Text>
+                <MaxButton token={pool.tokenB} dispatch={dispatch}/><Text fontSize={"xs"}>{pool.tokenB.balance?.toFixed(2) ?? '-'}</Text>
             </Box>
             <Box  display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
                 <InputToken token={pool.tokenA} dispatch={dispatch} />

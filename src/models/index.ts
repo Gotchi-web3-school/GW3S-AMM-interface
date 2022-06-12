@@ -67,7 +67,7 @@ export class Pool implements IPool {
             isApproved: false, 
             pooled: "0", 
             input: undefined, 
-            balance: new TokenAmount(tokenA, JSBI.BigInt("0")),
+            balance: undefined,
             logo: logoURI?.tokenA,
             loading: false,
         }
@@ -77,7 +77,7 @@ export class Pool implements IPool {
             isApproved: false, 
             pooled: "0", 
             input: undefined, 
-            balance: new TokenAmount(tokenA, JSBI.BigInt("0")),
+            balance: undefined,
             logo: logoURI?.tokenB,
             loading: false,
         }

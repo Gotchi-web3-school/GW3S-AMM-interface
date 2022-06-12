@@ -48,8 +48,6 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
         }
     }, [expanded, account, library, contract, pool])
 
-    
-
    return (
        <AccordionItem m="3" border="none"  borderRadius={"3xl"} >
         <Box 

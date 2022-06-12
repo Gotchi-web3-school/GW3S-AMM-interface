@@ -36,7 +36,8 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
             return {...state, tokenA: tokenA, tokenB: tokenB}
         
         case "APPROVED":
-            action.payload === 0 ?tokenA.isApproved = true :tokenB.isApproved = true
+            tokenA.isApproved = action.payload.isApproved.token0
+            tokenB.isApproved = action.payload.isApproved.token1
             return {...state, tokenA: tokenA, tokenB: tokenB}
 
         case 'HANDLE_INPUTS':
