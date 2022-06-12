@@ -2,7 +2,7 @@ import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image } from "@chakra-u
 import { QuestionOutlineIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models"
 
-const PoolData: React.FC<{pool?: IPool, setState: React.Dispatch<string>}> = ({pool, setState}) => {
+const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({pool, setState}) => {
     return ( 
     <>
         <SimpleGrid columns={2} spacing={3}>
@@ -10,12 +10,12 @@ const PoolData: React.FC<{pool?: IPool, setState: React.Dispatch<string>}> = ({p
             <Text textAlign={"left"}>Pooled tokenA:</Text>
             <Flex justifyContent={"right"}>
                 <Text textAlign={"right"}>{pool?.tokenA?.pooled ?? "0"}</Text>
-                {pool?.tokenA.logo ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={pool.tokenA.logo} alt={pool.pair.token0.name}/> : <QuestionOutlineIcon />}
+                {pool.tokenA.logo ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={pool.tokenA.logo} alt={pool.pair.token0.name}/> : <QuestionOutlineIcon />}
             </Flex>
             <Text textAlign={"left"}>Pooled tokenB:</Text>
             <Flex justifyContent={"right"}>
                 <Text textAlign={"right"}>{pool?.tokenB?.pooled ?? "0"}</Text>
-                {pool?.tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={pool.tokenB.logo} alt={pool.pair.token1.name}/> : <QuestionOutlineIcon />}
+                {pool.tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={pool.tokenB.logo} alt={pool.pair.token1.name}/> : <QuestionOutlineIcon />}
             </Flex>
             <Text textAlign={"left"}>Your pool share</Text><Text textAlign={"right"}>{pool?.share.toSignificant(2) ?? "0"}%</Text>
         </SimpleGrid>

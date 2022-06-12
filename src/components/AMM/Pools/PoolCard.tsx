@@ -17,39 +17,42 @@ import { fetchPoolBalances, getLp} from "../../../lib/utils/pools";
 import { isPoolCreated } from "../../../lib/utils";
 import { useWeb3React } from "@web3-react/core";
 import { ContractContext } from "../../../Provider/ContractsProvider";
-import { poolReducer } from "../../../Reducers/poolReducer";
-import { PoolContext } from "../../../Provider/PoolsProvider";
+import { poolCardReducer } from "../../../Reducers/poolCardReducer";
 
 
 const PoolCard: React.FC<{pool: IPool}> = (props) => {
     const {account, library} = useWeb3React()
     const contract = useContext(ContractContext)
-    const poolProvider = useContext(PoolContext)
-    const [provider, dispatch] = useReducer(poolReducer, poolProvider)
-    const { pool } = provider
+    const [pool, dispatch] = useReducer(poolCardReducer, props.pool)
     const [expanded, setExpanded] = useState(false)
     const [state, setState] = useState("pool")
 
     useEffect(() => {
-        if (account) {
-            dispatch({type: "SET_CARD_POOL_STATE", payload: props.pool})
+        if (account && pool.isPool === undefined) {
             isPoolCreated(props.pool.pair, library).then(isPool => {
                 if (isPool.result) {
-                    console.log("New pool found!")
+                    console.log("New pool found! ")
                     getLp(isPool.tokenAddress, contract).then(token => {
                         dispatch({type: "SET_ISPOOL", payload: token})
                     })
                 }
             })
         }
-    }, [account, props.pool, library, contract])
+    }, [account, props.pool, pool, library, contract])
 
     useEffect(() => {
-        if (account && pool?.isPool) {
-            fetchPoolBalances(pool, account!, contract)
-            .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
+        if (pool.isPool) {
+            console.log(pool.balance === undefined || (pool.balance !== undefined && expanded))
+            if (pool.balance === undefined || (pool.balance && expanded)) {
+                console.log(pool.tokenA.token.symbol)
+                console.log(pool.tokenB.token.symbol)
+                console.log(pool.isPool)
+                console.log("Fetch balance")
+                fetchPoolBalances(pool, account!, contract)
+                .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
+            }
         }
-    }, [expanded, account, library, contract, props.pool, pool])
+    }, [expanded, account, library, contract, pool])
 
     /* For addLiquidity
     useEffect(() => {
@@ -93,9 +96,9 @@ const PoolCard: React.FC<{pool: IPool}> = (props) => {
                 <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-               {state === "pool" && <PoolData pool={pool} setState={setState} />}
-               {pool && state === "add" && <AddLiquidityPool pool={pool} setState={setState} dispatch={dispatch} />}
-               {pool && state === "remove" && <AddLiquidityPool pool={pool} setState={setState} dispatch={dispatch} />}
+               {state === "pool" && <PoolData pool={pool ?? props.pool} setState={setState} />}
+               {state === "add" && <AddLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
+               {state === "remove" && <AddLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
             </AccordionPanel>
         </Box>
     </AccordionItem>

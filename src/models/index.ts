@@ -23,17 +23,17 @@ export interface IPool {
     liquidityToken?: Token
     pair: Pair;
     logoURI?: {tokenA?: string, tokenB?: string};
-    balance: string
+    balance: string | undefined
     share: Percent
     isApproved?: boolean
     totalReserves?: Fraction
-    isPool?: boolean
+    isPool?: boolean | undefined
     tokenA: {
         token: Token,
         isApproved: boolean, 
         pooled: string, 
         input: TokenAmount, 
-        balance: TokenAmount,
+        balance: TokenAmount | undefined,
         logo?: string,
         loading: boolean,
     }
@@ -42,7 +42,7 @@ export interface IPool {
         isApproved: boolean, 
         pooled: string, 
         input: TokenAmount, 
-        balance: TokenAmount
+        balance: TokenAmount | undefined,
         logo?: string
         loading: boolean,
     }
@@ -52,11 +52,11 @@ export class Pool implements IPool {
     name: string;
     pair: Pair;
     liquidityToken?: Token
-    balance: string = "0"
+    balance: string | undefined = undefined
     share: Percent = new Percent("0", "100")
     isApproved = false
     totalReserves: Fraction = new Fraction("1", "1")
-    isPool = false
+    isPool = undefined
     tokenA: {
         token: Token,
         isApproved: boolean, 
@@ -71,7 +71,7 @@ export class Pool implements IPool {
         isApproved: boolean, 
         pooled: string, 
         input: TokenAmount, 
-        balance: TokenAmount
+        balance: TokenAmount,
         logo?: string,
         loading: boolean
     }
@@ -84,7 +84,7 @@ export class Pool implements IPool {
             isApproved: false, 
             pooled: "0", 
             input: new TokenAmount(tokenA, JSBI.BigInt("0")), 
-            balance: new TokenAmount(tokenB, JSBI.BigInt("0")),
+            balance: new TokenAmount(tokenA, JSBI.BigInt("0")),
             logo: logoURI?.tokenA,
             loading: false,
         }
@@ -93,7 +93,7 @@ export class Pool implements IPool {
             isApproved: false, 
             pooled: "0", 
             input: new TokenAmount(tokenA, JSBI.BigInt("0")), 
-            balance: new TokenAmount(tokenB, JSBI.BigInt("0")),
+            balance: new TokenAmount(tokenA, JSBI.BigInt("0")),
             logo: logoURI?.tokenB,
             loading: false,
         }
