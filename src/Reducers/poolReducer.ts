@@ -17,12 +17,12 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
         case 'SET_POOL':
             const name = tokenA!.symbol + " - " + tokenB!.symbol
             const tokensUri = {tokenA: tokenALogo, tokenB: tokenBLogo}
-            const newPool = new Pool(name, tokenA!, tokenB!, tokensUri)
+            const newPool: Pool = new Pool(pools.length - 1, name, tokenA!, tokenB!, tokensUri)
             pools.unshift(newPool)
 
             const array: number[] = []
             // Filter all the similar pool element
-            const newPools = pools.filter((prev) => {
+            const newPools: Pool[] = pools.filter((prev) => {
                 if (array[parseInt(prev.pair.liquidityToken.address)] !== 1) {
                     array[parseInt(prev.pair.liquidityToken.address)] = 1
                     return true;

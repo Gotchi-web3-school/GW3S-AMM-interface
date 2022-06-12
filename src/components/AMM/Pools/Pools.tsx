@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext} from "react";
 import { Box, Accordion, Divider, Button, Text, Stack, HStack, Spacer} from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { PoolContext } from "../../../Provider/PoolsProvider";
@@ -6,10 +6,10 @@ import PoolCard from "./PoolCard"
 import ImportPool from "./ImportPool"
 import AddLiquidity from "../AddLiquidity/raw/AddLiquidity";
 
-
 const Pools: React.FC = () => {
     const { pools } = useContext(PoolContext)
     const [state, setState] = useState("pool")
+    //useEffect(() => console.log("new pool" + pools[1]), [pools])
     return (
     <Box overflow={"scroll"} maxH="lg">
         {state === "add" && <AddLiquidity setState={setState} />}
@@ -24,7 +24,7 @@ const Pools: React.FC = () => {
             <ImportPool />            
             <Divider />
             <Accordion allowMultiple>
-                {pools.map((pool, key) => <PoolCard pool={pool} key={key}/>)}
+                {pools.map((pool) => <PoolCard pool={pool} key={pool.id} />)}
             </Accordion>
         </Stack>
         }

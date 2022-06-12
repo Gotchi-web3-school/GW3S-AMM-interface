@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useReducer } from "react";
+import { useEffect, useState, useContext, useReducer, memo } from "react";
 import { 
     Text, 
     Image,
@@ -20,7 +20,7 @@ import { ContractContext } from "../../../Provider/ContractsProvider";
 import { poolCardReducer } from "../../../Reducers/poolCardReducer";
 
 
-const PoolCard: React.FC<{pool: IPool}> = (props) => {
+const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
     const {account, library} = useWeb3React()
     const contract = useContext(ContractContext)
     const [pool, dispatch] = useReducer(poolCardReducer, props.pool)
@@ -41,16 +41,10 @@ const PoolCard: React.FC<{pool: IPool}> = (props) => {
     }, [account, props.pool, pool, library, contract])
 
     useEffect(() => {
-        if (pool.isPool) {
-            console.log(pool.balance === undefined || (pool.balance !== undefined && expanded))
-            if (pool.balance === undefined || (pool.balance && expanded)) {
-                console.log(pool.tokenA.token.symbol)
-                console.log(pool.tokenB.token.symbol)
-                console.log(pool.isPool)
+        if (pool.isPool && pool.balance === undefined) {
                 console.log("Fetch balance")
                 fetchPoolBalances(pool, account!, contract)
                 .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
-            }
         }
     }, [expanded, account, library, contract, pool])
 
@@ -103,6 +97,6 @@ const PoolCard: React.FC<{pool: IPool}> = (props) => {
         </Box>
     </AccordionItem>
     )
-}
+})
 
 export default PoolCard

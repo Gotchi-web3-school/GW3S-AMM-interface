@@ -19,6 +19,7 @@ export type Contract = {
 }
 
 export interface IPool {
+    id: number
     name: string;
     liquidityToken?: Token
     pair: Pair;
@@ -49,6 +50,7 @@ export interface IPool {
 }
 
 export class Pool implements IPool {
+    id: number
     name: string;
     pair: Pair;
     liquidityToken?: Token
@@ -76,7 +78,8 @@ export class Pool implements IPool {
         loading: boolean
     }
 
-    constructor(name: string, tokenA: Token, tokenB: Token,  logoURI?: {tokenA?: string, tokenB?: string}) {
+    constructor(id: number, name: string, tokenA: Token, tokenB: Token,  logoURI?: {tokenA?: string, tokenB?: string}) {
+        this.id = id;
         this.name = name;
         this.pair = new Pair(new TokenAmount(tokenA, JSBI.BigInt("0")), new TokenAmount(tokenB, JSBI.BigInt("0")));
         this.tokenA = {
