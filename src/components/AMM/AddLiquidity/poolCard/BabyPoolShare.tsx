@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Text, Stack, Box, Center, Spacer } from "@chakra-ui/react"
+import { Text, Stack, Box, Spacer } from "@chakra-ui/react"
 import { calculateShare, rate } from "../../../../lib/utils"
 import { IPool } from "../../../../Models"
 
@@ -21,27 +21,23 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
     
     return (
         <Stack 
+            mt="2"
+            px="1rem"
             direction={"row"}  
             justifyContent="center">
             <Box>
-                <Center>
-                    <Text>{isPool ? totalReserves.toSignificant(2) : rate(tokenA.input?.toExact(), tokenB.input?.toExact())}</Text>
-                </Center>
-                <Text fontSize="sm">{tokenA.token?.symbol} per {tokenB.token?.symbol}</Text>
+                <Text fontWeight={"bold"} fontSize="sm" >{isPool ? totalReserves.toSignificant(2) : rate(tokenA.input?.toExact(), tokenB.input?.toExact())}</Text>
+                <Text  fontSize="xs">{tokenA.token?.symbol} per {tokenB.token?.symbol}</Text>
             </Box>
             <Spacer />
             <Box>
-                <Center>
-                    <Text>{share}%</Text>
-                </Center>
-                <Text fontSize="sm">Share of pool</Text>
+                <Text fontWeight={"bold"} fontSize="sm">{share}%</Text>
+                <Text fontSize="xs">Share of pool</Text>
             </Box>
             <Spacer />
             <Box>
-                <Center>
-                    <Text>{isPool ? totalReserves.invert().toSignificant(2) : rate(tokenB.input?.toExact(), tokenA.input?.toExact())}</Text>
-                </Center>
-                <Text fontSize="sm">{tokenB.token?.symbol} per {tokenA.token?.symbol}</Text>
+                <Text fontWeight={"bold"} fontSize="sm">{isPool ? totalReserves.invert().toSignificant(2) : rate(tokenB.input?.toExact(), tokenA.input?.toExact())}</Text>
+                <Text fontSize="xs">{tokenB.token?.symbol} per {tokenA.token?.symbol}</Text>
             </Box>
         </Stack>
     )

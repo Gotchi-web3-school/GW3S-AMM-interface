@@ -1,19 +1,29 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
 import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
+import { IPool } from "../../../../Models";
+import { fetchBalances } from "../../../../lib/utils/pools";
+import MaxButton from "./MaxButton";
 import InputToken from "./InputToken";
 import BabyPoolShare from "./BabyPoolShare";
 import MintButton from "../raw/MintButton";
-import { IPool } from "../../../../Models";
 
 const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
-    const { active, activate } = useWeb3React();
+    const { active, activate, account, library } = useWeb3React();
     const { ERC20 } = useContext(ContractContext);
     const toast = useToast()
+
+    useEffect(() => {
+        if (account && pool.tokenA.balance === undefined) {
+            fetchBalances(pool.pair.token0, pool.pair.token1, account, library)
+            .then(result => dispatch({type: "SET_POOL_TOKEN_BALANCE", payload: result}))
+       }
+    }, [pool, account, library, dispatch])
+    console.log(pool.tokenA)
 
     const handleClickButton = async (token: any, idx: number) => {
         try {
@@ -55,7 +65,12 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
 
     return (
         <Box>
-           <Box display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%">
+            <Box px="5" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
+                <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2)}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
+                <Spacer />
+                <MaxButton token={pool.tokenB} dispatch={dispatch}/><Text fontSize={"xs"}>{pool.tokenB.balance?.toFixed(2)}</Text>
+            </Box>
+            <Box  display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
                 <InputToken token={pool.tokenA} dispatch={dispatch} />
                     <AddIcon mx="2" fontSize={"xs"} />
                 <InputToken token={pool.tokenB} dispatch={dispatch} />
@@ -65,19 +80,19 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
                 :
                 <>
-                    <Stack mt="3"  direction="row">
+                    <Stack mt="6"  direction="row">
                         {pool.tokenA.isApproved ? "" : pool.tokenA.isApproved !== undefined && <Button disabled={pool.tokenA.loading} key={0} onClick={() => handleClickButton(pool.tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}</Button>}
                         {pool.tokenB.isApproved ? "" : pool.tokenB.isApproved !== undefined && <Button disabled={pool.tokenB.loading} key={1} onClick={() => handleClickButton(pool.tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}</Button>}
                     </Stack>
                     {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton />}
                 </> 
             }
-            <HStack mb="3rem">
-                <Button w="45%" pr="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
+            <HStack  m="5">
+                <Button w="45%" pl="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
                 </Button>
                 <Spacer />
-                <Button w="45%" pl="0" bgGradient='linear(to-l, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("pool")}>
+                <Button w="45%" pr="0" bgGradient='linear(to-l, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("pool")}>
                     <Text fontSize={"sm"}>Pools<ChevronRightIcon /></Text>
                 </Button>
             </HStack>

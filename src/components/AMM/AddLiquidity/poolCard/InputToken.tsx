@@ -1,7 +1,6 @@
 import { Box, Input, Flex, Stack, useColorModeValue} from "@chakra-ui/react"
 import { TokenPool } from "../../../../Models"
 import React from "react"
-import MaxButton from "./MaxButton"
 
 const InputToken : React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> = ({token, dispatch}) => {
   //const color = useColorModeValue("black", "white")
@@ -12,10 +11,10 @@ const InputToken : React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> =
       p="1rem"
       border={"1px"}
       borderRadius={"3xl"}
-      borderColor={"gray.700"}>
+      borderColor={"gray.700"}
+      boxShadow={"inset 0 0 6px white"}>
         <Stack spacing="6">
           <Flex color="white">
-            {token.id === 0 && <MaxButton token={token} dispatch={dispatch}/>}
             <Input
               mr="5px"
               fontSize="xl"
@@ -31,7 +30,6 @@ const InputToken : React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> =
               onChange={e => dispatch({type: "HANDLE_INPUTS", payload: {id: token.id, amount: e.target.value}})}
               required
             />
-            {token.id === 1 && <MaxButton token={token} dispatch={dispatch}/>}
           </Flex>
         </Stack>
     </Box>

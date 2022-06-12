@@ -20,6 +20,11 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
            share = action.payload.share
             //const TokenABalance = new TokenAmount(action.payload.token , ethers.utils.parseEther(action.payload.amount).toString())
             return {...state, balance: balance, tokenA: tokenA, tokenB: tokenB, share: share }
+        
+        case "SET_POOL_TOKEN_BALANCE":
+            tokenA.balance = action.payload.tokenA
+            tokenB.balance = action.payload.tokenB
+        return {...state, tokenA: tokenA, tokenB: tokenB}
 
         case "LOADING":
             action.payload === 0 ?tokenA.loading = !tokenA.loading : tokenB.loading = !tokenB.loading

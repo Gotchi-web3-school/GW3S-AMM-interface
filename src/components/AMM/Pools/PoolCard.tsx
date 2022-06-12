@@ -48,18 +48,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
         }
     }, [expanded, account, library, contract, pool])
 
-    /* For addLiquidity
-    useEffect(() => {
-        if (expanded && account) {
-            fetchBalances(pool.pair.token0, pool.pair.token1, account, library)
-            .then(resutl => {
-                console.log(resutl)
-                pool.tokenA.balance = resutl.tokenA
-                pool.tokenB.balance = resutl.tokenB
-            })
-       }
-    }, [expanded, pool, account, library])
-    */
+    
 
    return (
        <AccordionItem m="3" border="none"  borderRadius={"3xl"} >
