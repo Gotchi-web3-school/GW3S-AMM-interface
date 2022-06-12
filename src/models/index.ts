@@ -18,6 +18,17 @@ export type Contract = {
     ERC20: ethers.Contract | undefined,
 }
 
+export type TokenPool = {
+    id: number,
+    token: Token,
+    isApproved: boolean, 
+    pooled: string, 
+    input: TokenAmount | undefined, 
+    balance: TokenAmount | undefined,
+    logo?: string,
+    loading: boolean,
+}
+
 export interface IPool {
     id: number
     name: string;
@@ -27,26 +38,10 @@ export interface IPool {
     balance: string | undefined
     share: Percent
     isApproved?: boolean
-    totalReserves?: Fraction
+    totalReserves: Fraction
     isPool?: boolean | undefined
-    tokenA: {
-        token: Token,
-        isApproved: boolean, 
-        pooled: string, 
-        input: TokenAmount, 
-        balance: TokenAmount | undefined,
-        logo?: string,
-        loading: boolean,
-    }
-    tokenB: {
-        token: Token,
-        isApproved: boolean, 
-        pooled: string, 
-        input: TokenAmount, 
-        balance: TokenAmount | undefined,
-        logo?: string
-        loading: boolean,
-    }
+    tokenA: TokenPool
+    tokenB: TokenPool
 }
 
 export class Pool implements IPool {
@@ -59,43 +54,29 @@ export class Pool implements IPool {
     isApproved = false
     totalReserves: Fraction = new Fraction("1", "1")
     isPool = undefined
-    tokenA: {
-        token: Token,
-        isApproved: boolean, 
-        pooled: string, 
-        input: TokenAmount, 
-        balance: TokenAmount,
-        logo?: string,
-        loading: boolean,
-    }
-    tokenB: {
-        token: Token,
-        isApproved: boolean, 
-        pooled: string, 
-        input: TokenAmount, 
-        balance: TokenAmount,
-        logo?: string,
-        loading: boolean
-    }
+    tokenA: TokenPool
+    tokenB: TokenPool
 
     constructor(id: number, name: string, tokenA: Token, tokenB: Token,  logoURI?: {tokenA?: string, tokenB?: string}) {
         this.id = id;
         this.name = name;
         this.pair = new Pair(new TokenAmount(tokenA, JSBI.BigInt("0")), new TokenAmount(tokenB, JSBI.BigInt("0")));
         this.tokenA = {
+            id: 0,
             token: tokenA,
             isApproved: false, 
             pooled: "0", 
-            input: new TokenAmount(tokenA, JSBI.BigInt("0")), 
+            input: undefined, 
             balance: new TokenAmount(tokenA, JSBI.BigInt("0")),
             logo: logoURI?.tokenA,
             loading: false,
         }
         this.tokenB = {
+            id: 1,
             token: tokenB,
             isApproved: false, 
             pooled: "0", 
-            input: new TokenAmount(tokenA, JSBI.BigInt("0")), 
+            input: undefined, 
             balance: new TokenAmount(tokenA, JSBI.BigInt("0")),
             logo: logoURI?.tokenB,
             loading: false,

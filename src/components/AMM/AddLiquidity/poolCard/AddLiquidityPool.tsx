@@ -5,8 +5,7 @@ import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
-import InputToken0 from "../raw/InputToken0";
-import InputToken1 from "../raw/InputToken1";
+import InputToken from "./InputToken";
 import PoolShare from "../raw/PoolShare";
 import MintButton from "../raw/MintButton";
 import { IPool } from "../../../../Models";
@@ -57,19 +56,19 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
     return (
         <Box >
         <HStack mb="3rem">
-            <Button w="45%" pr="0" bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
+            <Button w="45%" pr="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
                 <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
             </Button>
             <Spacer />
-            <Button w="45%" pl="0" bgGradient='linear(to-r, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("pool")}>
+            <Button w="45%" pl="0" bgGradient='linear(to-l, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("pool")}>
                 <Text fontSize={"sm"}>Pools<ChevronRightIcon /></Text>
             </Button>
         </HStack>
-        <InputToken0 />
+        <InputToken token={pool.tokenA} dispatch={dispatch} />
         <Center>
             <AddIcon my="4"/>
         </Center>
-        <InputToken1 />
+        <InputToken token={pool.tokenB} dispatch={dispatch} />
 
         {pool?.pair && <PoolShare />}
         <Stack mt="3"  direction="row">
