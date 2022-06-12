@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
+import { Token } from "quickswap-sdk";
 import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../Connectors/connectors';
@@ -25,11 +26,11 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
     }, [pool, account, library, dispatch])
     console.log(pool.tokenA)
 
-    const handleClickButton = async (token: any, idx: number) => {
+    const handleClickButton = async (token: Token, idx: number) => {
         try {
-            const contract = ERC20?.attach(token.token.address)
+            dispatch({type: "LOADING", payload: {id: idx, isLoading: true}})
+            const contract = ERC20?.attach(token.address)
             const tx = await contract?.approve(GlobalConst.addresses.ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
-            dispatch({type: "LOADING", payload: idx})
             toast({
                 title: `Approve: ${token.symbol}`,
                 description: `transaction pending at: ${tx.hash}`,
@@ -47,7 +48,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 isClosable: true,
                 })
             console.log(receipt)
-            dispatch({type: "LOADING", payload: idx})
+            dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
             dispatch({type: "APPROVED", payload: idx})
             
         } catch (error: any) {
@@ -59,7 +60,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 duration: 9000,
                 isClosable: true,
             })
-            dispatch({type: "LOADING", payload: idx})
+            dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
         }
     }
 
