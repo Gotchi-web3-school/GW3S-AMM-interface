@@ -61,27 +61,34 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
     }, [expanded, pool, account, library])
     */
 
-    return (
-    <AccordionItem  m="3" border={"none"} borderRadius={"3xl"} bgGradient={expanded ? "linear(to-b, purple.900, purple.800, purple.900, gray.800)" : ""}>
-        <Box>
+   return (
+       <AccordionItem m="3" border="none"  borderRadius={"3xl"} >
+        <Box 
+            border={expanded ? "solid 1px" : ""} 
+            boxShadow={expanded && state === "pool" ? "inset 0 0 50px #a200ff" : 
+                       expanded && state === "add" ?  "inset 0 0 50px #00ab33" : 
+                       expanded && state === "remove" ? "inset 0 0 50px #00ab33" : ""} 
+            borderColor={expanded && state === "pool" ? "#a200ff" : 
+                         expanded && state === "add" ?  "#00ab33" :
+                         expanded && state === "remove" ? "#00ab33" : ""} 
+            borderRadius={"3xl"}
+        >
             <AccordionButton
-            _expanded={{
-                bgGradient: "none",
-            }}
+            _expanded={{bgGradient: "none"}}
             _hover={{
                 bgGradient:useColorModeValue(
-                "linear(whiteAlpha.100, pink.200, pink.300, pink.200, pink.100)",
-                "linear(gray.800, purple.900, purple.800, purple.900, gray.800)"),
-            }}
+                    "linear(whiteAlpha.100, pink.200, pink.300, pink.200, pink.100)",
+                    "linear(gray.800, purple.900, purple.800, purple.900, gray.800)")}}
             bgGradient={useColorModeValue(
-            "radial(whiteAlpha.100, pink.200, pink.300, pink.200, whiteAlpha.100)",
-            "radial(gray.800, purple.900, purple.800, purple.900, gray.800)")}
+                "radial(whiteAlpha.100, pink.200, pink.300, pink.200, whiteAlpha.100)",
+                "radial(gray.800, purple.900, purple.800, purple.900, gray.800)")}
             h="5rem"
+            pb="0"
             borderRadius={"full"}
             _focus={{border: "none"}}
             alignContent="center"
             onClick={() => setExpanded(!expanded)}
-            >
+                    >
                 <Box display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
                     {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionOutlineIcon />}
                     <Text mx="5">{props.pool.name}</Text>

@@ -19,7 +19,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
             </Flex>
             <Text textAlign={"left"}>Your pool share</Text><Text textAlign={"right"}>{pool?.share.toSignificant(2) ?? "0"}%</Text>
         </SimpleGrid>
-        <HStack m="5" mt="5rem">
+        <HStack m="5">
             <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)' _hover={{bg: 'green.500'}} justifyContent={"left"} onClick={() => setState("add")}>
                 <Text fontSize={"sm"}><ChevronLeftIcon />Add liquidity</Text>
             </Button>

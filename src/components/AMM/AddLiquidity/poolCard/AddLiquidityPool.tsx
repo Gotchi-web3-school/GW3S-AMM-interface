@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { useWeb3React } from "@web3-react/core";
-import {Button, Box, Text, Center, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
+import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
@@ -54,23 +54,14 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
     }
 
     return (
-        <Box >
-        <HStack mb="3rem">
-            <Button w="45%" pr="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
-                <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
-            </Button>
-            <Spacer />
-            <Button w="45%" pl="0" bgGradient='linear(to-l, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("pool")}>
-                <Text fontSize={"sm"}>Pools<ChevronRightIcon /></Text>
-            </Button>
-        </HStack>
-        <InputToken token={pool.tokenA} dispatch={dispatch} />
-        <Center>
-            <AddIcon my="4"/>
-        </Center>
-        <InputToken token={pool.tokenB} dispatch={dispatch} />
+        <Box>
+           <Box display={"flex"} justifyContent="center" alignContent={"center"} w="100%">
+                <InputToken token={pool.tokenA} dispatch={dispatch} />
+                    <AddIcon my="4"/>
+                <InputToken token={pool.tokenB} dispatch={dispatch} />
+            </Box>
 
-        {pool?.pair && <PoolShare />}
+        {(pool.tokenA.input || pool.tokenB.input) && <PoolShare />}
         <Stack mt="3"  direction="row">
             {pool.tokenA.isApproved ? "" : pool.tokenA.isApproved !== undefined && <Button disabled={pool.tokenA.loading} key={0} onClick={() => handleClickButton(pool.tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}</Button>}
             {pool.tokenB.isApproved ? "" : pool.tokenB.isApproved !== undefined && <Button disabled={pool.tokenB.loading} key={1} onClick={() => handleClickButton(pool.tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}</Button>}
@@ -81,6 +72,15 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
             : 
             <MintButton />
         }
+        <HStack mb="3rem">
+            <Button w="45%" pr="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
+                <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
+            </Button>
+            <Spacer />
+            <Button w="45%" pl="0" bgGradient='linear(to-l, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("pool")}>
+                <Text fontSize={"sm"}>Pools<ChevronRightIcon /></Text>
+            </Button>
+        </HStack>
         </Box>
     )
 }
