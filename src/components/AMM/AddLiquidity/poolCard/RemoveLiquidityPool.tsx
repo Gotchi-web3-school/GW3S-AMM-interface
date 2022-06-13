@@ -8,8 +8,6 @@ import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
 import { fetchBalances, fetchApproved } from "../../../../lib/utils/pools";
-import MaxButton from "./MaxButton";
-import InputToken from "./InputToken";
 import RemovePoolShare from "./RemovePoolShare";
 import MintButton from "./MintButton";
 import SliderPool from "./SliderPool";

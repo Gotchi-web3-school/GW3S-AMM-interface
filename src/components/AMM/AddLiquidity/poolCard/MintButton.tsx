@@ -18,8 +18,8 @@ const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
         addLiquidityTx({
             router2: contract.router2,
             pair: pair,
-            amount0: tokenA.input!,
-            amount1: tokenB.input!,
+            amount0: tokenA.inputAdd!,
+            amount1: tokenB.inputAdd!,
             userAddress: account!,
             toast: toast,
         }, library)
@@ -31,9 +31,9 @@ const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
 
     return (
         <>
-        {tokenA.input && tokenB.input ?
+        {tokenA.inputAdd && tokenB.inputAdd ?
             <>
-            {tokenA.balance && isSufficientBalance(tokenA.input.toExact(), tokenA.balance, tokenB.input.toExact(), tokenB.balance!) ?
+            {tokenA.balance && isSufficientBalance(tokenA.inputAdd.toExact(), tokenA.balance, tokenB.inputAdd.toExact(), tokenB.balance!) ?
                 <Button 
                 onClick={handleAddLiquidityTx} 
                 disabled={!tokenA.isApproved  || !tokenB.isApproved || loading} 

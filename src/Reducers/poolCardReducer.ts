@@ -55,38 +55,38 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                 // If pool is already created
                 if (isPool && ethers.utils.parseEther(inputAmount.toString()).gt("0")) {
                     if (inputId === 0) {
-                        tokenA.input = new TokenAmount(tokenA.token, JSBI.BigInt(inputAmount))
+                        tokenA.inputAdd = new TokenAmount(tokenA.token, JSBI.BigInt(inputAmount))
                         // using the inputA, calcul the rate of the second token
                         const amount1 = JSBI.BigInt(inputAmount.mul(totalReserves.denominator.toString()).div(totalReserves.numerator.toString()).toString())
-                        tokenB.input = new TokenAmount(tokenB.token, amount1)
+                        tokenB.inputAdd = new TokenAmount(tokenB.token, amount1)
                         return {...state, tokenA: tokenA, tokenB: tokenB}
                     } else {
-                        tokenB.input = new TokenAmount(tokenB.token, JSBI.BigInt(inputAmount))
+                        tokenB.inputAdd = new TokenAmount(tokenB.token, JSBI.BigInt(inputAmount))
                         // using the inputB: calcul the rate of the second token
                         const amount0 = JSBI.BigInt(inputAmount.mul(totalReserves.numerator.toString()).div(totalReserves.denominator.toString()).toString())
-                        tokenA.input = new TokenAmount(tokenA.token, amount0)
+                        tokenA.inputAdd = new TokenAmount(tokenA.token, amount0)
                         return {...state, tokenA: tokenA, tokenB: tokenB}
                     }
                 // If pool in not created and there is no entries
                 } else if (inputAmount.toString() === "" && state.isPool) {
-                    tokenA.input = undefined
-                    tokenB.input = undefined
+                    tokenA.inputAdd = undefined
+                    tokenB.inputAdd = undefined
                     return {...state, tokenA: tokenA, tokenB: tokenB}
                 } else {
                     if (inputId === 0) {
-                        tokenA.input =  new TokenAmount(tokenA.token, JSBI.BigInt(inputAmount))
+                        tokenA.inputAdd =  new TokenAmount(tokenA.token, JSBI.BigInt(inputAmount))
                         return {...state, tokenA: tokenA}
                     } else {
-                        tokenB.input =  new TokenAmount(tokenB.token, JSBI.BigInt(inputAmount))
+                        tokenB.inputAdd =  new TokenAmount(tokenB.token, JSBI.BigInt(inputAmount))
                         return {...state, tokenB: tokenB}
                     }
             }
             } catch (error) {
                 if (inputId === 0) {
-                    tokenA.input = undefined
+                    tokenA.inputAdd = undefined
                     return {...state, tokenA: tokenA}
                 } else {
-                    tokenB.input = undefined
+                    tokenB.inputAdd = undefined
                     return {...state, tokenB: tokenB}
                 }
             }

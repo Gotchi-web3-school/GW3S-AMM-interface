@@ -8,16 +8,16 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
     const { isPool, tokenA, tokenB, pair, totalReserves} = pool
 
     useEffect(() => {
-        if (isPool && tokenA.input) {
+        if (isPool && tokenA.inputAdd) {
             try {
-                setShare(calculateShare(pair, tokenA.input, totalReserves))
+                setShare(calculateShare(pair, tokenA.inputAdd, totalReserves))
             } catch (error) {
                 console.log(error)
             }
         } else {
             setShare("100")
         }
-    }, [isPool, pair,  tokenA.input, totalReserves])
+    }, [isPool, pair,  tokenA.inputAdd, totalReserves])
     
     return (
         <Stack 
@@ -26,7 +26,7 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
             direction={"row"}  
             justifyContent="center">
             <Box>
-                <Text fontWeight={"bold"} fontSize="sm" >{isPool ? totalReserves.toSignificant(2) : rate(tokenA.input?.toExact(), tokenB.input?.toExact())}</Text>
+                <Text fontWeight={"bold"} fontSize="sm" >{isPool ? totalReserves.toSignificant(2) : rate(tokenA.inputAdd?.toExact(), tokenB.inputAdd?.toExact())}</Text>
                 <Text  fontSize="xs">{tokenA.token?.symbol} per {tokenB.token?.symbol}</Text>
             </Box>
             <Spacer />
@@ -36,7 +36,7 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
             </Box>
             <Spacer />
             <Box>
-                <Text fontWeight={"bold"} fontSize="sm">{isPool ? totalReserves.invert().toSignificant(2) : rate(tokenB.input?.toExact(), tokenA.input?.toExact())}</Text>
+                <Text fontWeight={"bold"} fontSize="sm">{isPool ? totalReserves.invert().toSignificant(2) : rate(tokenB.inputAdd?.toExact(), tokenA.inputAdd?.toExact())}</Text>
                 <Text fontSize="xs">{tokenB.token?.symbol} per {tokenA.token?.symbol}</Text>
             </Box>
         </Stack>

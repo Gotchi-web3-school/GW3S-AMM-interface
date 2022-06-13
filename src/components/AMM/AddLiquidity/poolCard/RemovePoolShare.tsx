@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Text, Flex, Image, HStack, Box, Input } from "@chakra-ui/react"
 import { QuestionOutlineIcon, ArrowRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../../Models"
@@ -38,7 +38,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenA.pooled}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenA?.input?.toExact() ?? "0"} 
+                        value={tokenA?.inputRemove?.toExact() ?? "0"} 
                         defaultValue="0" 
                         border="none" 
                         p="0" 
@@ -57,7 +57,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenB.pooled}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenB?.input?.toExact() ?? "0"} 
+                        value={tokenB?.inputRemove?.toExact() ?? "0"} 
                         defaultValue="0" 
                         border="none" 
                         p="0" 

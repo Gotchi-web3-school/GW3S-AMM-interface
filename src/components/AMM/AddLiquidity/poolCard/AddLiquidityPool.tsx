@@ -82,7 +82,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                     <AddIcon mx="2" fontSize={"xs"} />
                 <InputToken token={pool.tokenB} dispatch={dispatch} />
             </Box>
-            {(pool.tokenA.input || pool.tokenB.input) && <BabyPoolShare pool={pool} />}
+            {(pool.tokenA.inputAdd || pool.tokenB.inputAdd) && <BabyPoolShare pool={pool} />}
             {!active ? 
                 <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
                 :
