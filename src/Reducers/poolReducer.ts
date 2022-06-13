@@ -28,8 +28,8 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
             const array: number[] = []
             // Filter all the similar pool element
             const newPools: Pool[] = pools.filter((prev) => {
-                if (array[prev.id] !== 1) {
-                    array[prev.id] = 1
+                if (array[parseInt(prev.pair.liquidityToken.address)] !== 1) {
+                    array[parseInt(prev.pair.liquidityToken.address)] = 1
                     return true;
                 } else {
                     return false
