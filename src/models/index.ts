@@ -37,6 +37,7 @@ export interface IPool {
     pair: Pair;
     logoURI?: {tokenA?: string, tokenB?: string};
     balance: string | undefined
+    lpRemoveInput: string | undefined
     share: Percent
     isApproved?: boolean
     totalReserves: Fraction
@@ -51,6 +52,7 @@ export class Pool implements IPool {
     pair: Pair;
     liquidityToken?: Token
     balance: string | undefined = undefined
+    lpRemoveInput: string | undefined = undefined
     share: Percent = new Percent("0", "100")
     isApproved = false
     totalReserves: Fraction = new Fraction("1", "1")

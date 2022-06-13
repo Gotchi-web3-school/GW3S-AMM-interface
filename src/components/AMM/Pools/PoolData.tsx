@@ -24,7 +24,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
                 <Text fontSize={"sm"}><ChevronLeftIcon />Add liquidity</Text>
             </Button>
             <Spacer />
-            <Button w="45%" pr="0" bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"right"} onClick={() => setState("remove")}>
+            <Button w="45%" pr="0" disabled={!pool.isPool ?? true} bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"right"} onClick={() => setState("remove")}>
                 <Text fontSize={"sm"}>Remove liquidity<ChevronRightIcon /></Text>
             </Button>
         </HStack>

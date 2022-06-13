@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { Tooltip, Box, Text } from '@chakra-ui/react'
 import {
@@ -9,9 +9,14 @@ import {
     SliderMark,
   } from '@chakra-ui/react'
 
-const SliderPool: React.FC = () => {
+const SliderPool: React.FC<{dispatch: React.Dispatch<any>}> = ({dispatch}) => {
     const [sliderValue, setSliderValue] = useState(5)
     const [showTooltip, setShowTooltip] = useState(false)
+
+    const handleSlider = useCallback((e: number) => {
+      setSliderValue(e)
+      dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "SLIDER", value: e}})
+    }, [dispatch])
     return (
       <Box px="5" alignContent={"left"}>
         <Text>Amount</Text>
@@ -20,7 +25,7 @@ const SliderPool: React.FC = () => {
           defaultValue={0}
           min={0}
           max={100}
-          onChange={(v) => setSliderValue(v)}
+          onChange={handleSlider}
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
         >

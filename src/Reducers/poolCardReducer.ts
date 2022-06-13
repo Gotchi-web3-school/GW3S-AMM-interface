@@ -1,5 +1,6 @@
 import { TokenAmount, JSBI } from "quickswap-sdk";
 import { ethers, FixedNumber } from "ethers";
+import { parseEther, formatEther } from "ethers/lib/utils";
 import { IPool } from "../Models"
 
 export const poolCardReducer = (state: IPool, action: any): IPool => {
@@ -90,6 +91,31 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                     return {...state, tokenB: tokenB}
                 }
             }
+        case 'HANDLE_REMOVE_INPUTS':
+            try {
+                switch(action.payload.type) {
+                    case "SLIDER":
+                        const lpAmount = new TokenAmount(liquidityToken!, JSBI.BigInt(parseEther(balance ?? '0').mul(parseEther((action.payload.value / 100).toString()))))
+                        tokenA.inputRemove = new TokenAmount(tokenA.token, lpAmount.divide(JSBI.BigInt(parseEther(balance!))).multiply(JSBI.BigInt(parseEther(tokenA.pooled))).quotient)
+                        tokenB.inputRemove = new TokenAmount(tokenB.token,  lpAmount.divide(JSBI.BigInt(parseEther(balance!))).multiply(JSBI.BigInt(parseEther(tokenB.pooled))).quotient)
+                        return {...state, lpRemoveInput: formatEther(lpAmount.toExact()), tokenA: tokenA, tokenB: tokenB}
+                    case "LP_INPUT":
+                        console.log(action.payload.value)
+                        return {...state}
+                    case "TOKEN_A_INPUT":
+                        console.log(action.payload.value)
+                        return {...state}
+                    case "TOKEN_B_INPUT":
+                        console.log(action.payload.value)
+                        return {...state}
+                    default:
+                        throw new Error(`Unsupported action type ${action.type} in userReducer/HANDLE_REMOVE_INPUTS `)
+                }
+            } catch (error) {
+                console.log(error)
+                return {...state}
+            }
+
         case "RESET":
             isPool = undefined
             balance = undefined

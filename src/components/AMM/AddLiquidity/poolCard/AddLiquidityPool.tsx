@@ -95,7 +95,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 </> 
             }
             <HStack  m="5">
-                <Button w="45%" pl="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
+                <Button w="45%" pl="0" disabled={!pool.isPool ?? true} bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
                 </Button>
                 <Spacer />
