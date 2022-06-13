@@ -8,15 +8,16 @@ import {
     SliderThumb,
     SliderMark,
   } from '@chakra-ui/react'
+  import { IPool } from '../../../../Models'
+import { Percent, JSBI } from 'quickswap-sdk'
 
-const SliderPool: React.FC<{dispatch: React.Dispatch<any>}> = ({dispatch}) => {
-    const [sliderValue, setSliderValue] = useState(5)
+const SliderPool: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const [showTooltip, setShowTooltip] = useState(false)
 
     const handleSlider = useCallback((e: number) => {
-      setSliderValue(e)
       dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "SLIDER", value: e}})
     }, [dispatch])
+    
     return (
       <Box px="5" alignContent={"left"}>
         <Text>Amount</Text>
@@ -47,7 +48,11 @@ const SliderPool: React.FC<{dispatch: React.Dispatch<any>}> = ({dispatch}) => {
             color='white'
             placement='top'
             isOpen={showTooltip}
-            label={`${sliderValue}%`}
+            label={
+              `${new Percent(
+              JSBI.BigInt((parseInt(pool?.lpRemoveInput! ?? "0") * 100)),
+              JSBI.BigInt((parseInt(pool?.balance! ?? "100") * 100))).toFixed(0)}%`
+            }
           >
             <SliderThumb />
           </Tooltip>

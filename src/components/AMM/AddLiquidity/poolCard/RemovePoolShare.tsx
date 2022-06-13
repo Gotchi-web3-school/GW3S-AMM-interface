@@ -5,7 +5,6 @@ import { IPool } from "../../../../Models"
 
 const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const { tokenA, tokenB, balance, pair, lpRemoveInput} = pool
-    console.log(tokenA.inputRemove, lpRemoveInput)
     
     return (
         <HStack my="7" mx="4" border="1px solid white" p="5" borderRadius={"3xl"} justifyContent="center" boxShadow="inset 1px 1px 5px white">
@@ -16,8 +15,9 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                     h="5" 
                     min={0}
                     max={balance ?? "0"}
-                    value={lpRemoveInput ?? "0"}
-                    defaultValue="0"
+                    value={lpRemoveInput}
+                    type="number"
+                    placeholder="0"
                     border="none" 
                     p="0" 
                     m="0"
@@ -36,8 +36,9 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenA.pooled}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenA?.inputRemove?.toExact() ?? "0"} 
-                        defaultValue="0" 
+                        value={tokenA?.inputRemove?.toExact() ?? ""} 
+                        placeholder="0"
+                        type="number"
                         border="none" 
                         p="0" 
                         m="0"
@@ -54,8 +55,9 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenB.pooled}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenB?.inputRemove?.toExact() ?? "0"} 
-                        defaultValue="0" 
+                        value={tokenB?.inputRemove?.toExact() ?? ""} 
+                        placeholder="0"
+                        type="number"
                         border="none" 
                         p="0" 
                         m="0"

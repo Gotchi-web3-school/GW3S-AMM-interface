@@ -73,7 +73,7 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
 
     return (
         <Box>
-            <SliderPool dispatch={dispatch} />
+            <SliderPool pool={pool} dispatch={dispatch} />
             <RemovePoolShare pool={pool} dispatch={dispatch} />
             {!active ? 
                 <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
