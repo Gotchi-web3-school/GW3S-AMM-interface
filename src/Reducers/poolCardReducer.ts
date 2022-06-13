@@ -33,12 +33,18 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
             } else {
                 tokenB.loading = action.payload.isLoading
             }
-            console.log(tokenA.loading, tokenB.loading)
             return {...state, tokenA: tokenA, tokenB: tokenB}
         
-        case "APPROVED":
-            tokenA.isApproved = true
-            tokenB.isApproved = true
+        case "SEARCH_APPROVED":
+            tokenA.isApproved = action.payload.isApproved.tokenA
+            tokenB.isApproved = action.payload.isApproved.tokenB
+            return {...state, tokenA: tokenA, tokenB: tokenB}
+        
+        case "SET_APPROVED":
+            if (action.payload === 0)
+                tokenA.isApproved = true
+            else
+                tokenB.isApproved = true
             return {...state, tokenA: tokenA, tokenB: tokenB}
 
         case 'HANDLE_INPUTS':

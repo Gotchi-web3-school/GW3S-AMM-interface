@@ -7,8 +7,7 @@ import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
-import { fetchBalances } from "../../../../lib/utils/pools";
-import { fetchApproved } from "../../../../lib/utils/";
+import { fetchBalances, fetchApproved } from "../../../../lib/utils/pools";
 import MaxButton from "./MaxButton";
 import InputToken from "./InputToken";
 import BabyPoolShare from "./BabyPoolShare";
@@ -28,11 +27,10 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
 
     // Check for approval
     useEffect(() => {
-        if (account && pool.tokenA.isApproved === undefined)
-            console.log("Fetch approved")
-            fetchApproved(pool.pair, account!, library)
-            .then(result => dispatch({type: "APPROVED", payload: {isApproved: result}}))
-    }, [pool.pair, account, library, dispatch, pool.tokenA.isApproved])
+        if (account && pool.tokenA.balance === undefined)
+            fetchApproved(pool, account!, library)
+            .then(result => dispatch({type: "SEARCH_APPROVED", payload: {isApproved: result}}))
+    }, [pool, account, library, dispatch])
 
     const handleClickButton = async (token: Token, idx: number) => {
         try {
@@ -57,7 +55,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 })
             console.log(receipt)
             dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
-            dispatch({type: "APPROVED", payload: idx})
+            dispatch({type: "SET_APPROVED", payload: idx})
             
         } catch (error: any) {
             toast({
