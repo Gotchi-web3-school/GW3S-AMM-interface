@@ -12,7 +12,7 @@ import { fetchApproved } from "../../../../lib/utils/";
 import MaxButton from "./MaxButton";
 import InputToken from "./InputToken";
 import BabyPoolShare from "./BabyPoolShare";
-import MintButton from "../raw/MintButton";
+import MintButton from "./MintButton";
 
 const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
     const { active, activate, account, library } = useWeb3React();
@@ -21,7 +21,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
 
     useEffect(() => {
         if (account && pool.tokenA.balance === undefined) {
-            fetchBalances(pool.pair.token0, pool.pair.token1, account, library)
+            fetchBalances(pool, account, library)
             .then(result => dispatch({type: "SET_POOL_TOKEN_BALANCE", payload: result}))
        }
     }, [pool, account, library, dispatch])
@@ -90,10 +90,10 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 :
                 <>
                     <Stack mt="6"  direction="row">
-                        {pool.tokenA.isApproved ? "" : pool.tokenA.isApproved && <Button disabled={pool.tokenA.loading} key={0} onClick={() => handleClickButton(pool.tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}</Button>}
-                        {pool.tokenB.isApproved ? "" : pool.tokenB.isApproved && <Button disabled={pool.tokenB.loading} key={1} onClick={() => handleClickButton(pool.tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}</Button>}
+                        {pool.tokenA.isApproved ? "" : <Button disabled={pool.tokenA.loading} key={0} onClick={() => handleClickButton(pool.tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}</Button>}
+                        {pool.tokenB.isApproved ? "" : <Button disabled={pool.tokenB.loading} key={1} onClick={() => handleClickButton(pool.tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}</Button>}
                     </Stack>
-                    {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton />}
+                    {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton pool={pool} dispatch={dispatch} />}
                 </> 
             }
             <HStack  m="5">

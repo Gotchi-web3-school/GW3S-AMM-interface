@@ -11,15 +11,16 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
         case "SET_ISPOOL":
             isPool = true
             liquidityToken = action.payload
-            return {...state, isPool: isPool, liquidityToken: liquidityToken};
+            return {...state, liquidityToken: liquidityToken, isPool: isPool};
         
         case "SET_POOL_BALANCE":
            balance = action.payload.balance.toSignificant(3)
            tokenA.pooled = action.payload.amountA.toSignificant(3)
            tokenB.pooled = action.payload.amountB.toSignificant(3)
            share = action.payload.share
+           totalReserves = action.payload.reserves
             //const TokenABalance = new TokenAmount(action.payload.token , ethers.utils.parseEther(action.payload.amount).toString())
-            return {...state, balance: balance, tokenA: tokenA, tokenB: tokenB, share: share }
+            return {...state, balance: balance, tokenA: tokenA, tokenB: tokenB, share: share, totalReserves: totalReserves }
         
         case "SET_POOL_TOKEN_BALANCE":
             tokenA.balance = action.payload.tokenA
@@ -36,8 +37,8 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
             return {...state, tokenA: tokenA, tokenB: tokenB}
         
         case "APPROVED":
-            tokenA.isApproved = action.payload.isApproved.token0
-            tokenB.isApproved = action.payload.isApproved.token1
+            tokenA.isApproved = true
+            tokenB.isApproved = true
             return {...state, tokenA: tokenA, tokenB: tokenB}
 
         case 'HANDLE_INPUTS':
@@ -75,7 +76,6 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                     }
             }
             } catch (error) {
-                console.log(error)
                 if (inputId === 0) {
                     tokenA.input = undefined
                     return {...state, tokenA: tokenA}
@@ -84,6 +84,11 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                     return {...state, tokenB: tokenB}
                 }
             }
+        case "RESET":
+            isPool = undefined
+            balance = undefined
+            tokenA.balance = undefined
+            return {...state, isPool: isPool, balance: balance, tokenA: tokenA}
 
       default:
         throw new Error(`Unsupported action type ${action.type} in userReducer`)
