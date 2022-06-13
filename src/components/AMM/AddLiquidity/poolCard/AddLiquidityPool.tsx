@@ -53,7 +53,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 duration: 6000,
                 isClosable: true,
                 })
-            console.log(receipt)
+            console.log("Receipt: " + receipt)
             dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
             dispatch({type: "SET_APPROVED", payload: idx})
             

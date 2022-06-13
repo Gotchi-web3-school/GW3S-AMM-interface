@@ -62,6 +62,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
         >
             <AccordionButton
             _expanded={{bgGradient: "none"}}
+            boxShadow={parseInt(pool?.balance!) > 0 && !expanded ? "1px 1px 10px white" : ""}
             _hover={{
                 bgGradient:useColorModeValue(
                     "linear(whiteAlpha.100, pink.200, pink.300, pink.200, pink.100)",
