@@ -11,13 +11,14 @@ import {
    } from "@chakra-ui/react"
 import { QuestionOutlineIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models";
-import PoolData from "./PoolData"
-import AddLiquidityPool from "../AddLiquidity/poolCard/AddLiquidityPool";
 import { fetchPoolBalances, getLp} from "../../../lib/utils/pools";
 import { isPoolCreated } from "../../../lib/utils";
 import { useWeb3React } from "@web3-react/core";
 import { ContractContext } from "../../../Provider/ContractsProvider";
 import { poolCardReducer } from "../../../Reducers/poolCardReducer";
+import PoolData from "./PoolData"
+import AddLiquidityPool from "../AddLiquidity/poolCard/AddLiquidityPool";
+import RemoveLiquidityPool from "../AddLiquidity/poolCard/RemoveLiquidityPool";
 
 
 const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
@@ -87,7 +88,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
             <AccordionPanel pb={4}>
                {state === "pool" && <PoolData pool={pool ?? props.pool} setState={setState} />}
                {state === "add" && <AddLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
-               {state === "remove" && <AddLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
+               {state === "remove" && <RemoveLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
             </AccordionPanel>
         </Box>
     </AccordionItem>
