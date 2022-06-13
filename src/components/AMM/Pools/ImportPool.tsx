@@ -11,6 +11,7 @@ const ImportPool: React.FC = () => {
     const color = useColorModeValue("black", "white")
 
     const setNewPool = useCallback(() => {
+      console.log("import pool")
       dispatch({type: "SET_POOL"})
     }, [dispatch])
   

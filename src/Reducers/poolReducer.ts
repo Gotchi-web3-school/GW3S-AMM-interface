@@ -1,3 +1,5 @@
+import { ethers } from "ethers";
+import { keccak256, arrayify } from "ethers/lib/utils";
 import { Token} from "quickswap-sdk"
 import { PoolProvider, Pool } from "../Models"
 
@@ -17,14 +19,17 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
         case 'SET_POOL':
             const name = tokenA!.symbol + " - " + tokenB!.symbol
             const tokensUri = {tokenA: tokenALogo, tokenB: tokenBLogo}
-            const newPool: Pool = new Pool(pools.length - 1, name, tokenA!, tokenB!, tokensUri)
+            const addrA = arrayify(tokenA!.address)
+            const addrB = arrayify(tokenB!.address)
+            const bytesArray = ethers.utils.concat([addrA, addrB])
+            const newPool: Pool = new Pool(parseInt(keccak256(bytesArray)), name, tokenA!, tokenB!, tokensUri)
             pools.unshift(newPool)
 
             const array: number[] = []
             // Filter all the similar pool element
             const newPools: Pool[] = pools.filter((prev) => {
-                if (array[parseInt(prev.pair.liquidityToken.address)] !== 1) {
-                    array[parseInt(prev.pair.liquidityToken.address)] = 1
+                if (array[prev.id] !== 1) {
+                    array[prev.id] = 1
                     return true;
                 } else {
                     return false
