@@ -8,15 +8,16 @@ import { IPool } from "../../../../Models"
 const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const contract = useContext(ContractContext)
     const { library, account } = useWeb3React()
-    const { tokenA, tokenB, isPool, lpRemoveInput, balance} = pool
+    const { tokenA, tokenB, lpToken, pair} = pool
     const toast = useToast()
     const [loading, setLoading] = useState(false)
 
     const handleRemoveLiquidityTx = () => {
         setLoading(true)
         removeLiquidityTx({
-            router2: contract.router2,
-            liquidityAmount: lpRemoveInput!,
+            router2: contract.router2!,
+            pair: pair,
+            liquidityAmount: lpToken.lpRemoveInput!,
             amountAOut: tokenA.inputRemove!,
             amountBOut: tokenB.inputRemove!,
             userAddress: account!,
@@ -30,18 +31,18 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
 
     return (
         <>
-        {lpRemoveInput ?
+        {lpToken.lpRemoveInput ?
             <>
-            {isSufficientLPBalance(lpRemoveInput, balance!) ?
+            {isSufficientLPBalance(lpToken.lpRemoveInput, lpToken.balance!) ?
                 <Button 
                 onClick={handleRemoveLiquidityTx} 
-                disabled={!tokenA.isApproved  || !tokenB.isApproved || loading} 
+                disabled={!lpToken.isApproved || loading} 
                 mt="5" 
                 w="100%" 
                 h="3.5rem" 
                 bg="blue.500" 
                 >
-                    {loading ? <Spinner /> : isPool ? "Add Liquidity"  : "Create pool"}
+                    {loading ? <Spinner /> : "Remove Liquidity"}
                 </Button>
                 :
                 <Container mt="5" w="100%" h="3.5rem" bg="red.300" textAlign={"center"} verticalAlign="center" rounded={"xl"} color="gray.700"><Text pt="2" fontSize={"2xl"}>Insufficient balance</Text></Container>

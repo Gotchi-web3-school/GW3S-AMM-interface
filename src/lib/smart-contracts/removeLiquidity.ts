@@ -1,11 +1,12 @@
-import { TokenAmount, Percent, JSBI } from "quickswap-sdk"
+import { TokenAmount, Percent, JSBI, Pair } from "quickswap-sdk"
 import { ethers } from "ethers";
 import { GlobalConst } from "../../Constants";
 import { calculateSlippageAmount } from "../utils";
 
 interface RemoveLiquidityTx {
-    router2: ethers.Contract | undefined,
+    router2: ethers.Contract,
     liquidityAmount: TokenAmount,
+    pair: Pair,
     amountAOut: TokenAmount,
     amountBOut: TokenAmount,
     userAddress: string,
@@ -16,25 +17,28 @@ export const removeLiquidityTx = async(tx: RemoveLiquidityTx, provider: any): Pr
     try {
         const slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
         const liquidity = tx.liquidityAmount
-        const amountAMin = calculateSlippageAmount(tx.amountAOut, slippage)
-        const amountBMin = calculateSlippageAmount(tx.amountBOut, slippage)
+        const amountA = tx.pair.token0.equals(tx.amountAOut.token) ? tx.amountAOut : tx.amountBOut;
+        const amountB =  tx.pair.token1.equals(tx.amountAOut.token) ? tx.amountAOut : tx.amountBOut;
+        const amountAMin = calculateSlippageAmount(amountA, slippage)
+        const amountBMin = calculateSlippageAmount(amountB, slippage)
         const deadline = await provider.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
     
-        console.log("token A: " + tx.amountAOut.token.symbol + " " + tx.amountAOut.token.address)
-        console.log("token B: " + tx.amountBOut.token.symbol + " " + tx.amountBOut.token.address)
+        console.log("token A: " + amountA.token.symbol + " " + amountA.token.address)
+        console.log("token B: " + amountB.token.symbol + " " + amountB.token.address)
         console.log("LP token: " + liquidity.token.symbol + " " + liquidity.token.address)
-        console.log("amount A out: " + tx.amountAOut.toExact())
-        console.log("amount B out: " + tx.amountAOut.toExact())
+        console.log("LP token amount: " + ethers.utils.parseEther(liquidity.toExact()))
         console.log("minimum amount A: " +  ethers.utils.parseEther(amountAMin[0]))
         console.log("minimum amount B: " +  ethers.utils.parseEther(amountBMin[0]))
         console.log("userAddress address: " + tx.userAddress)
         console.log("deadline: " + deadline)
+
+        console.log(ethers.utils.parseEther(liquidity.quotient.toString()))
     
         //Estimation of the gas cost
-        const gas = await tx.router2?.estimateGas.addLiquidity(
-            tx.amountAOut.token.address,
-            tx.amountBOut.token.address,
-            liquidity.quotient.toString(),
+        const gas = await tx.router2.estimateGas.removeLiquidity(
+            amountA.token.address,
+            amountB.token.address,
+            ethers.utils.parseEther(liquidity.toExact()),
             ethers.utils.parseEther(amountAMin[0]),
             ethers.utils.parseEther(amountBMin[0]),
             tx.userAddress,
@@ -43,10 +47,10 @@ export const removeLiquidityTx = async(tx: RemoveLiquidityTx, provider: any): Pr
     
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
-        const transaction = await tx.router2?.addLiquidity(
-            tx.amountAOut.token.address,
-            tx.amountBOut.token.address,
-            liquidity.quotient.toString(),
+        const transaction = await tx.router2.removeLiquidity(
+            amountA.token.address,
+            amountB.token.address,
+            ethers.utils.parseEther(liquidity.toExact()),
             ethers.utils.parseEther(amountAMin[0]),
             ethers.utils.parseEther(amountBMin[0]),
             tx.userAddress,
@@ -88,5 +92,10 @@ export const removeLiquidityTx = async(tx: RemoveLiquidityTx, provider: any): Pr
 }
 
 export const isSufficientLPBalance = (input: TokenAmount, balance: TokenAmount): boolean => {
-    return parseInt(input.toExact()) <= parseInt(balance.toExact())
+    try {
+        const result = parseInt(input.toExact()) <= parseInt(balance.toExact())
+        return result
+    } catch (error) {
+        return false
+    }
 }

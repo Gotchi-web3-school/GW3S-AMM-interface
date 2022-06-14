@@ -4,7 +4,7 @@ import { QuestionOutlineIcon, ArrowRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../../Models"
 
 const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
-    const { tokenA, tokenB, pair, lpRemoveInput} = pool
+    const { tokenA, tokenB, pair, lpToken} = pool
     
     return (
         <HStack my="7" mx="4" border="1px solid white" py="5" borderRadius={"3xl"} justifyContent="center" boxShadow="inset 1px 1px 5px white">
@@ -14,7 +14,8 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                 <Input 
                     h="5" 
                     min={0}
-                    value={lpRemoveInput?.toSignificant(4) ?? ""}
+                    max={lpToken.balance?.toExact() ?? '0'}
+                    value={lpToken.lpRemoveInput?.toSignificant(4) ?? ""}
                     type="number"
                     placeholder="0"
                     border="none" 
@@ -32,7 +33,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                     <Input 
                         h="5" 
                         min={0}
-                        max={tokenA.pooled}
+                        max={tokenA?.pooled?.toExact() ?? '0'}
                         textAlign={"right"}
                         fontWeight={"bold"}
                         value={tokenA?.inputRemove?.toSignificant(4) ?? ""} 
@@ -52,7 +53,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                     <Input 
                         h="5" 
                         min={0}
-                        max={tokenB.pooled}
+                        max={tokenB?.pooled?.toExact() ?? '0'}
                         textAlign={"right"}
                         fontWeight={"bold"}
                         value={tokenB?.inputRemove?.toSignificant(4) ?? ""} 

@@ -22,7 +22,7 @@ export type TokenPool = {
     id: number,
     token: Token,
     isApproved: boolean, 
-    pooled: string, 
+    pooled: TokenAmount, 
     inputAdd: TokenAmount | undefined, 
     inputRemove: TokenAmount | undefined, 
     balance: TokenAmount | undefined,
@@ -33,12 +33,16 @@ export type TokenPool = {
 export interface IPool {
     id: number
     name: string;
-    liquidityToken?: Token
     pair: Pair;
+    lpToken: {
+        token?: Token | undefined, 
+        isApproved: boolean, 
+        balance: TokenAmount | undefined,
+        lpRemoveInput: TokenAmount | undefined,
+        share: Percent,
+        loading: boolean,
+    }
     logoURI?: {tokenA?: string, tokenB?: string};
-    balance: TokenAmount | undefined
-    lpRemoveInput: TokenAmount | undefined
-    share: Percent
     isApproved?: boolean
     totalReserves: Fraction
     isPool?: boolean | undefined
@@ -50,13 +54,16 @@ export class Pool implements IPool {
     id: number
     name: string;
     pair: Pair;
-    liquidityToken?: Token
-    balance: TokenAmount | undefined = undefined
-    lpRemoveInput: TokenAmount | undefined = undefined
-    share: Percent = new Percent("0", "100")
-    isApproved = false
-    totalReserves: Fraction = new Fraction("1", "1")
     isPool = undefined
+    lpToken = {
+        token: undefined, 
+        isApproved: false, 
+        balance: undefined,
+        lpRemoveInput: undefined,
+        share: new Percent("1", "100"),
+        loading: false,
+    }
+    totalReserves: Fraction = new Fraction("1", "1")
     tokenA: TokenPool 
     tokenB: TokenPool
 
@@ -68,7 +75,7 @@ export class Pool implements IPool {
             id: 0,
             token: tokenA,
             isApproved: false, 
-            pooled: "0", 
+            pooled: new TokenAmount(tokenA, JSBI.BigInt("0")), 
             inputAdd: undefined, 
             inputRemove: undefined, 
             balance: undefined,
@@ -79,7 +86,7 @@ export class Pool implements IPool {
             id: 1,
             token: tokenB,
             isApproved: false, 
-            pooled: "0", 
+            pooled: new TokenAmount(tokenB, JSBI.BigInt("0")), 
             inputAdd: undefined, 
             inputRemove: undefined, 
             balance: undefined,

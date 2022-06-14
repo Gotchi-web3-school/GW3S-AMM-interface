@@ -15,11 +15,11 @@ export const fetchBalances = async(pool: IPool, userAdress: string, provider: an
 }
 
 export const fetchPoolBalances = async(pool: IPool, userAdress: string, contract: any): Promise<{balance: TokenAmount, amountA: TokenAmount, amountB: TokenAmount, share: Percent, reserves: any}> => {
-    const poolToken = contract.ERC20.attach(pool.liquidityToken?.address)
-    const pairContract = contract.pair.attach(pool.liquidityToken?.address);
+    const poolToken = contract.ERC20.attach(pool.lpToken.token?.address)
+    const pairContract = contract.pair.attach(pool.lpToken.token?.address);
     const reserves = await pairContract.getReserves()
-    const totalSupply = await new TokenAmount(pool.liquidityToken!, await poolToken.totalSupply())
-    const balance = await new TokenAmount(pool.liquidityToken!, await poolToken.balanceOf(userAdress));
+    const totalSupply = await new TokenAmount(pool.lpToken.token!, await poolToken.totalSupply())
+    const balance = await new TokenAmount(pool.lpToken.token!, await poolToken.balanceOf(userAdress));
     const amountA = new TokenAmount(pool.pair.token0, balance.divide(totalSupply).multiply(reserves[0]).quotient);
     const amountB = new TokenAmount(pool.pair.token1, balance.divide(totalSupply).multiply(reserves[1]).quotient);
     const share = new Percent(balance.raw, totalSupply.raw)
@@ -34,15 +34,10 @@ export const fetchPoolBalances = async(pool: IPool, userAdress: string, contract
     });
 }
 
-export const fetchApproved = async(pool: IPool, userAdress: string, provider: any): Promise<{tokenA: boolean, tokenB: boolean}> => {
-    const token0 = new ethers.Contract(pool.pair.token0.address, abis.erc20, provider.getSigner(userAdress));
-    const token1 = new ethers.Contract(pool.pair.token1.address, abis.erc20, provider.getSigner(userAdress));
-    const approved0: BigintIsh = await token0.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
-    const approved1: BigintIsh = await token1.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
-    return ({
-        tokenA: pool.pair.token0.equals(pool.tokenA.token) ? pool.pair.reserve0.lessThan(approved0) : pool.pair.reserve1.lessThan(approved1), 
-        tokenB: pool.pair.token1.equals(pool.tokenB.token) ? pool.pair.reserve1.lessThan(approved1) : pool.pair.reserve0.lessThan(approved0),
-    })
+export const fetchApproved = async(pool: IPool, userAdress: string, provider: any): Promise<boolean> => {
+    const lp = new ethers.Contract(pool.lpToken.token!.address, abis.erc20, provider.getSigner(userAdress));
+    const approved: BigintIsh = await lp.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
+    return (parseInt(ethers.utils.formatEther(approved.toString())) > 0)
 }
 
 export const getLp = async(lpAddress: string, contract: any): Promise<Token> => {

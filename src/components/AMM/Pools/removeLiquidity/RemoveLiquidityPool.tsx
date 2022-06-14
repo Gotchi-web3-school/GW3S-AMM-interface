@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { Token } from "quickswap-sdk";
-import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
+import {Button, Box, Text, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
@@ -16,7 +16,7 @@ import SliderPool from "../../AddLiquidity/poolCard/SliderPool";
 const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
     const { active, activate, account, library } = useWeb3React();
     const { ERC20 } = useContext(ContractContext);
-    const { tokenA, tokenB } = pool
+    const { lpToken } = pool
     const toast = useToast()
 
     useEffect(() => {
@@ -28,10 +28,11 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
 
     // Check for approval
     useEffect(() => {
-        if (account && tokenA.balance === undefined)
+        if (account && lpToken.balance === undefined)
+        console.log("Search for approved lp")
             fetchApproved(pool, account!, library)
-            .then(result => dispatch({type: "SEARCH_APPROVED", payload: {isApproved: result}}))
-    }, [pool, account, library, dispatch, tokenA.balance])
+            .then(result => dispatch({type: "SEARCH_APPROVED", payload: result}))
+    }, [pool, account, library, dispatch, lpToken.balance])
 
     const handleClickButton = async (token: Token, idx: number) => {
         try {
@@ -74,7 +75,7 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
     return (
         <Box>
             <Button 
-                onClick={() => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "MAX_BUTTON", value: pool.balance}})} 
+                onClick={() => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "MAX_BUTTON", value: pool.lpToken!.balance}})} 
                 size={"xs"} 
                 bg="blue.500"
                 mx="2"
@@ -87,11 +88,8 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                 <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
                 :
                 <>
-                    <Stack mt=""  direction="row">
-                        {tokenA.isApproved ? "" : <Button disabled={tokenA.loading} key={0} onClick={() => handleClickButton(tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{tokenA.loading ? <Spinner /> : `Approve ${tokenA.token.symbol}`}</Button>}
-                        {tokenB.isApproved ? "" : <Button disabled={tokenB.loading} key={1} onClick={() => handleClickButton(tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{tokenB.loading ? <Spinner /> : `Approve ${tokenB.token.symbol}`}</Button>}
-                    </Stack>
-                    {tokenA.isApproved && tokenB.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
+                    {lpToken.isApproved ? "" : <Button disabled={lpToken.loading} key={0} onClick={() => handleClickButton(lpToken.token!, 2)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{lpToken.loading ? <Spinner /> : `Approve LP token`}</Button>}
+                    {lpToken.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
                 </> 
             }
             <HStack  m="5">
