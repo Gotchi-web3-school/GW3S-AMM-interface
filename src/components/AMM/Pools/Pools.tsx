@@ -17,9 +17,28 @@ const Pools: React.FC = () => {
         {state === "pool" && 
         <Stack justifyContent={"center"} textAlign="center">
             <HStack mb="5">
-                <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)'  _hover={{bg: 'green.500'}} justifyContent={"left"} onClick={() => setState("add")}><ChevronLeftIcon /><Text fontSize={"sm"}>Add liquidity</Text></Button>
+                <Button 
+                    w="45%" 
+                    pl="0" 
+                    bgGradient='linear(to-r, green.500, transparent)' 
+                    _hover={{bg: 'green.500'}} 
+                    justifyContent={"left"} 
+                    onClick={() => setState("add")}
+                >
+                    <ChevronLeftIcon />
+                    <Text fontSize={"sm"}>Add liquidity</Text>
+                </Button>
                 <Spacer />
-                <Button w="45%" pr="0" bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"right"} onClick={() => setState("remove")}><Text fontSize={"sm"}>Remove liquidity</Text><ChevronRightIcon /></Button>
+                <Button 
+                    w="45%" 
+                    pr="0" 
+                    bgGradient='linear(to-l, red.500, transparent)' 
+                    _hover={{bg: 'red.500'}} 
+                    justifyContent={"right"} 
+                    onClick={() => setState("remove")}
+                >
+                    <Text fontSize={"sm"}>Remove liquidity</Text><ChevronRightIcon />
+                </Button>
             </HStack>
             <ImportPool />            
             <Divider />

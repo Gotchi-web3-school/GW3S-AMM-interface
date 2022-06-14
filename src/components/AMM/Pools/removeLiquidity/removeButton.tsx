@@ -36,7 +36,7 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
             {isSufficientLPBalance(lpToken.lpRemoveInput, lpToken.balance!) ?
                 <Button 
                 onClick={handleRemoveLiquidityTx} 
-                disabled={!lpToken.isApproved || loading} 
+                disabled={!lpToken.isApproved || !lpToken.balance!.greaterThan("0") || loading} 
                 mt="5" 
                 w="100%" 
                 h="3.5rem" 

@@ -87,17 +87,32 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
             {!active ? 
                 <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
                 :
-                <>
-                    {lpToken.isApproved ? "" : <Button disabled={lpToken.loading} key={0} onClick={() => handleClickButton(lpToken.token!, 2)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{lpToken.loading ? <Spinner /> : `Approve LP token`}</Button>}
+                <Box mx="5">
+                    {lpToken.isApproved ? "" : 
+                        <Button 
+                        w="100%"
+                        h="4rem"
+                        borderRadius={"3xl"}
+                        bg="transparent"
+                        textColor={"whiteAlpha.800"}
+                        boxShadow={"inset 1px 1px 10px 1px #ffa500"}
+                        disabled={lpToken.loading} 
+                        key={0} 
+                        onClick={() => handleClickButton(lpToken.token!, 2)} 
+                        _hover={{bg: "yellow.700"}} 
+                        >
+                            {lpToken.loading ? <Spinner /> : `Approve LP token`}
+                        </Button>
+                    }
                     {lpToken.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
-                </> 
+                </Box> 
             }
             <HStack  m="5">
                 <Button w="45%" pl="0" bgGradient='linear(to-r, #a200ff, transparent)' _hover={{bg: '#a200ff'}} justifyContent={"left"} onClick={() => setState("pool")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Pool</Text>
                 </Button>
                 <Spacer />
-                <Button w="45%" pr="0" bgGradient='linear(to-l, blue.500, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("add")}>
+                <Button w="45%" pr="0" bgGradient='linear(to-l, #00ab33, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("add")}>
                     <Text fontSize={"sm"}>Add Liquidity<ChevronRightIcon /></Text>
                 </Button>
             </HStack>

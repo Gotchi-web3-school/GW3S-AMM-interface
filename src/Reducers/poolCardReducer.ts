@@ -143,8 +143,10 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                         throw new Error(`Unsupported action type ${action.type} in userReducer/HANDLE_REMOVE_INPUTS `)
                 }
             } catch (error) {
-                console.log(error)
-                return {...state}
+                lpToken.lpRemoveInput = undefined
+                tokenA.inputRemove = undefined
+                tokenB.inputRemove = undefined
+                return {...state, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB}
             }
 
         case "RESET":
