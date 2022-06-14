@@ -72,12 +72,12 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
 
     return (
         <Box>
-            <Box px="5" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
+            <Box px="8" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
                 <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2) ?? '-'}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
                 <Spacer />
                 <MaxButton token={pool.tokenB} dispatch={dispatch}/><Text fontSize={"xs"}>{pool.tokenB.balance?.toFixed(2) ?? '-'}</Text>
             </Box>
-            <Box  display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
+            <Box px="4" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
                 <InputToken token={pool.tokenA} dispatch={dispatch} />
                     <AddIcon mx="2" fontSize={"xs"} />
                 <InputToken token={pool.tokenB} dispatch={dispatch} />
@@ -87,15 +87,41 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
                 :
                 <>
-                    <Stack mt="6"  direction="row">
-                        {pool.tokenA.isApproved ? "" : <Button disabled={pool.tokenA.loading} key={0} onClick={() => handleClickButton(pool.tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}</Button>}
-                        {pool.tokenB.isApproved ? "" : <Button disabled={pool.tokenB.loading} key={1} onClick={() => handleClickButton(pool.tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}</Button>}
+                    <Stack px="5" mt="3" direction="row">
+                        {pool.tokenA.isApproved ? "" : 
+                            <Button 
+                            disabled={pool.tokenA.loading} 
+                            key={0} 
+                            onClick={() => handleClickButton(pool.tokenA.token, 0)}
+                            h="4rem"
+                            borderRadius={"3xl"}
+                            bg="transparent"
+                            textColor={"whiteAlpha.800"}
+                            boxShadow={"inset 1px 1px 10px 1px #ffa500"}
+                            _hover={{bg: "yellow.700"}} 
+                            w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}
+                            </Button>
+                        }
+                        {pool.tokenB.isApproved ? "" : 
+                            <Button 
+                            disabled={pool.tokenB.loading} 
+                            key={1} 
+                            onClick={() => handleClickButton(pool.tokenB.token, 1)}
+                            h="4rem"
+                            borderRadius={"3xl"}
+                            bg="transparent"
+                            textColor={"whiteAlpha.800"}
+                            boxShadow={"inset 1px 1px 10px 1px #ffa500"}
+                            _hover={{bg: "yellow.700"}} 
+                            w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}
+                            </Button>
+                        }
                     </Stack>
                     {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton pool={pool} dispatch={dispatch} />}
                 </> 
             }
             <HStack  m="5">
-                <Button w="45%" pl="0" disabled={parseInt(pool.lpToken.balance?.toExact() ?? '0') === 0} bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
+                <Button w="45%" pl="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
                 </Button>
                 <Spacer />

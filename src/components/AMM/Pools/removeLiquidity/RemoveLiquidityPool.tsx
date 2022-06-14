@@ -90,6 +90,7 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                 <Box mx="5">
                     {lpToken.isApproved ? "" : 
                         <Button 
+                        key={0} 
                         w="100%"
                         h="4rem"
                         borderRadius={"3xl"}
@@ -97,7 +98,6 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                         textColor={"whiteAlpha.800"}
                         boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                         disabled={lpToken.loading} 
-                        key={0} 
                         onClick={() => handleClickButton(lpToken.token!, 2)} 
                         _hover={{bg: "yellow.700"}} 
                         >
@@ -112,7 +112,7 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                     <Text fontSize={"sm"}><ChevronLeftIcon />Pool</Text>
                 </Button>
                 <Spacer />
-                <Button w="45%" pr="0" bgGradient='linear(to-l, #00ab33, transparent)' _hover={{bg: 'blue.500'}} justifyContent={"right"} onClick={() => setState("add")}>
+                <Button w="45%" pr="0" bgGradient='linear(to-l, #00ab33, transparent)' _hover={{bg: '#00ab33'}} justifyContent={"right"} onClick={() => setState("add")}>
                     <Text fontSize={"sm"}>Add Liquidity<ChevronRightIcon /></Text>
                 </Button>
             </HStack>

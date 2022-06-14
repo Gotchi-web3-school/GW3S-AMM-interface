@@ -7,7 +7,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
     const { tokenA, tokenB, pair, lpToken} = pool
     
     return (
-        <HStack my="7" mx="4" border="1px solid white" py="5" borderRadius={"3xl"} justifyContent="center" opacity={"0.9"} bg={"whiteAlpha.200"} boxShadow="inset 1px 1px 5px white">
+        <HStack mt="7" mx="4" border="1px solid white" py="5" borderRadius={"3xl"} justifyContent="center" opacity={"0.9"} bg={"whiteAlpha.200"} boxShadow="inset 1px 1px 5px white">
             <Flex w="33%">
                 {tokenA.logo ? <Image zIndex={1} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
                 {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}

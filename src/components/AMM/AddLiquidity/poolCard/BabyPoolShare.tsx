@@ -21,7 +21,7 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
     
     return (
         <Stack 
-            mt="2"
+            mt="4"
             px="1rem"
             direction={"row"}  
             justifyContent="center">

@@ -60,7 +60,7 @@ export class Pool implements IPool {
         isApproved: false, 
         balance: undefined,
         lpRemoveInput: undefined,
-        share: new Percent("1", "100"),
+        share: new Percent("0", "100"),
         loading: false,
     }
     totalReserves: Fraction = new Fraction("1", "1")

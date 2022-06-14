@@ -50,7 +50,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
     }, [expanded, account, library, contract, pool])
 
    return (
-       <AccordionItem m="3" border="none"  borderRadius={"3xl"} >
+       <AccordionItem mx="3" my="5" border="none"  borderRadius={"3xl"} >
         <Box 
             border={expanded ? "solid 1px" : ""} 
             boxShadow={expanded && state === "pool" ? "inset 0 0 50px #a200ff" : 
