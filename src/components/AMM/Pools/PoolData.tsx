@@ -6,7 +6,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
     return ( 
     <>
         <SimpleGrid columns={2} spacing={3}>
-            <Text textAlign={"left"}>Your pooled tokens:</Text><Text textAlign={"right"}>{pool?.balance ?? "0"}</Text>
+            <Text textAlign={"left"}>Your LP tokens:</Text><Text textAlign={"right"}>{pool?.balance?.toFixed(2) ?? "0"}</Text>
             <Text textAlign={"left"}>Pooled tokenA:</Text>
             <Flex justifyContent={"right"}>
                 <Text textAlign={"right"}>{pool?.tokenA?.pooled ?? "0"}</Text>
@@ -24,7 +24,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
                 <Text fontSize={"sm"}><ChevronLeftIcon />Add liquidity</Text>
             </Button>
             <Spacer />
-            <Button w="45%" pr="0" disabled={!pool.isPool ?? true} bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"right"} onClick={() => setState("remove")}>
+            <Button w="45%" pr="0" disabled={parseInt(pool.balance?.toExact() ?? '0') === 0} bgGradient='linear(to-l, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"right"} onClick={() => setState("remove")}>
                 <Text fontSize={"sm"}>Remove liquidity<ChevronRightIcon /></Text>
             </Button>
         </HStack>

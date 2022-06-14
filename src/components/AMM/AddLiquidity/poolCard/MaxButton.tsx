@@ -14,7 +14,7 @@ const MaxButton: React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> = (
             >
             <Icon viewBox='0 0 0 0' color='blue.500'>
             <path fill='currentColor' d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-/>
+        />
             </Icon>
         </Button>
     )

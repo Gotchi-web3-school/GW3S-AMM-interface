@@ -36,8 +36,8 @@ export interface IPool {
     liquidityToken?: Token
     pair: Pair;
     logoURI?: {tokenA?: string, tokenB?: string};
-    balance: string | undefined
-    lpRemoveInput: string | undefined
+    balance: TokenAmount | undefined
+    lpRemoveInput: TokenAmount | undefined
     share: Percent
     isApproved?: boolean
     totalReserves: Fraction
@@ -51,13 +51,13 @@ export class Pool implements IPool {
     name: string;
     pair: Pair;
     liquidityToken?: Token
-    balance: string | undefined = undefined
-    lpRemoveInput: string | undefined = undefined
+    balance: TokenAmount | undefined = undefined
+    lpRemoveInput: TokenAmount | undefined = undefined
     share: Percent = new Percent("0", "100")
     isApproved = false
     totalReserves: Fraction = new Fraction("1", "1")
     isPool = undefined
-    tokenA: TokenPool
+    tokenA: TokenPool 
     tokenB: TokenPool
 
     constructor(id: number, name: string, tokenA: Token, tokenB: Token,  logoURI?: {tokenA?: string, tokenB?: string}) {

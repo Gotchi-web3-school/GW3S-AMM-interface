@@ -9,8 +9,8 @@ import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
 import { fetchBalances, fetchApproved } from "../../../../lib/utils/pools";
 import RemovePoolShare from "./RemovePoolShare";
-import MintButton from "./MintButton";
-import SliderPool from "./SliderPool";
+import RemoveButton from "./removeButton";
+import SliderPool from "../../AddLiquidity/poolCard/SliderPool";
 
 
 const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
@@ -73,6 +73,14 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
 
     return (
         <Box>
+            <Button 
+                onClick={() => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "MAX_BUTTON", value: pool.balance}})} 
+                size={"xs"} 
+                bg="blue.500"
+                mx="2"
+                mb="4"
+                fontSize={"xxs"}
+            >Max</Button>
             <SliderPool pool={pool} dispatch={dispatch} />
             <RemovePoolShare pool={pool} dispatch={dispatch} />
             {!active ? 
@@ -83,7 +91,7 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                         {tokenA.isApproved ? "" : <Button disabled={tokenA.loading} key={0} onClick={() => handleClickButton(tokenA.token, 0)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{tokenA.loading ? <Spinner /> : `Approve ${tokenA.token.symbol}`}</Button>}
                         {tokenB.isApproved ? "" : <Button disabled={tokenB.loading} key={1} onClick={() => handleClickButton(tokenB.token, 1)} bg="yellow.600" _hover={{bg: "yellow.700"}} w="100%">{tokenB.loading ? <Spinner /> : `Approve ${tokenB.token.symbol}`}</Button>}
                     </Stack>
-                    {tokenA.isApproved && tokenB.isApproved && <MintButton pool={pool} dispatch={dispatch} />}
+                    {tokenA.isApproved && tokenB.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
                 </> 
             }
             <HStack  m="5">

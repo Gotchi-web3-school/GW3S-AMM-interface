@@ -4,18 +4,17 @@ import { QuestionOutlineIcon, ArrowRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../../Models"
 
 const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
-    const { tokenA, tokenB, balance, pair, lpRemoveInput} = pool
+    const { tokenA, tokenB, pair, lpRemoveInput} = pool
     
     return (
-        <HStack my="7" mx="4" border="1px solid white" p="5" borderRadius={"3xl"} justifyContent="center" boxShadow="inset 1px 1px 5px white">
+        <HStack my="7" mx="4" border="1px solid white" py="5" borderRadius={"3xl"} justifyContent="center" boxShadow="inset 1px 1px 5px white">
             <Flex w="33%">
                 {tokenA.logo ? <Image zIndex={1} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
                 {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}
                 <Input 
                     h="5" 
                     min={0}
-                    max={balance ?? "0"}
-                    value={lpRemoveInput}
+                    value={lpRemoveInput?.toSignificant(4) ?? ""}
                     type="number"
                     placeholder="0"
                     border="none" 
@@ -27,7 +26,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                     onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "LP_INPUT", value: e.target.value}})}
                 />
             </Flex>
-            <ArrowRightIcon  />
+            <ArrowRightIcon />
             <Box w="33%">
                 <Flex pb="2">
                     <Input 
@@ -36,10 +35,11 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenA.pooled}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenA?.inputRemove?.toExact() ?? ""} 
+                        value={tokenA?.inputRemove?.toSignificant(4) ?? ""} 
                         placeholder="0"
                         type="number"
-                        border="none" 
+                        border="none"
+                        pl="10"
                         p="0" 
                         m="0"
                         _hover={{textShadow: "1px 1px 5px white"}}
@@ -55,7 +55,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenB.pooled}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenB?.inputRemove?.toExact() ?? ""} 
+                        value={tokenB?.inputRemove?.toSignificant(4) ?? ""} 
                         placeholder="0"
                         type="number"
                         border="none" 

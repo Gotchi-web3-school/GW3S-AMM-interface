@@ -1,6 +1,6 @@
 import { TokenAmount, JSBI } from "quickswap-sdk";
 import { ethers, FixedNumber } from "ethers";
-import { parseEther, formatEther } from "ethers/lib/utils";
+import { parseEther } from "ethers/lib/utils";
 import { IPool } from "../Models"
 
 export const poolCardReducer = (state: IPool, action: any): IPool => {
@@ -15,7 +15,7 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
             return {...state, liquidityToken: liquidityToken, isPool: isPool};
         
         case "SET_POOL_BALANCE":
-           balance = action.payload.balance.toSignificant(3)
+           balance = action.payload.balance
            tokenA.pooled = action.payload.amountA.toSignificant(3)
            tokenB.pooled = action.payload.amountB.toSignificant(3)
            share = action.payload.share
@@ -94,16 +94,20 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
         case 'HANDLE_REMOVE_INPUTS':
             try {
                 switch(action.payload.type) {
+                    case "MAX_BUTTON":
+                        tokenA.inputRemove = new TokenAmount(tokenA.token, JSBI.BigInt(parseEther(tokenA.pooled)))
+                        tokenB.inputRemove = new TokenAmount(tokenB.token,  JSBI.BigInt(parseEther(tokenB.pooled)))
+                        return {...state, lpRemoveInput: balance, tokenA: tokenA, tokenB: tokenB}
                     case "SLIDER":
-                        let lpAmount = new TokenAmount(liquidityToken!, JSBI.BigInt(parseEther(balance ?? '0').mul(parseEther((action.payload.value / 100).toString()))))
-                        tokenA.inputRemove = new TokenAmount(tokenA.token, lpAmount.divide(JSBI.BigInt(parseEther(balance!))).multiply(JSBI.BigInt(parseEther(tokenA.pooled))).quotient)
-                        tokenB.inputRemove = new TokenAmount(tokenB.token,  lpAmount.divide(JSBI.BigInt(parseEther(balance!))).multiply(JSBI.BigInt(parseEther(tokenB.pooled))).quotient)
-                        return {...state, lpRemoveInput: formatEther(lpAmount.toExact()), tokenA: tokenA, tokenB: tokenB}
+                        let lpAmount = new TokenAmount(liquidityToken!, JSBI.BigInt(parseEther(balance!.toExact() ?? '0').mul(parseEther((action.payload.value / 100).toString()))))
+                        tokenA.inputRemove = new TokenAmount(tokenA.token, lpAmount.divide(JSBI.BigInt(parseEther(balance!.toExact()))).multiply(JSBI.BigInt(parseEther(tokenA.pooled))).quotient)
+                        tokenB.inputRemove = new TokenAmount(tokenB.token,  lpAmount.divide(JSBI.BigInt(parseEther(balance!.toExact()))).multiply(JSBI.BigInt(parseEther(tokenB.pooled))).quotient)
+                        return {...state, lpRemoveInput: lpAmount, tokenA: tokenA, tokenB: tokenB}
                     case "LP_INPUT":
                         if (parseInt(action.payload.value) > 0) {
                             lpRemoveInput = action.payload.value
-                            tokenA.inputRemove = new TokenAmount(tokenA.token, JSBI.BigInt(parseEther(lpRemoveInput!).mul(parseEther(tokenA.pooled)).div(parseEther(balance!))))
-                            tokenB.inputRemove = new TokenAmount(tokenB.token, JSBI.BigInt(parseEther(lpRemoveInput!).mul(parseEther(tokenB.pooled)).div(parseEther(balance!))))
+                            tokenA.inputRemove = new TokenAmount(tokenA.token, JSBI.BigInt(parseEther(lpRemoveInput!.toExact()).mul(parseEther(tokenA.pooled)).div(parseEther(balance!.toExact()))))
+                            tokenB.inputRemove = new TokenAmount(tokenB.token, JSBI.BigInt(parseEther(lpRemoveInput!.toExact()).mul(parseEther(tokenB.pooled)).div(parseEther(balance!.toExact()))))
                         } else {
                             lpRemoveInput = undefined
                             tokenA.inputRemove = undefined
@@ -112,9 +116,9 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                         return {...state, lpRemoveInput: lpRemoveInput, tokenA: tokenA, tokenB: tokenB}
                         case "TOKEN_A_INPUT":
                             if (parseInt(action.payload.value) > 0) {
-                                lpRemoveInput = (parseInt(balance!) * parseInt(action.payload.value) / parseInt(tokenA.pooled!)).toString()
+                                lpRemoveInput = new TokenAmount(liquidityToken!, (parseInt(balance!.toExact()) * parseInt(action.payload.value) / parseInt(tokenA.pooled!)).toString())
                                 tokenA.inputRemove = new TokenAmount(tokenA.token, JSBI.BigInt(parseEther(action.payload.value)))
-                                tokenB.inputRemove = new TokenAmount(tokenB.token, JSBI.BigInt(parseEther(lpRemoveInput!).mul(parseEther(tokenB.pooled)).div(parseEther(balance!))))
+                                tokenB.inputRemove = new TokenAmount(tokenB.token, JSBI.BigInt(parseEther(lpRemoveInput!.toExact()).mul(parseEther(tokenB.pooled)).div(parseEther(balance!.toExact()))))
                             } else {
                                 lpRemoveInput = undefined
                                 tokenA.inputRemove = undefined
@@ -123,8 +127,8 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                         return {...state, lpRemoveInput: lpRemoveInput, tokenA: tokenA, tokenB: tokenB}
                     case "TOKEN_B_INPUT":
                         if (parseInt(action.payload.value) > 0) {
-                            lpRemoveInput = (parseInt(balance!) * parseInt(action.payload.value) / parseInt(tokenB.pooled!)).toString()
-                            tokenA.inputRemove = new TokenAmount(tokenA.token, JSBI.BigInt(parseEther(lpRemoveInput!).mul(parseEther(tokenA.pooled)).div(parseEther(balance!))))
+                            lpRemoveInput = new TokenAmount(liquidityToken!, (parseInt(balance!.toExact()) * parseInt(action.payload.value) / parseInt(tokenB.pooled!)).toString())
+                            tokenA.inputRemove = new TokenAmount(tokenA.token, JSBI.BigInt(parseEther(lpRemoveInput!.toExact()).mul(parseEther(tokenA.pooled)).div(parseEther(balance!.toExact()))))
                             tokenB.inputRemove = new TokenAmount(tokenB.token, JSBI.BigInt(parseEther(action.payload.value))) 
                         } else {
                             lpRemoveInput = undefined
