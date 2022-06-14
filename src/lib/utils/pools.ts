@@ -34,10 +34,21 @@ export const fetchPoolBalances = async(pool: IPool, userAdress: string, contract
     });
 }
 
-export const fetchApproved = async(pool: IPool, userAdress: string, provider: any): Promise<boolean> => {
+export const fetchApprovedLp = async(pool: IPool, userAdress: string, provider: any): Promise<boolean> => {
     const lp = new ethers.Contract(pool.lpToken.token!.address, abis.erc20, provider.getSigner(userAdress));
     const approved: BigintIsh = await lp.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
     return (parseInt(ethers.utils.formatEther(approved.toString())) > 0)
+}
+
+export const fetchApprovedPair = async(pool: IPool, userAdress: string, provider: any): Promise<{tokenA: boolean, tokenB: boolean}> => {
+    const tokenA = new ethers.Contract(pool.tokenA.token!.address, abis.erc20, provider.getSigner(userAdress));
+    const tokenB = new ethers.Contract(pool.tokenB.token!.address, abis.erc20, provider.getSigner(userAdress));
+    const approvedA: BigintIsh = await tokenA.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
+    const approvedB: BigintIsh = await tokenB.allowance(userAdress, GlobalConst.addresses.ROUTER_ADDRESS);
+    return ({
+        tokenA: parseInt(ethers.utils.formatEther(approvedA.toString())) > 0, 
+        tokenB: parseInt(ethers.utils.formatEther(approvedB.toString())) > 0
+    })
 }
 
 export const getLp = async(lpAddress: string, contract: any): Promise<Token> => {

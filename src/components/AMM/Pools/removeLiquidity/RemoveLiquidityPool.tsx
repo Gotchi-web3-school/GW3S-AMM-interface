@@ -7,7 +7,7 @@ import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
-import { fetchBalances, fetchApproved } from "../../../../lib/utils/pools";
+import { fetchBalances, fetchApprovedLp } from "../../../../lib/utils/pools";
 import RemovePoolShare from "./RemovePoolShare";
 import RemoveButton from "./removeButton";
 import SliderPool from "../../AddLiquidity/poolCard/SliderPool";
@@ -28,11 +28,12 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
 
     // Check for approval
     useEffect(() => {
-        if (account && lpToken.balance === undefined)
-        console.log("Search for approved lp")
-            fetchApproved(pool, account!, library)
-            .then(result => dispatch({type: "SEARCH_APPROVED", payload: result}))
-    }, [pool, account, library, dispatch, lpToken.balance])
+        if (account && lpToken.token !== undefined && lpToken.balance === undefined) {
+            console.log("Search for approved lp")
+            fetchApprovedLp(pool, account!, library)
+                .then(result => dispatch({type: "SEARCH_APPROVED", payload: result}))
+        }
+    }, [pool, account, library, dispatch, lpToken])
 
     const handleClickButton = async (token: Token, idx: number) => {
         try {
@@ -76,7 +77,8 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
         <Box>
             <Button 
                 onClick={() => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "MAX_BUTTON", value: pool.lpToken!.balance}})} 
-                size={"xs"} 
+                size={"sm"}
+                rounded={"xl"} 
                 bg="blue.500"
                 mx="2"
                 mb="4"
@@ -85,9 +87,9 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
             <SliderPool pool={pool} dispatch={dispatch} />
             <RemovePoolShare pool={pool} dispatch={dispatch} />
             {!active ? 
-                <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
+                <Button mt="5" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
                 :
-                <Box mx="5">
+                <Box mx="5" mt="5">
                     {lpToken.isApproved ? "" : 
                         <Button 
                         key={0} 
