@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react"
 import { Button, Container, Spinner, Text, useToast, Box } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
-import { isSufficientBalance } from "../../../../lib/utils"
-import { ContractContext } from "../../../../Provider/ContractsProvider"
-import { addLiquidityTx } from "../../../../lib/smart-contracts/addLiquidity"
-import { IPool } from "../../../../Models"
+import { isSufficientBalance } from "../../../../../lib/utils"
+import { ContractContext } from "../../../../../Provider/ContractsProvider"
+import { addLiquidityTx } from "../../../../../lib/smart-contracts/addLiquidity"
+import { IPool } from "../../../../../Models"
 
 const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const contract = useContext(ContractContext)

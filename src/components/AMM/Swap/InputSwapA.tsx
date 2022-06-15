@@ -1,12 +1,13 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Box, Text, Button, Input, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
-import ModalTokens from "../Modal/ModalToken"
+import ModalTokens from "../../Modal/ModalToken"
+import { SwapContext } from "../../../Provider/SwapProvider"
 
-const InputToken : React.FC<{idx: number}> = (props) => {
+const InputSwapA : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [tokenAmount, setTokenAmount] = useState<string>("")
-  //const {token0, token1} = useContext(AddLiquidityContext)
+  const {tokenA} = useContext(SwapContext)
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setTokenAmount(e.target.value)
@@ -14,7 +15,7 @@ const InputToken : React.FC<{idx: number}> = (props) => {
 
   return (
     <>
-    <ModalTokens isOpen={isOpen} onClose={onClose} idx={props.idx} />
+    <ModalTokens isOpen={isOpen} onClose={onClose} idx={0} />
     <Box
       p="1rem"
       border={"1px"}
@@ -61,4 +62,4 @@ const InputToken : React.FC<{idx: number}> = (props) => {
   )
 }
 
-export default InputToken
+export default InputSwapA

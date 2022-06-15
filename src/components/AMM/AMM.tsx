@@ -1,7 +1,7 @@
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from "@chakra-ui/react"
 import Swap from "./Swap/Swap"
 import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider"
-//import { RemoveLiquidityContextProvider } from "../../Provider/RemoveLiquidityProvider"
+import { SwapContextProvider } from "../../Provider/SwapProvider"
 import { PoolContextProvider } from "../../Provider/PoolsProvider";
 
 import Pools from "./Pools/Pools"
@@ -30,7 +30,9 @@ const AMM: React.FC = () => {
 
                 <TabPanels>
                     <TabPanel>
-                        <Swap />
+                        <SwapContextProvider>
+                            <Swap />
+                        </SwapContextProvider>
                     </TabPanel>
                     <TabPanel p="0">
                         <PoolContextProvider>

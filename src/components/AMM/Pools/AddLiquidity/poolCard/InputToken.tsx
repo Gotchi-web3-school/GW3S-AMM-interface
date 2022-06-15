@@ -1,5 +1,5 @@
 import { Box, Input, Flex, Stack, useColorModeValue} from "@chakra-ui/react"
-import { TokenPool } from "../../../../Models"
+import { TokenPool } from "../../../../../Models"
 import React from "react"
 
 const InputToken : React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> = ({token, dispatch}) => {

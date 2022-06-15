@@ -1,6 +1,6 @@
 import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box } from "@chakra-ui/react"
 import { QuestionOutlineIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
-import { IPool } from "../../../Models"
+import { IPool } from "../../../../Models"
 import { motion } from "framer-motion"
 
 const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({pool, setState}) => {

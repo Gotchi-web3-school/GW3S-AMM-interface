@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Text, Stack, Box, Spacer } from "@chakra-ui/react"
-import { calculateShare, rate } from "../../../../lib/utils"
-import { IPool } from "../../../../Models"
+import { calculateShare, rate } from "../../../../../lib/utils"
+import { IPool } from "../../../../../Models"
 
 const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
     const [share, setShare] = useState("0")

@@ -7,11 +7,11 @@ import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
-import { fetchBalances, fetchApprovedLp } from "../../../../lib/utils/pools";
+import { fetchApprovedLp } from "../../../../lib/utils/pools";
 import { motion } from "framer-motion";
 import RemovePoolShare from "./RemovePoolShare";
 import RemoveButton from "./removeButton";
-import SliderPool from "../../AddLiquidity/poolCard/SliderPool";
+import SliderPool from "../AddLiquidity/poolCard/SliderPool";
 
 
 const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {

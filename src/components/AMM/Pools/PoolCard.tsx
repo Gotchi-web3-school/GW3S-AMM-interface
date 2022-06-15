@@ -16,8 +16,8 @@ import { isPoolCreated } from "../../../lib/utils";
 import { useWeb3React } from "@web3-react/core";
 import { ContractContext } from "../../../Provider/ContractsProvider";
 import { poolCardReducer } from "../../../Reducers/poolCardReducer";
-import PoolData from "./PoolData"
-import AddLiquidityPool from "../AddLiquidity/poolCard/AddLiquidityPool";
+import PoolData from "./Pool/PoolData"
+import AddLiquidityPool from "./AddLiquidity/poolCard/AddLiquidityPool";
 import RemoveLiquidityPool from "./removeLiquidity/RemoveLiquidityPool";
 import { AnimatePresence } from "framer-motion";
 

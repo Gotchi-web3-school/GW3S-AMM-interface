@@ -1,6 +1,6 @@
 import { Button, Icon } from "@chakra-ui/react"
 import React from "react"
-import { TokenPool} from "../../../../Models"
+import { TokenPool} from "../../../../../Models"
 
 const MaxButton: React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> = ({token, dispatch}) => {
     return (

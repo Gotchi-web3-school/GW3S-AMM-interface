@@ -4,7 +4,7 @@ import { TokenAmount, Token } from "quickswap-sdk";
 import { useWeb3React } from "@web3-react/core";
 import { Text, Image, Spacer, Spinner } from "@chakra-ui/react"
 import { QuestionOutlineIcon } from "@chakra-ui/icons"
-import { fetchBalance } from "../../../../lib/utils";
+import { fetchBalance } from "../../../../../lib/utils";
 
 const TokenSelect: React.FC<{token: Token, img: string }> = ({ token, img }) => {
     const { account, library } = useWeb3React()

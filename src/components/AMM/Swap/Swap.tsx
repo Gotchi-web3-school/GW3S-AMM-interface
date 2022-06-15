@@ -8,18 +8,19 @@ import {
     useColorModeValue,
   } from "@chakra-ui/react";
   import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
-  import InputSwap from "../InputToken"
+  import InputSwapA from "./InputSwapA"
+  import InputSwapB from "./InputSwapA"
 
 const Swap: React.FC = () => {
     return (
       <Box overflow={"scroll"} >
-        <InputSwap idx={0} />
+        <InputSwapA />
           <Center m={-4} zIndex={2}>
             <Button bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
               <ArrowDownIcon  />
             </Button>
           </Center>
-        <InputSwap idx={1} />
+        <InputSwapB />
 
         <Stack direction={'row'} m="4" >
           <Text fontSize="sm" fontWeight="bold">Price</Text>

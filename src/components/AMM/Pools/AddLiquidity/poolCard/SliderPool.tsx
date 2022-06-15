@@ -8,7 +8,7 @@ import {
     SliderThumb,
     SliderMark,
   } from '@chakra-ui/react'
-  import { IPool } from '../../../../Models'
+  import { IPool } from '../../../../../Models'
 import { Percent } from 'quickswap-sdk'
 
 const SliderPool: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
