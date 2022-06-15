@@ -9,7 +9,7 @@ import AddLiquidity from "../AddLiquidity/raw/AddLiquidity";
 const Pools: React.FC = () => {
     const { pools } = useContext(PoolContext)
     const [state, setState] = useState("pool")
-    //useEffect(() => console.log("new pool" + pools[1]), [pools])
+    
     return (
     <Box overflow={"scroll"} maxH="lg">
         {state === "add" && <AddLiquidity setState={setState} />}

@@ -155,7 +155,6 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
             }
 
         case "RESET":
-            isPool = undefined
             lpToken.balance = undefined
             tokenA.balance = undefined
             return {...state, isPool: isPool, lpToken: lpToken, tokenA: tokenA}

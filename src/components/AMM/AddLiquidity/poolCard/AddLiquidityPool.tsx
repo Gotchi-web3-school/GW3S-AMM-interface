@@ -76,7 +76,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
         as={motion.div}
         initial={{ x: 30, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -30, opacity: 0 }} 
+        exit={{ x: -30, opacity: 0 }}
         >
             <Box px="8" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
                 <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2) ?? '-'}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
@@ -104,7 +104,8 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                             bg="transparent"
                             textColor={"whiteAlpha.800"}
                             boxShadow={"inset 1px 1px 10px 1px #ffa500"}
-                            _hover={{bg: "yellow.700"}} 
+                            _hover={{bg: "yellow.700"}}
+                            transition="0.4s ease-in-out"
                             w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}
                             </Button>
                         }
@@ -119,6 +120,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                             textColor={"whiteAlpha.800"}
                             boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                             _hover={{bg: "yellow.700"}} 
+                            transition="0.4s ease-in-out"
                             w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}
                             </Button>
                         }

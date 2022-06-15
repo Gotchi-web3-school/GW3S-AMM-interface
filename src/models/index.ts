@@ -36,7 +36,7 @@ export interface IPool {
     pair: Pair;
     lpToken: {
         token?: Token | undefined, 
-        isApproved: boolean, 
+        isApproved: boolean | undefined, 
         balance: TokenAmount | undefined,
         lpRemoveInput: TokenAmount | undefined,
         share: Percent,
@@ -57,7 +57,7 @@ export class Pool implements IPool {
     isPool = undefined
     lpToken = {
         token: undefined, 
-        isApproved: false, 
+        isApproved: undefined, 
         balance: undefined,
         lpRemoveInput: undefined,
         share: new Percent("0", "100"),

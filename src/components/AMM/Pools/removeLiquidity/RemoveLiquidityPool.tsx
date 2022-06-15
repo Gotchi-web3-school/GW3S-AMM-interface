@@ -20,16 +20,9 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
     const { lpToken } = pool
     const toast = useToast()
 
-    useEffect(() => {
-        if (account && pool.tokenA.balance === undefined) {
-            fetchBalances(pool, account, library)
-            .then(result => dispatch({type: "SET_POOL_TOKEN_BALANCE", payload: result}))
-       }
-    }, [pool, account, library, dispatch])
-
     // Check for approval
     useEffect(() => {
-        if (account && lpToken.token !== undefined && lpToken.balance === undefined) {
+        if (account && pool.isPool && lpToken.isApproved === undefined) {
             console.log("Search for approved lp")
             fetchApprovedLp(pool, account!, library)
                 .then(result => dispatch({type: "SEARCH_APPROVED", payload: result}))
@@ -105,11 +98,11 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                         bg="transparent"
                         textColor={"whiteAlpha.800"}
                         boxShadow={"inset 1px 1px 10px 1px #ffa500"}
-                        disabled={lpToken.loading} 
+                        disabled={lpToken.loading || !pool.isPool} 
                         onClick={() => handleClickButton(lpToken.token!, 2)} 
                         _hover={{bg: "yellow.700"}} 
                         >
-                            {lpToken.loading ? <Spinner /> : `Approve LP token`}
+                            {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool don't exist"}
                         </Button>
                     }
                     {lpToken.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
