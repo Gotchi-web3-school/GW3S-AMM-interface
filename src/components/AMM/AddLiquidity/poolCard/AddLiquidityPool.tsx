@@ -8,6 +8,7 @@ import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
 import { fetchBalances, fetchApprovedPair } from "../../../../lib/utils/pools";
+import { motion } from "framer-motion";
 import MaxButton from "./MaxButton";
 import InputToken from "./InputToken";
 import BabyPoolShare from "./BabyPoolShare";
@@ -71,7 +72,12 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
     }
 
     return (
-        <Box>
+        <Box
+        as={motion.div}
+        initial={{ x: 30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -30, opacity: 0 }} 
+        >
             <Box px="8" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
                 <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2) ?? '-'}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
                 <Spacer />

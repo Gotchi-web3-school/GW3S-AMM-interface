@@ -8,6 +8,7 @@ import { ContractContext } from "../../../../Provider/ContractsProvider";
 import { GlobalConst } from "../../../../Constants";
 import { IPool } from "../../../../Models";
 import { fetchBalances, fetchApprovedLp } from "../../../../lib/utils/pools";
+import { motion } from "framer-motion";
 import RemovePoolShare from "./RemovePoolShare";
 import RemoveButton from "./removeButton";
 import SliderPool from "../../AddLiquidity/poolCard/SliderPool";
@@ -74,7 +75,12 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
     }
 
     return (
-        <Box>
+        <Box
+        as={motion.div}
+        initial={{ x: 30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -30, opacity: 0 }} 
+        >
             <Button 
                 onClick={() => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "MAX_BUTTON", value: pool.lpToken!.balance}})} 
                 size={"sm"}

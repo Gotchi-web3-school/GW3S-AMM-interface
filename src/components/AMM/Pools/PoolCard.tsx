@@ -19,6 +19,7 @@ import { poolCardReducer } from "../../../Reducers/poolCardReducer";
 import PoolData from "./PoolData"
 import AddLiquidityPool from "../AddLiquidity/poolCard/AddLiquidityPool";
 import RemoveLiquidityPool from "./removeLiquidity/RemoveLiquidityPool";
+import { AnimatePresence } from "framer-motion";
 
 
 const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
@@ -51,7 +52,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
 
    return (
        <AccordionItem mx="3" my="5" border="none"  borderRadius={"3xl"} >
-        <Box 
+        <Box
             border={expanded ? "solid 1px" : ""} 
             boxShadow={expanded && state === "pool" ? "inset 0 0 50px #a200ff" : 
                        expanded && state === "add" ?  "inset 0 0 50px #00ab33" : 
@@ -60,6 +61,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                          expanded && state === "add" ?  "#00ab33" :
                          expanded && state === "remove" ? "#ff412e" : ""} 
             borderRadius={"3xl"}
+            transition="1s ease-in-out"
         >
             <AccordionButton
             _expanded={{bgGradient: "none"}}
@@ -86,9 +88,11 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                 <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-               {state === "pool" && <PoolData pool={pool ?? props.pool} setState={setState} />}
-               {state === "add" && <AddLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
-               {state === "remove" && <RemoveLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
+                <AnimatePresence initial={false}>
+                {state === "pool" && <PoolData pool={pool ?? props.pool} setState={setState} />}
+                {state === "add" && <AddLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
+                {state === "remove" && <RemoveLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
+                </AnimatePresence>
             </AccordionPanel>
         </Box>
     </AccordionItem>

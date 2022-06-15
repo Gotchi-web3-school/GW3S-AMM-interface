@@ -1,12 +1,23 @@
-import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image } from "@chakra-ui/react"
+import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box } from "@chakra-ui/react"
 import { QuestionOutlineIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models"
+import { motion } from "framer-motion"
 
 const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({pool, setState}) => {
     const {tokenA, tokenB, pair} = pool
     return ( 
-    <>
-        <SimpleGrid columns={2} spacing={3} borderRadius={"3xl"} mx="4" p="5">
+    <Box
+    as={motion.div}
+    initial={{ x: 30, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ x: -30, opacity: 0 }} 
+    >
+        <SimpleGrid 
+        columns={2} 
+        spacing={3} 
+        borderRadius={"3xl"} 
+        mx="4" 
+        p="5">
             <Text textAlign={"left"}>Your LP tokens:</Text>
             <Flex justifyContent={"right"}>
                 <Text position={"relative"} left="12px" textAlign={"right"} fontWeight="bold">{pool?.lpToken.balance?.toFixed(2) ?? "0"}</Text>
@@ -34,7 +45,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
                 <Text fontSize={"sm"}>Remove liquidity<ChevronRightIcon /></Text>
             </Button>
         </HStack>
-    </>
+    </Box>
     )
 }
 
