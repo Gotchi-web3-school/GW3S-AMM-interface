@@ -1,6 +1,7 @@
 import { AddLiquidity } from "../Models"
 import { Token, TokenAmount, JSBI, Pair, Fraction } from "quickswap-sdk"
 import { ethers, FixedNumber } from "ethers"
+import { FACTORY_ADDRESS, INIT_CODE_HASH } from "quickswap-sdk"
 
 export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquidity => {
     const {
@@ -63,6 +64,8 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
                 const pair = new Pair(
                     new TokenAmount(token0, ethers.utils.parseEther(token0Amount?.toExact() ?? '0').toString()),
                     new TokenAmount(token1, ethers.utils.parseEther(token1Amount?.toExact() ?? '0').toString()),
+                    FACTORY_ADDRESS,
+                    INIT_CODE_HASH,
                     );
                 return  {...state, pair: pair, isApproved: undefined}
             } else {

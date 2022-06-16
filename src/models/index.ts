@@ -67,10 +67,15 @@ export class Pool implements IPool {
     tokenA: TokenPool 
     tokenB: TokenPool
 
-    constructor(id: number, name: string, tokenA: Token, tokenB: Token,  logoURI?: {tokenA?: string, tokenB?: string}) {
+    constructor(id: number, name: string, tokenA: Token, tokenB: Token, factoryAddress: string, initCodeHash: string,  logoURI?: {tokenA?: string, tokenB?: string}) {
         this.id = id;
         this.name = name;
-        this.pair = new Pair(new TokenAmount(tokenA, JSBI.BigInt("0")), new TokenAmount(tokenB, JSBI.BigInt("0")));
+        this.pair = new Pair(
+            new TokenAmount(tokenA, JSBI.BigInt("0")), 
+            new TokenAmount(tokenB, JSBI.BigInt("0")),
+            factoryAddress,
+            initCodeHash,
+            );
         this.tokenA = {
             id: 0,
             token: tokenA,

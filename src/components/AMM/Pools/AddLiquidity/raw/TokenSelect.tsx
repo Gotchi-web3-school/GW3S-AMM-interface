@@ -18,6 +18,7 @@ const TokenSelect: React.FC<{token: Token, img: string }> = ({ token, img }) => 
             .then(result => {setLoading(false); setBalance(new TokenAmount(token, ethers.utils.parseEther(result).toString()))})
         }
     }, [account, library, token])
+    
     return (
         <>
             {img ? 

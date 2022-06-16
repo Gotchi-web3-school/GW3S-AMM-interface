@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
     Stack,
     Button,
@@ -9,9 +10,12 @@ import {
   } from "@chakra-ui/react";
   import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
   import InputSwapA from "./InputSwapA"
-  import InputSwapB from "./InputSwapA"
+  import InputSwapB from "./InputSwapB"
+import { SwapContext } from "../../../Provider/SwapProvider";
 
 const Swap: React.FC = () => {
+    const {route, pair } = useContext(SwapContext)
+    console.log(pair)
     return (
       <Box overflow={"scroll"} >
         <InputSwapA />
@@ -25,7 +29,7 @@ const Swap: React.FC = () => {
         <Stack direction={'row'} m="4" >
           <Text fontSize="sm" fontWeight="bold">Price</Text>
           <Spacer />
-          <Text fontSize="sm" >20 nana per nana</Text>
+         {route && <Text fontSize="sm" >{`${route?.midPrice.toSignificant(2)} ${route?.input.symbol} per ${route?.output.symbol}`}</Text>}
           <button><RepeatIcon color={useColorModeValue("black", "white")} /></button>
         </Stack>
 

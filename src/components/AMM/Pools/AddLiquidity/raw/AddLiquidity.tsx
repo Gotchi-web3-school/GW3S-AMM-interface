@@ -6,7 +6,7 @@ import { injected } from '../../../../../Connectors/connectors';
 import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider";
 import { ContractContext } from "../../../../../Provider/ContractsProvider";
 import { Token } from "quickswap-sdk";
-import { GlobalConst } from "../../../../../Constants";
+import { ROUTER_ADDRESS, GlobalConst } from "../../../../../Constants";
 import InputToken0 from "./InputToken0";
 import InputToken1 from "./InputToken1";
 import PoolShare from "./PoolShare";
@@ -23,7 +23,7 @@ const AddLiquidity: React.FC<{setState: React.Dispatch<string>}> = ({setState}) 
   const handleClickButton = async (token: Token, idx: number) => {
     try {
       const contract = ERC20?.attach(token.address)
-      const tx = await contract?.approve(GlobalConst.addresses.ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
+      const tx = await contract?.approve(ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
       idx === 0 ? setLoading0(true) : setLoading1(true)
       toast({
         title: `Approve: ${token.symbol}`,

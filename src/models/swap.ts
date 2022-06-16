@@ -1,4 +1,4 @@
-import { Pair, Route, Token, TokenAmount, Trade } from "quickswap-sdk"
+import { Pair, Route, Token, TokenAmount, Trade, Fraction } from "quickswap-sdk"
 
 type TokenSwap = {
     id: number
@@ -6,6 +6,18 @@ type TokenSwap = {
     approve: {isApproved: boolean | undefined, isSearching: boolean}
     balance: {amount: TokenAmount | undefined, isSearching: boolean}
     logo: string
+}
+
+export type SwapProvider = {
+    tokenA: TokenSwap
+    tokenB: TokenSwap
+    input: TokenAmount | undefined
+    output: TokenAmount | undefined
+    pair: Pair | undefined
+    route: Route | undefined
+    trade: Trade | undefined
+    isPool: boolean | undefined
+    dispatch: (action: any, state?: Object,) => void,
 }
 
 export interface ISwap {

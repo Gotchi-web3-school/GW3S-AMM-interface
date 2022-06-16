@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import { keccak256, arrayify } from "ethers/lib/utils";
 import { Token} from "quickswap-sdk"
 import { PoolProvider, Pool } from "../Models"
+import { FACTORY_ADDRESS, INIT_CODE_HASH } from "quickswap-sdk";
 
 export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
     const {tokenA, tokenALogo, tokenB, tokenBLogo, pools, pool} = state;
@@ -22,7 +23,7 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
             const addrA = arrayify(tokenA!.address)
             const addrB = arrayify(tokenB!.address)
             const bytesArray = ethers.utils.concat([addrA, addrB])
-            const newPool: Pool = new Pool(parseInt(keccak256(bytesArray)), name, tokenA!, tokenB!, tokensUri)
+            const newPool: Pool = new Pool(parseInt(keccak256(bytesArray)), name, tokenA!, tokenB!, FACTORY_ADDRESS, INIT_CODE_HASH, tokensUri)
             pools.unshift(newPool)
 
             const array: number[] = []

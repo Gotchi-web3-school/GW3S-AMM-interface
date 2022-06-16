@@ -5,7 +5,7 @@ import {Button, Box, Text, HStack, Spacer, Spinner, useToast } from "@chakra-ui/
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
-import { GlobalConst } from "../../../../Constants";
+import { GlobalConst, ROUTER_ADDRESS } from "../../../../Constants";
 import { IPool } from "../../../../Models";
 import { fetchApprovedLp } from "../../../../lib/utils/pools";
 import { motion } from "framer-motion";
@@ -33,7 +33,7 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
         try {
             dispatch({type: "LOADING", payload: {id: idx, isLoading: true}})
             const contract = ERC20?.attach(token.address)
-            const tx = await contract?.approve(GlobalConst.addresses.ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
+            const tx = await contract?.approve(ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
             toast({
                 title: `Approve: ${token.symbol}`,
                 description: `transaction pending at: ${tx.hash}`,
