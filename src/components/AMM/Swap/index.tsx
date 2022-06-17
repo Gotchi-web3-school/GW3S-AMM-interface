@@ -1,0 +1,70 @@
+import { useContext, useState } from "react";
+import {
+    Stack,
+    Button,
+    Box,
+    Center,
+    Spacer,
+    Text,
+    useColorModeValue,
+  } from "@chakra-ui/react";
+  import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
+  import InputSwapA from "./InputSwapA"
+  import InputSwapB from "./InputSwapB"
+import { SwapContext } from "../../../Provider/SwapProvider";
+import SwapDetails from "./Analytics";
+
+const Swap: React.FC = () => {
+    const [quote, setQuote] = useState(true) 
+    const { route, input, dispatch, trade } = useContext(SwapContext)
+    const color = useColorModeValue("black", "white")
+    console.log(trade)
+    
+    return (
+      <Box overflow={"scroll"} >
+        <InputSwapA />
+          <Center m={-4} zIndex={2}>
+            <Button onClick={() => {dispatch({type: "SWAP"}); dispatch({type: "HANDLE_INPUT_A", payload: input.input })}} bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
+              <ArrowDownIcon  />
+            </Button>
+          </Center>
+        <InputSwapB />
+        <Box m="4">
+          <Stack direction={'row'} >
+            <Text fontSize="sm" fontWeight="bold">Price</Text>
+            <Spacer />
+            {route &&
+            <>
+              {quote ? 
+              <Text fontSize="sm" >{`${route?.midPrice.toSignificant(5)} ${route?.output.symbol} per ${route?.input.symbol}`}</Text> :
+              <Text fontSize="sm" >{`${route?.midPrice.invert().toSignificant(5)} ${route?.input.symbol} per ${route?.output.symbol}`}</Text>
+              }
+              <button onClick={() => setQuote(!quote)}><RepeatIcon color={color} /></button>
+            </>
+            }
+          </Stack>
+          <Stack direction={'row'} >
+            <Text fontSize="sm" fontWeight="bold">next Price</Text>
+            <Spacer />
+            {trade &&
+            <>
+              {quote ? 
+                <Text fontSize="sm" pr="6" >{`${trade.nextMidPrice.toSignificant(5)} ${route?.output.symbol} per ${route?.input.symbol}`}</Text> :
+                <Text fontSize="sm" pr="6" >{`${trade.nextMidPrice.invert().toSignificant(5)} ${route?.input.symbol} per ${route?.output.symbol}`}</Text>
+              }
+            </>
+            }
+          </Stack>
+
+        </Box>
+
+        <Stack direction={'row'} m="4" >
+          <Button w="100%" h="3rem">Approve</Button>
+          <Button w="100%" h="3rem">Swap</Button>
+        </Stack>
+        {trade && <SwapDetails />}
+      </Box>
+    )
+}
+
+export default Swap

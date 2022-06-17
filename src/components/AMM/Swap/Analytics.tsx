@@ -1,7 +1,11 @@
 import { Box, Flex, Text, Spacer, Divider, useColorModeValue } from "@chakra-ui/react"
-import Route from "./Route"
+import { Percent } from "quickswap-sdk"
+import { useContext } from "react"
+import { SwapContext } from "../../../Provider/SwapProvider"
+import { calculFee } from "../../../lib/utils/swap"
 
-const Analytics: React.FC = () => {
+const SwapDetails: React.FC = () => {
+    const { trade } = useContext(SwapContext)
     return (
         <Box 
             flexDirection="column"
@@ -16,25 +20,24 @@ const Analytics: React.FC = () => {
                 <Flex direction="row">
                     <Text>Minimum received</Text>
                     <Spacer />
-                    <Text>45</Text>
+                    <Text>{trade?.minimumAmountOut(new Percent("5", "1000")).toSignificant(5) ?? ""}</Text>
                 </Flex>
 
                 <Flex direction="row">
                     <Text>Price Impact</Text>
                     <Spacer />
-                    <Text>45</Text>
+                    <Text>{trade?.priceImpact.toFixed(2) ?? ""}</Text>
                 </Flex>
                 
                 <Flex direction="row">
                     <Text>Liquidity provider fee</Text>
                     <Spacer />
-                    <Text>45</Text>
+                    <Text>{trade ? calculFee(trade.inputAmount): ""}</Text>
                 </Flex>
             </Box>
             <Divider />
-            <Route />
         </Box>
     )
 }
 
-export default Analytics
+export default SwapDetails

@@ -1,10 +1,10 @@
 import { createContext, useReducer, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
+import { Fetcher } from "quickswap-sdk";
 import { swapReducer } from "../Reducers/swapReducer";
 import { ISwap, SwapProvider } from "../Models/swap";
 //import { ContractContext } from "./ContractsProvider";
 import { fetchBalance } from "../lib/utils";
-import { Fetcher } from "quickswap-sdk";
 import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../Constants";
 
 const defaultSwap: ISwap = {
@@ -22,8 +22,8 @@ const defaultSwap: ISwap = {
         balance: {amount: undefined, isSearching: false},
         logo: "",
     },
-    input: undefined,
-    output: undefined,
+    input: {amount: undefined, input: undefined},
+    output: {amount: undefined, input: undefined},
     pair: undefined,
     route: undefined,
     trade: undefined,
@@ -43,8 +43,6 @@ export const SwapContextProvider = (props: any) => {
     const [swap, dispatch] = useReducer(swapReducer, defaultSwap)
     const {tokenA, tokenB, pair, input, output, route, trade, isPool} = swap
 
-    console.log(pair)
-
      // STEP 1: update token A
      useEffect(() => {
         if (tokenA.token && account)
@@ -63,7 +61,7 @@ export const SwapContextProvider = (props: any) => {
         }
     }, [tokenB.token, account, library])
 
-    // STEP 2: Set Pair & set route for the trade
+    // STEP 2: Set Pair & set (single) Route for the trade
     useEffect(() => {
         if (tokenA.token && tokenB.token) {
             console.log("new pair")
@@ -71,6 +69,13 @@ export const SwapContextProvider = (props: any) => {
             .then(result => dispatch({type: "SET_PAIR", payload: result}))
         }
     }, [tokenA.token, tokenB.token, library])
+
+    // STEP3: Set Trade
+    useEffect(() => {
+        if (input.input !== undefined && output.input !== undefined) {
+            dispatch({type: "SET_TRADE"})
+        }
+    }, [input.input, output.input])
 
     return (
         <SwapContext.Provider value={{

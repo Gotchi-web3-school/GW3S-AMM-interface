@@ -1,11 +1,10 @@
-import { Token } from "quickswap-sdk";
-import { TokenAmount, JSBI, Pair, Route} from "quickswap-sdk";
+import { TokenAmount, JSBI, Route, TradeType, Token, Trade, CurrencyAmount } from "quickswap-sdk";
 import { ethers, FixedNumber } from "ethers";
-//import { parseEther } from "ethers/lib/utils";
+import { parseEther } from "ethers/lib/utils";
 import { Swap } from "../Models/swap"
 
 export const swapReducer = (state: Swap, action: any): Swap => {
-    let {tokenA, input, tokenB, output, isPool, pair} = state;
+    let {tokenA, tokenB, route, pair, input, output} = state;
 
 
     // POOLS COMPONENT
@@ -34,37 +33,76 @@ export const swapReducer = (state: Swap, action: any): Swap => {
 
             case "SET_ROUTE":
                 return  {...state, route: action.payload}
+
+            case "SET_TRADE":
+                const inputCurrency: CurrencyAmount = input.amount!
+                return {...state, trade: new Trade(route!, inputCurrency, TradeType.EXACT_INPUT)}
             
-
-
-            case 'HANDLE_INPUTS':
-                const inputId = action.payload.id;
+            case "HANDLE_INPUT_A":
                 try {
-                    // Take the entry of user and put it to a big Number
-                    const inputAmount = ethers.utils.parseEther(FixedNumber.from(action.payload.amount, 18).toString());
-                    // If pool is already created
-                    if (isPool && tokenB && tokenA && ethers.utils.parseEther(inputAmount.toString()).gt("0")) {
-                        const amount = new TokenAmount(inputId ? tokenB.token! : tokenA.token!, JSBI.BigInt(inputAmount))
-                        if (inputId === 0) {
-                            // using the entry calcul the rate of the second token
-                            const pairedAmount = new TokenAmount(tokenB.token!, "0")
-                            return {...state, input: amount, output: pairedAmount}
-                        } else {
-                            // using the entry calcul the rate of the second token
-                            const pairedAmount = new TokenAmount(tokenA.token!, "0")
-                            return {...state, input: pairedAmount, output: amount}
-                        }
-                    // If pool in not created and there is no entries
-                    } else if (inputAmount.toString() === "" && state.isPool) {
-                        return {...state, input: undefined, output: undefined}
-                    } else {
-                        const amount = tokenB && tokenA && new TokenAmount(inputId ? tokenB.token! : tokenA.token!, JSBI.BigInt(inputAmount))
-                        return inputId ? {...state, output: amount} : {...state, input: amount};
-                }
+                    // Check that we don't go over 18 decimals
+                    const bigAmount =  parseEther(FixedNumber.from(action.payload, 18).toString());
+                    if (route && bigAmount.gt('0')) {
+                        input.amount = new TokenAmount(tokenA.token!, JSBI.BigInt(bigAmount))
+                        input.input = action.payload
+                        output.amount = pair!.getOutputAmount(input.amount!)[0]
+                        output.input = output.amount.toExact()
+                        return {...state, input: input, output: output}
+                    }
+                    else if (action.payload.length === 0)
+                        return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
+                    else {
+                        input.amount = new TokenAmount(tokenA.token!, JSBI.BigInt("0"))
+                        input.input = action.payload
+                        return {...state, input: input , output: {amount: undefined, input: undefined}}
+                    }
+
                 } catch (error) {
-                    console.log(error)
-                    return inputId ? {...state, output: undefined} : {...state, input: undefined};
+                    if (error instanceof Error) {
+                        if (error.message.includes("underflow"))
+                            return {...state}
+                    }
+                    return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
                 }
+
+            case "HANDLE_INPUT_B":
+                try {
+                    // Check that we don't go over 18 decimals
+                    const bigAmount =  parseEther(FixedNumber.from(action.payload, 18).toString());
+                    if (route && bigAmount.gt('0')) {
+                        output.amount = new TokenAmount(tokenB.token!, JSBI.BigInt(bigAmount))
+                        output.input = action.payload
+                        input.amount = pair!.getInputAmount(output.amount!)[0]
+                        input.input = input.amount.toExact()
+                        return {...state, input: input, output: output}
+                    }
+                    else if (action.payload.length === 0)
+                        return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
+                    else {
+                        output.amount = new TokenAmount(tokenA.token!, JSBI.BigInt("0"))
+                        output.input = action.payload
+                        return {...state, input: {amount: undefined, input: undefined}, output: output}
+                    }
+                    
+                } catch (error) {
+                    if (error instanceof Error) {
+                        if (error.name === "InsufficientReservesError") {
+                            const bigAmount = parseEther(FixedNumber.from(action.payload, 18).toString())
+                            output.amount = new TokenAmount(tokenB.token!,  JSBI.BigInt(bigAmount))
+                            output.input = output.amount.toExact()
+                            return {...state, input: {amount: undefined, input: undefined}, output: output}
+                        }
+                        if (error.message.includes("underflow"))
+                            return {...state}
+                    }
+                    return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
+                }
+
+        case "SWAP":
+            input.amount = pair!.getOutputAmount(output.amount!)[0]
+            input.input = input.amount.toExact()
+            return {...state, tokenA: tokenB, tokenB: tokenA, input: output, output: input}
+
         
         case "RESET":
             tokenA.balance.amount = undefined

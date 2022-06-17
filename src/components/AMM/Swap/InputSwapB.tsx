@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useContext } from "react"
 import { Box, Text, Button, Input, Image, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
 import ModalSwap from "../../Modal/ModalSwap"
@@ -6,13 +6,9 @@ import { SwapContext } from "../../../Provider/SwapProvider"
 
 const InputSwapB : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [tokenAmount, setTokenAmount] = useState<string>("")
-  const {tokenB, dispatch} = useContext(SwapContext)
+  const {tokenB, output, dispatch} = useContext(SwapContext)
   const color = useColorModeValue("black", "white")
 
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setTokenAmount(e.target.value)
-  }
 
   return (
     <>
@@ -37,18 +33,20 @@ const InputSwapB : React.FC = () => {
               variant="unstyled"
               name="from"
               type="number"
+              min={0}
+              max={tokenB.balance.amount?.toExact()}
               placeholder="0.0"
               mr="5px"
               fontSize="2xl"
               fontWeight="bold"
               color={useColorModeValue("gray.900", "white")}
               id="swap"
-              value={tokenAmount}
-              onChange={onChange}
+              value={output.input ?? ""}
+              onChange={(e) => dispatch({type: "HANDLE_INPUT_B", payload: e.target.value})}
               required
             />
             <Button
-              onClick={() => dispatch({type: "HANDLE_INPUTS", payload: {id: 0, amount: tokenB.balance?.amount}})} 
+              onClick={() => dispatch({type: "HANDLE_INPUT_B", payload: tokenB.balance?.amount?.toExact() ?? '0'})} 
               size={"sm"} 
               bg="blue.500" 
               mt="1" 

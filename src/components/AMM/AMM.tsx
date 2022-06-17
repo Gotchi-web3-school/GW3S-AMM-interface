@@ -1,5 +1,5 @@
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from "@chakra-ui/react"
-import Swap from "./Swap/Swap"
+import Swap from "./Swap"
 import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider"
 import { SwapContextProvider } from "../../Provider/SwapProvider"
 import { PoolContextProvider } from "../../Provider/PoolsProvider";

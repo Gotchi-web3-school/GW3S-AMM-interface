@@ -1,4 +1,4 @@
-import { Pair, Route, Token, TokenAmount, Trade, Fraction } from "quickswap-sdk"
+import { Pair, Route, Token, TokenAmount, Trade } from "quickswap-sdk"
 
 type TokenSwap = {
     id: number
@@ -11,8 +11,8 @@ type TokenSwap = {
 export type SwapProvider = {
     tokenA: TokenSwap
     tokenB: TokenSwap
-    input: TokenAmount | undefined
-    output: TokenAmount | undefined
+    input: {amount: TokenAmount | undefined, input: string | undefined}
+    output: {amount: TokenAmount | undefined, input: string | undefined}
     pair: Pair | undefined
     route: Route | undefined
     trade: Trade | undefined
@@ -23,8 +23,8 @@ export type SwapProvider = {
 export interface ISwap {
     tokenA: TokenSwap
     tokenB: TokenSwap
-    input: TokenAmount | undefined
-    output: TokenAmount | undefined
+    input: {amount: TokenAmount | undefined, input: string | undefined}
+    output: {amount: TokenAmount | undefined, input: string | undefined}
     pair: Pair | undefined
     route: Route | undefined
     trade: Trade | undefined
@@ -34,8 +34,8 @@ export interface ISwap {
 export class Swap implements ISwap {
     tokenA: TokenSwap
     tokenB: TokenSwap
-    input: TokenAmount | undefined = undefined
-    output: TokenAmount | undefined = undefined
+    input: {amount: TokenAmount | undefined, input: string | undefined} = {amount: undefined, input: undefined}
+    output: {amount: TokenAmount | undefined, input: string | undefined} = {amount: undefined, input: undefined}
     pair: Pair | undefined
     route: Route | undefined
     trade: Trade | undefined
