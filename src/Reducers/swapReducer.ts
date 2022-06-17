@@ -29,7 +29,7 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                 return {...state, tokenA: tokenA, tokenB: tokenB}
 
             case "SET_PAIR":
-                return  {...state, pair: action.payload, route: new Route([action.payload], tokenA.token!, tokenB.token)}
+                return  {...state, pair: action.payload, route: new Route([action.payload], tokenA.token!, tokenB.token), error: false, isPool: true}
 
             case "SET_ROUTE":
                 return  {...state, route: action.payload}
@@ -37,6 +37,16 @@ export const swapReducer = (state: Swap, action: any): Swap => {
             case "SET_TRADE":
                 const inputCurrency: CurrencyAmount = input.amount!
                 return {...state, trade: new Trade(route!, inputCurrency, TradeType.EXACT_INPUT)}
+
+            case "APPROVED":
+                tokenA.approve.isApproved = action.payload.token0
+                tokenA.approve.isSearching = false
+                tokenB.approve.isApproved = action.payload.token0
+                tokenB.approve.isSearching = false
+                return {...state, tokenA: tokenA, tokenB: tokenB}
+
+            case "LOADING":
+                return {...state, loading: action.payload}
             
             case "HANDLE_INPUT_A":
                 try {
@@ -47,14 +57,14 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                         input.input = action.payload
                         output.amount = pair!.getOutputAmount(input.amount!)[0]
                         output.input = output.amount.toExact()
-                        return {...state, input: input, output: output}
+                        return {...state, input: input, output: output, error: false}
                     }
                     else if (action.payload.length === 0)
-                        return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
+                        return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}, error: false}
                     else {
                         input.amount = new TokenAmount(tokenA.token!, JSBI.BigInt("0"))
                         input.input = action.payload
-                        return {...state, input: input , output: {amount: undefined, input: undefined}}
+                        return {...state, input: input , output: {amount: undefined, input: undefined}, error: false}
                     }
 
                 } catch (error) {
@@ -62,7 +72,7 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                         if (error.message.includes("underflow"))
                             return {...state}
                     }
-                    return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
+                    return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}, error: false}
                 }
 
             case "HANDLE_INPUT_B":
@@ -74,14 +84,14 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                         output.input = action.payload
                         input.amount = pair!.getInputAmount(output.amount!)[0]
                         input.input = input.amount.toExact()
-                        return {...state, input: input, output: output}
+                        return {...state, input: input, output: output, error: false}
                     }
                     else if (action.payload.length === 0)
-                        return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
+                        return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}, error: false}
                     else {
                         output.amount = new TokenAmount(tokenA.token!, JSBI.BigInt("0"))
                         output.input = action.payload
-                        return {...state, input: {amount: undefined, input: undefined}, output: output}
+                        return {...state, input: {amount: undefined, input: undefined}, output: output, error: false}
                     }
                     
                 } catch (error) {
@@ -90,19 +100,21 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                             const bigAmount = parseEther(FixedNumber.from(action.payload, 18).toString())
                             output.amount = new TokenAmount(tokenB.token!,  JSBI.BigInt(bigAmount))
                             output.input = output.amount.toExact()
-                            return {...state, input: {amount: undefined, input: undefined}, output: output}
+                            return {...state, input: {amount: undefined, input: undefined}, output: output, error: true}
                         }
                         if (error.message.includes("underflow"))
-                            return {...state}
+                            return {...state, error: false}
                     }
-                    return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}}
+                    return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}, error: false}
                 }
 
         case "SWAP":
             input.amount = pair!.getOutputAmount(output.amount!)[0]
             input.input = input.amount.toExact()
             return {...state, tokenA: tokenB, tokenB: tokenA, input: output, output: input}
-
+        
+        case "FAILURE":
+            return {...state, error: true}
         
         case "RESET":
             tokenA.balance.amount = undefined

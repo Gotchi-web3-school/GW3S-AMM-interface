@@ -83,3 +83,10 @@ export const rate = (amount0: string = "0", amount1: string = "0"): number | str
     const result = parseFloat(amount0) / parseFloat(amount1)
     return isNaN(result) ? "0" : result.toPrecision(4)
 }
+
+export const getDeadLine = async(provider: any): Promise<string> => {
+    return (
+        await provider.getBlock()
+        .then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
+    )
+}

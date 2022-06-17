@@ -17,6 +17,8 @@ export type SwapProvider = {
     route: Route | undefined
     trade: Trade | undefined
     isPool: boolean | undefined
+    error: boolean
+    loading: boolean
     dispatch: (action: any, state?: Object,) => void,
 }
 
@@ -29,6 +31,8 @@ export interface ISwap {
     route: Route | undefined
     trade: Trade | undefined
     isPool: boolean | undefined
+    error: boolean
+    loading: boolean
 }
 
 export class Swap implements ISwap {
@@ -40,20 +44,21 @@ export class Swap implements ISwap {
     route: Route | undefined
     trade: Trade | undefined
     isPool: boolean | undefined = undefined
-
+    error: boolean = false
+    loading: boolean = false
 
     constructor( tokenA?: Token, tokenB?: Token, pair?: Pair, logoURI?: {tokenA?: string, tokenB?: string}) {
         this.tokenA = {
             id: 0,
             token: tokenA,
-            approve: {isApproved: undefined, isSearching: false},
+            approve: {isApproved: undefined, isSearching: true},
             balance: {amount: tokenA ? new TokenAmount(tokenA, "0") : undefined, isSearching: false},
             logo: logoURI?.tokenA ?? "",
         }
         this.tokenB = {
             id: 1,
             token: tokenB,
-            approve: {isApproved: undefined, isSearching: false},
+            approve: {isApproved: undefined, isSearching: true},
             balance: {amount: tokenB ? new TokenAmount(tokenB, "0") : undefined, isSearching: false},
             logo: logoURI?.tokenB ?? "",
         }

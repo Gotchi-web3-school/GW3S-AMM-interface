@@ -8,17 +8,18 @@ import {
     Text,
     useColorModeValue,
   } from "@chakra-ui/react";
-  import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
-  import InputSwapA from "./InputSwapA"
-  import InputSwapB from "./InputSwapB"
+import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
 import { SwapContext } from "../../../Provider/SwapProvider";
+import InputSwapA from "./InputSwapA"
+import InputSwapB from "./InputSwapB"
 import SwapDetails from "./Analytics";
+import SwapButton from "./SwapButton";
 
 const Swap: React.FC = () => {
     const [quote, setQuote] = useState(true) 
     const { route, input, dispatch, trade } = useContext(SwapContext)
     const color = useColorModeValue("black", "white")
-    console.log(trade)
+    console.log(trade?.route.path)
     
     return (
       <Box overflow={"scroll"} >
@@ -55,13 +56,9 @@ const Swap: React.FC = () => {
             </>
             }
           </Stack>
-
         </Box>
 
-        <Stack direction={'row'} m="4" >
-          <Button w="100%" h="3rem">Approve</Button>
-          <Button w="100%" h="3rem">Swap</Button>
-        </Stack>
+        <SwapButton />
         {trade && <SwapDetails />}
       </Box>
     )

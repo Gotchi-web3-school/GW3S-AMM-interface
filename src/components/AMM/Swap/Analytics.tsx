@@ -5,7 +5,7 @@ import { SwapContext } from "../../../Provider/SwapProvider"
 import { calculFee } from "../../../lib/utils/swap"
 
 const SwapDetails: React.FC = () => {
-    const { trade } = useContext(SwapContext)
+    const { trade, tokenA, tokenB } = useContext(SwapContext)
     return (
         <Box 
             flexDirection="column"
@@ -20,7 +20,7 @@ const SwapDetails: React.FC = () => {
                 <Flex direction="row">
                     <Text>Minimum received</Text>
                     <Spacer />
-                    <Text>{trade?.minimumAmountOut(new Percent("5", "1000")).toSignificant(5) ?? ""}</Text>
+                    <Text>{trade?.minimumAmountOut(new Percent("5", "1000")).toSignificant(5) ?? ""} {tokenB.token?.symbol ?? ""}</Text>
                 </Flex>
 
                 <Flex direction="row">
@@ -32,7 +32,7 @@ const SwapDetails: React.FC = () => {
                 <Flex direction="row">
                     <Text>Liquidity provider fee</Text>
                     <Spacer />
-                    <Text>{trade ? calculFee(trade.inputAmount): ""}</Text>
+                    <Text>{trade ? calculFee(trade.inputAmount): ""} {tokenA.token?.symbol ?? ""}</Text>
                 </Flex>
             </Box>
             <Divider />

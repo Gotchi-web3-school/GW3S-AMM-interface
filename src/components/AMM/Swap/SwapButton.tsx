@@ -1,82 +1,74 @@
-import React, { useContext, useState } from "react"
-import { Button, Container, Spinner, Text, useToast, Box } from "@chakra-ui/react"
+import { useContext } from "react"
+import { Button, Container, Spinner, Text, useToast } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
 import { isSufficientBalance } from "../../../lib/utils"
 import { ContractContext } from "../../../Provider/ContractsProvider"
-import { addLiquidityTx } from "../../../lib/smart-contracts/addLiquidity"
+import { swapExactTokensForTokensSupportingFeeOnTransferTokensTx } from "../../../lib/smart-contracts/swap"
 import { SwapContext } from "../../../Provider/SwapProvider"
-//import { ITrade } from "../../../Models/swap"
-/*
+import { getDeadLine } from "../../../lib/utils"
+import { Percent } from "quickswap-sdk"
+
 const SwapButton: React.FC = () => {
     const contract = useContext(ContractContext)
-    const { trade } = useContext(SwapContext)
     const { library, account } = useWeb3React()
     const toast = useToast()
-    const [loading, setLoading] = useState(false)
+    const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = useContext(SwapContext)
+    console.log(isPool)
 
-    const handleAddLiquidityTx = () => {
-        setLoading(true)
-        addLiquidityTx({
+    const handleSwapTx = async() => {
+        dispatch({type: "LOADING", payload: false})
+        swapExactTokensForTokensSupportingFeeOnTransferTokensTx({
             router2: contract.router2,
-            pair: pair,
-            amount0: tokenA.inputAdd!,
-            amount1: tokenB.inputAdd!,
-            userAddress: account!,
+            amountIn: trade!.inputAmount!,
+            amountOutMin: trade!.minimumAmountOut(new Percent("5", "1000")),
+            path: [tokenA.token?.address!, tokenB.token?.address!],
+            to: account ?? "",
+            deadline: await getDeadLine(library),
             toast: toast,
-        }, library)
+        })
         .then(() => {
-            setLoading(false)
-            dispatch({type: "RESET"})
+            dispatch({type: "LOADING", payload: false})
         })
     }
 
     return (
-        <Box mx="5">
-        {tokenA.inputAdd && tokenB.inputAdd ?
+        <>
+        {tokenA.token && tokenB.token ?
             <>
-            {tokenA.balance && isSufficientBalance(tokenA.inputAdd.toExact(), tokenA.balance, tokenB.inputAdd.toExact(), tokenB.balance!) ?
-                <Button 
-                onClick={handleAddLiquidityTx} 
-                disabled={!tokenA.isApproved  || !tokenB.isApproved || loading} 
-                mt="5" 
-                w="100%" 
-                h="4rem"
-                bg="transparent"
-                borderRadius={"3xl"}
-                textColor={"whiteAlpha.800"}
-                _hover={{bg: "#0065fe"}}
-                boxShadow={"inset 1px 1px 10px 1px #54bafe"}
-                >
-                    {loading ? <Spinner /> : isPool ? "Add Liquidity"  : "Create pool"}
-                </Button>
+            {input.amount && output.amount ?
+                <>
+                {isPool && !error ? 
+                    <>
+                    {tokenA.balance.amount && tokenB.balance.amount && isSufficientBalance(input.amount.toExact(), tokenA.balance.amount!, output.amount.toExact(), tokenB.balance.amount!) ?
+                        <>
+                            <Button 
+                            onClick={handleSwapTx} 
+                            disabled={!tokenA.approve.isApproved || !tokenA.approve.isApproved || loading} 
+                            mt="5" 
+                            w="100%" 
+                            h="3.5rem" 
+                            bg="blue.500" 
+                            >
+                                {loading ? <Spinner /> : "Swap"}
+                            </Button>
+                        </>
+                        :
+                        <Container mt="5" w="100%" h="3.5rem" bg="red.300" textAlign={"center"} verticalAlign="center" rounded={"xl"} color="gray.700">Insufficient balance</Container>
+                    }
+                    </>
+                    :
+                    <Container mt="5" w="100%" h="3.5rem" bg="red.300" textAlign={"center"} verticalAlign="center" rounded={"xl"} color="gray.700"><Text pt="2" fontSize={"2xl"}>Insufficient liquidity for this trade.</Text></Container>
+                }
+                </>
                 :
-                <Container 
-                mt="5"
-                w="100%" 
-                h="4rem" 
-                borderRadius={"3xl"}
-                textColor={"whiteAlpha.600"}
-                boxShadow={"inset 1px 1px 10px 1px #ff5d4b"}
-                >
-                    <Text pt='4' textAlign={"center"} fontSize={"xl"}>Insufficient balance</Text>
-                </Container>
+                <Container mt="5" w="100%" h="3.5rem" bg="gray.500" textAlign={"center"} verticalAlign="center" rounded={"xl"} color="gray.700"><Text pt="2" fontSize={"2xl"}>Enter amount</Text></Container>
             }
             </>
             :
-            <Container 
-            mt="5" 
-            w="100%" 
-            h="3.5rem"
-            borderRadius={"3xl"}
-            bg="gray.500"
-            color="gray.700"
-            >
-                <Text pt="2" fontSize={"2xl"}>Enter amount</Text>
-            </Container>
+            <Container mt="5" w="100%" h="3.5rem" bg="gray.500" textAlign={"center"} verticalAlign="center" rounded={"xl"} color="gray.700"><Text pt="2" fontSize={"2xl"}>Select a token {tokenA.token ? 'A' : 'B'}</Text></Container>
         }
-        </Box>
+        </>
     )
 }
 
 export default SwapButton
-*/
