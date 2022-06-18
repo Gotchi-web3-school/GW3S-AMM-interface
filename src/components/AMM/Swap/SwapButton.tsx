@@ -26,6 +26,7 @@ const SwapButton: React.FC = () => {
             to: account ?? "",
             deadline: await getDeadLine(library),
             toast: toast,
+            dispatch: dispatch,
         })
         .then(() => {
             dispatch({type: "LOADING", payload: false})

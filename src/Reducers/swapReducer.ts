@@ -130,6 +130,11 @@ export const swapReducer = (state: Swap, action: any): Swap => {
         
         case "FAILURE":
             return {...state, error: true}
+
+        case "EMPTY_INPUT":
+            input = {amount: undefined, input: undefined}
+            output = {amount: undefined, input: undefined}
+            return {...state, input: input, output: output}
         
         case "RESET":
             tokenA.token = new Token(tokenA.token!.chainId, tokenA.token!.address, tokenA.token!.decimals, tokenA.token!.symbol, tokenA.token!.name)

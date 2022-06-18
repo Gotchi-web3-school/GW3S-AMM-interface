@@ -9,6 +9,7 @@ interface SwapTx {
     to: string,
     deadline: string,
     toast: any,
+    dispatch: (state: {}, action?: Object | undefined) => void,
 }
 
 export const swapExactTokensForTokensSupportingFeeOnTransferTokensTx = async(tx: SwapTx) => {
@@ -41,6 +42,8 @@ export const swapExactTokensForTokensSupportingFeeOnTransferTokensTx = async(tx:
             tx.deadline,
             {gasLimit: gas}
         )
+
+        tx.dispatch({type: "EMPTY_INPUT"})
     
         tx.toast({
             title: `Swap ${tx.amountIn.currency.symbol} for ${tx.amountOutMin.currency.symbol}`,
