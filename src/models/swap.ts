@@ -3,7 +3,7 @@ import { Pair, Route, Token, TokenAmount, Trade } from "quickswap-sdk"
 type TokenSwap = {
     id: number
     token: Token | undefined
-    approve: {isApproved: boolean | undefined, isSearching: boolean}
+    approve: {isApproved: boolean | undefined, loading: boolean}
     balance: {amount: TokenAmount | undefined, isSearching: boolean}
     logo: string
 }
@@ -51,14 +51,14 @@ export class Swap implements ISwap {
         this.tokenA = {
             id: 0,
             token: tokenA,
-            approve: {isApproved: undefined, isSearching: true},
+            approve: {isApproved: undefined, loading: true},
             balance: {amount: tokenA ? new TokenAmount(tokenA, "0") : undefined, isSearching: false},
             logo: logoURI?.tokenA ?? "",
         }
         this.tokenB = {
             id: 1,
             token: tokenB,
-            approve: {isApproved: undefined, isSearching: true},
+            approve: {isApproved: undefined, loading: true},
             balance: {amount: tokenB ? new TokenAmount(tokenB, "0") : undefined, isSearching: false},
             logo: logoURI?.tokenB ?? "",
         }

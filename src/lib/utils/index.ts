@@ -25,11 +25,12 @@ export const fetchBalance = async(tokenAddress: string, userAdress: string, prov
     return(ethers.utils.formatEther(balance));
 }
 
-export const fetchApproved = async(pair: Pair, userAdress: string, provider: any): Promise<{token0: boolean, token1: boolean}> => {
+export const fetchApprovedtokens = async(pair: Pair, userAdress: string, provider: any): Promise<{token0: boolean, token1: boolean}> => {
     const token0 = new ethers.Contract(pair.token0.address, abis.erc20, provider.getSigner(userAdress));
     const token1 = new ethers.Contract(pair.token1.address, abis.erc20, provider.getSigner(userAdress));
     const approved0: BigintIsh = await token0.allowance(userAdress, ROUTER_ADDRESS);
     const approved1: BigintIsh = await token1.allowance(userAdress, ROUTER_ADDRESS);
+    console.log(pair.reserve0, pair.reserve1)
     return ({token0: pair.reserve0.lessThan(approved0), token1: pair.reserve1.lessThan(approved1)})
 }
 

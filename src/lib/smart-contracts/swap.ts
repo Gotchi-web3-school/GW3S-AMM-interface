@@ -21,11 +21,6 @@ export const swapExactTokensForTokensSupportingFeeOnTransferTokensTx = async(tx:
         console.log("To: " + tx.to)
         console.log("Deadline: " +  tx.deadline)
         console.log("//////////////////////////////////////")
-
-        // let pathCallData: string = "";
-        // for(let i = 0; i < tx.path.length; i++) {
-        //     pathCallData += ethers.utils.hexZeroPad(tx.path[i], 32)
-        // }
     
         //Estimation of the gas cost
         const gas = await tx.router2?.estimateGas.swapExactTokensForTokensSupportingFeeOnTransferTokens(

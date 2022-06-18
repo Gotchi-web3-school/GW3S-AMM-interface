@@ -3,7 +3,7 @@ import { Fraction} from "quickswap-sdk"
 import { useWeb3React } from "@web3-react/core";
 import { addLiquidityReducer } from "../Reducers/addLiquidityReducer";
 import { AddLiquidity } from "../Models";
-import { fetchBalance, fetchApproved, isPoolCreated, fetchReserves } from "../lib/utils";
+import { fetchBalance, fetchApprovedtokens, isPoolCreated, fetchReserves } from "../lib/utils";
 import { ContractContext } from "./ContractsProvider";
 
 const defaultContext = {
@@ -69,7 +69,8 @@ export const AddLiquidityContextProvider = (props: any) => {
     // Check for approval
     useEffect(() => {
         if (pair && account && isApproved === undefined)
-            fetchApproved(pair, account, library).then(result => dispatch({type: "SET_APPROVED", payload: {isApproved: result}}))
+        fetchApprovedtokens(pair, account, library)
+        .then(result => dispatch({type: "SET_APPROVED", payload: {isApproved: result}}))
     }, [pair, account, library, isApproved])
 
         

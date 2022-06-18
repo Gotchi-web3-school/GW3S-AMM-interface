@@ -1,4 +1,4 @@
-import { Box, useColorModeValue } from "@chakra-ui/react"
+import { Box, useColorModeValue, HStack } from "@chakra-ui/react"
 import Navbar from "./components/Navbar/Navbar"
 import AMM from "./components/AMM/AMM"
 
@@ -12,7 +12,9 @@ const App: React.FC = () => {
         "linear(gray.800, purple.900, purple.800, purple.900, gray.800)"
       )}>
       <Navbar />
-      <AMM />
+      <HStack justifyContent={"center"} spacing={5}>
+        <AMM />
+      </HStack>
     </Box>
    )
 }

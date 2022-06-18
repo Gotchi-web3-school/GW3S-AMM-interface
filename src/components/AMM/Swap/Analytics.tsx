@@ -11,7 +11,7 @@ const SwapDetails: React.FC = () => {
             flexDirection="column"
             bg={useColorModeValue("gray.200", "gray.700")}
             mx={"auto"}
-            mt={-2}
+            mt="5"
             px={{ base: 2, sm: 5, md: 17 }}
             rounded="xl"
             zIndex={0}

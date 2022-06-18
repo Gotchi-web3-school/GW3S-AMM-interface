@@ -17,15 +17,14 @@ import SwapButton from "./SwapButton";
 
 const Swap: React.FC = () => {
     const [quote, setQuote] = useState(true) 
-    const { route, input, dispatch, trade } = useContext(SwapContext)
+    const { route, dispatch, trade } = useContext(SwapContext)
     const color = useColorModeValue("black", "white")
-    console.log(trade?.route.path)
     
     return (
       <Box overflow={"scroll"} >
         <InputSwapA />
           <Center m={-4} zIndex={2}>
-            <Button onClick={() => {dispatch({type: "SWAP"}); dispatch({type: "HANDLE_INPUT_A", payload: input.input })}} bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
+            <Button onClick={() => dispatch({type: "SWAP"})} bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
               <ArrowDownIcon  />
             </Button>
           </Center>
@@ -59,6 +58,7 @@ const Swap: React.FC = () => {
         </Box>
 
         <SwapButton />
+        
         {trade && <SwapDetails />}
       </Box>
     )
