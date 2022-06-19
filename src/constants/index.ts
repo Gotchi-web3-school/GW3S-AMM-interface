@@ -1,5 +1,5 @@
 /* eslint-disable no-multi-str */
-import {Percent, JSBI, Token} from "quickswap-sdk"
+import {Percent, JSBI, Token} from "gotchiw3s-sdk"
 import { Pool } from "../Models";
 
 export enum TxnType {

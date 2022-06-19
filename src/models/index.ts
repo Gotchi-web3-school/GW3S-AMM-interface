@@ -1,4 +1,4 @@
-import { Token, TokenAmount, Pair, Fraction, Percent, JSBI } from "quickswap-sdk";
+import { Token, TokenAmount, Pair, Fraction, Percent, JSBI } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
 
 export type SelectToken = {

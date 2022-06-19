@@ -21,7 +21,7 @@ import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../lib/utils"
 import TokenSelect from "../AMM/Pools/AddLiquidity/raw/TokenSelect"
-import { Token } from "quickswap-sdk";
+import { Token } from "gotchiw3s-sdk";
 
 
 const ModalTokens: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {

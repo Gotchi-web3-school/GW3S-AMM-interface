@@ -12,7 +12,7 @@ import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
 import { SwapContext } from "../../../Provider/SwapProvider";
 import InputSwapA from "./InputSwapA"
 import InputSwapB from "./InputSwapB"
-import SwapDetails from "./Analytics";
+import SwapDetails from "./SwapDetails";
 import SwapButton from "./SwapButton";
 
 const Swap: React.FC = () => {
@@ -58,7 +58,7 @@ const Swap: React.FC = () => {
         </Box>
 
         <SwapButton />
-        
+
         {trade && <SwapDetails />}
       </Box>
     )

@@ -9,7 +9,7 @@ import {
     SliderMark,
   } from '@chakra-ui/react'
   import { IPool } from '../../../../../Models'
-import { Percent } from 'quickswap-sdk'
+import { Percent } from 'gotchiw3s-sdk'
 
 const SliderPool: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const [showTooltip, setShowTooltip] = useState(false)

@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Button, Container, Spinner, Text, Stack, useToast } from "@chakra-ui/react"
-import { Percent, Token } from "quickswap-sdk"
+import { Percent, Token } from "gotchiw3s-sdk"
 import { useWeb3React } from "@web3-react/core"
 import { isSufficientBalance } from "../../../lib/utils"
 import { ContractContext } from "../../../Provider/ContractsProvider"

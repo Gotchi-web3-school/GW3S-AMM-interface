@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
-import { Token } from "quickswap-sdk";
+import { Token } from "gotchiw3s-sdk";
 import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../../Connectors/connectors';

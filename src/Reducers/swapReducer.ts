@@ -1,11 +1,10 @@
-import { TokenAmount, JSBI, Route, TradeType, Token, Trade, CurrencyAmount } from "quickswap-sdk";
+import { TokenAmount, JSBI, Route, TradeType, Token, Trade, CurrencyAmount } from "gotchiw3s-sdk";
 import { ethers, FixedNumber } from "ethers";
 import { parseEther } from "ethers/lib/utils";
 import { Swap } from "../Models/swap"
 
 export const swapReducer = (state: Swap, action: any): Swap => {
     let {tokenA, tokenB, route, pair, input, output} = state;
-
 
     // POOLS COMPONENT
     switch(action.type) {
@@ -76,6 +75,7 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                 }
 
             } catch (error) {
+                console.log(error)
                 if (error instanceof Error) {
                     if (error.message.includes("underflow"))
                         return {...state}

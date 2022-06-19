@@ -1,4 +1,4 @@
-import { Token } from "quickswap-sdk";
+import { Token } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
 
 interface ApproveTx {

@@ -5,7 +5,7 @@ import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../../Connectors/connectors';
 import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider";
 import { ContractContext } from "../../../../../Provider/ContractsProvider";
-import { Token } from "quickswap-sdk";
+import { Token } from "gotchiw3s-sdk";
 import { ROUTER_ADDRESS, GlobalConst } from "../../../../../Constants";
 import InputToken0 from "./InputToken0";
 import InputToken1 from "./InputToken1";

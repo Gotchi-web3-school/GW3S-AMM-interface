@@ -1,4 +1,4 @@
-import { Pair, TokenAmount, Percent, JSBI } from "quickswap-sdk";
+import { Pair, TokenAmount, Percent, JSBI } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
 import { GlobalConst } from "../../Constants";
 import { calculateSlippageAmount } from "../utils";

@@ -1,4 +1,4 @@
-import { Pair, Route, Token, TokenAmount, Trade } from "quickswap-sdk"
+import { Pair, Route, Token, TokenAmount, Trade } from "gotchiw3s-sdk"
 
 type TokenSwap = {
     id: number

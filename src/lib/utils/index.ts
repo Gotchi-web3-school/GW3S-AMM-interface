@@ -1,5 +1,5 @@
 import { Web3Provider } from '@ethersproject/providers';
-import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount } from 'quickswap-sdk';
+import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount } from 'gotchiw3s-sdk';
 import { abis, GlobalConst, ROUTER_ADDRESS, FACTORY_ADDRESS} from '../../Constants';
 import { ethers } from "ethers";
 import { SelectToken } from '../../Models';

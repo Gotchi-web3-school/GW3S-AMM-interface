@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
-import { Fetcher } from "quickswap-sdk";
+import { Fetcher } from "gotchiw3s-sdk";
 import { swapReducer } from "../Reducers/swapReducer";
 import { ISwap, SwapProvider } from "../Models/swap";
 //import { ContractContext } from "./ContractsProvider";

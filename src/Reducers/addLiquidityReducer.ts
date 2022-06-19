@@ -1,7 +1,7 @@
 import { AddLiquidity } from "../Models"
-import { Token, TokenAmount, JSBI, Pair, Fraction } from "quickswap-sdk"
+import { Token, TokenAmount, JSBI, Pair, Fraction } from "gotchiw3s-sdk"
 import { ethers, FixedNumber } from "ethers"
-import { FACTORY_ADDRESS, INIT_CODE_HASH } from "quickswap-sdk"
+import { FACTORY_ADDRESS, INIT_CODE_HASH } from "gotchiw3s-sdk"
 
 export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquidity => {
     const {

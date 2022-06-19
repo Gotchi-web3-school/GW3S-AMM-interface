@@ -1,4 +1,4 @@
-import { TokenAmount, JSBI} from "quickswap-sdk";
+import { TokenAmount, JSBI} from "gotchiw3s-sdk";
 import { ethers, FixedNumber } from "ethers";
 import { parseEther } from "ethers/lib/utils";
 import { IPool } from "../Models"

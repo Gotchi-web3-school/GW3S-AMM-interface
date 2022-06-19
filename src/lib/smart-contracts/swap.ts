@@ -1,4 +1,4 @@
-import { CurrencyAmount } from "quickswap-sdk";
+import { CurrencyAmount } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
 
 interface SwapTx {

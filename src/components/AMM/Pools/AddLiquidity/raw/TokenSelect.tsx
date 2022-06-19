@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers"
-import { TokenAmount, Token } from "quickswap-sdk";
+import { TokenAmount, Token } from "gotchiw3s-sdk";
 import { useWeb3React } from "@web3-react/core";
 import { Text, Image, Spacer, Spinner } from "@chakra-ui/react"
 import { QuestionOutlineIcon } from "@chakra-ui/icons"

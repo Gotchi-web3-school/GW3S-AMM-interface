@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import { keccak256, arrayify } from "ethers/lib/utils";
-import { Token} from "quickswap-sdk"
+import { Token} from "gotchiw3s-sdk"
 import { PoolProvider, Pool } from "../Models"
-import { FACTORY_ADDRESS, INIT_CODE_HASH } from "quickswap-sdk";
+import { FACTORY_ADDRESS, INIT_CODE_HASH } from "gotchiw3s-sdk";
 
 export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
     const {tokenA, tokenALogo, tokenB, tokenBLogo, pools, pool} = state;
