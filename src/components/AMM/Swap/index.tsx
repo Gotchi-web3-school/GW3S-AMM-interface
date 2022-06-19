@@ -17,7 +17,7 @@ import SwapButton from "./SwapButton";
 
 const Swap: React.FC = () => {
     const [quote, setQuote] = useState(true) 
-    const { route, dispatch, trade } = useContext(SwapContext)
+    const { route, dispatch, trade, input, isPool, pair } = useContext(SwapContext)
     const color = useColorModeValue("black", "white")
     
     return (
@@ -31,10 +31,10 @@ const Swap: React.FC = () => {
         <InputSwapB />
         <Box m="4">
           <Stack direction={'row'} >
+            {trade &&
+            <>
             <Text fontSize="sm" fontWeight="bold">Price</Text>
             <Spacer />
-            {route &&
-            <>
               {quote ? 
               <Text fontSize="sm" >{`${route?.midPrice.toSignificant(5)} ${route?.output.symbol} per ${route?.input.symbol}`}</Text> :
               <Text fontSize="sm" >{`${route?.midPrice.invert().toSignificant(5)} ${route?.input.symbol} per ${route?.output.symbol}`}</Text>
@@ -44,10 +44,10 @@ const Swap: React.FC = () => {
             }
           </Stack>
           <Stack direction={'row'} >
-            <Text fontSize="sm" fontWeight="bold">next Price</Text>
-            <Spacer />
             {trade &&
             <>
+            <Text fontSize="sm" fontWeight="bold">next Price</Text>
+            <Spacer />
               {quote ? 
                 <Text fontSize="sm" pr="6" >{`${trade.nextMidPrice.toSignificant(5)} ${route?.output.symbol} per ${route?.input.symbol}`}</Text> :
                 <Text fontSize="sm" pr="6" >{`${trade.nextMidPrice.invert().toSignificant(5)} ${route?.input.symbol} per ${route?.output.symbol}`}</Text>
@@ -59,7 +59,7 @@ const Swap: React.FC = () => {
 
         <SwapButton />
 
-        {trade && <SwapDetails />}
+        {isPool && parseFloat(input.input ?? '0') > 0 && <SwapDetails />}
       </Box>
     )
 }

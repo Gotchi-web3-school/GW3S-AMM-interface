@@ -75,12 +75,11 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                 }
 
             } catch (error) {
-                console.log(error)
                 if (error instanceof Error) {
                     if (error.message.includes("underflow"))
                         return {...state}
                 }
-                return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}, error: false}
+                return {...state, input: {amount: undefined, input: action.payload}, output: {amount: undefined, input: undefined}, error: false}
             }
 
         case "HANDLE_INPUT_B":
@@ -113,7 +112,7 @@ export const swapReducer = (state: Swap, action: any): Swap => {
                     if (error.message.includes("underflow"))
                         return {...state}
                 }
-                return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: undefined}, error: false}
+                return {...state, input: {amount: undefined, input: undefined}, output: {amount: undefined, input: action.payload}, error: false}
             }
 
         case "SWAP":
@@ -128,8 +127,8 @@ export const swapReducer = (state: Swap, action: any): Swap => {
             }
             return {...state, tokenA: tokenB, tokenB: tokenA, input: input, output: output, pair: undefined, route: undefined, trade: undefined, error: false}
         
-        case "FAILURE":
-            return {...state, error: true}
+        case "SET_PAIR_FAILURE":
+            return {...state, error: true, isPool: false, route: undefined, trade: undefined}
 
         case "EMPTY_INPUT":
             input = {amount: undefined, input: undefined}

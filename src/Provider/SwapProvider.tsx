@@ -69,7 +69,7 @@ export const SwapContextProvider = (props: any) => {
             console.log("new pair")
             Fetcher.fetchPairData(tokenA.token, tokenB.token, FACTORY_ADDRESS, INIT_CODE_HASH, library)
             .then(result => dispatch({type: "SET_PAIR", payload: result}))
-            .catch(error =>{console.log(error); dispatch({type: "FAILURE", payload: error})})
+            .catch(error => dispatch({type: "SET_PAIR_FAILURE", payload: error}))
         }
     }, [tokenA.token, tokenB.token, library, account])
 

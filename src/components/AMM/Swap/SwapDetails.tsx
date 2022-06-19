@@ -11,7 +11,6 @@ const SwapDetails: React.FC = () => {
         <Box 
             flexDirection="column"
             bg={useColorModeValue("blackAlpha.200", "whiteAlpha.200")}
-            mx="5"
             mt="5"
             p="4" 
             border="1px solid white" 
