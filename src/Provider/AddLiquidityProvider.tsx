@@ -1,5 +1,5 @@
 import { createContext, useEffect, useContext, useReducer } from "react"
-import { Fraction} from "gotchiw3s-sdk"
+import {TokenAmount} from "gotchiw3s-sdk"
 import { useWeb3React } from "@web3-react/core";
 import { addLiquidityReducer } from "../Reducers/addLiquidityReducer";
 import { AddLiquidity } from "../Models";
@@ -11,7 +11,7 @@ const defaultContext = {
     token1: undefined, token1Logo: undefined, token1Balance: undefined, token1Amount: undefined,
     pair: undefined,
     isPool: false,
-    reserves: new Fraction("1", "1"),
+    reserves: undefined,
     isApproved: undefined,
     dispatch: (state: {}, action: any) => {},
 } 

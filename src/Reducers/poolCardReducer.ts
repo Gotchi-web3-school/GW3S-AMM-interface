@@ -65,13 +65,13 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                     if (inputId === 0) {
                         tokenA.inputAdd = new TokenAmount(tokenA.token, JSBI.BigInt(inputAmount))
                         // using the inputA, calcul the rate of the second token
-                        const amount1 = JSBI.BigInt(inputAmount.mul(totalReserves.denominator.toString()).div(totalReserves.numerator.toString()).toString())
+                        const amount1 = JSBI.BigInt(inputAmount.mul(totalReserves.tokenB.toString()).div(totalReserves.tokenA.toString()).toString())
                         tokenB.inputAdd = new TokenAmount(tokenB.token, amount1)
                         return {...state, tokenA: tokenA, tokenB: tokenB}
                     } else {
                         tokenB.inputAdd = new TokenAmount(tokenB.token, JSBI.BigInt(inputAmount))
                         // using the inputB: calcul the rate of the second token
-                        const amount0 = JSBI.BigInt(inputAmount.mul(totalReserves.numerator.toString()).div(totalReserves.denominator.toString()).toString())
+                        const amount0 = JSBI.BigInt(inputAmount.mul(totalReserves.tokenA.toString()).div(totalReserves.tokenB.toString()).toString())
                         tokenA.inputAdd = new TokenAmount(tokenA.token, amount0)
                         return {...state, tokenA: tokenA, tokenB: tokenB}
                     }

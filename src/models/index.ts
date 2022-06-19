@@ -44,7 +44,7 @@ export interface IPool {
     }
     logoURI?: {tokenA?: string, tokenB?: string};
     isApproved?: boolean
-    totalReserves: Fraction
+    totalReserves: {tokenA: TokenAmount, tokenB: TokenAmount}
     isPool?: boolean | undefined
     tokenA: TokenPool
     tokenB: TokenPool
@@ -63,7 +63,7 @@ export class Pool implements IPool {
         share: new Percent("0", "100"),
         loading: false,
     }
-    totalReserves: Fraction = new Fraction("1", "1")
+    totalReserves:  {tokenA: TokenAmount, tokenB: TokenAmount}
     tokenA: TokenPool 
     tokenB: TokenPool
 
@@ -76,6 +76,10 @@ export class Pool implements IPool {
             factoryAddress,
             initCodeHash,
             );
+        this.totalReserves = {
+            tokenA: new TokenAmount(tokenA, JSBI.BigInt("0")), 
+            tokenB: new TokenAmount(tokenB, "0")
+        }
         this.tokenA = {
             id: 0,
             token: tokenA,
@@ -123,7 +127,7 @@ export type AddLiquidity = {
     pair: Pair | undefined,
     isPool: Boolean,
     isApproved: {token0: boolean, token1: boolean} | undefined,
-    reserves: Fraction,
+    reserves: {tokenA: TokenAmount, tokenB: TokenAmount} | undefined,
     dispatch: (action: any, state?: Object,) => void,
 }
 

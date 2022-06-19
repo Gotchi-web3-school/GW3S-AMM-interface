@@ -1,5 +1,5 @@
 import { AddLiquidity } from "../Models"
-import { Token, TokenAmount, JSBI, Pair, Fraction } from "gotchiw3s-sdk"
+import { Token, TokenAmount, JSBI, Pair } from "gotchiw3s-sdk"
 import { ethers, FixedNumber } from "ethers"
 import { FACTORY_ADDRESS, INIT_CODE_HASH } from "gotchiw3s-sdk"
 
@@ -38,12 +38,12 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
                     const amount = new TokenAmount(inputId ? token1 : token0, JSBI.BigInt(inputAmount))
                     if (inputId === 0) {
                         // using the entry calcul the rate of the second token
-                        const amount1 = JSBI.BigInt(inputAmount.mul(reserves.denominator.toString()).div(reserves.numerator.toString()).toString())
+                        const amount1 = JSBI.BigInt(inputAmount.mul(reserves!.tokenB.toString()).div(reserves!.tokenA.toString()).toString())
                         const pairedAmount = new TokenAmount(token1, amount1)
                         return {...state, token0Amount: amount, token1Amount: pairedAmount}
                     } else {
                         // using the entry calcul the rate of the second token
-                        const amount0 = JSBI.BigInt(inputAmount.mul(reserves.numerator.toString()).div(reserves.denominator.toString()).toString())
+                        const amount0 = JSBI.BigInt(inputAmount.mul(reserves!.tokenA.toString()).div(reserves!.tokenB.toString()).toString())
                         const pairedAmount = new TokenAmount(token0, amount0)
                         return {...state, token0Amount: pairedAmount, token1Amount: amount}
                     }
@@ -76,10 +76,7 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
             return {...state, isPool: action.payload.isPool};
         
         case "SET_RESERVES":
-            if (action.payload.reserves.numerator.toString() === "0")
-                return {...state, reserves: new Fraction("1", "1")};
-            else
-                return {...state, reserves: action.payload.reserves};
+            return {...state, reserves: action.payload.reserves};
         
         case "SET_APPROVED":
             return {...state, isApproved: action.payload.isApproved};

@@ -26,8 +26,8 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
             direction={"row"}  
             justifyContent="center">
             <Box>
-                <Text fontWeight={"bold"} fontSize="sm" >{isPool ? totalReserves.toSignificant(2) : rate(tokenA.inputAdd?.toExact(), tokenB.inputAdd?.toExact())}</Text>
-                <Text  fontSize="xs">{tokenA.token?.symbol} per {tokenB.token?.symbol}</Text>
+                <Text fontWeight={"bold"} fontSize="sm" >{isPool ? totalReserves.tokenA.toSignificant(2) : rate(tokenA.inputAdd?.toExact(), tokenB.inputAdd?.toExact())}</Text>
+                <Text fontSize="xs">{tokenA.token?.symbol} per {tokenB.token?.symbol}</Text>
             </Box>
             <Spacer />
             <Box>
@@ -36,7 +36,7 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
             </Box>
             <Spacer />
             <Box>
-                <Text fontWeight={"bold"} fontSize="sm">{isPool ? totalReserves.invert().toSignificant(2) : rate(tokenB.inputAdd?.toExact(), tokenA.inputAdd?.toExact())}</Text>
+                <Text fontWeight={"bold"} fontSize="sm">{isPool ? totalReserves.tokenA.invert().toSignificant(2) : rate(tokenB.inputAdd?.toExact(), tokenA.inputAdd?.toExact())}</Text>
                 <Text fontSize="xs">{tokenB.token?.symbol} per {tokenA.token?.symbol}</Text>
             </Box>
         </Stack>

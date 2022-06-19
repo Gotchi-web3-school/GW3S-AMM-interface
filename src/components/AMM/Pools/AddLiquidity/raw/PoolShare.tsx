@@ -10,7 +10,7 @@ const PoolShare: React.FC = () => {
     useEffect(() => {
         if (isPool && token0Amount && pair) {
             try {
-                setShare(calculateShare(pair, token0Amount, reserves))
+                setShare(calculateShare(pair, token0Amount, reserves!))
             } catch (error) {
                 console.log(error)
             }
@@ -35,14 +35,14 @@ const PoolShare: React.FC = () => {
                 justifyContent="center">
                 <Box>
                     <Center>
-                        <Text>{isPool ? reserves.toSignificant(2) : rate(token0Amount?.toExact(), token1Amount?.toExact())}</Text>
+                        <Text>{isPool ? reserves!.tokenA.toSignificant(2) : rate(token0Amount?.toExact(), token1Amount?.toExact())}</Text>
                     </Center>
                     <Text fontSize="sm">{token0?.symbol} per {token1?.symbol}</Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Center>
-                        <Text>{isPool ? reserves.invert().toSignificant(2) : rate(token1Amount?.toExact(), token0Amount?.toExact())}</Text>
+                        <Text>{isPool ? reserves!.tokenB.toSignificant(2) : rate(token1Amount?.toExact(), token0Amount?.toExact())}</Text>
                     </Center>
                     <Text fontSize="sm">{token1?.symbol} per {token0?.symbol}</Text>
                 </Box>

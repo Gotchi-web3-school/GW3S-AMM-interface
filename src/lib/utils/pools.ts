@@ -29,8 +29,8 @@ export const fetchPoolBalances = async(pool: IPool, userAdress: string, contract
         amountA: pool.pair.token0.equals(pool.tokenA.token) ? amountA : amountB, 
         amountB: pool.pair.token1.equals(pool.tokenB.token) ? amountB : amountA, 
         share: share, 
-        reserves: new Fraction( pool.pair.token0.equals(pool.tokenA.token) ? reserves[0] : reserves[1],
-                                pool.pair.token1.equals(pool.tokenB.token) ? reserves[1] : reserves[0])
+        reserves: {tokenA: new TokenAmount(pool.tokenA.token, pool.pair.token0.equals(pool.tokenA.token) ? reserves[0] : reserves[1]),
+                   tokenB: new TokenAmount(pool.tokenB.token, pool.pair.token1.equals(pool.tokenB.token) ? reserves[1] : reserves[0])}
     });
 }
 

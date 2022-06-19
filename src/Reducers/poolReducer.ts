@@ -52,6 +52,7 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
             pool!.tokenA.pooled = action.payload.amountA.toSignificant(3)
             pool!.tokenB.pooled = action.payload.amountB.toSignificant(3)
             pool!.lpToken.share = action.payload.share
+            pool!.totalReserves = action.payload.reserves
             //const TokenABalance = new TokenAmount(action.payload.token , ethers.utils.parseEther(action.payload.amount).toString())
             return {...state, pool: pool}
 
