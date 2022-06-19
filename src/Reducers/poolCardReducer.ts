@@ -1,18 +1,23 @@
 import { TokenAmount, JSBI} from "gotchiw3s-sdk";
-import { ethers, FixedNumber } from "ethers";
+import { FixedNumber } from "ethers";
 import { parseEther } from "ethers/lib/utils";
 import { IPool } from "../Models"
 
 export const poolCardReducer = (state: IPool, action: any): IPool => {
-    let {isPool, tokenA, tokenB, totalReserves, lpToken} = state;
+    let {isPool, tokenA, tokenB, totalReserves, lpToken } = state;
 
     // POOLS COMPONENT
     switch(action.type) {
         
         case "SET_ISPOOL":
-            isPool = true
-            lpToken.token = action.payload
+            if (action.payload.isPool) {
+                isPool = action.payload.isPool
+                lpToken.token = action.payload.lp
+            } else {
+                isPool = action.payload.isPool
+            }
             return {...state, lpToken: lpToken, isPool: isPool};
+
         
         case "SET_POOL_BALANCE":
            lpToken.balance = action.payload.balance
@@ -59,24 +64,24 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
             const inputId = action.payload.id;
             try {
                 // Take the entry of user and put it to a big Number
-                const inputAmount = ethers.utils.parseEther(FixedNumber.from(action.payload.amount, 18).toString());
+                const inputAmount = parseEther(FixedNumber.from(action.payload.amount, 18).toString());
                 // If pool is already created
-                if (isPool && ethers.utils.parseEther(inputAmount.toString()).gt("0")) {
+                if (isPool && inputAmount.gt('0')) {
                     if (inputId === 0) {
                         tokenA.inputAdd = new TokenAmount(tokenA.token, JSBI.BigInt(inputAmount))
                         // using the inputA, calcul the rate of the second token
-                        const amount1 = JSBI.BigInt(inputAmount.mul(totalReserves.tokenB.toString()).div(totalReserves.tokenA.toString()).toString())
+                        const amount1 = JSBI.BigInt(inputAmount.mul(totalReserves.tokenB.raw.toString()).div(totalReserves.tokenA.raw.toString()).toString())
                         tokenB.inputAdd = new TokenAmount(tokenB.token, amount1)
                         return {...state, tokenA: tokenA, tokenB: tokenB}
                     } else {
                         tokenB.inputAdd = new TokenAmount(tokenB.token, JSBI.BigInt(inputAmount))
                         // using the inputB: calcul the rate of the second token
-                        const amount0 = JSBI.BigInt(inputAmount.mul(totalReserves.tokenA.toString()).div(totalReserves.tokenB.toString()).toString())
+                        const amount0 = JSBI.BigInt(inputAmount.mul(totalReserves.tokenA.raw.toString()).div(totalReserves.tokenB.raw.toString()).toString())
                         tokenA.inputAdd = new TokenAmount(tokenA.token, amount0)
                         return {...state, tokenA: tokenA, tokenB: tokenB}
                     }
                 // If pool in not created and there is no entries
-                } else if (inputAmount.toString() === "" && state.isPool) {
+                } else if (action.payload.length === 0) {
                     tokenA.inputAdd = undefined
                     tokenB.inputAdd = undefined
                     return {...state, tokenA: tokenA, tokenB: tokenB}
@@ -90,6 +95,7 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                     }
             }
             } catch (error) {
+                console.log(error)
                 if (inputId === 0) {
                     tokenA.inputAdd = undefined
                     return {...state, tokenA: tokenA}
@@ -154,9 +160,22 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                 return {...state, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB}
             }
 
-        case "RESET":
+        case "RESET_ADD":
+            tokenA.balance = undefined
+            tokenA.inputAdd = undefined
+            tokenB.inputAdd = undefined
+            lpToken.balance = undefined
+            isPool = undefined
+            return {...state, isPool: isPool, lpToken: lpToken, tokenA: tokenA}
+
+        case "RESET_REMOVE":
             lpToken.balance = undefined
             tokenA.balance = undefined
+            tokenA.inputRemove = undefined
+            tokenB.inputRemove = undefined
+            lpToken.lpRemoveInput = undefined
+            lpToken.balance = undefined
+            isPool = undefined
             return {...state, isPool: isPool, lpToken: lpToken, tokenA: tokenA}
 
       default:

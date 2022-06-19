@@ -25,7 +25,7 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
         }, library)
         .then(() => {
             setLoading(false)
-            dispatch({type: "RESET"})
+            dispatch({type: "RESET_REMOVE"})
         })
     }
 

@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { TokenAmount, Token, Percent, Fraction, BigintIsh } from "gotchiw3s-sdk";
+import { TokenAmount, Token, Percent, BigintIsh } from "gotchiw3s-sdk";
 import { abis, ROUTER_ADDRESS } from "../../Constants";
 import { IPool } from "../../Models";
 

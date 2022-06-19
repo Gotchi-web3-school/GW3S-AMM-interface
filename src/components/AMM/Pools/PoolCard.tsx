@@ -35,8 +35,10 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                 if (isPool.result) {
                     console.log(pool.name + ": Pool found!")
                     getLp(isPool.tokenAddress, contract).then(token => {
-                        dispatch({type: "SET_ISPOOL", payload: token})
+                        dispatch({type: "SET_ISPOOL", payload: {lp: token, isPool: true}})
                     })
+                } else {
+                    dispatch({type: "SET_ISPOOL", payload: {isPool: false}})
                 }
             })
         }
@@ -44,9 +46,9 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
 
     useEffect(() => {
         if (pool.isPool && pool.lpToken.balance === undefined) {
-                console.log("Fetch balance")
-                fetchPoolBalances(pool, account!, contract)
-                .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
+            console.log("Fetch balance")
+            fetchPoolBalances(pool, account!, contract)
+            .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
         }
     }, [expanded, account, library, contract, pool])
 

@@ -29,7 +29,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
     // Check for approval
     useEffect(() => {
         if (account && pool.tokenA.balance === undefined)
-        fetchApprovedPair(pool, account, library)
+            fetchApprovedPair(pool, account, library)
             .then(result => dispatch({type: "SEARCH_APPROVED", payload: {id: 0, isApproved: result}}))
     }, [pool, account, library, dispatch])
 

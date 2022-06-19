@@ -25,7 +25,7 @@ const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
         }, library)
         .then(() => {
             setLoading(false)
-            dispatch({type: "RESET"})
+            dispatch({type: "RESET_ADD"})
         })
     }
 

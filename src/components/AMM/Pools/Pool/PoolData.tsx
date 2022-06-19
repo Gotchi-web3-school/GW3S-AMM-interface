@@ -1,4 +1,4 @@
-import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box } from "@chakra-ui/react"
+import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box, Wrap, WrapItem, } from "@chakra-ui/react"
 import { QuestionOutlineIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../../Models"
 import { motion } from "framer-motion"
@@ -10,19 +10,25 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
     as={motion.div}
     initial={{ x: 30, opacity: 0 }}
     animate={{ x: 0, opacity: 1 }}
-    exit={{ x: -30, opacity: 0 }} 
+    exit={{ x: -30, opacity: 0 }}
     >
-        <Flex justifyContent={"center"}>
-            <Box>
-                <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>{totalReserves.tokenA.toSignificant(3)}</Text>
-                <Text fontSize={"xs"}>{tokenA.token.symbol}</Text>
-            </Box>
-            <Text alignSelf={"center"} fontWeight={"bold"} mx="4" fontSize={"lg"}>Total in pool</Text>
-            <Box>
-                <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>{totalReserves.tokenB.toSignificant(3)}</Text>
-                <Text fontSize={"xs"}>{tokenB.token.symbol}</Text>
-            </Box>
-        </Flex>
+        <Wrap justify='center' align='center'>
+            <WrapItem>
+                <Box>
+                    <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>{totalReserves.tokenA.toSignificant(3)}</Text>
+                    <Text fontSize={"xs"}>{tokenA.token.symbol}</Text>
+                </Box>
+            </WrapItem>
+            <WrapItem>
+                <Text alignSelf={"center"} fontWeight={"bold"} mx="4" fontSize={"lg"}>Total in pool</Text>
+            </WrapItem>
+            <WrapItem>
+                <Box>
+                    <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>{totalReserves.tokenB.toSignificant(3)}</Text>
+                    <Text fontSize={"xs"}>{tokenB.token.symbol}</Text>
+                </Box>
+            </WrapItem>
+        </Wrap>
 
         <SimpleGrid 
         columns={2} 

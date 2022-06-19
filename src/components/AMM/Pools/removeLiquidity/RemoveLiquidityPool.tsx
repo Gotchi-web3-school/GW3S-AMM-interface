@@ -100,9 +100,9 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                         boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                         disabled={lpToken.loading || !pool.isPool} 
                         onClick={() => handleClickButton(lpToken.token!, 2)} 
-                        _hover={{bg: "yellow.700"}} 
+                        _hover={pool.isPool ? {bg: "yellow.700"} : {bg: "none"}} 
                         >
-                            {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool don't exist"}
+                            {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool does not exist"}
                         </Button>
                     }
                     {lpToken.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}

@@ -1,5 +1,4 @@
 import { createContext, useEffect, useContext, useReducer } from "react"
-import {TokenAmount} from "gotchiw3s-sdk"
 import { useWeb3React } from "@web3-react/core";
 import { addLiquidityReducer } from "../Reducers/addLiquidityReducer";
 import { AddLiquidity } from "../Models";

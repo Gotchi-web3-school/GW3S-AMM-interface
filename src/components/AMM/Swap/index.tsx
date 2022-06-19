@@ -17,7 +17,7 @@ import SwapButton from "./SwapButton";
 
 const Swap: React.FC = () => {
     const [quote, setQuote] = useState(true) 
-    const { route, dispatch, trade, input, isPool, pair } = useContext(SwapContext)
+    const { route, dispatch, trade, input, isPool } = useContext(SwapContext)
     const color = useColorModeValue("black", "white")
     
     return (
