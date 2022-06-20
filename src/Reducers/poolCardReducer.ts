@@ -1,4 +1,4 @@
-import { TokenAmount, JSBI} from "gotchiw3s-sdk";
+import { TokenAmount, JSBI, Percent} from "gotchiw3s-sdk";
 import { FixedNumber } from "ethers";
 import { parseEther } from "ethers/lib/utils";
 import { IPool } from "../Models"
@@ -159,6 +159,25 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                 tokenB.inputRemove = undefined
                 return {...state, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB}
             }
+
+        case "REFRESH":
+            lpToken.balance = undefined
+            tokenA.balance = undefined
+            tokenB.balance = undefined
+            tokenA.inputAdd = undefined
+            tokenB.inputAdd = undefined
+            tokenA.inputRemove = undefined
+            tokenB.inputRemove = undefined
+            lpToken.lpRemoveInput = undefined
+            lpToken.share = new Percent("0", "100")
+            tokenA.pooled = new TokenAmount(tokenA.token, "0")
+            tokenB.pooled = new TokenAmount(tokenA.token, "0")
+            totalReserves = {
+                tokenA: new TokenAmount(tokenA.token, "0"), 
+                tokenB: new TokenAmount(tokenB.token, "0")
+            }
+            isPool = undefined
+            return {...state, isPool: isPool, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB, totalReserves: totalReserves}
 
         case "RESET_ADD":
             tokenA.balance = undefined

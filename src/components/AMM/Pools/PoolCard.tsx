@@ -20,6 +20,7 @@ import PoolData from "./Pool/PoolData"
 import AddLiquidityPool from "./AddLiquidity/poolCard/AddLiquidityPool";
 import RemoveLiquidityPool from "./removeLiquidity/RemoveLiquidityPool";
 import { AnimatePresence } from "framer-motion";
+import { RepeatIcon } from "@chakra-ui/icons"
 
 
 const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
@@ -28,6 +29,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
     const [pool, dispatch] = useReducer(poolCardReducer, props.pool)
     const [expanded, setExpanded] = useState(false)
     const [state, setState] = useState("pool")
+    const [refreshHovered, setRefreshHovered] = useState(false)
 
     useEffect(() => {
         if (account && pool.isPool === undefined) {
@@ -53,7 +55,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
     }, [expanded, account, library, contract, pool])
 
    return (
-       <AccordionItem mx="3" my="5" border="none"  borderRadius={"3xl"} >
+       <AccordionItem mx="3" my="5" border="none" borderRadius={"3xl"} isDisabled={refreshHovered}>
         <Box
             border={expanded ? "solid 1px" : ""} 
             boxShadow={expanded && state === "pool" ? "inset 0 0 50px #a200ff" : 
@@ -69,9 +71,9 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
             _expanded={{bgGradient: "none"}}
             boxShadow={parseInt(pool?.lpToken.balance?.toExact() ?? '0') > 0 && !expanded ? "1px 1px 10px white" : ""}
             _hover={{
-                bgGradient:useColorModeValue(
-                    "linear(whiteAlpha.100, pink.200, pink.300, pink.200, pink.100)",
-                    "linear(gray.800, purple.900, purple.800, purple.900, gray.800)")}}
+            bgGradient:useColorModeValue(
+                "linear(whiteAlpha.100, pink.200, pink.300, pink.200, pink.100)",
+                "linear(gray.800, purple.900, purple.800, purple.900, gray.800)")}}
             bgGradient={useColorModeValue(
                 "radial(whiteAlpha.100, pink.200, pink.300, pink.200, whiteAlpha.100)",
                 "radial(gray.800, purple.900, purple.800, purple.900, gray.800)")}
@@ -82,11 +84,21 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
             alignContent="center"
             onClick={() => setExpanded(!expanded)}
                     >
-                <Box display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
+                    {expanded && <Box
+                    _hover={{cursor: "pointer", color:"white"}}
+                    position={"relative"}
+                    left="3"
+                    onMouseEnter={() => setRefreshHovered(true)} 
+                    onMouseLeave={() => setRefreshHovered(false)}
+                    onClick={() => dispatch({type: "REFRESH"})}
+                    >
+                        <RepeatIcon boxSize={6} _hover={{ boxSize: "7"}} />
+                    </Box>}
+                    <Box ml={expanded ? "-4" : ''} display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
                     {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionOutlineIcon />}
                     <Text mx="5" fontWeight={"bold"} textShadow={"1px 1px 10px white"}>{props.pool.name}</Text>
                     {props.pool.tokenB.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : < QuestionOutlineIcon />}
-                </Box>
+                    </Box>
                 <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
