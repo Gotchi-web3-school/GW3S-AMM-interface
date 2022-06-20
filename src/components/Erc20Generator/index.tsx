@@ -35,10 +35,8 @@ const Erc20Generator: React.FC = () => {
         borderBlockEnd="solid"
         borderBlockStart="solid"
         borderRadius={"3xl"}
-        bg={"transparent"}
-        opacity={1}
         >
-            <form  onSubmit={handleSubmit(onSubmit)}>
+            <form   onSubmit={handleSubmit(onSubmit)}>
                 <VStack display={"flex"} justifyContent="left" spacing={6} textAlign="left">
                     <Box textAlign="center">
                         <Text fontStyle={"italic"} fontWeight="bold" fontSize={"3xl"}>Smart Contract</Text>

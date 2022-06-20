@@ -32,10 +32,13 @@ const Navbar: React.FC = () => {
         align={'center'}>
         <Flex flex={{ base: 1 }} justify={{ base: 'left', md: 'start' }}>
           <Text
+            fontFamily={"Tourney"}
+            fontStyle={"italic"}
+            fontWeight={"bold"}
+            fontSize={"3xl"}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}>
-            Logo
+            Gotchi web3 school
           </Text>
         </Flex>
 
