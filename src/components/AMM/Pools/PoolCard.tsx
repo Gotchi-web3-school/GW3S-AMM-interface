@@ -91,8 +91,9 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                     onMouseEnter={() => setRefreshHovered(true)} 
                     onMouseLeave={() => setRefreshHovered(false)}
                     onClick={() => dispatch({type: "REFRESH"})}
+                    transition="1s"
                     >
-                        <RepeatIcon boxSize={6} _hover={{ boxSize: "7"}} />
+                        <RepeatIcon boxSize={6} _hover={{boxSize: "7"}} _active={{transform: "scale(0.9)"}} />
                     </Box>}
                     <Box ml={expanded ? "-4" : ''} display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
                     {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionOutlineIcon />}

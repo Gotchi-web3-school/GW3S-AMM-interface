@@ -1,0 +1,77 @@
+import { useState } from "react";
+import { useWeb3React } from "@web3-react/core";
+import { VStack, Text, Box, Input, Button, Spinner, useToast } from "@chakra-ui/react"
+import { useForm } from "react-hook-form";
+import { useColorModeValue } from "@chakra-ui/react";
+import { deployErc20Tx, IDeployErc20Tx } from "../../lib/smart-contracts/erc20"
+
+const Erc20Generator: React.FC = () => {
+    const {library, account} = useWeb3React()
+    const toast = useToast()
+    const { register, handleSubmit } = useForm();
+    const [loading, setLoading] = useState(false)
+
+    const onSubmit = (data: any) => {
+        const tx: IDeployErc20Tx = {
+            signer: library.getSigner(account),
+            name: data.name,
+            ticker: data.ticker,
+            supply: data.supply,
+            toast: toast,
+        }
+        setLoading(true)
+        deployErc20Tx(tx).then(() => setLoading(false))
+    }
+
+    return (
+        <Box 
+        ml="3"
+        pt={5}
+        px={{ base: 2, sm: 5, md: 17 }}
+        py={4}
+        minH="28rem"
+        width="md !important"
+        textShadow={useColorModeValue( "", "1px 1px 15px white")}
+        borderBlockEnd="solid"
+        borderBlockStart="solid"
+        borderRadius={"3xl"}
+        bg={"transparent"}
+        opacity={1}
+        >
+            <form  onSubmit={handleSubmit(onSubmit)}>
+                <VStack display={"flex"} justifyContent="left" spacing={6} textAlign="left">
+                    <Box textAlign="center">
+                        <Text fontStyle={"italic"} fontWeight="bold" fontSize={"3xl"}>Smart Contract</Text>
+                        <Text>ERC20 token</Text>
+                    </Box>
+                    <Box  >
+                        <Text fontWeight="bold">Name</Text>
+                        <Input 
+                        placeholder="Best token ever"
+                        {...register("name", { required: true })}
+                        />
+                    </Box>
+                    <Box >
+                        <Text fontWeight="bold">Ticker</Text>
+                        <Input
+                        border={useColorModeValue( "1px solid black", "1px solid white")}
+                        placeholder="BTE"
+                        {...register("ticker", { required: true })}
+                        />
+                    </Box>
+                    <Box >
+                        <Text fontWeight="bold">Total supply</Text>
+                        <Input 
+                        placeholder="1.000.000"
+                        type="number"
+                        {...register("supply", { required: true })}
+                        />
+                    </Box>
+                    {loading ? <Spinner /> : <Button type="submit">Deploy token</Button>}
+                </VStack>
+            </form>
+        </Box>
+    )
+}
+
+export default Erc20Generator

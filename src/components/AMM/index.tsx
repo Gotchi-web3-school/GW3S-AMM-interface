@@ -4,7 +4,7 @@ import { AddLiquidityContextProvider } from "../../Provider/AddLiquidityProvider
 import { SwapContextProvider } from "../../Provider/SwapProvider"
 import { PoolContextProvider } from "../../Provider/PoolsProvider";
 
-import Pools from "./Pools/Pools"
+import Pools from "./Pools"
 
 const AMM: React.FC = () => {
     return (
@@ -17,7 +17,6 @@ const AMM: React.FC = () => {
             pt={5}
             px={{ base: 2, sm: 5, md: 17 }}
             py={4}
-            mt="6rem"
             borderRadius={"3xl"}
             shadow="lg"
             bg={useColorModeValue("white", "gray.800")}
