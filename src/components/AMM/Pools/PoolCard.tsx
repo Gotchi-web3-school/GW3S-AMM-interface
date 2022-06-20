@@ -30,6 +30,8 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
     const [expanded, setExpanded] = useState(false)
     const [state, setState] = useState("pool")
     const [refreshHovered, setRefreshHovered] = useState(false)
+    const bgCard = useColorModeValue("purple.100", "")
+    const boxShadowPool = useColorModeValue("1px 1px 20px black","1px 1px 10px white")
 
     useEffect(() => {
         if (account && pool.isPool === undefined) {
@@ -65,17 +67,19 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                          expanded && state === "add" ?  "#00ab33" :
                          expanded && state === "remove" ? "#ff412e" : ""} 
             borderRadius={"3xl"}
+            background={expanded ? bgCard : ""}
             transition="1s ease-in-out"
         >
             <AccordionButton
             _expanded={{bgGradient: "none"}}
-            boxShadow={parseInt(pool?.lpToken.balance?.toExact() ?? '0') > 0 && !expanded ? "1px 1px 10px white" : ""}
+            boxShadow={parseInt(pool?.lpToken.balance?.toExact() ?? '0') > 0 && !expanded ? boxShadowPool : ""}
             _hover={{
-            bgGradient:useColorModeValue(
-                "linear(whiteAlpha.100, pink.200, pink.300, pink.200, pink.100)",
-                "linear(gray.800, purple.900, purple.800, purple.900, gray.800)")}}
+                bgGradient:useColorModeValue(
+                    "linear(gray.100, purple.100, purple.200, purple.100, gray.100)",
+                    "linear(gray.800, purple.900, purple.800, purple.900, gray.800)")
+            }}
             bgGradient={useColorModeValue(
-                "radial(whiteAlpha.100, pink.200, pink.300, pink.200, whiteAlpha.100)",
+                "radial(gray.100, gray.200, gray.300, purple.200, purple.200)",
                 "radial(gray.800, purple.900, purple.800, purple.900, gray.800)")}
             h="5rem"
             pb="0"
@@ -83,23 +87,23 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
             _focus={{border: "none"}}
             alignContent="center"
             onClick={() => setExpanded(!expanded)}
-                    >
-                    {expanded && <Box
-                    _hover={{cursor: "pointer", color:"white"}}
-                    position={"relative"}
-                    left="3"
-                    onMouseEnter={() => setRefreshHovered(true)} 
-                    onMouseLeave={() => setRefreshHovered(false)}
-                    onClick={() => dispatch({type: "REFRESH"})}
-                    transition="1s"
-                    >
-                        <RepeatIcon boxSize={6} _hover={{boxSize: "7"}} _active={{transform: "scale(0.9)"}} />
-                    </Box>}
-                    <Box ml={expanded ? "-4" : ''} display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
-                    {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionOutlineIcon />}
-                    <Text mx="5" fontWeight={"bold"} textShadow={"1px 1px 10px white"}>{props.pool.name}</Text>
-                    {props.pool.tokenB.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : < QuestionOutlineIcon />}
-                    </Box>
+            >
+                {expanded && <Box
+                _hover={{cursor: "pointer", color:"white"}}
+                position={"relative"}
+                left="3"
+                onMouseEnter={() => setRefreshHovered(true)} 
+                onMouseLeave={() => setRefreshHovered(false)}
+                onClick={() => dispatch({type: "REFRESH"})}
+                transition="1s"
+                >
+                    <RepeatIcon boxSize={6} _hover={{boxSize: "7"}} _active={{transform: "scale(0.9)"}} />
+                </Box>}
+                <Box ml={expanded ? "-4" : ''} display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
+                {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionOutlineIcon />}
+                <Text mx="5" fontWeight={"bold"} textShadow={"1px 1px 10px white"}>{props.pool.name}</Text>
+                {props.pool.tokenB.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : < QuestionOutlineIcon />}
+                </Box>
                 <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>

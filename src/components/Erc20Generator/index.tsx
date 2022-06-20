@@ -23,7 +23,8 @@ const Erc20Generator: React.FC = () => {
         deployErc20Tx(tx).then(() => setLoading(false))
     }
 
-    return (
+    return (<>
+        
         <Box 
         ml="3"
         pt={5}
@@ -34,9 +35,10 @@ const Erc20Generator: React.FC = () => {
         textShadow={useColorModeValue( "", "1px 1px 15px white")}
         borderBlockEnd="solid"
         borderBlockStart="solid"
+        bg="blackAlpha.400"
         borderRadius={"3xl"}
         >
-            <form   onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <VStack display={"flex"} justifyContent="left" spacing={6} textAlign="left">
                     <Box textAlign="center">
                         <Text fontStyle={"italic"} fontWeight="bold" fontSize={"3xl"}>Smart Contract</Text>
@@ -69,7 +71,7 @@ const Erc20Generator: React.FC = () => {
                 </VStack>
             </form>
         </Box>
-    )
+    </>)
 }
 
 export default Erc20Generator

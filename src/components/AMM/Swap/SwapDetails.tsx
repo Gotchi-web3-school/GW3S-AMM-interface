@@ -17,7 +17,7 @@ const SwapDetails: React.FC = () => {
             borderRadius={"3xl"} 
             justifyContent="center" 
             opacity={"0.9"} 
-            boxShadow="inset 1px 1px 5px white"
+            boxShadow={useColorModeValue("inset 1px 1px 10px black" ,"inset 1px 1px 5px white")}
         >
             <Box>
                 <Flex direction="row">

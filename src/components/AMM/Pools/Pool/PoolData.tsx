@@ -60,7 +60,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
         </SimpleGrid>
 
         <HStack m="5">
-            <Button w="45%" pl="0" bgGradient='linear(to-r, green.500, transparent)' _hover={{bg: 'green.500'}} justifyContent={"left"} onClick={() => setState("add")}>
+            <Button w="45%" pl="0" bgGradient={'linear(to-r, green.500, transparent)'} _hover={{bg: 'green.500'}} justifyContent={"left"} onClick={() => setState("add")}>
                 <Text fontSize={"sm"}><ChevronLeftIcon />Add liquidity</Text>
             </Button>
             <Spacer />

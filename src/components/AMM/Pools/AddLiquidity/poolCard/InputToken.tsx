@@ -12,7 +12,7 @@ const InputToken : React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> =
       border={"1px"}
       borderRadius={"3xl"}
       borderColor={"gray.700"}
-      boxShadow={"inset 0 0 6px white"}>
+      boxShadow={useColorModeValue("inset 0 0 6px black", "inset 0 0 6px white")}>
         <Stack spacing="6">
           <Flex color="white">
             <Input

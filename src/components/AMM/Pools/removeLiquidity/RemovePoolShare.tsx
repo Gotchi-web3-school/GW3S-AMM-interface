@@ -1,5 +1,5 @@
 import React from "react"
-import { Text, Flex, Image, HStack, Box, Input } from "@chakra-ui/react"
+import { Text, Flex, Image, HStack, Box, Input, useColorModeValue } from "@chakra-ui/react"
 import { QuestionOutlineIcon, ArrowRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../../Models"
 
@@ -7,7 +7,16 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
     const { tokenA, tokenB, pair, lpToken} = pool
     
     return (
-        <HStack mt="7" mx="4" border="1px solid white" py="5" borderRadius={"3xl"} justifyContent="center" opacity={"0.9"} bg={"whiteAlpha.200"} boxShadow="inset 1px 1px 5px white">
+        <HStack 
+        mt="7" 
+        mx="4" 
+        py="5" 
+        borderRadius={"3xl"} 
+        justifyContent="center" 
+        opacity={"0.9"} 
+        bg={useColorModeValue("blackAlpha.300","whiteAlpha.200")} 
+        boxShadow={useColorModeValue("1px 1px 10px black", "inset 1px 1px 5px white")}
+        >
             <Flex w="33%">
                 <Box position={"relative"} top="-3">
                 <Text textAlign={"left"} fontSize={"xs"}>Balance: {lpToken.balance?.toSignificant(2)}</Text>

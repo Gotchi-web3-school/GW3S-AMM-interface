@@ -9,6 +9,7 @@ const ImportPool: React.FC = () => {
     const {tokenA, tokenALogo, tokenB, tokenBLogo, dispatch} = useContext(PoolContext)
     const [idx, setIdx] = useState(0)
     const color = useColorModeValue("black", "white")
+    const bg = useColorModeValue("gray.100","gray.600")
 
     const setNewPool = useCallback(() => {
       console.log("import pool")
@@ -26,7 +27,7 @@ const ImportPool: React.FC = () => {
                 {tokenA?.symbol ?? ''}
               </Button>
               :
-              <Button w="40%" bg="gray.600" border={"1px solid gray"} onClick={() => {setIdx(0); onOpen()}}>TokenA</Button>
+              <Button w="40%" bg={bg} border={"1px solid gray"} onClick={() => {setIdx(0); onOpen()}}>TokenA</Button>
             }
             <Text mx="2rem" fontSize={"xl"}> + </Text>
             {tokenB ?
@@ -35,7 +36,7 @@ const ImportPool: React.FC = () => {
                 {tokenB?.symbol ?? ''}
               </Button>
               :
-              <Button w="40%" bg="gray.600" border={"1px solid gray"} onClick={() => {setIdx(1); onOpen()}}>TokenB</Button>
+              <Button w="40%"  bg={bg} border={"1px solid gray"} onClick={() => {setIdx(1); onOpen()}}>TokenB</Button>
             }
           </Flex>
           <Button mt="2rem" w="40%" bg="blue.500" _hover={{bg: "blue.500"}} disabled={!tokenA || !tokenB} onClick={setNewPool}>Import pool</Button>

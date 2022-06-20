@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
-import { Tooltip, Box} from '@chakra-ui/react'
+import { Tooltip, Box, useColorModeValue} from '@chakra-ui/react'
 import {
     Slider,
     SliderTrack,
@@ -8,7 +8,7 @@ import {
     SliderThumb,
     SliderMark,
   } from '@chakra-ui/react'
-  import { IPool } from '../../../../../Models'
+  import { IPool } from '../../../../Models'
 import { Percent } from 'gotchiw3s-sdk'
 
 const SliderPool: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
@@ -38,12 +38,12 @@ const SliderPool: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
           <SliderMark value={75} mt='1' ml='-2.5' fontSize='sm'>
             75%
           </SliderMark>
-          <SliderTrack boxShadow={"1px 1px 12px white"}>
+          <SliderTrack boxShadow={useColorModeValue("1px 1px 12px black", "1px 1px 12px white")}>
             <SliderFilledTrack  />
           </SliderTrack>
           <Tooltip
             hasArrow
-            bg='transparent'
+            bg={useColorModeValue("black",'transparent')}
             color='white'
             placement='top'
             isOpen={showTooltip}

@@ -24,6 +24,7 @@ const Pools: React.FC = () => {
                     _hover={{bg: 'green.500'}} 
                     justifyContent={"left"} 
                     onClick={() => setState("add")}
+                    disabled={true}
                 >
                     <ChevronLeftIcon />
                     <Text fontSize={"sm"}>Add liquidity</Text>
@@ -36,6 +37,7 @@ const Pools: React.FC = () => {
                     _hover={{bg: 'red.500'}} 
                     justifyContent={"right"} 
                     onClick={() => setState("remove")}
+                    disabled={true}
                 >
                     <Text fontSize={"sm"}>Remove liquidity</Text><ChevronRightIcon />
                 </Button>

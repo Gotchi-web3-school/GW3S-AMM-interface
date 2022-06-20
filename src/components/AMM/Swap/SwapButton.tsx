@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { Button, Container, Spinner, Text, Stack, useToast } from "@chakra-ui/react"
+import { Button, Container, Spinner, Text, Stack, useToast, useColorModeValue } from "@chakra-ui/react"
 import { Percent, Token } from "gotchiw3s-sdk"
 import { useWeb3React } from "@web3-react/core"
 import { isSufficientBalance } from "../../../lib/utils"
@@ -15,6 +15,7 @@ const SwapButton: React.FC = () => {
     const { library, account } = useWeb3React()
     const toast = useToast()
     const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = useContext(SwapContext)
+    const color = useColorModeValue("black", "whiteAlpha.800")
 
     const handleSwapTx = async() => {
         dispatch({type: "LOADING", payload: true})
@@ -64,7 +65,6 @@ const SwapButton: React.FC = () => {
                                 h="4rem"
                                 bg="transparent"
                                 borderRadius={"3xl"}
-                                textColor={"whiteAlpha.800"}
                                 _hover={{bg: "#0065fe"}}
                                 boxShadow={"inset 1px 1px 10px 1px #54bafe"}
                                 >
@@ -78,7 +78,6 @@ const SwapButton: React.FC = () => {
                                 h="4rem"
                                 borderRadius={"3xl"}
                                 bg="transparent"
-                                textColor={"whiteAlpha.800"}
                                 boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                                 _hover={{bg: "yellow.700"}}
                                 transition="0.4s ease-in-out"
@@ -87,7 +86,7 @@ const SwapButton: React.FC = () => {
                             }
                         </Stack>
                         :
-                        <Container mt="5" w="100%" h="4rem"  borderRadius={"3xl"} textColor={"whiteAlpha.600"} boxShadow={"inset 1px 1px 10px 1px #ff5d4b"} textAlign={"center"} rounded={"xl"}>
+                        <Container mt="5" w="100%" h="4rem"  borderRadius={"3xl"} boxShadow={"inset 1px 1px 10px 1px #ff5d4b"} textAlign={"center"} rounded={"xl"}>
                             <Text pt='4' textAlign={"center"} fontSize={"xl"}>Insufficient balance</Text>
                         </Container>
                     }
@@ -97,7 +96,7 @@ const SwapButton: React.FC = () => {
                 }
                 </>
                 :
-                <Container mt="5" w="100%" h="4rem" borderRadius={"3xl"} textColor={"whiteAlpha.600"} boxShadow={"inset 1px 1px 10px 1px #ff5d4b"} textAlign={"center"} rounded={"xl"}><Text pt="3" fontSize={"xl"}>Insufficient liquidity for this trade.</Text></Container>
+                <Container mt="5" w="100%" h="4rem" borderRadius={"3xl"} boxShadow={"inset 1px 1px 10px 1px #ff5d4b"} textAlign={"center"} rounded={"xl"}><Text pt="3" fontSize={"xl"}>Insufficient liquidity for this trade.</Text></Container>
             }
             </>
             :

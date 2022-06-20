@@ -42,7 +42,6 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
                 h="4rem" 
                 bg="transparent"
                 borderRadius={"3xl"}
-                textColor={"whiteAlpha.800"}
                 _hover={{bg: "#0065fe"}}
                 boxShadow={"inset 1px 1px 10px 1px #54bafe"}
                 >
@@ -54,7 +53,6 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
                 w="100%" 
                 h="4rem"  
                 borderRadius={"3xl"}
-                textColor={"whiteAlpha.600"}
                 boxShadow={"inset 1px 1px 10px 1px #ff5d4b"}
                 >
                     <Text pt="4" fontSize={"xl"}>Insufficient balance</Text>

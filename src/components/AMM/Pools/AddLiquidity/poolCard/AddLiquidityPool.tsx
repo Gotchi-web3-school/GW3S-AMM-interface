@@ -102,7 +102,6 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                             h="4rem"
                             borderRadius={"3xl"}
                             bg="transparent"
-                            textColor={"whiteAlpha.800"}
                             boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                             _hover={{bg: "yellow.700"}}
                             transition="0.4s ease-in-out"
@@ -117,7 +116,6 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                             h="4rem"
                             borderRadius={"3xl"}
                             bg="transparent"
-                            textColor={"whiteAlpha.800"}
                             boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                             _hover={{bg: "yellow.700"}} 
                             transition="0.4s ease-in-out"

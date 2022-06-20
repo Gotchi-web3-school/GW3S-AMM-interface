@@ -8,9 +8,10 @@ import Pools from "./Pools"
 
 const AMM: React.FC = () => {
     return (
-        <Flex  flexDirection="column" >
-            <Tabs 
-            isFitted variant="enclosed"
+        <Flex textColor={useColorModeValue("black", "whiteAlpha.800")} flexDirection="column">
+            <Tabs
+            isFitted 
+            variant="enclosed"
             mx={"auto"}
             overflow={"scroll"}
             width="md !important"
@@ -22,9 +23,26 @@ const AMM: React.FC = () => {
             bg={useColorModeValue("white", "gray.800")}
             zIndex={1}
             >
-                <TabList mb='2rem'>
-                    <Tab>Swap</Tab>
-                    <Tab>Pools</Tab>
+                <TabList color={useColorModeValue("black", "whiteAlpha.300")} border={"none"} mb='2rem'>
+                    <Tab
+                    mr="3" 
+                    background={useColorModeValue("gray.200", "")}
+                    transition=".5s" 
+                    borderRadius={"xl"} 
+                    _selected={{boxShadow: useColorModeValue("2px 2px 10px black", "0px 0px, 0px 4px 5px white"), 
+                                textShadow: useColorModeValue("0px 0px 10px black", "0px 0px 20px white"),
+                                fontWeight: "bold",
+                                color: useColorModeValue("black", "white")}} 
+                    border={"none"}
+                    >Swap</Tab>
+                    <Tab
+                    background={useColorModeValue("gray.200", "")}
+                    borderRadius={"xl"} 
+                    _selected={{boxShadow: useColorModeValue("2px 2px 10px black", "0px 0px, 0px 4px 5px white"), 
+                                textShadow: useColorModeValue("0px 0px 10px black", "0px 0px 20px white"),
+                                fontWeight: "bold",
+                                color: useColorModeValue("black", "white")}}
+                    border={"none"}>Pools</Tab>
                 </TabList>
 
                 <TabPanels>

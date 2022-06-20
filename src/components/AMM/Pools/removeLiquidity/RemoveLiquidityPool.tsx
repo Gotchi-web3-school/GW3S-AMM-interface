@@ -11,7 +11,7 @@ import { fetchApprovedLp } from "../../../../lib/utils/pools";
 import { motion } from "framer-motion";
 import RemovePoolShare from "./RemovePoolShare";
 import RemoveButton from "./removeButton";
-import SliderPool from "../AddLiquidity/poolCard/SliderPool";
+import SliderPool from "./SliderPool";
 
 
 const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
@@ -96,7 +96,6 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                         h="4rem"
                         borderRadius={"3xl"}
                         bg="transparent"
-                        textColor={"whiteAlpha.800"}
                         boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                         disabled={lpToken.loading || !pool.isPool} 
                         onClick={() => handleClickButton(lpToken.token!, 2)} 
