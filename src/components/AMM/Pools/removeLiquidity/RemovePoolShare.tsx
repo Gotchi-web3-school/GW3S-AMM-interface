@@ -9,23 +9,28 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
     return (
         <HStack mt="7" mx="4" border="1px solid white" py="5" borderRadius={"3xl"} justifyContent="center" opacity={"0.9"} bg={"whiteAlpha.200"} boxShadow="inset 1px 1px 5px white">
             <Flex w="33%">
-                {tokenA.logo ? <Image zIndex={1} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
-                {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}
-                <Input 
-                    h="5" 
-                    min={0}
-                    max={lpToken.balance?.toExact() ?? '0'}
-                    value={lpToken.lpRemoveInput?.toSignificant(4) ?? ""}
-                    type="number"
-                    placeholder="0"
-                    border="none" 
-                    p="0" 
-                    m="0"
-                    fontWeight={"bold"}
-                    _hover={{textShadow: "1px 1px 5px white"}}
-                    _focus={{border: "none"}}
-                    onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "LP_INPUT", value: e.target.value}})}
-                />
+                <Box position={"relative"} top="-3">
+                <Text textAlign={"left"} fontSize={"xs"}>Balance: {lpToken.balance?.toSignificant(2)}</Text>
+                <Flex mt="2">
+                    {tokenA.logo ? <Image zIndex={1} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
+                    {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}
+                    <Input 
+                        h="5" 
+                        min={0}
+                        max={lpToken.balance?.toExact() ?? '0'}
+                        value={lpToken.lpRemoveInput?.toSignificant(4) ?? ""}
+                        type="number"
+                        placeholder="0"
+                        border="none" 
+                        p="0" 
+                        m="0"
+                        fontWeight={"bold"}
+                        _hover={{textShadow: "1px 1px 5px white"}}
+                        _focus={{border: "none"}}
+                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "LP_INPUT", value: e.target.value}})}
+                        />
+                </Flex>
+                </Box>
             </Flex>
             <ArrowRightIcon />
             <Box w="33%">
