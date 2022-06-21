@@ -5,7 +5,7 @@ import {Button, Box, Text, HStack, Spacer, Spinner, useToast } from "@chakra-ui/
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractsProvider";
-import { GlobalConst, ROUTER_ADDRESS } from "../../../../Constants";
+import { GlobalConst, ROUTER_ADDRESS } from "../../../../constants";
 import { IPool } from "../../../../Models";
 import { fetchApprovedLp } from "../../../../lib/utils/pools";
 import { motion } from "framer-motion";

@@ -5,7 +5,7 @@ import { ContractContext } from "../../../../Provider/ContractsProvider"
 import { removeLiquidityTx, removeLiquidityETHTx } from "../../../../lib/smart-contracts/removeLiquidity"
 import {isSufficientLPBalance } from "../../../../lib/utils"
 import { IPool } from "../../../../Models"
-import { GlobalConst } from "../../../../Constants"
+import { GlobalConst } from "../../../../constants"
 
 const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const contract = useContext(ContractContext)

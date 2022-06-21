@@ -6,7 +6,7 @@ import { injected } from '../../../../../Connectors/connectors';
 import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider";
 import { ContractContext } from "../../../../../Provider/ContractsProvider";
 import { Token } from "gotchiw3s-sdk";
-import { ROUTER_ADDRESS, GlobalConst } from "../../../../../Constants";
+import { ROUTER_ADDRESS, GlobalConst } from "../../../../../constants";
 import InputToken0 from "./InputToken0";
 import InputToken1 from "./InputToken1";
 import PoolShare from "./PoolShare";

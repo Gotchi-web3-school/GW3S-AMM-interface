@@ -5,7 +5,7 @@ import { isSufficientBalance } from "../../../../../lib/utils"
 import { ContractContext } from "../../../../../Provider/ContractsProvider"
 import { addLiquidityTx, addLiquidityETH } from "../../../../../lib/smart-contracts/addLiquidity"
 import { IPool } from "../../../../../Models"
-import { GlobalConst } from "../../../../../Constants"
+import { GlobalConst } from "../../../../../constants"
 
 const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const contract = useContext(ContractContext)

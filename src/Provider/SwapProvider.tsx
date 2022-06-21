@@ -3,9 +3,8 @@ import { useWeb3React } from "@web3-react/core";
 import { Fetcher } from "gotchiw3s-sdk";
 import { swapReducer } from "../Reducers/swapReducer";
 import { ISwap, SwapProvider } from "../Models/swap";
-//import { ContractContext } from "./ContractsProvider";
 import { fetchApprovedtokens, fetchBalance } from "../lib/utils";
-import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../Constants";
+import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../constants";
 
 const defaultSwap: ISwap = {
     tokenA: {

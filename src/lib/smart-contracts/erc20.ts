@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import { Token } from "gotchiw3s-sdk"
 import React from "react";
-import { byteCode } from "../../Constants"
-import { abis } from "../../Constants/abis/abis";
+import { byteCode } from "../../constants"
+import { abis } from "../../constants/abis/abis";
 
 export interface IDeployErc20Tx {
     signer: any,

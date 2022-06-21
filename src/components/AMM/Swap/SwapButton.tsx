@@ -12,7 +12,7 @@ import {
 import { SwapContext } from "../../../Provider/SwapProvider"
 import { getDeadLine } from "../../../lib/utils"
 import { approveTx } from "../../../lib/smart-contracts/approve"
-import { GlobalConst } from "../../../Constants"
+import { GlobalConst } from "../../../constants"
 
 const SwapButton: React.FC = () => {
     const contract = useContext(ContractContext)

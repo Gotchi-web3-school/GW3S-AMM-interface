@@ -1,6 +1,6 @@
 import { TokenAmount, Percent, JSBI, Pair } from "gotchiw3s-sdk"
 import { ethers } from "ethers";
-import { GlobalConst } from "../../Constants";
+import { GlobalConst } from "../../constants";
 import { calculateSlippageAmount } from "../utils";
 import { LPTokenPool, TokenPool } from "../../Models";
 

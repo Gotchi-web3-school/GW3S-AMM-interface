@@ -17,7 +17,7 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
+import { DEFAULT_TOKEN_LIST_URL } from "../../constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../lib/utils"
 import TokenSelect from "../AMM/Pools/AddLiquidity/raw/TokenSelect"

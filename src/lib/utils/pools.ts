@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { TokenAmount, Token, Percent, BigintIsh } from "gotchiw3s-sdk";
-import { abis, GlobalConst, ROUTER_ADDRESS } from "../../Constants";
+import { abis, GlobalConst, ROUTER_ADDRESS } from "../../constants";
 import { IPool } from "../../Models";
 
 export const fetchBalances = async(pool: IPool, userAdress: string, provider: any): Promise<{tokenA: TokenAmount, tokenB: TokenAmount}> => {

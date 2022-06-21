@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react"
-import { DEFAULT_POOLS } from "../Constants";
+import { DEFAULT_POOLS } from "../constants";
 import { PoolProvider} from "../Models";
 import { poolReducer } from "../Reducers/poolReducer"
 
