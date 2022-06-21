@@ -28,12 +28,7 @@ export const swapReducer = (state: Swap, action: any): Swap => {
             return {...state, tokenA: tokenA, tokenB: tokenB}
 
         case "SET_PAIR":
-            try {
                 return  {...state, pair: action.payload, route: new Route([action.payload], tokenA.token!, tokenB.token), error: false, isPool: true}
-            } catch (error) {
-                console.log(error)
-                return {...state}
-            }
 
         case "SET_ROUTE":
             return  {...state, route: action.payload}
