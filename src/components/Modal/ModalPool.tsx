@@ -16,7 +16,9 @@ import {
     ModalCloseButton,
     useColorModeValue,
   } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { PoolContext } from "../../Provider/PoolsProvider"
+import { GeneralContext } from "../../Provider/GeneralProvider";
 import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../lib/utils"
@@ -26,6 +28,7 @@ import { Token } from "gotchiw3s-sdk";
 
 const ModalPool: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
   let { tokenA, tokenB, dispatch } = useContext(PoolContext)
+  const { userTokens } = useContext(GeneralContext)
   const { library, chainId } = useWeb3React()
   const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST_URL.tokens)
   const [searchInput, setSearchInput] = useState("")
@@ -90,24 +93,52 @@ const ModalPool: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
                 }
               </Box>
               :
-              <Stack >
-                {DEFAULT_TOKEN_LIST_URL.tokens.map((token, key) => {
-                  tokens[key] = token
-                  const isDisabled = tokenA?.address === token.address || tokenB?.address === token.address
-                    return (
-                      <Button 
-                        disabled={isDisabled} 
-                        py="2rem" borderRadius={"0"} 
-                        bg="0" 
-                        key={key} 
-                        onClick={() =>  {dispatch({type: "SET_IMPORTED_TOKEN", payload: {id: idx, token: tokens[key]}});  onClose()}}
-                      >
-                        <TokenSelect token={new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)} img={token.logoURI} />
-                      </Button>
-                    )
-                  }
-                )}
-              </Stack>
+              <Tabs isManual variant='enclosed'>
+                <TabList>
+                  <Tab>Default list</Tab>
+                  <Tab>Your tokens</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <Stack >
+                      {DEFAULT_TOKEN_LIST_URL.tokens.map((token, key) => {
+                        tokens[key] = token
+                        const isDisabled = tokenA?.address === token.address || tokenB?.address === token.address
+                          return (
+                            <Button 
+                              disabled={isDisabled} 
+                              py="2rem" borderRadius={"0"} 
+                              bg="0" 
+                              key={key} 
+                              onClick={() =>  {dispatch({type: "SET_IMPORTED_TOKEN", payload: {id: idx, token: tokens[key]}});  onClose()}}
+                            >
+                              <TokenSelect token={new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)} img={token.logoURI} />
+                            </Button>
+                          )
+                        }
+                      )}
+                    </Stack>
+                  </TabPanel>
+                  <TabPanel>
+                  <Stack>
+                      {userTokens && userTokens.map((token, key) => {
+                        const isDisabled = tokenA?.address === token.address || tokenB?.address === token.address
+                        return (
+                          <Button 
+                            disabled={isDisabled} 
+                            py="2rem" borderRadius={"0"} 
+                            bg="0" 
+                            key={key} 
+                            onClick={() =>  {dispatch({type: "SET_TOKEN", payload: {id: idx, token: token}});  onClose()}}
+                          >
+                            <TokenSelect token={new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)} img={""} />
+                          </Button>
+                        )
+                        })}
+                    </Stack>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
             }
           </ModalBody>
         </ModalContent>
