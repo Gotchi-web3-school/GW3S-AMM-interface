@@ -18,7 +18,7 @@ import { ContractContext } from "../../../Provider/ContractProvider";
 import { poolCardReducer } from "../../../Reducers/poolCardReducer";
 import PoolData from "./Pool/PoolData"
 import AddLiquidityPool from "./Addliquidity/PoolCard/AddLiquidityPool";
-import RemoveLiquidityPool from "./removeLiquidity/RemoveLiquidityPool";
+import RemoveLiquidityPool from "./RemoveLiquidity/RemoveLiquidityPool";
 import { AnimatePresence } from "framer-motion";
 import { RepeatIcon } from "@chakra-ui/icons"
 
@@ -35,10 +35,10 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
 
     useEffect(() => {
         if (account && pool.isPool === undefined) {
-            isPoolCreated(props.pool.pair, library).then(isPool => {
+            isPoolCreated(props.pool.pair, library).then((isPool: any) => {
                 if (isPool.result) {
                     console.log(pool.name + ": Pool found!")
-                    getLp(isPool.tokenAddress, contract).then(token => {
+                    getLp(isPool.tokenAddress, contract).then((token: any) => {
                         dispatch({type: "SET_ISPOOL", payload: {lp: token, isPool: true}})
                     })
                 } else {
@@ -52,7 +52,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
         if (pool.isPool && pool.lpToken.balance === undefined) {
             console.log("Fetch balance")
             fetchPoolBalances(pool, account!, contract)
-            .then(result => dispatch({type: "SET_POOL_BALANCE", payload: result}))
+            .then((result: any) => dispatch({type: "SET_POOL_BALANCE", payload: result}))
         }
     }, [expanded, account, library, contract, pool])
 

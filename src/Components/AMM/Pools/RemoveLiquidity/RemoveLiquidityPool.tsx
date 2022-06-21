@@ -9,10 +9,9 @@ import { GlobalConst, ROUTER_ADDRESS } from "../../../../Constants";
 import { IPool } from "../../../../Models";
 import { fetchApprovedLp } from "../../../../Lib/Utils/pools";
 import { motion } from "framer-motion";
-import RemovePoolShare from "./RemovePoolShare";
-import RemoveButton from "./removeButton";
 import SliderPool from "./SliderPool";
-
+import RemoveButton from "./RemoveButton";
+import RemovePoolShare from "./RemovePoolShare";
 
 const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
     const { active, activate, account, library } = useWeb3React();
