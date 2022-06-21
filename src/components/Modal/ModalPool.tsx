@@ -110,7 +110,7 @@ const ModalPool: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
                               py="2rem" borderRadius={"0"} 
                               bg="0" 
                               key={key} 
-                              onClick={() =>  {dispatch({type: "SET_IMPORTED_TOKEN", payload: {id: idx, token: tokens[key]}});  onClose()}}
+                              onClick={() => {dispatch({type: "SET_IMPORTED_TOKEN", payload: {id: idx, token: tokens[key]}});  onClose()}}
                             >
                               <TokenSelect token={new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)} img={token.logoURI} />
                             </Button>
@@ -129,7 +129,7 @@ const ModalPool: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
                             py="2rem" borderRadius={"0"} 
                             bg="0" 
                             key={key} 
-                            onClick={() =>  {dispatch({type: "SET_TOKEN", payload: {id: idx, token: token}});  onClose()}}
+                            onClick={() =>  {dispatch({type: "SET_IMPORTED_TOKEN", payload: {id: idx, token: token}});  onClose()}}
                           >
                             <TokenSelect token={new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)} img={""} />
                           </Button>
