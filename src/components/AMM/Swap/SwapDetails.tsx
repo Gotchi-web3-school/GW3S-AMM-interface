@@ -3,7 +3,7 @@ import { BiTrendingDown } from "react-icons/bi"
 import { Percent } from "gotchiw3s-sdk"
 import { useContext } from "react"
 import { SwapContext } from "../../../Provider/SwapProvider"
-import { calculFee } from "../../../lib/utils/swap"
+import { calculFee } from "../../../Lib/Utils/swap"
 
 const SwapDetails: React.FC = () => {
     const { trade, tokenA, tokenB } = useContext(SwapContext)

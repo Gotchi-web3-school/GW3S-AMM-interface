@@ -1,7 +1,7 @@
 import { Box, useColorModeValue, Grid, GridItem } from "@chakra-ui/react"
-import Navbar from "./components/Navbar/Navbar"
-import AMM from "./components/AMM"
-import Erc20Generator from "./components/Erc20Generator"
+import Navbar from "./Components/Navbar/Navbar"
+import AMM from "./Components/AMM"
+import Erc20Generator from "./Components/Erc20Generator"
 
 const App: React.FC = () => {
   

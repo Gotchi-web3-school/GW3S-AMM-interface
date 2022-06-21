@@ -4,9 +4,9 @@ import {Button, Box, Text, Center, Stack, HStack, Spacer, Spinner, useToast } fr
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { injected } from '../../../../../Connectors/connectors';
 import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider";
-import { ContractContext } from "../../../../../Provider/ContractsProvider";
+import { ContractContext } from "../../../../../Provider/ContractProvider";
 import { Token } from "gotchiw3s-sdk";
-import { ROUTER_ADDRESS, GlobalConst } from "../../../../../constants";
+import { ROUTER_ADDRESS, GlobalConst } from "../../../../../Constants";
 import InputToken0 from "./InputToken0";
 import InputToken1 from "./InputToken1";
 import PoolShare from "./PoolShare";

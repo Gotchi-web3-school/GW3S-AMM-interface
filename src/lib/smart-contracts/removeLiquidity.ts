@@ -1,7 +1,7 @@
 import { TokenAmount, Percent, JSBI, Pair } from "gotchiw3s-sdk"
 import { ethers } from "ethers";
-import { GlobalConst } from "../../constants";
-import { calculateSlippageAmount } from "../utils";
+import { GlobalConst } from "../../Constants";
+import { calculateSlippageAmount } from "../Utils";
 import { LPTokenPool, TokenPool } from "../../Models";
 
 interface RemoveLiquidityTx {

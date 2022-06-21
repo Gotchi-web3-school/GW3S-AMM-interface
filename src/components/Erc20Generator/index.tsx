@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { VStack, Text, Box, Input, Button, Spinner, useToast } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import { useColorModeValue } from "@chakra-ui/react";
-import { deployErc20Tx, IDeployErc20Tx } from "../../lib/smart-contracts/erc20"
+import { deployErc20Tx, IDeployErc20Tx } from "../../Lib/Smart-contracts/erc20"
 import { GeneralContext } from "../../Provider/GeneralProvider";
 
 const Erc20Generator: React.FC = () => {

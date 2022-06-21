@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Text, Stack, Box, Spacer } from "@chakra-ui/react"
-import { calculateShare, rate } from "../../../../../lib/utils"
+import { calculateShare, rate } from "../../../../../Lib/Utils"
 import { IPool } from "../../../../../Models"
 
 const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {

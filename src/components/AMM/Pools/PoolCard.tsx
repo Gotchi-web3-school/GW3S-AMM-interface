@@ -11,13 +11,13 @@ import {
    } from "@chakra-ui/react"
 import { QuestionOutlineIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models";
-import { fetchPoolBalances, getLp} from "../../../lib/utils/pools";
-import { isPoolCreated } from "../../../lib/utils";
+import { fetchPoolBalances, getLp} from "../../../Lib/Utils/pools";
+import { isPoolCreated } from "../../../Lib/Utils";
 import { useWeb3React } from "@web3-react/core";
-import { ContractContext } from "../../../Provider/ContractsProvider";
+import { ContractContext } from "../../../Provider/ContractProvider";
 import { poolCardReducer } from "../../../Reducers/poolCardReducer";
 import PoolData from "./Pool/PoolData"
-import AddLiquidityPool from "./AddLiquidity/poolCard/AddLiquidityPool";
+import AddLiquidityPool from "./Addliquidity/PoolCard/AddLiquidityPool";
 import RemoveLiquidityPool from "./removeLiquidity/RemoveLiquidityPool";
 import { AnimatePresence } from "framer-motion";
 import { RepeatIcon } from "@chakra-ui/icons"

@@ -2,17 +2,17 @@ import { useContext } from "react"
 import { Button, Container, Spinner, Text, Stack, useToast } from "@chakra-ui/react"
 import { Percent, Token } from "gotchiw3s-sdk"
 import { useWeb3React } from "@web3-react/core"
-import { isSufficientBalance } from "../../../lib/utils"
-import { ContractContext } from "../../../Provider/ContractsProvider"
+import { isSufficientBalance } from "../../../Lib/Utils"
+import { ContractContext } from "../../../Provider/ContractProvider"
 import { 
     swapExactTokensForTokensSupportingFeeOnTransferTokensTx,
     swapExactETHForTokensSupportingFeeOnTransferTokensTx,
  
-} from "../../../lib/smart-contracts/swap"
+} from "../../../Lib/Smart-contracts/swap"
 import { SwapContext } from "../../../Provider/SwapProvider"
-import { getDeadLine } from "../../../lib/utils"
-import { approveTx } from "../../../lib/smart-contracts/approve"
-import { GlobalConst } from "../../../constants"
+import { getDeadLine } from "../../../Lib/Utils"
+import { approveTx } from "../../../Lib/Smart-contracts/approve"
+import { GlobalConst } from "../../../Constants"
 
 const SwapButton: React.FC = () => {
     const contract = useContext(ContractContext)

@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ColorModeScript } from '@chakra-ui/react'
 import { Web3ReactProvider } from '@web3-react/core';
-import { ContractProvider } from "./Provider/ContractsProvider"
+import { ContractProvider } from "./Provider/ContractProvider"
 import { GeneralProvider } from './Provider/GeneralProvider';
 import { ChakraProvider } from '@chakra-ui/react';
-import { getLibrary } from './lib/utils';
+import { getLibrary } from './Lib/Utils';
 import App from './App';
 import theme from './theme'
 

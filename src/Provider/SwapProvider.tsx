@@ -2,9 +2,9 @@ import { createContext, useReducer, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { Fetcher } from "gotchiw3s-sdk";
 import { swapReducer } from "../Reducers/swapReducer";
-import { ISwap, SwapProvider } from "../Models/swap";
-import { fetchApprovedtokens, fetchBalance } from "../lib/utils";
-import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../constants";
+import { ISwap, SwapProvider as Swap } from "../Models/swap";
+import { fetchApprovedtokens, fetchBalance } from "../Lib/Utils";
+import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../Constants";
 
 const defaultSwap: ISwap = {
     tokenA: {
@@ -36,9 +36,9 @@ const defaultContext = {
     dispatch: (state: {}, action: any) => {},
 }
 
-export const SwapContext = createContext<SwapProvider>(defaultContext);
+export const SwapContext = createContext<Swap>(defaultContext);
 
-export const SwapContextProvider = (props: any) => {
+export const SwapProvider = (props: any) => {
     const {library, account} = useWeb3React()
     //const contract = useContext(ContractContext)
     const [swap, dispatch] = useReducer(swapReducer, defaultSwap)

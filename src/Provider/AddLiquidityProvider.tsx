@@ -2,8 +2,8 @@ import { useWeb3React } from "@web3-react/core";
 import { createContext, useEffect, useContext, useReducer } from "react"
 import { addLiquidityReducer } from "../Reducers/addLiquidityReducer";
 import { AddLiquidity } from "../Models";
-import { fetchBalance, fetchApprovedtokens, isPoolCreated, fetchReserves } from "../lib/utils";
-import { ContractContext } from "./ContractsProvider";
+import { fetchBalance, fetchApprovedtokens, isPoolCreated, fetchReserves } from "../Lib/Utils";
+import { ContractContext } from "./ContractProvider";
 
 const defaultContext = {
     token0: undefined, token0Logo: undefined, token0Balance: undefined, token0Amount: undefined,
@@ -17,7 +17,7 @@ const defaultContext = {
 
 export const AddLiquidityContext = createContext<AddLiquidity>(defaultContext);
 
-export const AddLiquidityContextProvider = (props: any) => {
+export const AddLiquidityProvider = (props: any) => {
     const {library, account} = useWeb3React()
     const contract = useContext(ContractContext)
     const [addLiquidity, dispatch] = useReducer(addLiquidityReducer, defaultContext)

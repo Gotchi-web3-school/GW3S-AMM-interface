@@ -17,10 +17,10 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { DEFAULT_TOKEN_LIST_URL } from "../../constants/list"
+import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
 import { SelectToken } from "../../Models"
-import { fetchTokenData } from "../../lib/utils"
-import TokenSelect from "../AMM/Pools/AddLiquidity/raw/TokenSelect"
+import { fetchTokenData } from "../../Lib/Utils"
+import TokenSelect from "../AMM/Pools/Addliquidity/Raw/TokenSelect"
 import { Token } from "gotchiw3s-sdk";
 import { SwapContext } from "../../Provider/SwapProvider";
 import { GeneralContext } from "../../Provider/GeneralProvider";
