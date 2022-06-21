@@ -2,8 +2,10 @@ import React, { useContext, useState } from "react"
 import { Button, Container, Spinner, Text, useToast } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
 import { ContractContext } from "../../../../Provider/ContractsProvider"
-import { removeLiquidityTx, isSufficientLPBalance } from "../../../../lib/smart-contracts/removeLiquidity"
+import { removeLiquidityTx, removeLiquidityETHTx } from "../../../../lib/smart-contracts/removeLiquidity"
+import {isSufficientLPBalance } from "../../../../lib/utils"
 import { IPool } from "../../../../Models"
+import { GlobalConst } from "../../../../Constants"
 
 const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const contract = useContext(ContractContext)
@@ -14,19 +16,34 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
 
     const handleRemoveLiquidityTx = () => {
         setLoading(true)
-        removeLiquidityTx({
-            router2: contract.router2!,
-            pair: pair,
-            liquidityAmount: lpToken.lpRemoveInput!,
-            amountAOut: tokenA.inputRemove!,
-            amountBOut: tokenB.inputRemove!,
-            userAddress: account!,
-            toast: toast,
-        }, library)
-        .then(() => {
-            setLoading(false)
-            dispatch({type: "RESET_REMOVE"})
-        })
+        if (tokenA.token.address === GlobalConst.addresses.WMATIC || tokenB.token.address === GlobalConst.addresses.WMATIC) {
+            removeLiquidityETHTx({
+                router2: contract.router2!,
+                lp: lpToken,
+                tokenA: tokenA,
+                tokenB: tokenB,
+                to: account!,
+                toast: toast,
+            }, library)
+            .then(() => {
+                setLoading(false)
+                dispatch({type: "RESET_REMOVE"})
+            })
+        } else {
+            removeLiquidityTx({
+                router2: contract.router2!,
+                pair: pair,
+                liquidityAmount: lpToken.lpRemoveInput!,
+                amountAOut: tokenA.inputRemove!,
+                amountBOut: tokenB.inputRemove!,
+                userAddress: account!,
+                toast: toast,
+            }, library)
+            .then(() => {
+                setLoading(false)
+                dispatch({type: "RESET_REMOVE"})
+            })
+        }
     }
 
     return (

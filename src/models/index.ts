@@ -30,18 +30,20 @@ export type TokenPool = {
     loading: boolean,
 }
 
+export type LPTokenPool = {
+    token: Token | undefined, 
+    isApproved: boolean | undefined, 
+    balance: TokenAmount | undefined,
+    lpRemoveInput: TokenAmount | undefined,
+    share: Percent,
+    loading: boolean,
+}
+
 export interface IPool {
     id: number
     name: string;
     pair: Pair;
-    lpToken: {
-        token?: Token | undefined, 
-        isApproved: boolean | undefined, 
-        balance: TokenAmount | undefined,
-        lpRemoveInput: TokenAmount | undefined,
-        share: Percent,
-        loading: boolean,
-    }
+    lpToken: LPTokenPool;
     logoURI?: {tokenA?: string, tokenB?: string};
     isApproved?: boolean
     totalReserves: {tokenA: TokenAmount, tokenB: TokenAmount}
@@ -55,14 +57,7 @@ export class Pool implements IPool {
     name: string;
     pair: Pair;
     isPool = undefined
-    lpToken = {
-        token: undefined, 
-        isApproved: undefined, 
-        balance: undefined,
-        lpRemoveInput: undefined,
-        share: new Percent("0", "100"),
-        loading: false,
-    }
+    lpToken: LPTokenPool
     totalReserves:  {tokenA: TokenAmount, tokenB: TokenAmount}
     tokenA: TokenPool 
     tokenB: TokenPool
@@ -79,6 +74,14 @@ export class Pool implements IPool {
         this.totalReserves = {
             tokenA: new TokenAmount(tokenA, JSBI.BigInt("0")), 
             tokenB: new TokenAmount(tokenB, "0")
+        }
+        this.lpToken = {
+            token: undefined, 
+            isApproved: undefined, 
+            balance: undefined,
+            lpRemoveInput: undefined,
+            share: new Percent("0", "100"),
+            loading: false,
         }
         this.tokenA = {
             id: 0,
@@ -102,6 +105,7 @@ export class Pool implements IPool {
             logo: logoURI?.tokenB,
             loading: false,
         }
+        
     }
 }
 

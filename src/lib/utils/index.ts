@@ -65,11 +65,6 @@ export const calculateShare = (pair: Pair, token0Amount: TokenAmount, reserves: 
     return result;
 }
 
-export const calculatePoolShare = (pair: Pair, contract: any): string => {
-   
-    return "0";
-}
-
 export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount, amount1: string, token1Balance: TokenAmount): boolean => {
     const amountA = parseFloat(amount0);
     const amountB = parseFloat(amount1);
@@ -88,4 +83,13 @@ export const getDeadLine = async(provider: any): Promise<string> => {
         await provider.getBlock()
         .then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
     )
+}
+
+export const isSufficientLPBalance = (input: TokenAmount, balance: TokenAmount): boolean => {
+    try {
+        const result = parseInt(input.toExact()) <= parseInt(balance.toExact())
+        return result
+    } catch (error) {
+        return false
+    }
 }

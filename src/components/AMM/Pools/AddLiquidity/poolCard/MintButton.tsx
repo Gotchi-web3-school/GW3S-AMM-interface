@@ -3,8 +3,9 @@ import { Button, Container, Spinner, Text, useToast, Box } from "@chakra-ui/reac
 import { useWeb3React } from "@web3-react/core"
 import { isSufficientBalance } from "../../../../../lib/utils"
 import { ContractContext } from "../../../../../Provider/ContractsProvider"
-import { addLiquidityTx } from "../../../../../lib/smart-contracts/addLiquidity"
+import { addLiquidityTx, addLiquidityETH } from "../../../../../lib/smart-contracts/addLiquidity"
 import { IPool } from "../../../../../Models"
+import { GlobalConst } from "../../../../../Constants"
 
 const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
     const contract = useContext(ContractContext)
@@ -15,18 +16,32 @@ const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
 
     const handleAddLiquidityTx = () => {
         setLoading(true)
-        addLiquidityTx({
-            router2: contract.router2,
-            pair: pair,
-            amount0: tokenA.inputAdd!,
-            amount1: tokenB.inputAdd!,
-            userAddress: account!,
-            toast: toast,
-        }, library)
-        .then(() => {
-            setLoading(false)
-            dispatch({type: "RESET_ADD"})
-        })
+        if (tokenA.token.address === GlobalConst.addresses.WMATIC || tokenB.token.address === GlobalConst.addresses.WMATIC) {
+            addLiquidityETH({
+                router2: contract.router2!,
+                tokenA: tokenA,
+                tokenB: tokenB,
+                to: account!,
+                toast: toast,
+            }, library)
+            .then(() => {
+                setLoading(false)
+                dispatch({type: "RESET_ADD"})
+            })
+        } else {
+            addLiquidityTx({
+                router2: contract.router2,
+                pair: pair,
+                amount0: tokenA.inputAdd!,
+                amount1: tokenB.inputAdd!,
+                userAddress: account!,
+                toast: toast,
+            }, library)
+            .then(() => {
+                setLoading(false)
+                dispatch({type: "RESET_ADD"})
+            })
+        }
     }
 
     return (

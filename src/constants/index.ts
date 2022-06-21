@@ -23,6 +23,7 @@ export const INIT_CODE_HASH = "0xaae7dc513491fb17b541bd4a9953285ddf2bb20a773374b
 export const GlobalConst = {
   addresses: {
     ZERO_ADDRESS: '0x0000000000000000000000000000000000000000',
+    WMATIC: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
   },
   utils: {
     MAX_INT: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
@@ -75,6 +76,7 @@ export const GlobalValue = {
 };
 
 export const DEFAULT_TOKENS = [
+  new Token( 80001, `${GlobalConst.addresses.WMATIC}`, 18, "MATIC", "Matic native"),
   new Token( 80001, "0x8086A8fC26e6305bAD05E9347fb14c993c840814", 18, "GHST", "GW3S Aavegotchi GHST Token"),
   new Token( 80001, "0x9E3bcc9CB64f808cD9F771978D591a15625625E6", 18, "DAI", "GW3S Dai Stablecoin"),
   new Token( 80001, "0x71D6Ec51a5FB485A6Cdf67dC6D3f1e92D6b89bf1", 18, "ETH", "GW3S Ether"),
@@ -92,6 +94,7 @@ export const DEFAULT_TOKENS = [
 ]
 
 export const DEFAULT_LOGOS = [
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png",
   "https://wiki.aavegotchi.com/ghst/ghst.gif",
   "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
   "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
@@ -103,25 +106,24 @@ export const DEFAULT_LOGOS = [
   "https://cryptologos.cc/logos/uniswap-uni-logo.png?v=022",
   "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
   "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
-  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png",
   "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png",
   "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png",
 ]
 
 export const DEFAULT_POOLS = [
-  new Pool(0, "GHST - DAI", DEFAULT_TOKENS[0], DEFAULT_TOKENS[1],  FACTORY_ADDRESS, INIT_CODE_HASH,  {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[1]}),
-  new Pool(1, "GHST - WETH", DEFAULT_TOKENS[0], DEFAULT_TOKENS[2],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[2]}),
-  new Pool(2, "GHST - FUD", DEFAULT_TOKENS[0], DEFAULT_TOKENS[3],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[3]}),
-  new Pool(3, "GHST - FOMO", DEFAULT_TOKENS[0], DEFAULT_TOKENS[4],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[4]}),
-  new Pool(4, "GHST - ALPHA", DEFAULT_TOKENS[0], DEFAULT_TOKENS[5],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[5]}),
-  new Pool(5, "GHST - KEK", DEFAULT_TOKENS[0], DEFAULT_TOKENS[6],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[6]}),
-  new Pool(6, "GHST - AAVE", DEFAULT_TOKENS[0], DEFAULT_TOKENS[7],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[7]}),
-  new Pool(7, "GHST - UNI", DEFAULT_TOKENS[0], DEFAULT_TOKENS[8],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[8]}),
-  new Pool(8, "GHST - USDC", DEFAULT_TOKENS[0], DEFAULT_TOKENS[9],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[9]}),
-  new Pool(9, "GHST - USDT", DEFAULT_TOKENS[0], DEFAULT_TOKENS[10],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[10]}),
-  new Pool(10, "GHST - WMATIC", DEFAULT_TOKENS[0], DEFAULT_TOKENS[11],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[11]}),
-  new Pool(11, "GHST - WBTC", DEFAULT_TOKENS[0], DEFAULT_TOKENS[12],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[12]}),
-  new Pool(12, "GHST - LINK", DEFAULT_TOKENS[0], DEFAULT_TOKENS[13],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[13]}),
+  new Pool(0, "MATIC - GHST", DEFAULT_TOKENS[0], DEFAULT_TOKENS[1],  FACTORY_ADDRESS, INIT_CODE_HASH,  {tokenA: DEFAULT_LOGOS[0], tokenB: DEFAULT_LOGOS[1]}),
+  new Pool(1, "GHST - DAI", DEFAULT_TOKENS[1], DEFAULT_TOKENS[2],  FACTORY_ADDRESS, INIT_CODE_HASH,  {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[2]}),
+  new Pool(2, "GHST - WETH", DEFAULT_TOKENS[1], DEFAULT_TOKENS[3],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[3]}),
+  new Pool(3, "GHST - FUD", DEFAULT_TOKENS[1], DEFAULT_TOKENS[4],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[4]}),
+  new Pool(4, "GHST - FOMO", DEFAULT_TOKENS[1], DEFAULT_TOKENS[5],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[5]}),
+  new Pool(5, "GHST - ALPHA", DEFAULT_TOKENS[1], DEFAULT_TOKENS[6],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[6]}),
+  new Pool(6, "GHST - KEK", DEFAULT_TOKENS[1], DEFAULT_TOKENS[7],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[7]}),
+  new Pool(7, "GHST - AAVE", DEFAULT_TOKENS[1], DEFAULT_TOKENS[8],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[8]}),
+  new Pool(8, "GHST - UNI", DEFAULT_TOKENS[1], DEFAULT_TOKENS[9],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[9]}),
+  new Pool(9, "GHST - USDC", DEFAULT_TOKENS[1], DEFAULT_TOKENS[11],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[10]}),
+  new Pool(10, "GHST - USDT", DEFAULT_TOKENS[1], DEFAULT_TOKENS[11],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[11]}),
+  new Pool(11, "GHST - WBTC", DEFAULT_TOKENS[1], DEFAULT_TOKENS[12],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[12]}),
+  new Pool(12, "GHST - LINK", DEFAULT_TOKENS[1], DEFAULT_TOKENS[13],  FACTORY_ADDRESS, INIT_CODE_HASH, {tokenA: DEFAULT_LOGOS[1], tokenB: DEFAULT_LOGOS[13]}),
 ]
 
 export const abis = {
