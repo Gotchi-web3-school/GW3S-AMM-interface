@@ -20,6 +20,8 @@ const SwapButton: React.FC = () => {
     const toast = useToast()
     const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = useContext(SwapContext)
 
+    console.log(isPool, error)
+    
     const handleSwapTx = async() => {
         dispatch({type: "LOADING", payload: true})
         if (tokenA.token!.address === GlobalConst.addresses.WMATIC || tokenB.token!.address === GlobalConst.addresses.WMATIC) {
