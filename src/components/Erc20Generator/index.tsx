@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { VStack, Text, Box, Input, Button, Spinner, useToast } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import { useColorModeValue } from "@chakra-ui/react";
 import { deployErc20Tx, IDeployErc20Tx } from "../../lib/smart-contracts/erc20"
+import { GeneralContext } from "../../Provider/GeneralProvider";
 
 const Erc20Generator: React.FC = () => {
     const {library, account} = useWeb3React()
+    const { setUserTokens } = useContext(GeneralContext)
     const toast = useToast()
     const { register, handleSubmit } = useForm();
     const [loading, setLoading] = useState(false)
@@ -18,6 +20,7 @@ const Erc20Generator: React.FC = () => {
             ticker: data.ticker,
             supply: data.supply,
             toast: toast,
+            setUserTokens: setUserTokens,
         }
         setLoading(true)
         deployErc20Tx(tx).then(() => setLoading(false))

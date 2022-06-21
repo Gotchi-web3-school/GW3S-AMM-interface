@@ -2,15 +2,15 @@ import React, { createContext, useEffect, useState } from "react"
 import { Token } from "gotchiw3s-sdk";
 
 export const GeneralContext = createContext<{
-    userTokens: Token[] | undefined,
+    userTokens: Token[],
     setUserTokens: React.Dispatch<any>
 }>({
-    userTokens: undefined,
+    userTokens: [],
     setUserTokens: (value: any) => {},
 })
 
 export const GeneralProvider = (props: any) => {
-    const [userTokens, setUserTokens] = useState(undefined)
+    const [userTokens, setUserTokens] = useState([])
 
     // get the tokens created by the user
     useEffect(() => {

@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { Token } from "gotchiw3s-sdk"
+import React from "react";
 import { byteCode } from "../../Constants"
 import { abis } from "../../Constants/abis/abis";
 
@@ -9,6 +10,7 @@ export interface IDeployErc20Tx {
     ticker: string,
     supply: string,
     toast: any,
+    setUserTokens: React.Dispatch<any>
 }
 
 export const deployErc20Tx = async(tx: IDeployErc20Tx) => {
@@ -45,14 +47,24 @@ export const deployErc20Tx = async(tx: IDeployErc20Tx) => {
         console.log(receipt)
         
         // Keep new token created in storage
-        let tokens
+        let tokens: Array<Token>
         try {
             tokens = JSON.parse(localStorage.getItem("tokens") ?? "")
         } catch (error) {
             tokens = []
         }
-        tokens.push(new Token(80001, transaction.address, 18, tx.ticker, tx.name))
+        tokens.unshift(new Token(80001, transaction.address, 18, tx.ticker, tx.name))
         localStorage.setItem(`tokens`, JSON.stringify(tokens))
+        tx.setUserTokens(tokens)
+
+        tx.toast({
+            title: `Deploy token: ${tx.name}`,
+            description: `Token ${tx.ticker} added to your list.`,
+            position: "bottom-left",
+            status: "success",
+            duration: 6000,
+            isClosable: true,
+        })
         
     } catch (error: any) {
         console.log(error)
