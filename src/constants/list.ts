@@ -1,6 +1,14 @@
 export const DEFAULT_TOKEN_LIST_URL = {
     "tokens": [
         {
+        "name": "Wrapped Matic",
+        "address": "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
+        "symbol": "MATIC",
+        "decimals": 18,
+        "chainId": 80001,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"
+        },
+        {
         "name": "GW3S Dai Stablecoin",
         "address": "0x9E3bcc9CB64f808cD9F771978D591a15625625E6",
         "symbol": "DAI",
@@ -87,14 +95,6 @@ export const DEFAULT_TOKEN_LIST_URL = {
         "decimals": 18,
         "chainId": 80001,
         "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
-        },
-        {
-        "name": "GW3S Wrapped Matic",
-        "address": "0xC49b0Dd13aa87640Bfa9DCB6B5E84B0453CECBF8",
-        "symbol": "WMATIC",
-        "decimals": 18,
-        "chainId": 80001,
-        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"
         },
         {
             "name": "GW3S Wrapped Bitcoin",

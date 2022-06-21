@@ -20,8 +20,13 @@ export const fetchTokenData = async(address: string, chainId: number, provider: 
 }
 
 export const fetchBalance = async(tokenAddress: string, userAdress: string, provider: any): Promise<string> => {
-    const erc20 = new ethers.Contract(tokenAddress, abis.erc20, provider);
-    const balance = await erc20.balanceOf(userAdress);
+    let balance
+    if (tokenAddress === GlobalConst.addresses.WMATIC) {
+        balance = await provider.getBalance(userAdress)
+    } else {
+        const erc20 = new ethers.Contract(tokenAddress, abis.erc20, provider);
+        balance = await erc20.balanceOf(userAdress);
+    }
     return(ethers.utils.formatEther(balance));
 }
 

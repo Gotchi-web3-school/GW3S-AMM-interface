@@ -1,10 +1,14 @@
 import { useContext } from "react"
-import { Button, Container, Spinner, Text, Stack, useToast, useColorModeValue } from "@chakra-ui/react"
+import { Button, Container, Spinner, Text, Stack, useToast } from "@chakra-ui/react"
 import { Percent, Token } from "gotchiw3s-sdk"
 import { useWeb3React } from "@web3-react/core"
 import { isSufficientBalance } from "../../../lib/utils"
 import { ContractContext } from "../../../Provider/ContractsProvider"
-import { swapExactTokensForTokensSupportingFeeOnTransferTokensTx } from "../../../lib/smart-contracts/swap"
+import { 
+    swapExactTokensForTokensSupportingFeeOnTransferTokensTx,
+    swapExactETHForTokensSupportingFeeOnTransferTokensTx,
+ 
+} from "../../../lib/smart-contracts/swap"
 import { SwapContext } from "../../../Provider/SwapProvider"
 import { getDeadLine } from "../../../lib/utils"
 import { approveTx } from "../../../lib/smart-contracts/approve"
@@ -15,24 +19,40 @@ const SwapButton: React.FC = () => {
     const { library, account } = useWeb3React()
     const toast = useToast()
     const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = useContext(SwapContext)
-    const color = useColorModeValue("black", "whiteAlpha.800")
 
     const handleSwapTx = async() => {
         dispatch({type: "LOADING", payload: true})
-        swapExactTokensForTokensSupportingFeeOnTransferTokensTx({
-            router2: contract.router2,
-            amountIn: trade!.inputAmount!,
-            amountOutMin: trade!.minimumAmountOut(new Percent("5", "1000")),
-            path: [tokenA.token?.address!, tokenB.token?.address!],
-            to: account ?? "",
-            deadline: await getDeadLine(library),
-            toast: toast,
-            dispatch: dispatch,
-        })
-        .then(() => {
-            dispatch({type: "LOADING", payload: false})
-            dispatch({type: "RESET"})
-        })
+        if (tokenA.token!.address === GlobalConst.addresses.WMATIC || tokenB.token!.address === GlobalConst.addresses.WMATIC) {
+            swapExactETHForTokensSupportingFeeOnTransferTokensTx({
+                router2: contract.router2,
+                amountIn: trade!.inputAmount!,
+                amountOutMin: trade!.minimumAmountOut(new Percent("5", "1000")),
+                path: [tokenA.token?.address!, tokenB.token?.address!],
+                to: account ?? "",
+                deadline: await getDeadLine(library),
+                toast: toast,
+                dispatch: dispatch,
+            })
+            .then(() => {
+                dispatch({type: "LOADING", payload: false})
+                dispatch({type: "RESET"})
+            })
+        } else {
+            swapExactTokensForTokensSupportingFeeOnTransferTokensTx({
+                router2: contract.router2,
+                amountIn: trade!.inputAmount!,
+                amountOutMin: trade!.minimumAmountOut(new Percent("5", "1000")),
+                path: [tokenA.token?.address!, tokenB.token?.address!],
+                to: account ?? "",
+                deadline: await getDeadLine(library),
+                toast: toast,
+                dispatch: dispatch,
+            })
+            .then(() => {
+                dispatch({type: "LOADING", payload: false})
+                dispatch({type: "RESET"})
+            })
+        }
     }
 
     const handleApproveTx = async(token: Token) => {
