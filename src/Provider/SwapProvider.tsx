@@ -76,7 +76,9 @@ export const SwapProvider = (props: any) => {
     useEffect(() => {
         if (input.input !== undefined && output.input !== undefined && pair && route) {
             dispatch({type: "SEARCH_APPROVE"})
-            fetchApproveToken(tokenA.token!, input.amount!, account!, library).then(result => dispatch({type: "APPROVED", payload: result}))
+            fetchApproveToken(tokenA.token!, input.amount!, account!, library)
+            .then(result => dispatch({type: "APPROVED", payload: result}))
+            .catch(() => dispatch({type: "APPROVED", payload: false}))
             dispatch({type: "SET_TRADE"})
         }
     }, [input, output.input, pair, tokenA.token, route, account, library])

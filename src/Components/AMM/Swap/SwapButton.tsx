@@ -7,7 +7,8 @@ import { ContractContext } from "../../../Provider/ContractProvider"
 import { 
     swapExactTokensForTokensSupportingFeeOnTransferTokensTx,
     swapExactETHForTokensSupportingFeeOnTransferTokensTx,
- 
+    swapExactTokensForETHSupportingFeeOnTransferTokensTx,
+    ISwapExactETHForTokensTx,
 } from "../../../Lib/Smart-contracts/swap"
 import { SwapContext } from "../../../Provider/SwapProvider"
 import { getDeadLine } from "../../../Lib/Utils"
@@ -23,8 +24,9 @@ const SwapButton: React.FC = () => {
     const handleSwapTx = async() => {
         dispatch({type: "LOADING", payload: true})
         if (tokenA.token!.address === GlobalConst.addresses.WMATIC || tokenB.token!.address === GlobalConst.addresses.WMATIC) {
-            swapExactETHForTokensSupportingFeeOnTransferTokensTx({
+            const tx: ISwapExactETHForTokensTx = {
                 router2: contract.router2,
+                provider: library,
                 amountIn: trade!.inputAmount!,
                 amountOutMin: trade!.minimumAmountOut(new Percent("5", "1000")),
                 path: [tokenA.token?.address!, tokenB.token?.address!],
@@ -32,12 +34,22 @@ const SwapButton: React.FC = () => {
                 deadline: await getDeadLine(library),
                 toast: toast,
                 dispatch: dispatch,
-            })
-            .then(() => {
-                dispatch({type: "LOADING", payload: false})
-                dispatch({type: "RESET"})
-            })
+            }
+            if (tokenA.token?.address === GlobalConst.addresses.WMATIC) {
+                swapExactETHForTokensSupportingFeeOnTransferTokensTx(tx).then(() => {
+                    dispatch({type: "LOADING", payload: false})
+                    dispatch({type: "RESET"})
+                })
+                .catch(() => dispatch({type: "LOADING", payload: false}))
+            } else {
+                swapExactTokensForETHSupportingFeeOnTransferTokensTx(tx).then(() => {
+                    dispatch({type: "LOADING", payload: false})
+                    dispatch({type: "RESET"})
+                })
+                .catch(() => dispatch({type: "LOADING", payload: false}))
+            }
         } else {
+            console.log("Swap token for token")
             swapExactTokensForTokensSupportingFeeOnTransferTokensTx({
                 router2: contract.router2,
                 amountIn: trade!.inputAmount!,
@@ -52,6 +64,7 @@ const SwapButton: React.FC = () => {
                 dispatch({type: "LOADING", payload: false})
                 dispatch({type: "RESET"})
             })
+            .catch(() => dispatch({type: "LOADING", payload: false}))
         }
     }
 
