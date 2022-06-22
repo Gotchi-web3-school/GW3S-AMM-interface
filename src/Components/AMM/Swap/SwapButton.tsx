@@ -58,7 +58,7 @@ const SwapButton: React.FC = () => {
     const handleApproveTx = async(token: Token) => {
         dispatch({type: "LOADING", payload: true})
         approveTx({
-            router2: contract.router2!,
+            erc20: contract.ERC20!,
             spender: contract.router2!.address,
             amount: GlobalConst.utils.MAX_INT,
             token: token,

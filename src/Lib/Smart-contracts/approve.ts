@@ -2,7 +2,7 @@ import { Token } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
 
 interface ApproveTx {
-    router2: ethers.Contract,
+    erc20: ethers.Contract,
     spender: string,
     amount: string,
     token: Token,
@@ -18,14 +18,14 @@ export const approveTx = async(tx: ApproveTx) => {
         console.log("//////////////////////////////////////////////////////////")
     
         //Estimation of the gas cost
-        const gas = await tx.router2?.estimateGas.approve(
+        const gas = await tx.erc20.estimateGas.approve(
             tx.spender,
             tx.amount,
         ) 
     
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
-        const transaction = await tx.router2?.addLiquidity(
+        const transaction = await tx.erc20.approve(
             tx.spender,
             tx.amount,
             {gasLimit: gas}
