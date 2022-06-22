@@ -20,8 +20,6 @@ const SwapButton: React.FC = () => {
     const toast = useToast()
     const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = useContext(SwapContext)
 
-    console.log(isPool, error)
-    
     const handleSwapTx = async() => {
         dispatch({type: "LOADING", payload: true})
         if (tokenA.token!.address === GlobalConst.addresses.WMATIC || tokenB.token!.address === GlobalConst.addresses.WMATIC) {
@@ -78,7 +76,7 @@ const SwapButton: React.FC = () => {
                     <>
                     {tokenA.balance.amount && tokenB.balance.amount && isSufficientBalance(input.amount.toExact(), tokenA.balance.amount!, output.amount.toExact(), tokenB.balance.amount!) ?
                         <Stack px="5" mt="3" direction="row">
-                           {tokenA.approve.isApproved ?
+                           {tokenA.approve.isApproved || tokenA.token.address === GlobalConst.addresses.WMATIC ?
                                 <Button 
                                 onClick={handleSwapTx} 
                                 disabled={!tokenA.approve.isApproved || !tokenA.approve.isApproved || loading} 
