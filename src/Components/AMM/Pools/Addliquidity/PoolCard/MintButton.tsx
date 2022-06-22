@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import { Button, Container, Spinner, Text, useToast, Box } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
-import { isSufficientBalance } from "../../../../../Lib/Utils"
+import { isSufficientBalances } from "../../../../../Lib/Utils"
 import { ContractContext } from "../../../../../Provider/ContractProvider"
 import { addLiquidityTx, addLiquidityETH } from "../../../../../Lib/Smart-contracts/addLiquidity"
 import { IPool } from "../../../../../Models"
@@ -32,8 +32,8 @@ const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
             addLiquidityTx({
                 router2: contract.router2,
                 pair: pair,
-                amount0: tokenA.inputAdd!,
-                amount1: tokenB.inputAdd!,
+                amount0: tokenA.inputAdd.amount!,
+                amount1: tokenB.inputAdd.amount!,
                 userAddress: account!,
                 toast: toast,
             }, library)
@@ -46,9 +46,9 @@ const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
 
     return (
         <Box mx="5">
-        {tokenA.inputAdd && tokenB.inputAdd ?
+        {tokenA.inputAdd.input && tokenB.inputAdd.input ?
             <>
-            {tokenA.balance && isSufficientBalance(tokenA.inputAdd.toExact(), tokenA.balance, tokenB.inputAdd.toExact(), tokenB.balance!) ?
+            {tokenA.balance && isSufficientBalances(tokenA.inputAdd.input!, tokenA.balance, tokenB.inputAdd.input!, tokenB.balance!) ?
                 <Button 
                 onClick={handleAddLiquidityTx} 
                 disabled={!tokenA.isApproved  || !tokenB.isApproved || loading} 

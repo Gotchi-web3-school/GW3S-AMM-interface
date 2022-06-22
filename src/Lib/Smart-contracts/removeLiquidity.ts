@@ -108,15 +108,15 @@ export const removeLiquidityETHTx = async(tx: RemoveLiquidityETHTx, provider: an
         const liquidity = tx.lp
         const token: TokenPool = GlobalConst.addresses.WMATIC === tx.tokenB.token.address ? tx.tokenA : tx.tokenB
         const matic: TokenPool = GlobalConst.addresses.WMATIC === tx.tokenA.token.address ? tx.tokenA : tx.tokenB
-        const minAmountToken = calculateSlippageAmount(token.inputRemove!, slippage)
-        const minAmountMatic = calculateSlippageAmount(matic.inputRemove!, slippage)
+        const minAmountToken = calculateSlippageAmount(token.inputRemove.amount!, slippage)
+        const minAmountMatic = calculateSlippageAmount(matic.inputRemove.amount!, slippage)
         const deadline = await provider.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
         
         console.log("REMOVE LIQUIDITY ETH")
         console.log("////////////////////////////////")
         console.log("token: " + token.token.symbol + " " + token.token.address)
         console.log("LP token: " + liquidity.token!.symbol + " " + liquidity.token!.address)
-        console.log("LP token amount: " + ethers.utils.parseEther(liquidity.lpRemoveInput!.toExact()))
+        console.log("LP token amount: " + ethers.utils.parseEther(liquidity.lpRemoveInput.amount!.toExact()))
         console.log("minimum amount token: " +  ethers.utils.parseEther(minAmountToken[0]))
         console.log("minimum amount Matic: " +  ethers.utils.parseEther(minAmountMatic[0]))
         console.log("userAddress address: " + tx.to)
@@ -126,7 +126,7 @@ export const removeLiquidityETHTx = async(tx: RemoveLiquidityETHTx, provider: an
         //Estimation of the gas cost
         const gas = await tx.router2.estimateGas.removeLiquidityETH(
             token.token.address,
-            liquidity.lpRemoveInput!.raw.toString(),
+            liquidity.lpRemoveInput.amount!.raw.toString(),
             ethers.utils.parseEther(minAmountToken[0]),
             ethers.utils.parseEther(minAmountMatic[0]),
             tx.to,
@@ -137,7 +137,7 @@ export const removeLiquidityETHTx = async(tx: RemoveLiquidityETHTx, provider: an
         
         const transaction = await tx.router2.removeLiquidityETH(
             token.token.address,
-            liquidity.lpRemoveInput!.raw.toString(),
+            liquidity.lpRemoveInput.amount!.raw.toString(),
             ethers.utils.parseEther(minAmountToken[0]),
             ethers.utils.parseEther(minAmountMatic[0]),
             tx.to,

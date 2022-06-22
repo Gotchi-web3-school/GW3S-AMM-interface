@@ -33,9 +33,9 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
             removeLiquidityTx({
                 router2: contract.router2!,
                 pair: pair,
-                liquidityAmount: lpToken.lpRemoveInput!,
-                amountAOut: tokenA.inputRemove!,
-                amountBOut: tokenB.inputRemove!,
+                liquidityAmount: lpToken.lpRemoveInput.amount!,
+                amountAOut: tokenA.inputRemove.amount!,
+                amountBOut: tokenB.inputRemove.amount!,
                 userAddress: account!,
                 toast: toast,
             }, library)
@@ -50,7 +50,7 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
         <>
         {lpToken.lpRemoveInput ?
             <>
-            {isSufficientLPBalance(lpToken.lpRemoveInput, lpToken.balance!) ?
+            {isSufficientLPBalance(lpToken.lpRemoveInput.amount!, lpToken.balance!) ?
                 <Button 
                 onClick={handleRemoveLiquidityTx} 
                 disabled={!lpToken.isApproved || !lpToken.balance!.greaterThan("0") || loading} 

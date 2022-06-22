@@ -34,7 +34,7 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
                 // Take the entry of user and put it to a big Number
                 const inputAmount = ethers.utils.parseEther(FixedNumber.from(action.payload.amount, 18).toString());
                 // If pool is already created
-                if (isPool && token1 && token0 && ethers.utils.parseEther(inputAmount.toString()).gt("0")) {
+                if (isPool && token1 && token0 && inputAmount.gt('0')) {
                     const amount = new TokenAmount(inputId ? token1 : token0, JSBI.BigInt(inputAmount))
                     if (inputId === 0) {
                         // using the entry calcul the rate of the second token
@@ -55,8 +55,12 @@ export const addLiquidityReducer = (state: AddLiquidity, action: any): AddLiquid
                     return inputId ? {...state, token1Amount: amount} : {...state, token0Amount: amount};
             }
             } catch (error) {
+                if (error instanceof Error) {
+                    if (error.message.includes("underflow"))
+                        return {...state}
+                }
                 console.log(error)
-                return inputId ? {...state, token1Amount: undefined} : {...state, token0Amount: undefined};
+                return inputId ? {...state, token0Amount: action.payload.amount, token1Amount: undefined} : {...state, token0Amount: undefined, token1Amount: action.payload.amount};
             }
 
         case "SET_PAIR":

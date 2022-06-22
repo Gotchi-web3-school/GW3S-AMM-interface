@@ -56,7 +56,7 @@ const SwapButton: React.FC = () => {
     }
 
     const handleApproveTx = async(token: Token) => {
-        dispatch({type: "LOADING", payload: true})
+        dispatch({type: "APPROVING"})
         approveTx({
             erc20: contract.ERC20!,
             spender: contract.router2!.address,
@@ -64,6 +64,8 @@ const SwapButton: React.FC = () => {
             token: token,
             toast: toast,
         })
+        .then(() => dispatch({type: "APPROVED", payload: true}))
+        .catch(() => dispatch({type: "APPROVED", payload: false}))
     }
 
     return (
@@ -74,12 +76,12 @@ const SwapButton: React.FC = () => {
                 <>
                 {input.amount && output.amount ?
                     <>
-                    {tokenA.balance.amount && tokenB.balance.amount && isSufficientBalance(input.amount.toExact(), tokenA.balance.amount!, output.amount.toExact(), tokenB.balance.amount!) ?
+                    {tokenA.balance.amount && isSufficientBalance(input.amount.toExact(), tokenA.balance.amount!) ?
                         <Stack px="5" mt="3" direction="row">
                            {tokenA.approve.isApproved || tokenA.token.address === GlobalConst.addresses.WMATIC ?
                                 <Button 
                                 onClick={handleSwapTx} 
-                                disabled={loading} 
+                                disabled={tokenA.approve.loading} 
                                 mt="5" 
                                 w="100%" 
                                 h="4rem"

@@ -47,7 +47,7 @@ const SliderPool: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
             color='white'
             placement='top'
             isOpen={showTooltip}
-            label={pool.lpToken.lpRemoveInput && pool.lpToken.balance && pool.lpToken.balance.greaterThan("0") ? `${new Percent(pool.lpToken.lpRemoveInput.raw, pool.lpToken.balance?.raw).toFixed(0)}%` : "0%"}
+            label={pool.lpToken.lpRemoveInput.amount && pool.lpToken.balance && pool.lpToken.balance.greaterThan("0") ? `${new Percent(pool.lpToken.lpRemoveInput.amount.raw, pool.lpToken.balance?.raw).toFixed(0)}%` : "0%"}
           >
             <SliderThumb />
           </Tooltip>

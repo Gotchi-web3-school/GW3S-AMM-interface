@@ -7,3 +7,5 @@ export const fetchRoutes = async(input: Token, output: Token) => {
 export const calculFee = (amountIn: CurrencyAmount): string => {
     return amountIn.multiply("3").divide("1000").toSignificant(5)
 }
+
+

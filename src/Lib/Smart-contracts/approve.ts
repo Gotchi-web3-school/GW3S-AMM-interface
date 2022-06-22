@@ -16,6 +16,8 @@ export const approveTx = async(tx: ApproveTx) => {
         console.log("Spender: " + tx.spender)
         console.log("Amount: " + tx.amount)
         console.log("//////////////////////////////////////////////////////////")
+
+        tx.erc20 = tx.erc20.attach(tx.token.address)
     
         //Estimation of the gas cost
         const gas = await tx.erc20.estimateGas.approve(
@@ -60,6 +62,7 @@ export const approveTx = async(tx: ApproveTx) => {
             status: 'error',
             duration: 9000,
             isClosable: true,
-          })
+        })
+        throw new Error(error)
     }
 }

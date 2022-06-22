@@ -3,6 +3,7 @@ import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount } from 
 import { abis, GlobalConst, ROUTER_ADDRESS, FACTORY_ADDRESS} from '../../Constants';
 import { ethers } from "ethers";
 import { SelectToken } from '../../Models';
+import { TokenSwap } from "../../Models/swap"
 
 export function getLibrary(provider: any): Web3Provider {
     const library = new Web3Provider(provider, 'any');
@@ -38,6 +39,12 @@ export const fetchApprovedtokens = async(pair: Pair, userAdress: string, provide
     return ({token0: pair.reserve0.lessThan(approved0), token1: pair.reserve1.lessThan(approved1)})
 }
 
+export const fetchApproveToken = async(token: Token, amount: TokenAmount, userAdress: string, provider: any): Promise<boolean> => {
+    const erc20 = new ethers.Contract(token.address, abis.erc20, provider.getSigner(userAdress));
+    const allowance: BigintIsh = await erc20.allowance(userAdress, ROUTER_ADDRESS);
+    return (amount.lessThan(allowance))
+}
+
 export const isPoolCreated = async(pair: Pair, provider: any): Promise<{result: boolean, tokenAddress: any}> => {
     const factory = new ethers.Contract(FACTORY_ADDRESS, abis.factory, provider);
     const pool = await factory.getPair(pair.token0.address, pair.token1.address);
@@ -70,12 +77,18 @@ export const calculateShare = (pair: Pair, token0Amount: TokenAmount, reserves: 
     return result;
 }
 
-export const isSufficientBalance = (amount0: string, token0Balance: TokenAmount, amount1: string, token1Balance: TokenAmount): boolean => {
+export const isSufficientBalances = (amount0: string, token0Balance: TokenAmount, amount1: string, token1Balance: TokenAmount): boolean => {
     const amountA = parseFloat(amount0);
     const amountB = parseFloat(amount1);
     const balanceA = parseFloat(token0Balance.toExact());
     const balanceB = parseFloat(token1Balance.toExact());
     return (balanceA > 0 && balanceB > 0 && amountA <= balanceA && amountB <= balanceB)
+}
+
+export const isSufficientBalance = (amount: string, tokenBalance: TokenAmount): boolean => {
+    const amountInput = parseFloat(amount);
+    const balance = parseFloat(tokenBalance.toExact());
+    return (balance > 0 && amountInput <= balance)
 }
 
 export const rate = (amount0: string = "0", amount1: string = "0"): number | string => {

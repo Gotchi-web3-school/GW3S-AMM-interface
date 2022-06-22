@@ -110,15 +110,15 @@ export const addLiquidityETH = async(tx: AddLiquidityETHTx, provider: any) => {
         const slippage = new Percent(JSBI.BigInt(GlobalConst.utils.INITIAL_ALLOWED_SLIPPAGE), "10000")
         const matic: TokenPool = GlobalConst.addresses.WMATIC === tx.tokenA.token.address ? tx.tokenA : tx.tokenB
         const token: TokenPool = GlobalConst.addresses.WMATIC === tx.tokenB.token.address ? tx.tokenA : tx.tokenB
-        const minAmountToken = calculateSlippageAmount(token.inputAdd!, slippage)
-        const minAmountEth = calculateSlippageAmount(matic.inputAdd! , slippage)
+        const minAmountToken = calculateSlippageAmount(token.inputAdd.amount!, slippage)
+        const minAmountEth = calculateSlippageAmount(matic.inputAdd.amount! , slippage)
         const deadline = await provider.getBlock().then((result: any) => ethers.BigNumber.from(result.timestamp + GlobalConst.utils.DEFAULT_DEADLINE_FROM_NOW * 10 ))
         
         console.warn("ADD LIQUIDITY MATIC")
         console.log("///////////////////////////////////////////////")
         console.log("token: " + token.token.symbol)
-        console.log("amount token desired: " + token.inputAdd?.toExact())
-        console.log("amount MATIC desired: " + matic.inputAdd?.toExact())
+        console.log("amount token desired: " + token.inputAdd.amount?.toExact())
+        console.log("amount MATIC desired: " + matic.inputAdd.amount?.toExact())
         console.log("minimum amount token: " +  ethers.utils.parseEther(minAmountToken[0]))
         console.log("minimum amount MATIC: " +  ethers.utils.parseEther(minAmountEth[0]))
         console.log("userAddress address: " + tx.to)
@@ -128,24 +128,24 @@ export const addLiquidityETH = async(tx: AddLiquidityETHTx, provider: any) => {
         //Estimation of the gas cost
         const gas = await tx.router2?.estimateGas.addLiquidityETH(
             token.token.address,
-            token.inputAdd?.raw.toString(),
+            token.inputAdd.amount?.raw.toString(),
             ethers.utils.parseEther(minAmountToken[0]),
             ethers.utils.parseEther(minAmountEth[0]),
             tx.to,
             deadline,
-            {value: matic.inputAdd?.raw.toString()}
+            {value: matic.inputAdd.amount?.raw.toString()}
             ) 
             
             console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
             
             const transaction = await tx.router2?.addLiquidityETH(
                 token.token.address,
-                token.inputAdd?.raw.toString(),
+                token.inputAdd.amount?.raw.toString(),
                 ethers.utils.parseEther(minAmountToken[0]),
                 ethers.utils.parseEther(minAmountEth[0]),
                 tx.to,
                 deadline,
-                {gasLimit: gas, value: matic.inputAdd?.raw.toString()}
+                {gasLimit: gas, value: matic.inputAdd.amount?.raw.toString()}
                 )
                 
                 tx.toast({

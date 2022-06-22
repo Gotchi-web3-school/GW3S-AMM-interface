@@ -19,7 +19,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
         >
             <Flex w="33%">
                 <Box position={"relative"} top="-3">
-                <Text textAlign={"left"} fontSize={"xs"}>Balance: {lpToken.balance?.toSignificant(2)}</Text>
+                <Text textAlign={"left"} fontSize={"xs"}>Balance: {lpToken.balance?.toFixed(2)}</Text>
                 <Flex mt="2">
                     {tokenA.logo ? <Image zIndex={1} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
                     {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}
@@ -27,7 +27,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         h="5" 
                         min={0}
                         max={lpToken.balance?.toExact() ?? '0'}
-                        value={lpToken.lpRemoveInput?.toSignificant(4) ?? ""}
+                        value={lpToken.lpRemoveInput.input ?? ""}
                         type="number"
                         placeholder="0"
                         border="none" 
@@ -36,7 +36,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         fontWeight={"bold"}
                         _hover={{textShadow: "1px 1px 5px white"}}
                         _focus={{border: "none"}}
-                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "LP_INPUT", value: e.target.value}})}
+                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "LP_INPUT", value: {id: 0, amount: e.target.value}}})}
                         />
                 </Flex>
                 </Box>
@@ -50,7 +50,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenA?.pooled?.toExact() ?? '0'}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenA?.inputRemove?.toSignificant(4) ?? ""} 
+                        value={tokenA?.inputRemove.input ?? ""} 
                         placeholder="0"
                         type="number"
                         border="none"
@@ -59,7 +59,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         m="0"
                         _hover={{textShadow: "1px 1px 5px white"}}
                         _focus={{border: "none"}}
-                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "TOKEN_A_INPUT", value: e.target.value}})}
+                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "TOKEN_A_INPUT", value: {id: 1, amount: e.target.value}}})}
                     />
                     {tokenA.logo ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
                 </Flex>
@@ -70,7 +70,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         max={tokenB?.pooled?.toExact() ?? '0'}
                         textAlign={"right"}
                         fontWeight={"bold"}
-                        value={tokenB?.inputRemove?.toSignificant(4) ?? ""} 
+                        value={tokenB?.inputRemove.input ?? ""} 
                         placeholder="0"
                         type="number"
                         border="none" 
@@ -78,7 +78,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         m="0"
                         _hover={{textShadow: "1px 1px 5px white"}}
                         _focus={{border: "none"}}
-                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "TOKEN_B_INPUT", value: e.target.value}})}
+                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "TOKEN_B_INPUT", value: {id: 2, amount: e.target.value}}})}
                     />
                     {tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}
                 </Flex>

@@ -1,6 +1,6 @@
 import { Pair, Route, Token, TokenAmount, Trade } from "gotchiw3s-sdk"
 
-type TokenSwap = {
+export type TokenSwap = {
     id: number
     token: Token | undefined
     approve: {isApproved: boolean | undefined, loading: boolean}

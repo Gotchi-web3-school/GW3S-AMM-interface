@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Fetcher } from "gotchiw3s-sdk";
 import { swapReducer } from "../Reducers/swapReducer";
 import { ISwap, SwapProvider as Swap } from "../Models/swap";
-import { fetchApprovedtokens, fetchBalance } from "../Lib/Utils";
+import { fetchApproveToken, fetchBalance } from "../Lib/Utils";
 import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../Constants";
 
 const defaultSwap: ISwap = {
@@ -76,10 +76,10 @@ export const SwapProvider = (props: any) => {
     useEffect(() => {
         if (input.input !== undefined && output.input !== undefined && pair && route) {
             dispatch({type: "SEARCH_APPROVE"})
-            fetchApprovedtokens(pair, account!, library).then(result => dispatch({type: "APPROVED", payload: result}))
+            fetchApproveToken(tokenA.token!, input.amount!, account!, library).then(result => dispatch({type: "APPROVED", payload: result}))
             dispatch({type: "SET_TRADE"})
         }
-    }, [input.input, output.input, pair, route, account, library])
+    }, [input, output.input, pair, tokenA.token, route, account, library])
 
     return (
         <SwapContext.Provider value={{

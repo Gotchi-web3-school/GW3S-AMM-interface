@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { Button, Container, Spinner, Text, useToast } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
 import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider"
-import { isSufficientBalance } from "../../../../../Lib/Utils"
+import { isSufficientBalances } from "../../../../../Lib/Utils"
 import { ContractContext } from "../../../../../Provider/ContractProvider"
 import { addLiquidityTx } from "../../../../../Lib/Smart-contracts/addLiquidity"
 
@@ -37,7 +37,7 @@ const MintButton: React.FC = () => {
             <>
             {token0Amount && token1Amount ?
                 <>
-                {token0Balance && token1Balance && isSufficientBalance(token0Amount.toExact(), token0Balance, token1Amount.toExact(), token1Balance) ?
+                {token0Balance && token1Balance && isSufficientBalances(token0Amount.toExact(), token0Balance, token1Amount.toExact(), token1Balance) ?
                     <>
                     {isPool ? 
                         <Button 
