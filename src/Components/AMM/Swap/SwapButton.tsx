@@ -79,7 +79,7 @@ const SwapButton: React.FC = () => {
                            {tokenA.approve.isApproved || tokenA.token.address === GlobalConst.addresses.WMATIC ?
                                 <Button 
                                 onClick={handleSwapTx} 
-                                disabled={!tokenA.approve.isApproved || !tokenA.approve.isApproved || loading} 
+                                disabled={loading} 
                                 mt="5" 
                                 w="100%" 
                                 h="4rem"
