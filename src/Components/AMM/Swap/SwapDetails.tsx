@@ -7,6 +7,7 @@ import { calculFee } from "../../../Lib/Utils/swap"
 
 const SwapDetails: React.FC = () => {
     const { trade, tokenA, tokenB } = useContext(SwapContext)
+
     return (
         <Box 
             flexDirection="column"
@@ -33,7 +34,7 @@ const SwapDetails: React.FC = () => {
                     <Text>Price Impact</Text>
                     <Spacer />
                     <Flex>
-                        <Text>{trade?.priceImpact.toFixed(2) ?? ""}%</Text>
+                        <Text>{parseFloat(trade?.priceImpact.toSignificant(3) ?? "0") > parseFloat("0.3") ? trade?.priceImpact.toSignificant(3) : "<0.01"}%</Text>
                         <Box m="1" color="red" alignSelf={"center"}>
                             <BiTrendingDown />
                         </Box>

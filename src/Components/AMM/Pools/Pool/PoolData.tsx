@@ -1,4 +1,4 @@
-import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box, Stack, Container, } from "@chakra-ui/react"
+import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box, Container, } from "@chakra-ui/react"
 import { QuestionOutlineIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../../Models"
 import { motion } from "framer-motion"

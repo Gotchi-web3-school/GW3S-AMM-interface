@@ -3,7 +3,6 @@ import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount } from 
 import { abis, GlobalConst, ROUTER_ADDRESS, FACTORY_ADDRESS} from '../../Constants';
 import { ethers } from "ethers";
 import { SelectToken } from '../../Models';
-import { TokenSwap } from "../../Models/swap"
 
 export function getLibrary(provider: any): Web3Provider {
     const library = new Web3Provider(provider, 'any');
