@@ -14,9 +14,10 @@ import InputSwapA from "./InputSwapA"
 import InputSwapB from "./InputSwapB"
 import SwapDetails from "./SwapDetails";
 import SwapButton from "./SwapButton";
+import ConnectorButton from "../../Buttons/ConnectorButton";
 
 const Swap: React.FC = () => {
-    const [quote, setQuote] = useState(true) 
+    const [quote, setQuote] = useState(true)
     const { route, dispatch, trade, input, isPool } = useContext(SwapContext)
     const color = useColorModeValue("black", "white")
     
@@ -56,8 +57,10 @@ const Swap: React.FC = () => {
             }
           </Stack>
         </Box>
-
-        <SwapButton />
+        
+        <ConnectorButton>
+          <SwapButton /> 
+        </ConnectorButton>
 
         {isPool && parseFloat(input.input ?? '0') > 0 && <SwapDetails />}
       </Box>

@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Token } from "gotchiw3s-sdk";
 import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { injected } from '../../../../../Connectors/connectors';
+import { injected } from '../../../../../Lib/Connectors/connectors';
 import { ContractContext } from "../../../../../Provider/ContractProvider";
 import { GlobalConst, ROUTER_ADDRESS } from "../../../../../Constants";
 import { IPool } from "../../../../../Models";
@@ -13,6 +13,7 @@ import MaxButton from "./MaxButton";
 import InputToken from "./InputToken";
 import BabyPoolShare from "./BabyPoolShare";
 import MintButton from "./MintButton";
+import ConnectorButton from "../../../../Buttons/ConnectorButton";
 
 const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
     const { active, activate, account, library } = useWeb3React();
@@ -89,10 +90,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                 <InputToken token={pool.tokenB} dispatch={dispatch} />
             </Box>
             {(pool.tokenA.inputAdd || pool.tokenB.inputAdd) && <BabyPoolShare pool={pool} />}
-            {!active ? 
-                <Button mt="3" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
-                :
-                <>
+                <ConnectorButton>
                     <Stack px="5" mt="3" direction="row">
                         {pool.tokenA.isApproved ? "" : 
                             <Button 
@@ -123,9 +121,8 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                             </Button>
                         }
                     </Stack>
-                    {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton pool={pool} dispatch={dispatch} />}
-                </> 
-            }
+                        {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton pool={pool} dispatch={dispatch} />}
+                </ConnectorButton>
             <HStack  m="5">
                 <Button w="45%" pl="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>

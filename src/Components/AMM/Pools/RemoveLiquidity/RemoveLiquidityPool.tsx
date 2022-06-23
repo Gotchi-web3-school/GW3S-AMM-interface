@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Token } from "gotchiw3s-sdk";
 import {Button, Box, Text, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { injected } from '../../../../Connectors/connectors';
+import { injected } from '../../../../Lib/Connectors/connectors';
 import { ContractContext } from "../../../../Provider/ContractProvider";
 import { GlobalConst, ROUTER_ADDRESS } from "../../../../Constants";
 import { IPool } from "../../../../Models";
@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import SliderPool from "./SliderPool";
 import RemoveButton from "./RemoveButton";
 import RemovePoolShare from "./RemovePoolShare";
+import ConnectorButton from "../../../Buttons/ConnectorButton";
 
 const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
     const { active, activate, account, library } = useWeb3React();
@@ -84,28 +85,26 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
             >Max</Button>
             <SliderPool pool={pool} dispatch={dispatch} />
             <RemovePoolShare pool={pool} dispatch={dispatch} />
-            {!active ? 
-                <Button mt="5" w="100%" h="4rem" onClick={() =>  activate(injected)}>Connect</Button>
-                :
                 <Box mx="5" mt="5">
-                    {lpToken.isApproved ? "" : 
-                        <Button 
-                        key={0} 
-                        w="100%"
-                        h="4rem"
-                        borderRadius={"3xl"}
-                        bg="transparent"
-                        boxShadow={"inset 1px 1px 10px 1px #ffa500"}
-                        disabled={lpToken.loading || !pool.isPool} 
-                        onClick={() => handleClickButton(lpToken.token!, 2)} 
-                        _hover={pool.isPool ? {bg: "yellow.700"} : {bg: "none"}} 
-                        >
-                            {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool does not exist"}
-                        </Button>
-                    }
-                    {lpToken.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
+                    <ConnectorButton>
+                        {lpToken.isApproved ? "" : 
+                            <Button 
+                            key={0} 
+                            w="100%"
+                            h="4rem"
+                            borderRadius={"3xl"}
+                            bg="transparent"
+                            boxShadow={"inset 1px 1px 10px 1px #ffa500"}
+                            disabled={lpToken.loading || !pool.isPool} 
+                            onClick={() => handleClickButton(lpToken.token!, 2)} 
+                            _hover={pool.isPool ? {bg: "yellow.700"} : {bg: "none"}} 
+                            >
+                                {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool does not exist"}
+                            </Button>
+                        }
+                            {lpToken.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
+                    </ConnectorButton>
                 </Box> 
-            }
             <HStack  m="5">
                 <Button w="45%" pl="0" bgGradient='linear(to-r, #a200ff, transparent)' _hover={{bg: '#a200ff'}} justifyContent={"left"} onClick={() => setState("pool")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Pool</Text>

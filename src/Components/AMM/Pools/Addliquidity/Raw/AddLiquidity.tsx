@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { useWeb3React } from "@web3-react/core";
 import {Button, Box, Text, Center, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { injected } from '../../../../../Connectors/connectors';
+import { injected } from '../../../../../Lib/Connectors/connectors';
 import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider";
 import { ContractContext } from "../../../../../Provider/ContractProvider";
 import { Token } from "gotchiw3s-sdk";

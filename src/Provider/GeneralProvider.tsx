@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState } from "react"
 import { Token } from "gotchiw3s-sdk";
+import { useWeb3React } from "@web3-react/core";
+import { connectUser } from '../Lib/Connectors/connectors';
 
 export const GeneralContext = createContext<{
     userTokens: Token[],
@@ -10,9 +12,18 @@ export const GeneralContext = createContext<{
 })
 
 export const GeneralProvider = (props: any) => {
+    const signer = useWeb3React()
     const [userTokens, setUserTokens] = useState([])
 
-    // get the tokens created by the user
+    // If wallet detected, connect user
+    useEffect(() => {
+        const userWindow: any = window
+        if (userWindow.ethereum && !signer.active) {
+            connectUser(signer.activate)
+        }
+    }, [signer.activate, signer.active])
+
+    // get the tokens created by the user in the local storage
     useEffect(() => {
         let tokens = undefined
         try {
