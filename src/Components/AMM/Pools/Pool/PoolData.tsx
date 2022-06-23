@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 
 const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({pool, setState}) => {
     const {tokenA, tokenB, pair, totalReserves} = pool
+    
     return ( 
     <Box
     as={motion.div}

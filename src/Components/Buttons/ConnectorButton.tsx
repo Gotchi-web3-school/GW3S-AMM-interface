@@ -11,7 +11,7 @@ const ConnectorButton: React.FC<{children: React.ReactNode}> = ({children}) => {
 
     useEffect(() => {
         injected.isAuthorized().then(result => setIsAuthorized(result))
-    })
+    },[])
 
     return (
         <Box justifyContent={"center"}>

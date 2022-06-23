@@ -17,7 +17,6 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                 isPool = action.payload.isPool
             }
             return {...state, lpToken: lpToken, isPool: isPool};
-
         
         case "SET_POOL_BALANCE":
            lpToken.balance = action.payload.balance
