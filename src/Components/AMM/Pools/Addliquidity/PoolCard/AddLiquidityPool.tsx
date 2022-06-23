@@ -3,7 +3,6 @@ import { useWeb3React } from "@web3-react/core";
 import { Token } from "gotchiw3s-sdk";
 import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { injected } from '../../../../../Lib/Connectors/connectors';
 import { ContractContext } from "../../../../../Provider/ContractProvider";
 import { GlobalConst, ROUTER_ADDRESS } from "../../../../../Constants";
 import { IPool } from "../../../../../Models";
@@ -16,7 +15,7 @@ import MintButton from "./MintButton";
 import ConnectorButton from "../../../../Buttons/ConnectorButton";
 
 const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
-    const { active, activate, account, library } = useWeb3React();
+    const { account, library } = useWeb3React();
     const { ERC20 } = useContext(ContractContext);
     const toast = useToast()
 

@@ -1,4 +1,3 @@
-import { cookieStorageManager } from '@chakra-ui/react';
 import {InjectedConnector} from '@web3-react/injected-connector';
 import { ethers } from 'ethers';
 
