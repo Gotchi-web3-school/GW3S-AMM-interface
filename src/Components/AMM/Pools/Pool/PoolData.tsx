@@ -12,9 +12,10 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
     initial={{ x: 30, opacity: 0 }}
     animate={{ x: 0, opacity: 1 }}
     exit={{ x: -30, opacity: 0 }}
+    mx="2"
     >
-        <Container centerContent={true}>
-            <Text mt="-4" mb="1" alignSelf={"center"} fontWeight={"bold"} mx="6" fontSize={"lg"}>Total in pool</Text>
+        <Container mt="-2" centerContent={true} border="0.5px solid gray" rounded="2xl" p="2" >
+            <Text mb="1" alignSelf={"center"} fontWeight={"bold"} fontSize={"lg"}>Total in pool</Text>
             <Flex>
                 <Box>
                     <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>
@@ -39,7 +40,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
         columns={2} 
         spacing={3} 
         borderRadius={"3xl"} 
-        mx="4" 
+        mx="1" 
         p="5"
         >
             <Text textAlign={"left"}>Your LP tokens:</Text>
