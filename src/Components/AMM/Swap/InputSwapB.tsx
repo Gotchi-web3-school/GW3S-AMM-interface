@@ -9,7 +9,6 @@ const InputSwapB : React.FC = () => {
   const {tokenB, output, dispatch} = useContext(SwapContext)
   const color = useColorModeValue("black", "white")
 
-
   return (
     <>
     <ModalSwap isOpen={isOpen} onClose={onClose} idx={1} />

@@ -50,7 +50,7 @@ export const swapReducer = (state: Swap, action: any): Swap => {
             return {...state, tokenA: tokenA}
 
         case "APPROVED":
-            tokenA.approve.isApproved = action.payload
+            tokenA.approve.isApproved = action.payload.state
             tokenA.approve.loading = false
             return {...state, tokenA: tokenA, tokenB: tokenB}
 

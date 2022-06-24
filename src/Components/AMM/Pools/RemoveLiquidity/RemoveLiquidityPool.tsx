@@ -1,22 +1,22 @@
 import React, { useContext, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
-import { Token } from "gotchiw3s-sdk";
 import {Button, Box, Text, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { ContractContext } from "../../../../Provider/ContractProvider";
-import { GlobalConst, ROUTER_ADDRESS } from "../../../../Constants";
-import { IPool } from "../../../../Models";
 import { fetchApprovedLp } from "../../../../Lib/Utils/pools";
 import { motion } from "framer-motion";
 import SliderPool from "./SliderPool";
 import RemoveButton from "./RemoveButton";
 import RemovePoolShare from "./RemovePoolShare";
 import ConnectorButton from "../../../Buttons/ConnectorButton";
+import { PoolCardContextType } from "../../../../Models";
+import { handleApproveTx } from "../../../../Lib/Handlers/smart_contract";
 
-const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
-    const { account, library } = useWeb3React();
-    const { ERC20 } = useContext(ContractContext);
+const RemoveLiquidityPool:  React.FC<PoolCardContextType> = (context) => {
+    const { pool, setState, dispatch} = context
     const { lpToken } = pool
+    const { account, library } = useWeb3React();
+    const contract = useContext(ContractContext);
     const toast = useToast()
 
     // Check for approval
@@ -27,44 +27,6 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                 .then(result => dispatch({type: "SEARCH_APPROVED", payload: result}))
         }
     }, [pool, account, library, dispatch, lpToken])
-
-    const handleClickButton = async (token: Token, idx: number) => {
-        try {
-            dispatch({type: "LOADING", payload: {id: idx, isLoading: true}})
-            const contract = ERC20?.attach(token.address)
-            const tx = await contract?.approve(ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
-            toast({
-                title: `Approve: ${token.symbol}`,
-                description: `transaction pending at: ${tx.hash}`,
-                position: "top-right",
-                status: "warning",
-                isClosable: true,
-                })
-            const receipt = await tx.wait()
-            toast({
-                title: `Approve: ${token.symbol}`,
-                description: `${token.symbol} token approved successfully !`,
-                position: "top-right",
-                status: "success",
-                duration: 6000,
-                isClosable: true,
-                })
-            console.log("Receipt: " + receipt)
-            dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
-            dispatch({type: "SET_APPROVED", payload: idx})
-            
-        } catch (error: any) {
-            toast({
-                position: "bottom-right",
-                title: 'An error occurred.',
-                description: `Add Liquidity: ${error.message}`,
-                status: 'error',
-                duration: 9000,
-                isClosable: true,
-            })
-            dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
-        }
-    }
 
     return (
         <Box
@@ -95,7 +57,7 @@ const RemoveLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<stri
                             bg="transparent"
                             boxShadow={"inset 1px 1px 10px 1px #ffa500"}
                             disabled={lpToken.loading || !pool.isPool} 
-                            onClick={() => handleClickButton(lpToken.token!, 2)} 
+                            onClick={() => handleApproveTx(lpToken.token!, contract, context, toast)} 
                             _hover={pool.isPool ? {bg: "yellow.700"} : {bg: "none"}} 
                             >
                                 {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool does not exist"}

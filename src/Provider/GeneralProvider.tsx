@@ -6,12 +6,14 @@ import { Web3ReactContextInterface } from "@web3-react/core/dist/types";
 import { formatEther } from "ethers/lib/utils";
 import { BigNumber } from "ethers";
 
-export const GeneralContext = createContext<{
+export type GeneralContextType = {
     userTokens: Token[],
     setUserTokens: React.Dispatch<any>,
     signer?: Web3ReactContextInterface<any>,
     balance: string,
-}>({
+}
+
+export const GeneralContext = createContext<GeneralContextType>({
     userTokens: [],
     setUserTokens: () => {},
     balance: "0.00",

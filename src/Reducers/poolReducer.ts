@@ -1,10 +1,11 @@
 import { ethers } from "ethers";
 import { keccak256, arrayify } from "ethers/lib/utils";
 import { Token} from "gotchiw3s-sdk"
-import { PoolProvider, Pool } from "../Models"
+import { Pool } from "../Models"
+import { PoolContextType } from "../Provider/PoolsProvider";
 import { FACTORY_ADDRESS, INIT_CODE_HASH } from "gotchiw3s-sdk";
 
-export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
+export const poolReducer = (state: PoolContextType, action: any): PoolContextType => {
     const {tokenA, tokenALogo, tokenB, tokenBLogo, pools, pool} = state;
 
     // POOLS COMPONENT
@@ -59,9 +60,14 @@ export const poolReducer = (state: PoolProvider, action: any): PoolProvider => {
         case "LOADING":
             action.payload === 0 ? pool!.tokenA.loading = !pool!.tokenA.loading :  pool!.tokenB.loading = !pool!.tokenB.loading
             return {...state, pool: pool}
-        
+
+    
         case "APPROVED":
-            action.payload === 0 ? pool!.tokenA.isApproved = true : pool!.tokenB.isApproved = true
+            if (action.payload.address === pool!.tokenA.token.address) {
+                pool!.tokenA.isApproved = action.payload.state
+            } else if (action.payload.address === pool!.tokenB.token.address) {
+                pool!.tokenB.isApproved = action.payload.state
+            }
             return {...state, pool: pool}
 
       default:

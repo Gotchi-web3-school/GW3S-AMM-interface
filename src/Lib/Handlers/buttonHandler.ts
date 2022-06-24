@@ -1,1 +1,0 @@
-export const yolo = () => console.log('coucou');

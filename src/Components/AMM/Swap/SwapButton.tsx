@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Button, Container, Spinner, Text, Stack, useToast } from "@chakra-ui/react"
-import { Percent, Token } from "gotchiw3s-sdk"
+import { Percent } from "gotchiw3s-sdk"
 import { useWeb3React } from "@web3-react/core"
 import { isSufficientBalance } from "../../../Lib/Utils"
 import { ContractContext } from "../../../Provider/ContractProvider"
@@ -12,14 +12,15 @@ import {
 } from "../../../Lib/Smart-contracts/swap"
 import { SwapContext } from "../../../Provider/SwapProvider"
 import { getDeadLine } from "../../../Lib/Utils"
-import { approveTx } from "../../../Lib/Smart-contracts/approve"
 import { GlobalConst } from "../../../Constants"
+import { handleApproveTx } from "../../../Lib/Handlers/smart_contract"
 
 const SwapButton: React.FC = () => {
-    const contract = useContext(ContractContext)
     const { library, account } = useWeb3React()
+    const contract = useContext(ContractContext)
+    const context = useContext(SwapContext)
+    const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = context
     const toast = useToast()
-    const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = useContext(SwapContext)
 
     const handleSwapTx = async() => {
         dispatch({type: "LOADING", payload: true})
@@ -68,19 +69,6 @@ const SwapButton: React.FC = () => {
         }
     }
 
-    const handleApproveTx = async(token: Token) => {
-        dispatch({type: "APPROVING"})
-        approveTx({
-            erc20: contract.ERC20!,
-            spender: contract.router2!.address,
-            amount: GlobalConst.utils.MAX_INT,
-            token: token,
-            toast: toast,
-        })
-        .then(() => dispatch({type: "APPROVED", payload: true}))
-        .catch(() => dispatch({type: "APPROVED", payload: false}))
-    }
-
     return (
         <>
         {tokenA.token && tokenB.token ?
@@ -109,7 +97,7 @@ const SwapButton: React.FC = () => {
                                 <Button 
                                 disabled={tokenA.approve.loading} 
                                 key={0} 
-                                onClick={() => handleApproveTx(tokenA.token!)}
+                                onClick={() => handleApproveTx(tokenA.token!, contract, context, toast)}
                                 h="4rem"
                                 borderRadius={"3xl"}
                                 bg="transparent"

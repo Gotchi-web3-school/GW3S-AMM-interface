@@ -50,14 +50,29 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                 lpToken.isApproved = action.payload
             }
             return {...state, tokenA: tokenA, tokenB: tokenB, lpToken: lpToken}
+
+        case "APPROVING":
+            if (action.payload.address === tokenA.token.address)
+            tokenA.loading = true
+        else if (action.payload.address === tokenB.token.address)
+            tokenB.loading = true
+        else if (action.payload.address === lpToken.token?.address) {
+            lpToken.loading = true
+        }
+        return {...state, tokenA: tokenA, tokenB: tokenB, lpToken: lpToken}
         
-        case "SET_APPROVED":
-            if (action.payload === 0)
-                tokenA.isApproved = true
-            else if (action.payload === 1) {
-                tokenB.isApproved = true
-            } else {
-                lpToken.isApproved = true
+        case "APPROVED":
+            if (action.payload.address === tokenA.token.address) {
+                tokenA.isApproved = action.payload.state
+                tokenA.loading = false
+            }
+            else if (action.payload.address === tokenB.token.address) {
+                tokenB.isApproved = action.payload.state
+                tokenB.loading = false
+            }
+            else if (action.payload.address === lpToken.token?.address) {
+                lpToken.isApproved = action.payload.state
+                lpToken.loading = false
             }
             return {...state, tokenA: tokenA, tokenB: tokenB, lpToken: lpToken}
 

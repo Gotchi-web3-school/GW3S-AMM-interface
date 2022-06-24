@@ -1,11 +1,9 @@
 import React, { useContext, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
-import { Token } from "gotchiw3s-sdk";
 import {Button, Box, Text, Stack, HStack, Spacer, Spinner, useToast } from "@chakra-ui/react";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { ContractContext } from "../../../../../Provider/ContractProvider";
-import { GlobalConst, ROUTER_ADDRESS } from "../../../../../Constants";
-import { IPool } from "../../../../../Models";
+import { PoolCardContextType } from "../../../../../Models";
 import { fetchBalances, fetchApprovedPair } from "../../../../../Lib/Utils/pools";
 import { motion } from "framer-motion";
 import MaxButton from "./MaxButton";
@@ -13,10 +11,12 @@ import InputToken from "./InputToken";
 import BabyPoolShare from "./BabyPoolShare";
 import MintButton from "./MintButton";
 import ConnectorButton from "../../../../Buttons/ConnectorButton";
+import { handleApproveTx } from "../../../../../Lib/Handlers/smart_contract";
 
-const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>, dispatch: React.Dispatch<any>}> = ({pool, setState, dispatch}) => {
+const AddLiquidityPool:  React.FC<PoolCardContextType> = (context) => {
+    const { pool, setState, dispatch} = context
     const { account, library } = useWeb3React();
-    const { ERC20 } = useContext(ContractContext);
+    const contract = useContext(ContractContext);
     const toast = useToast()
 
     useEffect(() => {
@@ -32,44 +32,6 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
             fetchApprovedPair(pool, account, library)
             .then(result => dispatch({type: "SEARCH_APPROVED", payload: {id: 0, isApproved: result}}))
     }, [pool, account, library, dispatch])
-
-    const handleClickButton = async (token: Token, idx: number) => {
-        try {
-            dispatch({type: "LOADING", payload: {id: idx, isLoading: true}})
-            const contract = ERC20?.attach(token.address)
-            const tx = await contract?.approve(ROUTER_ADDRESS, GlobalConst.utils.MAX_INT)
-            toast({
-                title: `Approve: ${token.symbol}`,
-                description: `transaction pending at: ${tx.hash}`,
-                position: "top-right",
-                status: "warning",
-                isClosable: true,
-                })
-            const receipt = await tx.wait()
-            toast({
-                title: `Approve: ${token.symbol}`,
-                description: `${token.symbol} token approved successfully !`,
-                position: "top-right",
-                status: "success",
-                duration: 6000,
-                isClosable: true,
-                })
-            console.log("Receipt: " + receipt)
-            dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
-            dispatch({type: "SET_APPROVED", payload: idx})
-            
-        } catch (error: any) {
-            toast({
-                position: "bottom-right",
-                title: 'An error occurred.',
-                description: `Add Liquidity: ${error.message}`,
-                status: 'error',
-                duration: 9000,
-                isClosable: true,
-            })
-            dispatch({type: "LOADING", payload: {id: idx, isLoading: false}})
-        }
-    }
 
     return (
         <Box
@@ -95,7 +57,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                             <Button 
                             disabled={pool.tokenA.loading} 
                             key={0} 
-                            onClick={() => handleClickButton(pool.tokenA.token, 0)}
+                            onClick={() => handleApproveTx(pool.tokenA.token, contract, context, toast)}
                             h="4rem"
                             borderRadius={"3xl"}
                             bg="transparent"
@@ -109,7 +71,7 @@ const AddLiquidityPool:  React.FC<{pool: IPool, setState: React.Dispatch<string>
                             <Button 
                             disabled={pool.tokenB.loading} 
                             key={1} 
-                            onClick={() => handleClickButton(pool.tokenB.token, 1)}
+                            onClick={() => handleApproveTx(pool.tokenB.token, contract, context, toast)}
                             h="4rem"
                             borderRadius={"3xl"}
                             bg="transparent"

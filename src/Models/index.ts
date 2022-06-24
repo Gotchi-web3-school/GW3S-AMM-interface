@@ -1,5 +1,6 @@
 import { Token, TokenAmount, Pair, Fraction, Percent, JSBI } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
+import React from "react";
 
 export type SelectToken = {
     name: string | undefined;
@@ -109,15 +110,7 @@ export class Pool implements IPool {
     }
 }
 
-export type PoolProvider = {
-    tokenA: Token | undefined,
-    tokenALogo: string | undefined,
-    tokenB: Token | undefined,
-    tokenBLogo: string | undefined,
-    pools: Pool[],
-    pool?: IPool,
-    dispatch: (action: any, state?: Object,) => void,
-}
+
 
 export type AddLiquidity = {
     token0: Token | undefined,
@@ -157,4 +150,10 @@ export type RemoveLiquidityProvider = {
     isApproved: {token0: boolean, token1: boolean} | undefined,
     reserves: Fraction,
     dispatch: (action: any, state?: Object,) => void,
+}
+
+export type PoolCardContextType = {
+    pool: IPool,
+    dispatch: (action: any, state?: Object,) => void,
+    setState: React.Dispatch<any>,
 }

@@ -12,10 +12,10 @@ interface ApproveTx {
 export const approveTx = async(tx: ApproveTx) => {
     try {
         console.warn("APPROVE")
-        console.log("//////////////////////////////////////////////////////////")
+        console.log("//////////////////////////////////")
         console.log("Spender: " + tx.spender)
         console.log("Amount: " + tx.amount)
-        console.log("//////////////////////////////////////////////////////////")
+        console.log("//////////////////////////////////")
 
         tx.erc20 = tx.erc20.attach(tx.token.address)
     

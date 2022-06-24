@@ -1,10 +1,25 @@
 import { createContext, useReducer, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core";
-import { Fetcher } from "gotchiw3s-sdk";
+import { Fetcher, TokenAmount, Pair, Route, Trade } from "gotchiw3s-sdk";
+import { TokenSwap } from "../Models/swap";
 import { swapReducer } from "../Reducers/swapReducer";
-import { ISwap, SwapProvider as Swap } from "../Models/swap";
+import { ISwap } from "../Models/swap";
 import { fetchApproveToken, fetchBalance } from "../Lib/Utils";
 import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../Constants";
+
+export type SwapContextType = {
+    tokenA: TokenSwap
+    tokenB: TokenSwap
+    input: {amount: TokenAmount | undefined, input: string | undefined}
+    output: {amount: TokenAmount | undefined, input: string | undefined}
+    pair: Pair | undefined
+    route: Route | undefined
+    trade: Trade | undefined
+    isPool: boolean | undefined
+    error: boolean
+    loading: boolean
+    dispatch: (action: any, state?: Object,) => void,
+}
 
 const defaultSwap: ISwap = {
     tokenA: {
@@ -36,7 +51,7 @@ const defaultContext = {
     dispatch: (state: {}, action: any) => {},
 }
 
-export const SwapContext = createContext<Swap>(defaultContext);
+export const SwapContext = createContext<SwapContextType>(defaultContext);
 
 export const SwapProvider = (props: any) => {
     const {library, account} = useWeb3React()

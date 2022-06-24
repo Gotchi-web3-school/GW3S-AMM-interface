@@ -8,20 +8,6 @@ export type TokenSwap = {
     logo: string
 }
 
-export type SwapProvider = {
-    tokenA: TokenSwap
-    tokenB: TokenSwap
-    input: {amount: TokenAmount | undefined, input: string | undefined}
-    output: {amount: TokenAmount | undefined, input: string | undefined}
-    pair: Pair | undefined
-    route: Route | undefined
-    trade: Trade | undefined
-    isPool: boolean | undefined
-    error: boolean
-    loading: boolean
-    dispatch: (action: any, state?: Object,) => void,
-}
-
 export interface ISwap {
     tokenA: TokenSwap
     tokenB: TokenSwap

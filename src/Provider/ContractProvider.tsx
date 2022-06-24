@@ -4,12 +4,14 @@ import { ethers } from "ethers"
 import { GlobalConst, ROUTER_ADDRESS, FACTORY_ADDRESS } from "../Constants"
 import { abis } from "../Constants/Abis/abis"
 
-export const ContractContext = createContext<{
-    factory: ethers.Contract | undefined,
-    router2: ethers.Contract | undefined, 
-    pair: ethers.Contract | undefined, 
-    ERC20: ethers.Contract | undefined,
-}>({
+export type ContractContextType = {
+  factory: ethers.Contract | undefined,
+  router2: ethers.Contract | undefined, 
+  pair: ethers.Contract | undefined, 
+  ERC20: ethers.Contract | undefined,
+}
+
+export const ContractContext = createContext<ContractContextType>({
     factory: undefined,
     router2: undefined, 
     pair: undefined, 
