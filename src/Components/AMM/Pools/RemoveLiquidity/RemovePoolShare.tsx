@@ -22,7 +22,7 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                 <Text textAlign={"left"} fontSize={"xs"}>Balance: {lpToken.balance?.toFixed(2)}</Text>
                 <Flex mt="2">
                     {tokenA.logo ? <Image zIndex={1} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
-                    {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}
+                    {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon position={"relative"} right="5px"/>}
                     <Input 
                         h="5" 
                         min={0}
@@ -35,8 +35,11 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         m="0"
                         fontWeight={"bold"}
                         _hover={{textShadow: "1px 1px 5px white"}}
-                        _focus={{border: "none"}}
-                        onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "LP_INPUT", value: {id: 0, amount: e.target.value}}})}
+                        _focus={{boxShadow: "none"}}
+                        onChange={e => dispatch({
+                                        type: "HANDLE_REMOVE_INPUTS", 
+                                        payload: {type: "LP_INPUT", value: {id: 0, amount: e.target.value}}
+                                    })}
                         />
                 </Flex>
                 </Box>
@@ -58,10 +61,10 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         p="0" 
                         m="0"
                         _hover={{textShadow: "1px 1px 5px white"}}
-                        _focus={{border: "none"}}
+                        _focus={{boxShadow: "none"}}
                         onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "TOKEN_A_INPUT", value: {id: 1, amount: e.target.value}}})}
                     />
-                    {tokenA.logo ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon />}
+                    {tokenA.logo ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionOutlineIcon ml="2" />}
                 </Flex>
                 <Flex justifyContent={"right"}>
                     <Input 
@@ -77,10 +80,10 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
                         p="0" 
                         m="0"
                         _hover={{textShadow: "1px 1px 5px white"}}
-                        _focus={{border: "none"}}
+                        _focus={{boxShadow: "none"}}
                         onChange={e => dispatch({type: "HANDLE_REMOVE_INPUTS", payload: {type: "TOKEN_B_INPUT", value: {id: 2, amount: e.target.value}}})}
                     />
-                    {tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon />}
+                    {tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionOutlineIcon ml="2"/>}
                 </Flex>
             </Box>
             <Box fontSize={"sm"} justifyContent={"right"} alignContent="center">
