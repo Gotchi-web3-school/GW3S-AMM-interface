@@ -6003,10 +6003,10 @@ globby@^11.0.4, globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-gotchiw3s-sdk@^1.0.8:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/gotchiw3s-sdk/-/gotchiw3s-sdk-1.0.10.tgz#3f287747f9b59767730efd04f31e162ff4eee926"
-  integrity sha512-ep04gCWMO+zF5Bj3pG4C6cqft1dde2UgPJzb9dgZA3kwBTx+yGVegnr661QKdG/33B7HqJuDxUV+KWuFK3MYsQ==
+gotchiw3s-sdk@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/gotchiw3s-sdk/-/gotchiw3s-sdk-1.0.11.tgz#bb62a4423321e8be38d8dd56277dadd83bba5ce2"
+  integrity sha512-2M6mwxgTl9HNMqa18m/v4/hwGuT4ujEJYnxteoqtcCPopaHYwqBs+g3veiYieVZNMNuk/+mBPY+Ri0VezRI+6g==
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     big.js "^5.2.2"
@@ -8684,19 +8684,6 @@ quick-lru@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
-
-quickswap-sdk@^3.0.8:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/quickswap-sdk/-/quickswap-sdk-3.0.8.tgz#7fada995bb4e054212a0920de1f29977d617c997"
-  integrity sha512-1pMOS5/RC4K++RCrt3hrhSHDzzVzy40CiLgM8UbvdSVUuYMN5jZZVocbkG+5fRlJA1JqhKhs2OYYLh08t50KOw==
-  dependencies:
-    "@uniswap/v2-core" "^1.0.0"
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    jsbi "^3.1.1"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-    toformat "^2.0.0"
 
 raf@^3.4.1:
   version "3.4.1"
