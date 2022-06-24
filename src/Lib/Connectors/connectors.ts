@@ -1,7 +1,7 @@
 import {InjectedConnector} from '@web3-react/injected-connector';
 import { ethers } from 'ethers';
 
-export const injected = new InjectedConnector({supportedChainIds: [80001]});
+export const injected = new InjectedConnector({supportedChainIds: [1, 4, 10, 58, 137, 1284, 1285, 42161, 43114, 80001]});
 
 export const connectUser = (activate: any): void => {
     activate(injected)

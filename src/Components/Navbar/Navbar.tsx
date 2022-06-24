@@ -10,20 +10,15 @@ import {
 } from '@chakra-ui/react';
 import {  SunIcon, MoonIcon, } from '@chakra-ui/icons'
 import {useWeb3React} from '@web3-react/core';
-import { injected } from '../../Lib/Connectors/connectors';
+import { getChainIdName } from '../../Lib/Utils';
+import ConnectorButton from '../Buttons/ConnectorButton';
   
 const Navbar: React.FC = () => {
-  const {chainId, account, active, activate, deactivate} = useWeb3React();
-
+  const {chainId, account, active} = useWeb3React();
   const { colorMode, toggleColorMode } = useColorMode()
 
-  const handleConnect = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    active ? deactivate() : activate(injected)
-  }
-
   return (
-    <Box>
+    <Box >
       <Flex
         color={useColorModeValue('gray.600', 'white')}
         minH={'10vh'}
@@ -48,29 +43,16 @@ const Navbar: React.FC = () => {
           direction={'row'}
           spacing={6}>
           
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            _hover={{
-              bg: 'pink.300',
-            }}>
-            {active ? chainId : "Network"}
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            _hover={{
-              bg: 'pink.300',
-            }}
-            onClick={handleConnect}>
-            {active ? account : "Connect"}
-          </Button>
+          <Flex p="2" align={'center'} borderRadius={"lg"} boxShadow={"inset 0px 0px 5px 1px pink"}>
+            {chainId && 
+            <Text mr="1" fontWeight={600} bg={'transparent'} display="inline">
+              {getChainIdName(chainId)}
+            </Text>
+            }
+            <Text>{active ? chainId === 80001 ? '🟢' : '🟠' : '🔴'}</Text>
+          </Flex>
+          
+         <ConnectorButton><Box p="2" fontWeight={"bold"} borderRadius={"lg"} boxShadow={"inset 0px 0px 5px 1px pink"}>{account}</Box></ConnectorButton>
           <Button onClick={toggleColorMode}>
             {colorMode === 'light' ? <SunIcon />: <MoonIcon />}
           </Button>

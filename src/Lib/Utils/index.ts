@@ -110,3 +110,30 @@ export const isSufficientLPBalance = (input: TokenAmount, balance: TokenAmount):
         return false
     }
 }
+
+export const getChainIdName = (id: number): string => {
+    switch(id) {
+        case 1:
+            return "ethereum"
+        case 4:
+            return 'rinkeby'
+        case 10:
+            return 'Optimism'
+        case 58:
+            return 'Bsc'
+        case 137:
+            return 'Polygon'
+        case 1284:
+            return 'Moonbeam'
+        case 1285:
+            return 'Moonriver'
+        case 42161:
+            return 'Arbitrum'
+        case 43114:
+            return 'Avalanche'
+        case 80001:
+            return 'Mumbai'
+        default:
+            return "unknown network"
+    } 
+}
