@@ -1,9 +1,13 @@
+import { useContext } from "react"
 import { Box, useColorModeValue, Grid, GridItem } from "@chakra-ui/react"
 import Navbar from "./Components/Navbar/Navbar"
 import AMM from "./Components/AMM"
 import Erc20Generator from "./Components/Erc20Generator"
+import MaticFaucet from "./Components/Faucet/MaticFaucet"
+import { GeneralContext } from "./Provider/GeneralProvider"
 
 const App: React.FC = () => {
+  const {balance} = useContext(GeneralContext)
   
    return (
     <Box
@@ -12,6 +16,7 @@ const App: React.FC = () => {
         "linear(gray.800, purple.900, purple.800, purple.900, gray.800)"
       )}>
       <Navbar />
+      {parseFloat(balance) < 0.01 && <MaticFaucet />}
       <Grid 
       mt="6rem"
       templateRows='repeat(2, 1fr)'
