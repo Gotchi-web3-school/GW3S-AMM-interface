@@ -157,7 +157,7 @@ export const removeLiquidityETHTx = async(tx: RemoveLiquidityETHTx, provider: an
     
         tx.toast({
             title: `Remove liquidity: ${tx.tokenA.token.symbol} + ${tx.tokenB.token.symbol}`,
-            description: `Liquidity added successfully !`,
+            description: `Liquidity removed successfully !`,
             position: "top-right",
             status: "success",
             duration: 6000,
@@ -170,7 +170,7 @@ export const removeLiquidityETHTx = async(tx: RemoveLiquidityETHTx, provider: an
         tx.toast({
             position: "bottom-right",
             title: 'An error occurred.',
-            description: `Add Liquidity: ${error.message}`,
+            description: `Remove Liquidity: ${error.message}`,
             status: 'error',
             duration: 9000,
             isClosable: true,

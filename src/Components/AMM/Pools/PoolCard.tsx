@@ -9,7 +9,7 @@ import {
     AccordionIcon,
     useColorModeValue,
    } from "@chakra-ui/react"
-import { QuestionOutlineIcon } from "@chakra-ui/icons"
+import { QuestionIcon } from "@chakra-ui/icons"
 import { IPool } from "../../../Models";
 import { fetchPoolBalances, getLp} from "../../../Lib/Utils/pools";
 import { isPoolCreated } from "../../../Lib/Utils";
@@ -101,9 +101,9 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                     <RepeatIcon boxSize={6} _hover={{boxSize: "7"}} _active={{transform: "scale(0.9)"}} />
                 </Box>}
                 <Box ml={expanded ? "-4" : ''} display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
-                {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionOutlineIcon />}
+                {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionIcon />}
                 <Text mx="5" fontWeight={"bold"} textShadow={"1px 1px 10px white"}>{props.pool.name}</Text>
-                {props.pool.tokenB.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : < QuestionOutlineIcon />}
+                {props.pool.tokenB.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : < QuestionIcon />}
                 </Box>
                 <AccordionIcon />
             </AccordionButton>

@@ -37,21 +37,43 @@ const Swap: React.FC = () => {
             <Text fontSize="sm" fontWeight="bold">Price</Text>
             <Spacer />
               {quote ? 
-              <Text fontSize="sm" >{`${route?.midPrice.toSignificant(5)} ${route?.output.symbol} per ${route?.input.symbol}`}</Text> :
-              <Text fontSize="sm" >{`${route?.midPrice.invert().toSignificant(5)} ${route?.input.symbol} per ${route?.output.symbol}`}</Text>
+              <Text fontSize="sm" >{
+                `${parseFloat(route?.midPrice.toFixed(2) ?? "0") < 1 ?
+                              route?.midPrice.toSignificant(2) : 
+                              route?.midPrice.toFixed(2)} 
+                ${route?.output.symbol} per ${route?.input.symbol}`}
+              </Text> 
+              :
+              <Text fontSize="sm" >{
+                `${parseFloat(route?.midPrice.invert().toFixed(2) ?? "0") < 1 ?
+                              route?.midPrice.invert().toSignificant(2) : 
+                              route?.midPrice.invert().toFixed(2)} 
+                ${route?.input.symbol} per ${route?.output.symbol}`}
+              </Text> 
               }
               <button onClick={() => setQuote(!quote)}><RepeatIcon color={color} /></button>
             </>
             }
           </Stack>
-          <Stack direction={'row'} >
+          <Stack direction={'row'} mr="6" >
             {trade &&
             <>
             <Text fontSize="sm" fontWeight="bold">next Price</Text>
             <Spacer />
               {quote ? 
-                <Text fontSize="sm" pr="6" >{`${trade.nextMidPrice.toSignificant(5)} ${route?.output.symbol} per ${route?.input.symbol}`}</Text> :
-                <Text fontSize="sm" pr="6" >{`${trade.nextMidPrice.invert().toSignificant(5)} ${route?.input.symbol} per ${route?.output.symbol}`}</Text>
+                <Text fontSize="sm" >{
+                  `${parseFloat(trade.nextMidPrice.toFixed(2) ?? "0") < 1 ?
+                                trade.nextMidPrice.toSignificant(2) : 
+                                trade.nextMidPrice.toFixed(2)} 
+                  ${route?.output.symbol} per ${route?.input.symbol}`}
+                </Text> 
+                :
+                <Text fontSize="sm" >{
+                  `${parseFloat(trade.nextMidPrice.invert().toFixed(2) ?? "0") < 1 ?
+                                trade.nextMidPrice.invert().toSignificant(2) : 
+                                trade.nextMidPrice.invert().toFixed(2)} 
+                  ${route?.input.symbol} per ${route?.output.symbol}`}
+                </Text> 
               }
             </>
             }

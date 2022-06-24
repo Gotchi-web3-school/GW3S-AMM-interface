@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Box, Text, Button, Input, Image, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
-import { ArrowDownIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
+import { ArrowDownIcon, QuestionIcon } from "@chakra-ui/icons"
 import ModalSwap from "../../Modal/ModalSwap"
 import { SwapContext } from "../../../Provider/SwapProvider"
 
@@ -55,7 +55,7 @@ const InputSwapA : React.FC = () => {
 
             {tokenA.token ?
               <Button color={color} onClick={onOpen} size="sm" p="5">
-                {tokenA.logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={tokenA.logo}/> : <QuestionOutlineIcon mx="2" color={color} />}
+                {tokenA.logo ? <Image mx="2" borderRadius='full' boxSize="25px" src={tokenA.logo}/> : <QuestionIcon mx="2" color={color} />}
                 {tokenA.token?.symbol ?? ''}
                 <ArrowDownIcon mx="2" />
               </Button>

@@ -3,7 +3,8 @@ import { BiTrendingDown } from "react-icons/bi"
 import { Percent } from "gotchiw3s-sdk"
 import { useContext } from "react"
 import { SwapContext } from "../../../Provider/SwapProvider"
-import { calculFee } from "../../../Lib/Utils/swap"
+import { calculFee, getColorPriceImpact } from "../../../Lib/Utils/swap"
+import { QuestionIcon } from "@chakra-ui/icons"
 
 const SwapDetails: React.FC = () => {
     const { trade, tokenA, tokenB } = useContext(SwapContext)
@@ -25,8 +26,12 @@ const SwapDetails: React.FC = () => {
                     <Text>Minimum received</Text>
                     <Spacer />
                     <Flex>
-                        <Text>{trade?.minimumAmountOut(new Percent("5", "1000")).toSignificant(5) ?? ""} {tokenB.token?.symbol ?? ""}</Text>
-                        <Image  m="1" boxSize='17px' alignSelf={'center'} src={tokenB.logo}/>
+                        <Text>
+                            {parseFloat(trade?.minimumAmountOut(new Percent("5", "1000")).toSignificant(5) ?? "0") > 0 ?
+                            trade?.minimumAmountOut(new Percent("5", "1000")).toFixed(2) :
+                            trade?.minimumAmountOut(new Percent("5", "1000")).toSignificant(2)} {tokenB.token?.symbol ?? ""}
+                        </Text>
+                        {tokenB.logo ? <Image  m="1" boxSize='17px' alignSelf={'center'} src={tokenB.logo}/> : <QuestionIcon m="1"/>}
                     </Flex>
                 </Flex>
 
@@ -34,7 +39,7 @@ const SwapDetails: React.FC = () => {
                     <Text>Price Impact</Text>
                     <Spacer />
                     <Flex>
-                        <Text>{parseFloat(trade?.priceImpact.toSignificant(3) ?? "0") > parseFloat("0.3") ? trade?.priceImpact.toSignificant(3) : "<0.01"}%</Text>
+                        <Text color={getColorPriceImpact(trade?.priceImpact.toFixed(2) ?? "0")}>{parseFloat(trade?.priceImpact.toSignificant(3) ?? "0") > parseFloat("0.3") ? trade?.priceImpact.toSignificant(3) : "<0.01"}%</Text>
                         <Box m="1" color="red" alignSelf={"center"}>
                             <BiTrendingDown />
                         </Box>
@@ -45,8 +50,8 @@ const SwapDetails: React.FC = () => {
                     <Text>Liquidity provider fee</Text>
                     <Spacer />
                     <Flex>
-                        <Text>{trade ? calculFee(trade.inputAmount): ""} {tokenA.token?.symbol ?? ""}</Text>
-                        <Image  m="1" boxSize='17px' alignSelf={'center'} src={tokenA.logo}/>
+                        <Text>{trade ? calculFee(trade.inputAmount) : ""} {tokenA.token?.symbol ?? ""}</Text>
+                        {tokenA.logo ? <Image  m="1" boxSize='17px' alignSelf={'center'} src={tokenA.logo}/> : <QuestionIcon m="1"/>}
                     </Flex>
                 </Flex>
             </Box>
