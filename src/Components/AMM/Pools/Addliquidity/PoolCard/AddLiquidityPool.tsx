@@ -13,7 +13,7 @@ import MintButton from "./MintButton";
 import ConnectorButton from "../../../../Buttons/ConnectorButton";
 import { handleApproveTx } from "../../../../../Lib/Handlers/smart_contract";
 
-const AddLiquidityPool:  React.FC<PoolCardContextType> = (context) => {
+const AddLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context}) => {
     const { pool, setState, dispatch} = context
     const { account, library } = useWeb3React();
     const contract = useContext(ContractContext);
@@ -82,14 +82,26 @@ const AddLiquidityPool:  React.FC<PoolCardContextType> = (context) => {
                             </Button>
                         }
                     </Stack>
-                        {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton pool={pool} dispatch={dispatch} />}
+                        {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton context={context} />}
                 </ConnectorButton>
             <HStack  m="5">
-                <Button w="45%" pl="0" bgGradient='linear(to-r, red.500, transparent)' _hover={{bg: 'red.500'}} justifyContent={"left"} onClick={() => setState("remove")}>
+                <Button 
+                    w="45%" 
+                    pl="0" 
+                    bgGradient='linear(to-r, red.500, transparent)' 
+                    _hover={{bg: 'red.500'}} 
+                    justifyContent={"left"} 
+                    onClick={() => setState("remove")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Remove liquidity</Text>
                 </Button>
                 <Spacer />
-                <Button w="45%" pr="0" bgGradient='linear(to-l, #a200ff, transparent)' _hover={{bg: '#a200ff'}} justifyContent={"right"} onClick={() => setState("pool")}>
+                <Button 
+                    w="45%" 
+                    pr="0" 
+                    bgGradient='linear(to-l, #a200ff, transparent)' 
+                    _hover={{bg: '#a200ff'}} 
+                    justifyContent={"right"} 
+                    onClick={() => setState("pool")}>
                     <Text fontSize={"sm"}>Pool<ChevronRightIcon /></Text>
                 </Button>
             </HStack>

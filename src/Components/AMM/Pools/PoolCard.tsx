@@ -10,7 +10,6 @@ import {
     useColorModeValue,
    } from "@chakra-ui/react"
 import { QuestionIcon } from "@chakra-ui/icons"
-import { IPool } from "../../../Models";
 import { fetchPoolBalances, getLp} from "../../../Lib/Utils/pools";
 import { isPoolCreated } from "../../../Lib/Utils";
 import { useWeb3React } from "@web3-react/core";
@@ -20,7 +19,8 @@ import PoolData from "./Pool/PoolData"
 import AddLiquidityPool from "./Addliquidity/PoolCard/AddLiquidityPool";
 import RemoveLiquidityPool from "./RemoveLiquidity/RemoveLiquidityPool";
 import { AnimatePresence } from "framer-motion";
-import { RepeatIcon } from "@chakra-ui/icons"
+import { RepeatIcon } from "@chakra-ui/icons";
+import { PoolCardContextType, IPool } from "../../../Models";
 
 
 const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
@@ -32,6 +32,11 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
     const [refreshHovered, setRefreshHovered] = useState(false)
     const bgCard = useColorModeValue("purple.100", "")
     const boxShadowPool = useColorModeValue("1px 1px 20px black","1px 1px 10px white")
+    const context: PoolCardContextType = {
+        pool: pool,
+        setState: setState,
+        dispatch: dispatch,
+    }
 
     useEffect(() => {
         if (account && pool.isPool === undefined) {
@@ -110,7 +115,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
             <AccordionPanel pb={4}>
                 <AnimatePresence initial={false}>
                 {state === "pool" && <PoolData pool={pool ?? props.pool} setState={setState} />}
-                {state === "add" && <AddLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
+                {state === "add" && <AddLiquidityPool context={context} />}
                 {state === "remove" && <RemoveLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
                 </AnimatePresence>
             </AccordionPanel>

@@ -3,7 +3,6 @@ import { TokenPool } from "../../../../../Models"
 import React from "react"
 
 const InputToken : React.FC<{token: TokenPool, dispatch: React.Dispatch<any>}> = ({token, dispatch}) => {
-  //const color = useColorModeValue("black", "white")
 
   return (
     <>

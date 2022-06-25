@@ -47,6 +47,7 @@ export interface IPool {
     lpToken: LPTokenPool;
     logoURI?: {tokenA?: string, tokenB?: string};
     isApproved?: boolean
+    loading: boolean
     totalReserves: {tokenA: TokenAmount, tokenB: TokenAmount}
     isPool?: boolean | undefined
     tokenA: TokenPool
@@ -58,8 +59,9 @@ export class Pool implements IPool {
     name: string;
     pair: Pair;
     isPool = undefined
+    loading = false
     lpToken: LPTokenPool
-    totalReserves:  {tokenA: TokenAmount, tokenB: TokenAmount}
+    totalReserves: {tokenA: TokenAmount, tokenB: TokenAmount}
     tokenA: TokenPool 
     tokenB: TokenPool
 
@@ -109,8 +111,6 @@ export class Pool implements IPool {
         
     }
 }
-
-
 
 export type AddLiquidity = {
     token0: Token | undefined,

@@ -1,48 +1,16 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { Button, Container, Spinner, Text, useToast, Box } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
 import { isSufficientBalances } from "../../../../../Lib/Utils"
 import { ContractContext } from "../../../../../Provider/ContractProvider"
-import { addLiquidityTx, addLiquidityETH } from "../../../../../Lib/Smart-contracts/addLiquidity"
-import { IPool } from "../../../../../Models"
-import { GlobalConst } from "../../../../../Constants"
+import { PoolCardContextType } from "../../../../../Models"
+import { handleAddLiquidityTx } from "../../../../../Lib/Handlers/smart_contract"
 
-const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
+const MintButton: React.FC<{context: PoolCardContextType}> = ({context}) => {
+    const { tokenA, tokenB, isPool, loading} = context.pool
     const contract = useContext(ContractContext)
-    const { tokenA, tokenB, pair, isPool} = pool
-    const { library, account } = useWeb3React()
+    const signer = useWeb3React()
     const toast = useToast()
-    const [loading, setLoading] = useState(false)
-
-    const handleAddLiquidityTx = () => {
-        setLoading(true)
-        if (tokenA.token.address === GlobalConst.addresses.WMATIC || tokenB.token.address === GlobalConst.addresses.WMATIC) {
-            addLiquidityETH({
-                router2: contract.router2!,
-                tokenA: tokenA,
-                tokenB: tokenB,
-                to: account!,
-                toast: toast,
-            }, library)
-            .then(() => {
-                setLoading(false)
-                dispatch({type: "RESET_ADD"})
-            })
-        } else {
-            addLiquidityTx({
-                router2: contract.router2,
-                pair: pair,
-                amount0: tokenA.inputAdd.amount!,
-                amount1: tokenB.inputAdd.amount!,
-                userAddress: account!,
-                toast: toast,
-            }, library)
-            .then(() => {
-                setLoading(false)
-                dispatch({type: "RESET_ADD"})
-            })
-        }
-    }
 
     return (
         <Box mx="5">
@@ -50,7 +18,7 @@ const MintButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({poo
             <>
             {tokenA.balance && isSufficientBalances(tokenA.inputAdd.input!, tokenA.balance, tokenB.inputAdd.input!, tokenB.balance!) ?
                 <Button 
-                onClick={handleAddLiquidityTx} 
+                onClick={() => handleAddLiquidityTx(signer, contract, context, toast)} 
                 disabled={!tokenA.isApproved  || !tokenB.isApproved || loading} 
                 mt="5" 
                 w="100%" 
