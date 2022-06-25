@@ -41,9 +41,9 @@ const AddLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context}) 
         exit={{ x: -30, opacity: 0 }}
         >
             <Box px="8" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
-                <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2) ?? '-'}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
+                <Text fontSize={"xs"}>{pool.tokenA.balance?.toFixed(2) ?? <Spinner boxSize={"4"} />}</Text><MaxButton token={pool.tokenA} dispatch={dispatch}/>
                 <Spacer />
-                <MaxButton token={pool.tokenB} dispatch={dispatch}/><Text fontSize={"xs"}>{pool.tokenB.balance?.toFixed(2) ?? '-'}</Text>
+                <MaxButton token={pool.tokenB} dispatch={dispatch}/><Text fontSize={"xs"}>{pool.tokenB.balance?.toFixed(2) ?? <Spinner boxSize={"4"} />}</Text>
             </Box>
             <Box px="4" display={"flex"} justifyContent="center" alignContent={"center"} alignItems={"center"} w="100%" >
                 <InputToken token={pool.tokenA} dispatch={dispatch} />

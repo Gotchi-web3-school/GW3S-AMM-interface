@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
-import { Text, Stack, Box, Spacer } from "@chakra-ui/react"
+import { Text, Stack, Box, Spacer, Spinner } from "@chakra-ui/react"
 import { calculateShare, rate } from "../../../../../Lib/Utils"
 import { IPool } from "../../../../../Models"
 
 const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
     const [share, setShare] = useState("0")
-    const { isPool, tokenA, tokenB, pair, totalReserves} = pool
+    const { isPool, tokenA, tokenB, pair, totalReserves, isFetchingPool} = pool
 
     useEffect(() => {
         if (isPool && tokenA.inputAdd.amount) {
@@ -23,9 +23,10 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
         <Stack mt="4" px="1rem" direction={"row"} justifyContent="center">
             <Box>
                 <Text fontWeight={"bold"} fontSize="sm" >
-                    {isPool ?
-                     totalReserves.tokenA.divide(totalReserves.tokenB).toSignificant(2) ?? "0" : 
-                     rate(tokenA.inputAdd.input, tokenB.inputAdd.input)}
+                    {isFetchingPool ? <Spinner boxSize={"5"}/> : isPool ?
+                                                          totalReserves.tokenA.divide(totalReserves.tokenB).toSignificant(2) ?? "0" : 
+                                                          rate(tokenA.inputAdd.input, tokenB.inputAdd.input)
+                    }
                 </Text>
                 <Text fontSize="xs">{tokenA.token?.symbol} per {tokenB.token?.symbol}</Text>
             </Box>
@@ -37,9 +38,10 @@ const BabyPoolShare: React.FC<{pool: IPool}> = ({pool}) => {
             <Spacer />
             <Box>
                 <Text fontWeight={"bold"} fontSize="sm">
-                    {isPool ? 
-                     totalReserves?.tokenB.divide(totalReserves.tokenA).toSignificant(2) ?? "0" : 
-                     rate(tokenB.inputAdd.input, tokenA.inputAdd.input)}
+                    {isFetchingPool ? <Spinner boxSize={"5"}/> : isPool ? 
+                                                          totalReserves?.tokenB.divide(totalReserves.tokenA).toSignificant(2) ?? "0" : 
+                                                          rate(tokenB.inputAdd.input, tokenA.inputAdd.input)
+                    }
                 </Text>
                 <Text fontSize="xs">{tokenB.token?.symbol} per {tokenA.token?.symbol}</Text>
             </Box>

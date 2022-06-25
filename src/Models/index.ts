@@ -48,6 +48,7 @@ export interface IPool {
     logoURI?: {tokenA?: string, tokenB?: string};
     isApproved?: boolean
     loading: boolean
+    isFetchingPool: boolean
     totalReserves: {tokenA: TokenAmount, tokenB: TokenAmount}
     isPool?: boolean | undefined
     tokenA: TokenPool
@@ -60,6 +61,7 @@ export class Pool implements IPool {
     pair: Pair;
     isPool = undefined
     loading = false
+    isFetchingPool = false
     lpToken: LPTokenPool
     totalReserves: {tokenA: TokenAmount, tokenB: TokenAmount}
     tokenA: TokenPool 

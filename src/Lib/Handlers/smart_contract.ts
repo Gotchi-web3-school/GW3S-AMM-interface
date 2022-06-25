@@ -9,7 +9,6 @@ import { SwapContextType } from "../../Provider/SwapProvider"
 import { PoolContextType } from "../../Provider/PoolsProvider"
 import { PoolCardContextType } from "../../Models"
 
-
 export const handleApproveTx = async(token: Token, contract: ContractContextType, context: SwapContextType | PoolContextType | PoolCardContextType, toast: any) => {
     context.dispatch({type: "APPROVING", payload: {address: token.address}})
     approveTx({
@@ -52,7 +51,7 @@ export const handleAddLiquidityTx = async (
             userAddress: signer.account!,
             toast: toast,
         }, signer.library)
-        
+
         context.dispatch({type: "LOADING", payload: false})
         context.dispatch({type: "RESET_ADD"})
     }

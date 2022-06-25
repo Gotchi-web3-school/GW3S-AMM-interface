@@ -4,7 +4,7 @@ import { parseEther } from "ethers/lib/utils";
 import { IPool } from "../Models"
 
 export const poolCardReducer = (state: IPool, action: any): IPool => {
-    let {isPool, tokenA, tokenB, totalReserves, lpToken, loading } = state;
+    let {isPool, tokenA, tokenB, totalReserves, lpToken, loading, isFetchingPool } = state;
 
     // POOLS COMPONENT
     switch(action.type) {
@@ -26,6 +26,10 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
            totalReserves = action.payload.reserves
             //const TokenABalance = new TokenAmount(action.payload.token , ethers.utils.parseEther(action.payload.amount).toString())
             return {...state, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB, totalReserves: totalReserves }
+
+        case "FETCH_POOL_BALANCE":
+            isFetchingPool = action.payload
+            return {...state, isFetchingPool: isFetchingPool}
         
         case "SET_POOL_TOKEN_BALANCE":
             tokenA.balance = action.payload.tokenA
@@ -247,10 +251,12 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
                 tokenB: new TokenAmount(tokenB.token, "0")
             }
             isPool = undefined
-            return {...state, isPool: isPool, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB, totalReserves: totalReserves}
+            isFetchingPool = true
+            return {...state, isPool: isPool, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB, totalReserves: totalReserves, isFetchingPool: isFetchingPool}
 
         case "RESET_ADD":
             tokenA.balance = undefined
+            tokenB.balance = undefined
             tokenA.inputAdd.amount = undefined
             tokenA.inputAdd.input = undefined
             tokenB.inputAdd.amount = undefined
@@ -262,6 +268,7 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
         case "RESET_REMOVE":
             lpToken.balance = undefined
             tokenA.balance = undefined
+            tokenB.balance = undefined
             tokenA.inputRemove.amount = undefined
             tokenA.inputRemove.input = undefined
             tokenB.inputRemove.amount = undefined

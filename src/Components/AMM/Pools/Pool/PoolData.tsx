@@ -1,11 +1,11 @@
-import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box, Container, } from "@chakra-ui/react"
+import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box, Container, Spinner, } from "@chakra-ui/react"
 import { QuestionIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { motion } from "framer-motion"
 import { PoolCardContextType } from "../../../../Models"
 
 const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
     const { pool, setState } = context
-    const {tokenA, tokenB, pair, totalReserves} = context.pool
+    const {tokenA, tokenB, pair, totalReserves, isFetchingPool} = context.pool
     
     return ( 
     <Box
@@ -20,17 +20,19 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
             <Flex>
                 <Box>
                     <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>
-                        {totalReserves.tokenA.lessThan("1") ?
-                         totalReserves.tokenA.toSignificant(18) : 
-                         totalReserves.tokenA.toFixed(2)}
+                        {isFetchingPool ? <Spinner /> : totalReserves.tokenA.lessThan("1") ?
+                                                        totalReserves.tokenA.toSignificant(18) : 
+                                                        totalReserves.tokenA.toFixed(2)
+                        }
                     </Text>
                     <Text fontSize={"xs"}>{tokenA.token.symbol}</Text>
                 </Box>
                 <Box  ml="4rem" >
                     <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>
-                        {totalReserves.tokenB.lessThan("1") ? 
-                         totalReserves.tokenB.toSignificant(18) : 
-                         totalReserves.tokenB.toFixed(2)}
+                        {isFetchingPool ? <Spinner /> : totalReserves.tokenB.lessThan("1") ? 
+                                                        totalReserves.tokenB.toSignificant(18) : 
+                                                        totalReserves.tokenB.toFixed(2)
+                        }
                     </Text>
                     <Text fontSize={"xs"}>{tokenB.token.symbol}</Text>
                 </Box>
@@ -41,9 +43,10 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
             <Text textAlign={"left"}>Your LP tokens:</Text>
             <Flex justifyContent={"right"}>
                 <Text position={"relative"} left="12px" textAlign={"right"} fontWeight="bold">
-                    {parseFloat(pool?.lpToken.balance?.toFixed(2) ?? "0") < 1 ? 
-                                pool?.lpToken.balance?.toSignificant(2) : 
-                                pool?.lpToken.balance?.toFixed(2)}
+                    {isFetchingPool ? <Spinner /> : parseFloat(pool?.lpToken.balance?.toFixed(2) ?? "0") < 1 ? 
+                                                    pool?.lpToken.balance?.toSignificant(2) : 
+                                                    pool?.lpToken.balance?.toFixed(2)
+                    }
                 </Text>
                 {tokenA.logo ? 
                     <Image 
@@ -72,9 +75,10 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
             <Text textAlign={"left"}>Pooled tokenA:</Text>
             <Flex justifyContent={"right"}>
                 <Text textAlign={"right"} fontWeight="bold">
-                {parseFloat(pool?.tokenA.pooled?.toFixed(2) ?? "0") < 1 ? 
-                            pool?.tokenA.pooled?.toSignificant(2) : 
-                            pool?.tokenA.pooled?.toFixed(2)}
+                {isFetchingPool ? <Spinner /> : parseFloat(pool?.tokenA.pooled?.toFixed(2) ?? "0") < 1 ? 
+                                                pool?.tokenA.pooled?.toSignificant(2) : 
+                                                pool?.tokenA.pooled?.toFixed(2)
+                }
                 </Text>
                 {tokenA.logo ? 
                     <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : 
@@ -85,14 +89,18 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
             <Text textAlign={"left"}>Pooled tokenB:</Text>
             <Flex justifyContent={"right"}>
                 <Text textAlign={"right"} fontWeight="bold">
-                    {parseFloat(pool?.tokenB.pooled?.toFixed(2) ?? "0") < 1 ? 
-                                pool?.tokenB.pooled?.toSignificant(2) : 
-                                pool?.tokenB.pooled?.toFixed(2)}
+                    {isFetchingPool ? <Spinner /> : parseFloat(pool?.tokenB.pooled?.toFixed(2) ?? "0") < 1 ? 
+                                                    pool?.tokenB.pooled?.toSignificant(2) : 
+                                                    pool?.tokenB.pooled?.toFixed(2)
+                    }
                 </Text>
                 {tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionIcon ml="2"/>}
             </Flex>
 
-            <Text textAlign={"left"} >Your pool share</Text><Text textAlign={"right"} fontWeight="bold">{pool?.lpToken.share.toSignificant(2) ?? "0"}%</Text>
+            <Text textAlign={"left"} >Your pool share</Text>
+            <Text textAlign={"right"} fontWeight="bold">
+                {isFetchingPool ? <Spinner mr="3"/> : pool?.lpToken.share.toSignificant(2) ?? "0"}%
+            </Text>
         </SimpleGrid>
 
         <HStack m="5">
