@@ -1,10 +1,11 @@
 import { SimpleGrid, Text, Flex, HStack, Button, Spacer, Image, Box, Container, } from "@chakra-ui/react"
 import { QuestionIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
-import { IPool } from "../../../../Models"
 import { motion } from "framer-motion"
+import { PoolCardContextType } from "../../../../Models"
 
-const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({pool, setState}) => {
-    const {tokenA, tokenB, pair, totalReserves} = pool
+const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
+    const { pool, setState } = context
+    const {tokenA, tokenB, pair, totalReserves} = context.pool
     
     return ( 
     <Box
@@ -36,13 +37,7 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
             </Flex>
         </Container>
 
-        <SimpleGrid 
-        columns={2} 
-        spacing={3} 
-        borderRadius={"3xl"} 
-        mx="1" 
-        p="5"
-        >
+        <SimpleGrid columns={2} spacing={3} borderRadius={"3xl"} mx="1" p="5">
             <Text textAlign={"left"}>Your LP tokens:</Text>
             <Flex justifyContent={"right"}>
                 <Text position={"relative"} left="12px" textAlign={"right"} fontWeight="bold">
@@ -50,8 +45,28 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
                                 pool?.lpToken.balance?.toSignificant(2) : 
                                 pool?.lpToken.balance?.toFixed(2)}
                 </Text>
-                {tokenA.logo ? <Image zIndex={1} position={"relative"} left="20px" borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionIcon zIndex={1} position={"relative"} left="15px"/>}
-                {tokenB.logo  ? <Image position={"relative"} left="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionIcon position={"relative"} left="10px"/>}
+                {tokenA.logo ? 
+                    <Image 
+                    zIndex={1} 
+                    position={"relative"} 
+                    left="20px" 
+                    borderRadius='full' 
+                    boxSize='20px' 
+                    src={tokenA.logo} 
+                    alt={pair.token0.name}/> 
+                    : 
+                    <QuestionIcon zIndex={1} position={"relative"} left="15px"/>
+                }
+                {tokenB.logo  ? 
+                    <Image 
+                    position={"relative"} 
+                    left="10px" 
+                    borderRadius='full' 
+                    boxSize='20px' 
+                    src={tokenB.logo} 
+                    alt={pair.token1.name}/> 
+                    : 
+                    <QuestionIcon position={"relative"} left="10px"/>}
             </Flex>
 
             <Text textAlign={"left"}>Pooled tokenA:</Text>
@@ -61,7 +76,10 @@ const PoolData: React.FC<{pool: IPool, setState: React.Dispatch<string>}> = ({po
                             pool?.tokenA.pooled?.toSignificant(2) : 
                             pool?.tokenA.pooled?.toFixed(2)}
                 </Text>
-                {tokenA.logo ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionIcon ml="2"/>}
+                {tokenA.logo ? 
+                    <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : 
+                    <QuestionIcon ml="2"/>
+                }
             </Flex>
 
             <Text textAlign={"left"}>Pooled tokenB:</Text>

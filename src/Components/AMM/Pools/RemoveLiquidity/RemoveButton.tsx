@@ -1,50 +1,16 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { Button, Container, Spinner, Text, useToast } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
-import { ContractContext } from "../../../../Provider/ContractProvider"
-import { removeLiquidityTx, removeLiquidityETHTx } from "../../../../Lib/Smart-contracts/removeLiquidity"
+import { PoolCardContextType } from "../../../../Models";
 import {isSufficientLPBalance } from "../../../../Lib/Utils"
-import { IPool } from "../../../../Models"
-import { GlobalConst } from "../../../../Constants"
+import { handleRemoveLiquidityTx } from "../../../../Lib/Handlers/smart_contract"
+import { ContractContext } from "../../../../Provider/ContractProvider";
 
-const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({pool, dispatch}) => {
-    const contract = useContext(ContractContext)
-    const { library, account } = useWeb3React()
-    const { tokenA, tokenB, lpToken, pair} = pool
+const RemoveButton: React.FC<{context: PoolCardContextType}> = ({context}) => {
+    const { lpToken, loading } = context.pool
+    const signer = useWeb3React()
     const toast = useToast()
-    const [loading, setLoading] = useState(false)
-
-    const handleRemoveLiquidityTx = () => {
-        setLoading(true)
-        if (tokenA.token.address === GlobalConst.addresses.WMATIC || tokenB.token.address === GlobalConst.addresses.WMATIC) {
-            removeLiquidityETHTx({
-                router2: contract.router2!,
-                lp: lpToken,
-                tokenA: tokenA,
-                tokenB: tokenB,
-                to: account!,
-                toast: toast,
-            }, library)
-            .then(() => {
-                setLoading(false)
-                dispatch({type: "RESET_REMOVE"})
-            })
-        } else {
-            removeLiquidityTx({
-                router2: contract.router2!,
-                pair: pair,
-                liquidityAmount: lpToken.lpRemoveInput.amount!,
-                amountAOut: tokenA.inputRemove.amount!,
-                amountBOut: tokenB.inputRemove.amount!,
-                userAddress: account!,
-                toast: toast,
-            }, library)
-            .then(() => {
-                setLoading(false)
-                dispatch({type: "RESET_REMOVE"})
-            })
-        }
-    }
+    const contract = useContext(ContractContext)
 
     return (
         <>
@@ -52,7 +18,7 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
             <>
             {isSufficientLPBalance(lpToken.lpRemoveInput.amount, lpToken.balance!) ?
                 <Button 
-                onClick={handleRemoveLiquidityTx} 
+                onClick={() => handleRemoveLiquidityTx(signer, contract, context, toast)} 
                 disabled={!lpToken.isApproved || !lpToken.balance!.greaterThan("0") || loading} 
                 mt="5" 
                 w="100%" 
@@ -65,13 +31,7 @@ const RemoveButton: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = ({p
                     {loading ? <Spinner /> : "Remove Liquidity"}
                 </Button>
                 :
-                <Container 
-                mt="5" 
-                w="100%" 
-                h="4rem"  
-                borderRadius={"3xl"}
-                boxShadow={"inset 1px 1px 10px 1px #ff5d4b"}
-                >
+                <Container mt="5" w="100%" h="4rem" borderRadius={"3xl"} boxShadow={"inset 1px 1px 10px 1px #ff5d4b"}>
                     <Text pt="4" fontSize={"xl"}>Insufficient balance</Text>
                 </Container>
             }

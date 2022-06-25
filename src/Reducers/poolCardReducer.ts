@@ -4,7 +4,7 @@ import { parseEther } from "ethers/lib/utils";
 import { IPool } from "../Models"
 
 export const poolCardReducer = (state: IPool, action: any): IPool => {
-    let {isPool, tokenA, tokenB, totalReserves, lpToken } = state;
+    let {isPool, tokenA, tokenB, totalReserves, lpToken, loading } = state;
 
     // POOLS COMPONENT
     switch(action.type) {
@@ -33,14 +33,8 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
         return {...state, tokenA: tokenA, tokenB: tokenB}
 
         case "LOADING":
-            if (action.payload.id === 0) {
-                tokenA.loading = action.payload.isLoading
-            } else if (action.payload.id === 1) {
-                tokenB.loading = action.payload.isLoading
-            } else {
-                lpToken.loading = action.payload.isLoading
-            }
-            return {...state, tokenA: tokenA, tokenB: tokenB}
+            loading = action.payload
+            return {...state, loading: loading}
         
         case "SEARCH_APPROVED":
             if (action.payload.id === 0) {

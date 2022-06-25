@@ -12,7 +12,7 @@ import ConnectorButton from "../../../Buttons/ConnectorButton";
 import { PoolCardContextType } from "../../../../Models";
 import { handleApproveTx } from "../../../../Lib/Handlers/smart_contract";
 
-const RemoveLiquidityPool:  React.FC<PoolCardContextType> = (context) => {
+const RemoveLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context}) => {
     const { pool, setState, dispatch} = context
     const { lpToken } = pool
     const { account, library } = useWeb3React();
@@ -63,7 +63,7 @@ const RemoveLiquidityPool:  React.FC<PoolCardContextType> = (context) => {
                                 {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool does not exist"}
                             </Button>
                         }
-                            {lpToken.isApproved && <RemoveButton pool={pool} dispatch={dispatch} />}
+                            {lpToken.isApproved && <RemoveButton context={context} />}
                     </ConnectorButton>
                 </Box> 
             <HStack  m="5">

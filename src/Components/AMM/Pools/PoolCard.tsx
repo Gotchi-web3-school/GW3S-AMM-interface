@@ -106,17 +106,23 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                     <RepeatIcon boxSize={6} _hover={{boxSize: "7"}} _active={{transform: "scale(0.9)"}} />
                 </Box>}
                 <Box ml={expanded ? "-4" : ''} display={"flex"} justifyContent="center" alignContent={"center"} pl="4" w="100%">
-                {props.pool.tokenA.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> : < QuestionIcon />}
+                {props.pool.tokenA.logo ? 
+                    <Image borderRadius='full' boxSize='30px' src={props.pool.tokenA.logo} alt={props.pool.pair.token0.name}/> :
+                    < QuestionIcon />
+                }
                 <Text mx="5" fontWeight={"bold"} textShadow={"1px 1px 10px white"}>{props.pool.name}</Text>
-                {props.pool.tokenB.logo ? <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : < QuestionIcon />}
+                {props.pool.tokenB.logo ?
+                    <Image borderRadius='full' boxSize='30px' src={props.pool.tokenB.logo} alt={props.pool.pair.token1.name}/> : 
+                    < QuestionIcon />
+                }
                 </Box>
                 <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
                 <AnimatePresence initial={false}>
-                {state === "pool" && <PoolData pool={pool ?? props.pool} setState={setState} />}
+                {state === "pool" && <PoolData context={context} />}
                 {state === "add" && <AddLiquidityPool context={context} />}
-                {state === "remove" && <RemoveLiquidityPool pool={pool ?? props.pool} setState={setState} dispatch={dispatch} />}
+                {state === "remove" && <RemoveLiquidityPool context={context} />}
                 </AnimatePresence>
             </AccordionPanel>
         </Box>
