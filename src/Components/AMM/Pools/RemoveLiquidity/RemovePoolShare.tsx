@@ -19,7 +19,10 @@ const RemovePoolShare: React.FC<{pool: IPool, dispatch: React.Dispatch<any>}> = 
         >
             <Flex w="33%">
                 <Box position={"relative"} top="-3">
-                <Text textAlign={"left"} fontSize={"xs"}>Balance: {lpToken.balance?.toFixed(2) ?? <Spinner boxSize="4" ml="1" />}</Text>
+                {lpToken.balance ? 
+                    <Text fontSize={"xs"}>Balance: {lpToken.balance?.toFixed(2)}</Text> : 
+                    <Spinner boxSize={"4"} ml="1"/>
+                }
                 <Flex mt="2">
                     {tokenA.logo ? <Image zIndex={1} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : <QuestionIcon />}
                     {tokenB.logo  ? <Image position={"relative"} right="10px" borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionIcon position={"relative"} right="5px"/>}

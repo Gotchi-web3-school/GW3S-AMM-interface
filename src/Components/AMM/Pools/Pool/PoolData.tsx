@@ -102,7 +102,7 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
             <Text textAlign={"left"} >Your pool share</Text>
             {isFetchingPool ? 
                 <Spinner mr="3"/> :
-                <Text textAlign={"right"} fontWeight="bold">pool?.lpToken.share.toSignificant(2) ?? "0"%</Text>
+                <Text textAlign={"right"} fontWeight="bold">{pool?.lpToken.share.toSignificant(2) ?? "0"}%</Text>
             }
         </SimpleGrid>
 
