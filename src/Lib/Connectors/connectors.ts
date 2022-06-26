@@ -25,7 +25,6 @@ const networkMap = {
   },
 };
 
-
 export const switchNetwork = async(window: any, chainId: number) => {
     try {
         await window.ethereum.request({

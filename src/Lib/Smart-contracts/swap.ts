@@ -111,7 +111,7 @@ export const swapExactETHForTokensSupportingFeeOnTransferTokensTx = async(tx: IS
             tx.deadline,
             {value: tx.amountIn.raw.toString()}
         )
-        const feeData = await tx.provider.getFeeData() 
+        //const feeData = await tx.provider.getFeeData() 
     
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
@@ -120,7 +120,7 @@ export const swapExactETHForTokensSupportingFeeOnTransferTokensTx = async(tx: IS
             tx.path!,
             tx.to,
             tx.deadline,
-            {...feeData, gasLimit: gas, value: tx.amountIn.raw.toString()}
+            {gasLimit: gas, value: tx.amountIn.raw.toString()}
         )
 
         tx.dispatch({type: "EMPTY_INPUT"})

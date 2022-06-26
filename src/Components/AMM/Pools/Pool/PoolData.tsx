@@ -74,12 +74,13 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
 
             <Text textAlign={"left"}>Pooled tokenA:</Text>
             <Flex justifyContent={"right"}>
+                {isFetchingPool ? <Spinner /> :
                 <Text textAlign={"right"} fontWeight="bold">
-                {isFetchingPool ? <Spinner /> : parseFloat(pool?.tokenA.pooled?.toFixed(2) ?? "0") < 1 ? 
-                                                pool?.tokenA.pooled?.toSignificant(2) : 
-                                                pool?.tokenA.pooled?.toFixed(2)
-                }
+                    {parseFloat(pool?.tokenA.pooled?.toFixed(2) ?? "0") < 1 ? 
+                                pool?.tokenA.pooled?.toSignificant(2) : 
+                                pool?.tokenA.pooled?.toFixed(2)}
                 </Text>
+                }
                 {tokenA.logo ? 
                     <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenA.logo} alt={pair.token0.name}/> : 
                     <QuestionIcon ml="2"/>
@@ -88,19 +89,21 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
 
             <Text textAlign={"left"}>Pooled tokenB:</Text>
             <Flex justifyContent={"right"}>
+                {isFetchingPool ? <Spinner /> :
                 <Text textAlign={"right"} fontWeight="bold">
-                    {isFetchingPool ? <Spinner /> : parseFloat(pool?.tokenB.pooled?.toFixed(2) ?? "0") < 1 ? 
-                                                    pool?.tokenB.pooled?.toSignificant(2) : 
-                                                    pool?.tokenB.pooled?.toFixed(2)
-                    }
+                    {parseFloat(pool?.tokenB.pooled?.toFixed(2) ?? "0") < 1 ? 
+                                pool?.tokenB.pooled?.toSignificant(2) : 
+                                pool?.tokenB.pooled?.toFixed(2)}
                 </Text>
+                }
                 {tokenB.logo  ? <Image ml="2" display={"initial"} borderRadius='full' boxSize='20px' src={tokenB.logo} alt={pair.token1.name}/> : <QuestionIcon ml="2"/>}
             </Flex>
 
             <Text textAlign={"left"} >Your pool share</Text>
-            <Text textAlign={"right"} fontWeight="bold">
-                {isFetchingPool ? <Spinner mr="3"/> : pool?.lpToken.share.toSignificant(2) ?? "0"}%
-            </Text>
+            {isFetchingPool ? 
+                <Spinner mr="3"/> :
+                <Text textAlign={"right"} fontWeight="bold">pool?.lpToken.share.toSignificant(2) ?? "0"%</Text>
+            }
         </SimpleGrid>
 
         <HStack m="5">
