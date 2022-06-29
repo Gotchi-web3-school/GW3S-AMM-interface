@@ -13,7 +13,6 @@ const AMM: React.FC = () => {
             isFitted 
             variant="enclosed"
             mx={"auto"}
-            overflow={"scroll"}
             width="md !important"
             pt={5}
             px={{ base: 2, sm: 5, md: 17 }}
@@ -23,9 +22,13 @@ const AMM: React.FC = () => {
             bg={useColorModeValue("white", "gray.800")}
             zIndex={1}
             >
-                <TabList color={useColorModeValue("black", "whiteAlpha.300")} border={"none"} mb='2rem'>
+                <TabList 
+                color={useColorModeValue("black", "whiteAlpha.300")} 
+                border={"none"} 
+                mb='2rem'
+                >
                     <Tab
-                    mr="3" 
+                    mr="3"
                     background={useColorModeValue("gray.200", "")}
                     transition=".5s" 
                     borderRadius={"xl"} 
@@ -45,7 +48,7 @@ const AMM: React.FC = () => {
                     border={"none"}>Pools</Tab>
                 </TabList>
 
-                <TabPanels>
+                <TabPanels >
                     <TabPanel>
                         <SwapProvider>
                             <Swap />

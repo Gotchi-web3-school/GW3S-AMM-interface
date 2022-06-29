@@ -11,7 +11,16 @@ const Pools: React.FC = () => {
     const [state, setState] = useState("pool")
 
     return (
-    <Box overflow={"scroll"} maxH="lg">
+    <Box 
+    overflowY={"scroll"} 
+    maxH="lg"
+    sx={{
+        scrollbarWidth: 'none',
+        '::-webkit-scrollbar': {
+        display: 'none',
+        },
+    }}
+    >
         {state === "add" && <AddLiquidity setState={setState} />}
         {state === "remove" ? "" : ""}
         {state === "pool" && 

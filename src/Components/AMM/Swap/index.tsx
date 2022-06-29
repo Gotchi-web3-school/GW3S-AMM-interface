@@ -22,7 +22,7 @@ const Swap: React.FC = () => {
     const color = useColorModeValue("black", "white")
     
     return (
-      <Box overflow={"scroll"} >
+      <Box>
         <InputSwapA />
           <Center m={-4} zIndex={2}>
             <Button onClick={() => dispatch({type: "SWAP"})} bg={useColorModeValue("white", "gray.900")}  border="1px solid" borderColor="gray.700" _hover={{bg: useColorModeValue("gray.200" ,"purple.800"),}} p="3">
