@@ -8,6 +8,7 @@ import { switchNetwork } from "../../Lib/Connectors/connectors"
 const ConnectorButton: React.FC<{children: React.ReactNode}> = ({children}) => {
     const signer = useWeb3React()
     const [isAuthorized, setIsAuthorized] = useState(false)
+    console.log(signer)
 
     useEffect(() => {
         injected.isAuthorized().then(result => setIsAuthorized(result))
@@ -15,7 +16,7 @@ const ConnectorButton: React.FC<{children: React.ReactNode}> = ({children}) => {
 
     return (
         <Box justifyContent={"center"}>
-        {isAuthorized ? 
+        {isAuthorized && signer.active ? 
             <Box justifyContent={"center"}>
                 {signer.chainId === 80001 ?
                     children 
