@@ -5,10 +5,9 @@ import { useForm } from "react-hook-form";
 import { useColorModeValue } from "@chakra-ui/react";
 import { deployErc20Tx, IDeployErc20Tx } from "../../Lib/Smart-contracts/erc20"
 import { GeneralContext } from "../../Provider/GeneralProvider";
-import ConnectorButton from "../Buttons/ConnectorButton"
 
 const Erc20Generator: React.FC = () => {
-    const {library, account} = useWeb3React()
+    const {library, account, chainId} = useWeb3React()
     const { setUserTokens } = useContext(GeneralContext)
     const toast = useToast()
     const { register, handleSubmit } = useForm();
@@ -71,9 +70,9 @@ const Erc20Generator: React.FC = () => {
                         {...register("supply", { required: true })}
                         />
                     </Box>
-                    <ConnectorButton>
-                        {loading ? <Spinner /> : <Button type="submit">Deploy token</Button>}
-                    </ConnectorButton>
+                    {
+                        chainId === 8001 ? loading ? <Spinner /> : <Button type="submit">Deploy token</Button> : ""
+                    }
                 </VStack>
             </form>
         </Box>
