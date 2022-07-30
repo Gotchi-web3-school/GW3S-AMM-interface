@@ -70,9 +70,7 @@ const Erc20Generator: React.FC = () => {
                         {...register("supply", { required: true })}
                         />
                     </Box>
-                    {
-                        chainId === 8001 ? loading ? <Spinner /> : <Button type="submit">Deploy token</Button> : ""
-                    }
+                    {chainId === 80001 ? loading ? <Spinner /> : <Button type="submit">Deploy token</Button> : ""}
                 </VStack>
             </form>
         </Box>
