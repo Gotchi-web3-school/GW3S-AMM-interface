@@ -1,11 +1,12 @@
-import { createContext, useReducer, useEffect } from "react"
+import { createContext, useReducer, useEffect, useContext } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { Fetcher, TokenAmount, Pair, Route, Trade } from "gotchiw3s-sdk";
 import { TokenSwap } from "../Models/swap";
 import { swapReducer } from "../Reducers/swapReducer";
 import { ISwap } from "../Models/swap";
-import { fetchApproveToken, fetchBalance } from "../Lib/Utils";
+import { fetchApproveToken, fetchBalance, isPoolCreated } from "../Lib/Utils";
 import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../Constants";
+import { ContractContext } from "./ContractProvider";
 
 export type SwapContextType = {
     tokenA: TokenSwap
@@ -55,7 +56,7 @@ export const SwapContext = createContext<SwapContextType>(defaultContext);
 
 export const SwapProvider = (props: any) => {
     const {library, account} = useWeb3React()
-    //const contract = useContext(ContractContext)
+    const contract = useContext(ContractContext)
     const [swap, dispatch] = useReducer(swapReducer, defaultSwap)
     const {tokenA, tokenB, pair, input, output, route, trade, isPool, error, loading} = swap
 
@@ -81,11 +82,24 @@ export const SwapProvider = (props: any) => {
     useEffect(() => {
         if (tokenA.token && tokenB.token) {
             console.log("new pair")
+            const tokenAmountA = new TokenAmount(tokenA.token, "0")
+            const tokenAmountB = new TokenAmount(tokenB.token, "0")
+            isPoolCreated(new Pair(tokenAmountA, tokenAmountB, FACTORY_ADDRESS, INIT_CODE_HASH), library).then(result => console.log(result))
             Fetcher.fetchPairData(tokenA.token, tokenB.token, FACTORY_ADDRESS, INIT_CODE_HASH, library)
-            .then(result => dispatch({type: "SET_PAIR", payload: result}))
-            .catch(error => {console.log(error); dispatch({type: "SET_PAIR_FAILURE", payload: error})})
+            .then(result => {console.log(result); dispatch({type: "SET_PAIR", payload: result})})
+            .catch(error => {
+                const tokenAmountA = new TokenAmount(tokenA.token!, "0")
+                const tokenAmountB = new TokenAmount(tokenB.token!, "0")
+                const pair = new Pair(tokenAmountA, tokenAmountB, FACTORY_ADDRESS, INIT_CODE_HASH)
+                isPoolCreated(pair, library).then(result => {
+                    if (result.result)
+                        dispatch({type: "SET_PAIR", payload: pair})
+                    else
+                    dispatch({type: "SET_PAIR_FAILURE", payload: error})
+                })
+            })
         }
-    }, [tokenA.token, tokenB.token, library, account])
+    }, [tokenA.token, tokenB.token, library, account, contract])
 
     // STEP3: Set Trade
     useEffect(() => {
