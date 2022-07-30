@@ -12,10 +12,11 @@ import ConnectorButton from "../../../Buttons/ConnectorButton";
 import { PoolCardContextType } from "../../../../Models";
 import { handleApproveTx } from "../../../../Lib/Handlers/smart_contract";
 
+
 const RemoveLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context}) => {
     const { pool, setState, dispatch} = context
     const { lpToken } = pool
-    const { account, library } = useWeb3React();
+    const { account, library, chainId } = useWeb3React();
     const contract = useContext(ContractContext);
     const toast = useToast()
 
@@ -46,8 +47,11 @@ const RemoveLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context
             >Max</Button>
             <SliderPool pool={pool} dispatch={dispatch} />
             <RemovePoolShare pool={pool} dispatch={dispatch} />
-                <Box mx="5" mt="5">
-                    <ConnectorButton>
+            <Box mx="5" mt="5">
+                {chainId !== 80001 ? 
+                    <ConnectorButton />
+                    :
+                    <>
                         {lpToken.isApproved ? "" : 
                             <Button 
                             key={0} 
@@ -63,9 +67,11 @@ const RemoveLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context
                                 {lpToken.loading ? <Spinner /> : pool.isPool ? `Approve LP token` : "This pool does not exist"}
                             </Button>
                         }
-                            {lpToken.isApproved && <RemoveButton context={context} />}
-                    </ConnectorButton>
-                </Box> 
+                        {lpToken.isApproved && <RemoveButton context={context} />}
+                    </>
+                
+                }
+            </Box> 
             <HStack  m="5">
                 <Button w="45%" pl="0" bgGradient='linear(to-r, #a200ff, transparent)' _hover={{bg: '#a200ff'}} justifyContent={"left"} onClick={() => setState("pool")}>
                     <Text fontSize={"sm"}><ChevronLeftIcon />Pool</Text>
