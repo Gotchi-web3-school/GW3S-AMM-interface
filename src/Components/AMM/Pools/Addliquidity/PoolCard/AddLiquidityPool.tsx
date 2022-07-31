@@ -15,7 +15,7 @@ import { handleApproveTx } from "../../../../../Lib/Handlers/smart_contract";
 
 const AddLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context}) => {
     const { pool, setState, dispatch} = context
-    const { account, library } = useWeb3React();
+    const { account, library, chainId } = useWeb3React();
     const contract = useContext(ContractContext);
     const toast = useToast()
 
@@ -60,39 +60,43 @@ const AddLiquidityPool:  React.FC<{context: PoolCardContextType}> = ({context}) 
                 <InputToken token={pool.tokenB} dispatch={dispatch} />
             </Box>
             {(pool.tokenA.inputAdd || pool.tokenB.inputAdd) && <BabyPoolShare pool={pool} />}
-                <ConnectorButton>
-                    <Stack px="5" mt="3" direction="row">
-                        {pool.tokenA.isApproved ? "" : 
-                            <Button 
-                            disabled={pool.tokenA.loading} 
-                            key={0} 
-                            onClick={() => handleApproveTx(pool.tokenA.token, contract, context, toast)}
-                            h="4rem"
-                            borderRadius={"3xl"}
-                            bg="transparent"
-                            boxShadow={"inset 1px 1px 10px 1px #ffa500"}
-                            _hover={{bg: "yellow.700"}}
-                            transition="0.4s ease-in-out"
-                            w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}
-                            </Button>
-                        }
-                        {pool.tokenB.isApproved ? "" : 
-                            <Button 
-                            disabled={pool.tokenB.loading} 
-                            key={1} 
-                            onClick={() => handleApproveTx(pool.tokenB.token, contract, context, toast)}
-                            h="4rem"
-                            borderRadius={"3xl"}
-                            bg="transparent"
-                            boxShadow={"inset 1px 1px 10px 1px #ffa500"}
-                            _hover={{bg: "yellow.700"}} 
-                            transition="0.4s ease-in-out"
-                            w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}
-                            </Button>
-                        }
-                    </Stack>
+                {chainId !== 80001 ? 
+                    <ConnectorButton /> 
+                    : 
+                    <>
+                        <Stack px="5" mt="3" direction="row">
+                            {pool.tokenA.isApproved ? "" : 
+                                <Button 
+                                disabled={pool.tokenA.loading} 
+                                key={0} 
+                                onClick={() => handleApproveTx(pool.tokenA.token, contract, context, toast)}
+                                h="4rem"
+                                borderRadius={"3xl"}
+                                bg="transparent"
+                                boxShadow={"inset 1px 1px 10px 1px #ffa500"}
+                                _hover={{bg: "yellow.700"}}
+                                transition="0.4s ease-in-out"
+                                w="100%">{pool.tokenA.loading ? <Spinner /> : `Approve ${pool.tokenA.token.symbol}`}
+                                </Button>
+                            }
+                            {pool.tokenB.isApproved ? "" : 
+                                <Button 
+                                disabled={pool.tokenB.loading} 
+                                key={1} 
+                                onClick={() => handleApproveTx(pool.tokenB.token, contract, context, toast)}
+                                h="4rem"
+                                borderRadius={"3xl"}
+                                bg="transparent"
+                                boxShadow={"inset 1px 1px 10px 1px #ffa500"}
+                                _hover={{bg: "yellow.700"}} 
+                                transition="0.4s ease-in-out"
+                                w="100%">{pool.tokenB.loading ? <Spinner /> : `Approve ${pool.tokenB.token.symbol}`}
+                                </Button>
+                            }
+                        </Stack>
                         {pool.tokenA.isApproved && pool.tokenB.isApproved && <MintButton context={context} />}
-                </ConnectorButton>
+                    </>
+                }
             <HStack  m="5">
                 <Button 
                     w="45%" 

@@ -1,31 +1,19 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Button, Box } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
 import { injected } from "../../Lib/Connectors/connectors"
 import { switchNetwork } from "../../Lib/Connectors/connectors"
 
 
-const ConnectorButton: React.FC<{children: React.ReactNode}> = ({children}) => {
+const ConnectorButton: React.FC = () => {
     const signer = useWeb3React()
-    const [isAuthorized, setIsAuthorized] = useState(false)
-    console.log(signer)
-
-    useEffect(() => {
-        injected.isAuthorized().then(result => setIsAuthorized(result))
-    },[])
 
     return (
-        <Box justifyContent={"center"}>
-        {isAuthorized && signer.active ? 
-            <Box justifyContent={"center"}>
-                {signer.chainId === 80001 ?
-                    children 
-                    : 
-                    <Button bg="orange.500" onClick={() => switchNetwork(window, 80001)}>Switch to mumbai</Button>
-                }
-            </Box>
-        : 
-        <Button onClick={() => signer.activate(injected)}>Connect</Button>}
+        <Box>
+        {signer.active ? 
+            <Button bg="orange.500" onClick={() => switchNetwork(window, 80001)}>Switch to mumbai</Button>
+            : 
+            <Button onClick={() => {console.log("active"); signer.activate(injected)}}>Connect</Button>}
         </Box>
     )
 }

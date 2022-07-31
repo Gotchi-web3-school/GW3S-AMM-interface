@@ -52,7 +52,12 @@ const Navbar: React.FC = () => {
             <Text>{active ? chainId === 80001 ? '🟢' : '🟠' : '🔴'}</Text>
           </Flex>
           
-         <ConnectorButton><Box p="2" fontWeight={"bold"} borderRadius={"lg"} boxShadow={"inset 0px 0px 5px 1px pink"}>{account}</Box></ConnectorButton>
+          {chainId !== 80001 ? 
+            <ConnectorButton /> 
+            : 
+            <Box p="2" fontWeight={"bold"} borderRadius={"lg"} boxShadow={"inset 0px 0px 5px 1px pink"}>{account}</Box>
+          }
+
           <Button onClick={toggleColorMode}>
             {colorMode === 'light' ? <SunIcon />: <MoonIcon />}
           </Button>

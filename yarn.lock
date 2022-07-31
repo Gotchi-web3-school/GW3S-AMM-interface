@@ -6003,15 +6003,15 @@ globby@^11.0.4, globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-gotchiw3s-sdk@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/gotchiw3s-sdk/-/gotchiw3s-sdk-1.0.11.tgz#bb62a4423321e8be38d8dd56277dadd83bba5ce2"
-  integrity sha512-2M6mwxgTl9HNMqa18m/v4/hwGuT4ujEJYnxteoqtcCPopaHYwqBs+g3veiYieVZNMNuk/+mBPY+Ri0VezRI+6g==
+gotchiw3s-sdk@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/gotchiw3s-sdk/-/gotchiw3s-sdk-1.0.12.tgz#467d5af62e615fba0c829175b17aa5b5209054dc"
+  integrity sha512-OYFtHj8af6dBqzgFxdE2iMUQYsVIIqPVpIrQi/9wYhBw76Mp6P5kP/lcgjN1JCFx07ownWA2pyrgqIxPIC4MBg==
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    jsbi "^3.1.1"
+    jsbi "^4.3.0"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
@@ -7134,10 +7134,10 @@ js-yaml@^4.1.0:
   dependencies:
     argparse "^2.0.1"
 
-jsbi@^3.1.1:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
+jsbi@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-4.3.0.tgz#b54ee074fb6fcbc00619559305c8f7e912b04741"
+  integrity sha512-SnZNcinB4RIcnEyZqFPdGPVgrg2AcnykiBy0sHVJQKHYeaLUvi3Exj+iaPpLnFVkDPZIV4U0yvgC9/R4uEAZ9g==
 
 jsdom@^16.6.0:
   version "16.7.0"

@@ -43,9 +43,9 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
             <Text textAlign={"left"}>Your LP tokens:</Text>
             <Flex justifyContent={"right"}>
                 <Text position={"relative"} left="12px" textAlign={"right"} fontWeight="bold">
-                    {isFetchingPool ? <Spinner /> : parseFloat(pool?.lpToken.balance?.toFixed(2) ?? "0") < 1 ? 
-                                                    pool?.lpToken.balance?.toSignificant(2) : 
-                                                    pool?.lpToken.balance?.toFixed(2)
+                    {isFetchingPool ? <Spinner /> : pool?.lpToken.balance?.lessThan("1") ?? false ? 
+                                                    pool?.lpToken.balance?.toSignificant(2) ?? '0' : 
+                                                    pool?.lpToken.balance?.toFixed(2) ?? '0'
                     }
                 </Text>
                 {tokenA.logo ? 

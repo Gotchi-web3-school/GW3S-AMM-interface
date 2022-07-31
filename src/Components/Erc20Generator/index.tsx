@@ -7,7 +7,7 @@ import { deployErc20Tx, IDeployErc20Tx } from "../../Lib/Smart-contracts/erc20"
 import { GeneralContext } from "../../Provider/GeneralProvider";
 
 const Erc20Generator: React.FC = () => {
-    const {library, account, active} = useWeb3React()
+    const {library, account, chainId} = useWeb3React()
     const { setUserTokens } = useContext(GeneralContext)
     const toast = useToast()
     const { register, handleSubmit } = useForm();
@@ -70,7 +70,7 @@ const Erc20Generator: React.FC = () => {
                         {...register("supply", { required: true })}
                         />
                     </Box>
-                        {loading ? <Spinner /> : <Button disabled={!active || !account} type="submit">Deploy token</Button>}
+                    {chainId === 80001 ? loading ? <Spinner /> : <Button type="submit">Deploy token</Button> : ""}
                 </VStack>
             </form>
         </Box>

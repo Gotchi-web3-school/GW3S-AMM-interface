@@ -7,8 +7,10 @@ import {
     Spacer,
     Text,
     useColorModeValue,
+    Container,
   } from "@chakra-ui/react";
 import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
+import { useWeb3React } from "@web3-react/core"
 import { SwapContext } from "../../../Provider/SwapProvider";
 import InputSwapA from "./InputSwapA"
 import InputSwapB from "./InputSwapB"
@@ -17,10 +19,11 @@ import SwapButton from "./SwapButton";
 import ConnectorButton from "../../Buttons/ConnectorButton";
 
 const Swap: React.FC = () => {
+    const signer = useWeb3React()
     const [quote, setQuote] = useState(true)
     const { route, dispatch, trade, input, isPool } = useContext(SwapContext)
     const color = useColorModeValue("black", "white")
-    
+
     return (
       <Box>
         <InputSwapA />
@@ -79,11 +82,13 @@ const Swap: React.FC = () => {
             }
           </Stack>
         </Box>
-        
-        <ConnectorButton>
-          <SwapButton /> 
-        </ConnectorButton>
-
+        {signer.chainId !== 80001 ? 
+          <Container centerContent>
+            <ConnectorButton />
+          </Container> 
+          : 
+          <SwapButton />
+        }
         {isPool && parseFloat(input.input ?? '0') > 0 && <SwapDetails />}
       </Box>
     )
