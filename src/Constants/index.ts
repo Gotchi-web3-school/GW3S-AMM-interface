@@ -11,9 +11,6 @@ export enum TxnType {
 // Diamond GW3S
 export const DIAMOND_ADDRESS = "0x0Ee37BeDf7FE3873DA77b0CF6Bc17dD8E76c6be7" 
 
-// Test Factory
-//export const FACTORY_ADDRESS = "0x47c293A0523a62afd22b4E29105E73F28d197892"
-
 // MY Factory + Router (mumbai)
 export const FACTORY_ADDRESS = '0x65899Dc47C2a9C91a06b055C58426d51cC0543BB' 
 export const ROUTER_ADDRESS = '0xda45E58e16592ff992b338B65Ce315857dF1AB8A'
