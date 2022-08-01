@@ -6,9 +6,9 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
     return (
         <Box
         display={"flex"}
-        margin="auto"
         height={"50vh"}
-        maxW="33%"
+        minW="28%"
+        maxW="28%"
         mt="5rem" 
         p="1rem"
         bg="rgba(0, 0, 0, 0.21)" 
