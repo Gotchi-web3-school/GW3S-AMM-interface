@@ -11,30 +11,30 @@ const LevelPills: React.FC = () => {
         <Wrap spacing={"3rem"} p="0.3rem">
             {levels.map((level, idx) => {
                 return(
-                    <WrapItem 
-                    key={idx}
-                    rounded="full"
-                    border={"1px solid rgba(0, 0, 0, 0.21)"}
-                    bg="rgba(0, 0, 0, 0.21)"
-                    backdropFilter="blur(13px)"
-                    h={["1rem", "2rem", "3rem"]} 
-                    w={["1rem", "2rem", "3rem"]}
-                    justifyContent="center"
-                    alignItems={"center"}
-                    _hover={{
-                        boxShadow: "0px 1px 5px 1px #FFFFFF",
-                        border: "2px solid rgba(255, 255, 255, 0.51)",
-                    }}
-                    >
-                        <Link key={idx} to={`level/${idx}`}>
+                    <Link key={idx} to={`level/${idx}`}>
+                        <WrapItem 
+                        key={idx}
+                        rounded="full"
+                        border={"1px solid rgba(0, 0, 0, 0.21)"}
+                        bg="rgba(0, 0, 0, 0.21)"
+                        backdropFilter="blur(13px)"
+                        h={["1rem", "2rem", "3rem"]} 
+                        w={["1rem", "2rem", "3rem"]}
+                        justifyContent="center"
+                        alignItems={"center"}
+                        _hover={{
+                            boxShadow: "0px 1px 5px 1px #FFFFFF",
+                            border: "2px solid rgba(255, 255, 255, 0.51)",
+                        }}
+                        >
                             <Text 
                             textAlign={"center"} 
                             fontWeight={"bold"} 
                             fontSize={["sm", "md", "lg", "xl"]}
                             textShadow={textShadow}
                             >{level.id}</Text>
-                        </Link>
-                    </WrapItem>
+                        </WrapItem>
+                    </Link>
                 )
             })}
         </Wrap>
