@@ -8,6 +8,9 @@ export enum TxnType {
   REMOVE,
 }
 
+// Diamond GW3S
+export const DIAMOND_ADDRESS = "0x0Ee37BeDf7FE3873DA77b0CF6Bc17dD8E76c6be7" 
+
 // Test Factory
 //export const FACTORY_ADDRESS = "0x47c293A0523a62afd22b4E29105E73F28d197892"
 
