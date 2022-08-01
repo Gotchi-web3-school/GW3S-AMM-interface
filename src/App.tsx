@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import React, { useContext } from "react"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { Box, useColorModeValue } from "@chakra-ui/react"
 import { GeneralContext } from "./Provider/GeneralProvider"
@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar/Navbar"
 import MaticFaucet from "./Components/Faucet/MaticFaucet"
 import LevelPills from "./Components/Levels/LevelPills"
 import Playground from "./Pages/Playground"
+import Levels from "./Pages/Levels"
 
 const App: React.FC = () => {
   const {balance} = useContext(GeneralContext)
@@ -22,7 +23,7 @@ const App: React.FC = () => {
         {parseFloat(balance) < 0.01 && <MaticFaucet />}
         <Routes>
           <Route path="/" element={<Playground />} />
-          <Route path="/level/1" element={<Playground />} />
+          <Route path="/level/:id" element={<Levels />} />
         </Routes>
       </Router>
     </Box>

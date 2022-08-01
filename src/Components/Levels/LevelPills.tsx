@@ -1,6 +1,7 @@
-import { Wrap, Box, Text, WrapItem, useColorModeValue } from "@chakra-ui/react"
+import { Wrap, Box, Text, WrapItem, Image, useColorModeValue, Button } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { levels } from "../../Constants/levels"
+const closedChest = require('../../assets/closedChest.png')
 
 const LevelPills: React.FC = () => {
     const textShadow = useColorModeValue("0px 0px 10px purple", "0px 0px 8px white")
@@ -37,6 +38,9 @@ const LevelPills: React.FC = () => {
                 )
             })}
         </Wrap>
+        <Box as="button" display={"flex"} margin="auto" onClick={() => alert("You need to finish all the levels !")}>
+            <Image boxSize={"6rem"} src={closedChest}/>
+        </Box>
     </Box>
     )
 }
