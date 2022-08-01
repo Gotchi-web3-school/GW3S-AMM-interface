@@ -1,4 +1,4 @@
-import { Box, Button, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Text, Image, useDisclosure } from "@chakra-ui/react";
 import {
     Modal,
     ModalOverlay,
@@ -8,12 +8,16 @@ import {
     ModalBody,
     ModalCloseButton,
   } from '@chakra-ui/react'
+  const book = require("../../assets/pixel book.png")
 
 const Ressource: React.FC<{ressource: string | null, learn: string | null}> = ({ressource, learn}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
-    <Box width="607px" height="146px" background="rgba(153, 114, 193, 0.99)" border="3px solid #7F00FE" borderRadius="50px">
-        <Button onClick={onOpen}>Open Modal</Button>
+      <>
+        <Box as="button" onClick={onOpen}>
+          <Image boxSize={"5rem"} src={book}/>
+        </Box>
+        
         <Modal
           isCentered
           onClose={onClose}
@@ -35,7 +39,7 @@ const Ressource: React.FC<{ressource: string | null, learn: string | null}> = ({
             </ModalFooter>
           </ModalContent>
         </Modal>
-    </Box>
+      </>
     )
 }
 
