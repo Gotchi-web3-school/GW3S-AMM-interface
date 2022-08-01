@@ -8,7 +8,7 @@ import {
     ModalBody,
     ModalCloseButton,
   } from '@chakra-ui/react'
-  const book = require("../../assets/pixel book.png")
+  const book = require("../../Assets/pixel book.png")
 
 const Ressource: React.FC<{ressource: string | null, learn: string | null}> = ({ressource, learn}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()

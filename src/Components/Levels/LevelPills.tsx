@@ -1,7 +1,7 @@
 import { Wrap, Box, Text, WrapItem, Image, useColorModeValue } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { levels } from "../../Constants/levels"
-const closedChest = require('../../assets/closedChest.png')
+const closedChest = require('../../Assets/closedChest.png')
 
 const LevelPills: React.FC = () => {
     const textShadow = useColorModeValue("0px 0px 10px purple", "0px 0px 8px white")
