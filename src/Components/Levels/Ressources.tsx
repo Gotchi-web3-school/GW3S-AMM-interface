@@ -1,4 +1,8 @@
-import { Box, Button, Text, Image, useDisclosure } from "@chakra-ui/react";
+import { Box, Text, Image, useDisclosure, Link } from "@chakra-ui/react";
+import {
+  ListItem,
+  UnorderedList,
+} from '@chakra-ui/react'
 import {
     Modal,
     ModalOverlay,
@@ -10,7 +14,13 @@ import {
   } from '@chakra-ui/react'
   const book = require("../../Assets/pixel book.png")
 
-const Ressource: React.FC<{ressource: string | null, learn: string | null}> = ({ressource, learn}) => {
+export type RessourceParams = {
+  title: string | null,
+  text: string | null
+  extraRessources: string[] | null
+}  
+
+const Ressource: React.FC<RessourceParams> = ({title, text, extraRessources}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
       <>
@@ -26,17 +36,21 @@ const Ressource: React.FC<{ressource: string | null, learn: string | null}> = ({
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
+            <ModalHeader fontSize="4xl">{title}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Text>{ressource}</Text>
+              <Text>{text}</Text>
             </ModalBody>
-            <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant='ghost'>Secondary Action</Button>
-            </ModalFooter>
+            <UnorderedList p="5">
+              <Text mb="3" textAlign="center" fontSize={"xl"} fontWeight="bold">See more</Text>
+              {extraRessources?.map((ressource: string, idx) => {
+                return (
+                  <ListItem key={idx}>
+                    <Link  href={ressource} isExternal>{ressource}</Link>
+                  </ListItem>
+                )
+              })}
+            </UnorderedList>
           </ModalContent>
         </Modal>
       </>

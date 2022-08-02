@@ -1,6 +1,7 @@
 import { LevelCard } from "../../Constants/levels"
-import { Text, Box, Stack, Spacer } from "@chakra-ui/react"
+import { Text, Box, Stack, Spacer, Link, Image, Center } from "@chakra-ui/react"
 import Ressource from "./Ressources"
+const metamask = require("../../Assets/Metamask-face.png")
 
 const Card: React.FC<{level: LevelCard}> = ({level}) => {
     return (
@@ -23,7 +24,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                     <Spacer />
                     <Text pl="5" fontSize={"4xl"} fontWeight="bold">{level.title}</Text>
                     <Spacer />
-                    <Ressource ressource={level.ressources} learn={level.learn} />
+                    <Ressource  title={level.learn.title} text={level.learn.text} extraRessources={level.ressources}/>
                 </Stack>
                 <Spacer />
                 <Box alignItems="center">
@@ -31,7 +32,12 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 <Spacer />
                 <Box marginX={"auto"} minH="5rem" background="rgba(153, 114, 193, 0.99)" border="3px solid #7F00FE" borderRadius="50px">
-                    <Text mt="1.5rem" textAlign={"center"}>{level.help}</Text>
+                    <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
+                    <Link color="blue.300" href={`${level.help}`} isExternal>
+                        <Center>
+                            <Image boxSize={20} src={metamask}/>
+                        </Center>
+                    </Link>
                 </Box>
             </Stack>
         </Box>
