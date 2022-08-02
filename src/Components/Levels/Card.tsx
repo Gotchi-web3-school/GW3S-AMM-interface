@@ -1,9 +1,15 @@
+import { useContext } from "react"
 import { LevelCard } from "../../Constants/levels"
-import { Text, Box, Stack, Spacer, Link, Image, Center } from "@chakra-ui/react"
+import { Text, Box, Stack, Spacer, Link, Image, Center, Button } from "@chakra-ui/react"
 import Ressource from "./Ressources"
+import { LevelContext } from "../../Provider/LevelProvider"
+import { useParams } from "react-router-dom"
 const metamask = require("../../Assets/Metamask-face.png")
 
 const Card: React.FC<{level: LevelCard}> = ({level}) => {
+    const { id } = useParams()
+    const {running} = useContext(LevelContext)
+
     return (
         <Box
         display={"flex"}
@@ -32,12 +38,21 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 <Spacer />
                 <Box marginX={"auto"} minH="5rem" background="rgba(153, 114, 193, 0.99)" border="3px solid #7F00FE" borderRadius="50px">
-                    <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
-                    <Link color="blue.300" href={`${level.help}`} isExternal>
-                        <Center>
-                            <Image boxSize={20} src={metamask}/>
+                   {running === parseInt(id ?? '0') || id === '0' ? 
+                        <Box>
+                            <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
+                            <Link color="blue.300" href={`${level.help}`} isExternal>
+                                <Center>
+                                    <Image boxSize={20} src={metamask}/>
+                                </Center>
+                            </Link>
+                        </Box>
+                        :
+                        <Center mt="4">
+                            <Button bg="teal.500" _hover={{background: "teal.600"}} onClick={() => "lfg"}>Start Level</Button>
                         </Center>
-                    </Link>
+                    }
+
                 </Box>
             </Stack>
         </Box>
