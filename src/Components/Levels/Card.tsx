@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { LevelCard } from "../../Constants/levels"
-import { Text, Box, Stack, Spacer, Link, Image, Center, Button } from "@chakra-ui/react"
+import { Text, Box, Stack, Spacer, Link, Image, Center, Button, Container } from "@chakra-ui/react"
 import Ressource from "./Ressources"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { useParams } from "react-router-dom"
@@ -14,7 +14,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
         <Box
         display={"flex"}
         height={"50vh"}
-        minW="28%"
+        minW="450px"
         maxW="28%"
         mt="5rem" 
         p="1rem"
@@ -28,7 +28,9 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 <Stack direction={"row"}>
                     <Text fontSize={"5xl"} fontWeight="bold">{level.id}</Text>
                     <Spacer />
-                    <Text pl="5" fontSize={"4xl"} fontWeight="bold">{level.title}</Text>
+                    <Container>
+                        <Text textAlign="center" pl="5" fontSize={"3xl"} fontWeight="bold">{level.title}</Text>
+                    </Container>
                     <Spacer />
                     <Ressource  title={level.learn.title} text={level.learn.text} extraRessources={level.ressources}/>
                 </Stack>

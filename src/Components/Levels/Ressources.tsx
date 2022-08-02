@@ -21,7 +21,7 @@ const Ressource: React.FC<RessourceParams> = ({title, text, extraRessources}) =>
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
       <>
-        <Box as="button" onClick={onOpen}>
+        <Box as="button" minW="18%" onClick={onOpen}>
           <Image boxSize={"5rem"} src={book}/>
         </Box>
         
