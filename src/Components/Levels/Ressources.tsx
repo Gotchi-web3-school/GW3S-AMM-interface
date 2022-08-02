@@ -1,15 +1,13 @@
 import { Box, Text, Image, useDisclosure, Link } from "@chakra-ui/react";
 import {
-  ListItem,
-  UnorderedList,
-} from '@chakra-ui/react'
-import {
     Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
     ModalBody,
     ModalCloseButton,
+    ListItem,
+    UnorderedList,
   } from '@chakra-ui/react'
   const book = require("../../Assets/pixel book.png")
 
