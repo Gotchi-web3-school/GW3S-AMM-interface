@@ -8,6 +8,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { getLibrary } from './Lib/Utils';
 import App from './App';
 import theme from './theme'
+import { LevelProvider } from './Provider/LevelProvider';
 
 
 const root = ReactDOM.createRoot(
@@ -20,9 +21,11 @@ root.render(
     <Web3ReactProvider getLibrary={getLibrary}>
       <ContractProvider>
         <GeneralProvider>
-          <ChakraProvider>
-            <App />
-          </ChakraProvider>
+          <LevelProvider>
+            <ChakraProvider>
+              <App />
+            </ChakraProvider>
+          </LevelProvider>
         </GeneralProvider>
       </ContractProvider>
     </Web3ReactProvider>
