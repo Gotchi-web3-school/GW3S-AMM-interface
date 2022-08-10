@@ -1,10 +1,9 @@
 import { useContext } from "react"
 import { LevelCard } from "../../Constants/levels"
-import { Text, Box, Stack, Spacer, Link, Image, Center, Button, Container } from "@chakra-ui/react"
+import { Text, Box, Stack, Spacer, Center, Button, Container } from "@chakra-ui/react"
 import Ressource from "./Ressources"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { useParams } from "react-router-dom"
-const metamask = require("../../Assets/Metamask-face.png")
 
 const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const { id } = useParams()
@@ -40,14 +39,12 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 <Spacer />
                 <Box marginX={"auto"} minH="5rem" background="rgba(153, 114, 193, 0.99)" border="3px solid #7F00FE" borderRadius="50px">
-                   {running === parseInt(id ?? '0') || id === '0' ? 
+                   {running === parseInt(id ?? '0') || id === '0'|| id === '1' ? 
                         <Box>
-                            <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
-                            <Link color="blue.300" href={`${level.help}`} isExternal>
-                                <Center>
-                                    <Image boxSize={20} src={metamask}/>
-                                </Center>
-                            </Link>
+                            <>
+                                <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
+                                {helpComponents[`${parseInt(id!)}`]}
+                            </>
                         </Box>
                         :
                         <Center mt="4">
