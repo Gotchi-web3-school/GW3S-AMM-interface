@@ -33,7 +33,7 @@ const Level0: React.FC = () => {
         <Stack direction={"row"} m="5rem">
             <Spacer />
             {signer.active && signer.chainId === 80001 ? 
-                <Box as="button" display={"flex"} margin="auto" onClick={() => claim_l0({ILevel0: ILevel0Facet,toast: toast})}>
+                <Box as="button" display={"flex"} margin="auto" onClick={() => claim_l0({Facet: ILevel0Facet,toast: toast})}>
                     <Image src={hasClaimed ? opennedChest : closeChest}/>
                 </Box>
                 :
