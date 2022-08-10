@@ -1,14 +1,37 @@
-import { useContext } from "react"
-import { LevelCard } from "../../Constants/levels"
-import { Text, Box, Stack, Spacer, Center, Button, Container, HStack } from "@chakra-ui/react"
-import Ressource from "./Ressources"
-import { LevelContext } from "../../Provider/LevelProvider"
+import { useContext, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { useWeb3React } from "@web3-react/core"
+import { Text, Box, Stack, Spacer, Center, Button, Container, HStack, Image, useToast } from "@chakra-ui/react"
+import Ressource from "./Ressources"
+import { ContractContext } from "../../Provider/ContractProvider"
+import { LevelCard } from "../../Constants/levels"
+import { LevelContext } from "../../Provider/LevelProvider"
+import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
+import { claims } from "../../Lib/Smart-contracts/Levels"
+const lockedChest = require("../../Assets/chests/lockedChest.png")
+const closeChest = require("../../Assets/chests/closedChest.png")
+const opennedChest = require("../../Assets/chests/opennedChest.png")
 
 const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const { id } = useParams()
+    const signer = useWeb3React()
     const {running} = useContext(LevelContext)
+    const toast = useToast()
+    const {LevelFacets, LevelLoupeFacet} = useContext(ContractContext)
+    const {hasClaimed, hasCompleted} = useContext(LevelContext)
+    const {dispatch} = useContext(LevelContext)
+
+    useEffect(() => {
+        try {
+            fetchLevelState(LevelLoupeFacet!, signer, parseInt(id!)).then(result => {
+                dispatch({type: "SET_LEVEL_STATE", payload: result})
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }, [LevelLoupeFacet, signer, dispatch, id])
     
+
     return (
         <Box
         display={"flex"}
@@ -44,11 +67,21 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 {running === parseInt(id ?? '-1') ? 
                     <HStack>
-                        <Button></Button>
+                        <Button>Complete</Button>
                         <Spacer />
-                        <Button></Button>
+                        <Button>Restart</Button>
                         <Spacer />
-                        <Button></Button>
+                        <Box 
+                        as="button" 
+                        display={"flex"} 
+                        margin="auto" 
+                        onClick={() => claims[parseInt(id!)]({
+                            Facet: LevelFacets[parseInt(id!)], 
+                            toast: toast
+                            })
+                        }>
+                            <Image src={hasCompleted ? hasClaimed ? opennedChest : closeChest : lockedChest}/>
+                        </Box>
                     </HStack>
                     :
                     <>
