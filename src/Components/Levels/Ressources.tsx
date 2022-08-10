@@ -9,7 +9,7 @@ import {
     ListItem,
     UnorderedList,
   } from '@chakra-ui/react'
-  const book = require("../../Assets/pixel book.png")
+  const book = require("../../Assets/general/pixel book.png")
 
 export type RessourceParams = {
   title: string | null,

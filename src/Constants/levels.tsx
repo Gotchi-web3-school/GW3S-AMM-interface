@@ -1,5 +1,5 @@
 import { Link, Image, Center, Text} from "@chakra-ui/react"
-const metamask = require("../Assets/Metamask-face.png")
+const metamask = require("../Assets/general/Metamask-face.png")
 
 export type LevelCard = {
     id: string,
