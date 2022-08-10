@@ -20,6 +20,9 @@ export const levelReducer = (state: LevelContextType, action: any): LevelContext
         case "COMPLETED":
           return {...state, hasCompleted: action.payload}
 
+        case "INIT":
+          return {...state, running: action.payload}
+
         case "RESET":
             return state
 

@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import {CompleteTx} from "../../../Models/index"
 
 interface ClaimTx {
     Facet: ethers.Contract | undefined,
@@ -51,13 +52,6 @@ export const claim_l1 = async(tx: ClaimTx) => {
     }
 }
 
-export interface CompleteTx {
-    signer: any,
-    Facet: ethers.Contract | undefined,
-    LoupeFacet: ethers.Contract | undefined,
-    toast: any,
-    dispatch: any,
-}
 
 export const complete_l1 = async(tx: CompleteTx) => {
     try {    
