@@ -80,7 +80,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                             toast: toast
                             })
                         }>
-                            <Image src={hasCompleted ? hasClaimed ? opennedChest : closeChest : lockedChest}/>
+                            <Image src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
                         </Box>
                     </HStack>
                     :
