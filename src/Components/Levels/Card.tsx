@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { LevelCard } from "../../Constants/levels"
-import { Text, Box, Stack, Spacer, Center, Button, Container } from "@chakra-ui/react"
+import { Text, Box, Stack, Spacer, Center, Button, Container, HStack } from "@chakra-ui/react"
 import Ressource from "./Ressources"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { useParams } from "react-router-dom"
@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom"
 const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const { id } = useParams()
     const {running} = useContext(LevelContext)
-
+    
     return (
         <Box
         display={"flex"}
@@ -39,20 +39,26 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 <Spacer />
                 <Box marginX={"auto"} minH="5rem" background="rgba(153, 114, 193, 0.99)" border="3px solid #7F00FE" borderRadius="50px">
-                   {running === parseInt(id ?? '0') || id === '0'|| id === '1' ? 
-                        <Box>
-                            <>
-                                <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
-                                {helpComponents[`${parseInt(id!)}`]}
-                            </>
-                        </Box>
-                        :
+                    <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
+                    {level.help}
+                </Box>
+                {running === parseInt(id ?? '-1') ? 
+                    <HStack>
+                        <Button></Button>
+                        <Spacer />
+                        <Button></Button>
+                        <Spacer />
+                        <Button></Button>
+                    </HStack>
+                    :
+                    <>
+                        {id === '0'|| id === '1' ? '' :
                         <Center mt="4">
                             <Button bg="teal.500" _hover={{background: "teal.600"}} onClick={() => "lfg"}>Start Level</Button>
                         </Center>
-                    }
-
-                </Box>
+                        }   
+                    </>
+                }
             </Stack>
         </Box>
     )

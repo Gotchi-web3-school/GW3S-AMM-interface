@@ -8,8 +8,8 @@ import { LevelContext } from "../../Provider/LevelProvider"
 import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
 import Card from "./Card"
 import ConnectorButtonL0 from "../Buttons/ConnectorButtonL0"
-const closeChest = require("../../Assets/closedChest.png")
-const opennedChest = require("../../Assets/opennedChest.png")
+const closeChest = require("../../Assets/chests/closedChest.png")
+const opennedChest = require("../../Assets/chests/opennedChest.png")
 
 const Level0: React.FC = () => {
     const signer = useWeb3React()
