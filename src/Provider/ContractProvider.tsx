@@ -26,6 +26,7 @@ export type ContractContextType = {
   ILevel12Facet: ethers.Contract | undefined,
   ILevel13Facet: ethers.Contract | undefined,
   LevelLoupeFacet: ethers.Contract | undefined,
+  LevelFacets: Array<ethers.Contract>
 }
 
 export const ContractContext = createContext<ContractContextType>({
@@ -48,7 +49,8 @@ export const ContractContext = createContext<ContractContextType>({
     ILevel11Facet: undefined,
     ILevel12Facet: undefined,
     ILevel13Facet: undefined,
-    LevelLoupeFacet: undefined
+    LevelLoupeFacet: undefined,
+    LevelFacets: []
 })
 
 export const ContractProvider = (props: any) => {
@@ -73,15 +75,31 @@ export const ContractProvider = (props: any) => {
     const ILevel12Facet = new ethers.Contract(DIAMOND_ADDRESS, interfaces.ILevel12Facet, library?.getSigner(account) ?? library)
     const ILevel13Facet = new ethers.Contract(DIAMOND_ADDRESS, interfaces.ILevel13Facet, library?.getSigner(account) ?? library)
     const LevelLoupeFacet = new ethers.Contract(DIAMOND_ADDRESS, interfaces.LevelLoupeFacet, library?.getSigner(account) ?? library)
+    const LevelFacets = [
+      ILevel0Facet,
+      ILevel1Facet,
+      ILevel2Facet,
+      ILevel3Facet,
+      ILevel4Facet,
+      ILevel5Facet,
+      ILevel6Facet,
+      ILevel7Facet,
+      ILevel8Facet,
+      ILevel9Facet,
+      ILevel10Facet,
+      ILevel11Facet,
+      ILevel12Facet,
+      ILevel13Facet,
+    ]
 
   
   return (
     <ContractContext.Provider value={{ 
-      factory, router2, pair, ERC20, IToken,
+      factory, router2, pair, ERC20, IToken, LevelFacets,
       ILevel0Facet, ILevel1Facet, ILevel2Facet, ILevel3Facet, ILevel4Facet, ILevel5Facet, ILevel6Facet, ILevel7Facet, ILevel8Facet,
       ILevel9Facet, ILevel10Facet, ILevel11Facet, ILevel12Facet, ILevel13Facet,
       LevelLoupeFacet
-       }}>
+      }}>
     {props.children}
     </ContractContext.Provider>
   )
