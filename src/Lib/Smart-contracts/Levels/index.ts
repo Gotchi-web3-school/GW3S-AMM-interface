@@ -1,9 +1,11 @@
 import { ethers } from "ethers"
 import { claim_l0 } from "./level0Facet"
-import { claim_l1, complete_l1, CompleteTx } from "./level1Facet"
+import { complete_l1, claim_l1 } from "./level1Facet"
+import { start_l2, complete_l2, claim_l2 } from "./level2Facet"
+import { CompleteTx, InitTx } from "../../../Models"
 
 export type LevelState = {
-    running: BigInt,
+    running: number,
     instanceAddress: string,
     hasCompleted: boolean,
     hasClaimed: boolean,
@@ -22,7 +24,7 @@ export const fetchLevelState = async(LevelLoupeFacet: ethers.Contract, signer: a
     const result = await Promise.all([running, instanceAddress, hasCompleted, hasClaimed, factories, tokens])
 
     return {
-        running: result[0],
+        running: parseInt(result[0].toString()),
         instanceAddress: result[1],
         hasCompleted: result[2],
         hasClaimed: result[3],
@@ -34,9 +36,17 @@ export const fetchLevelState = async(LevelLoupeFacet: ethers.Contract, signer: a
 export const claims = [
     claim_l0,
     claim_l1,
+    claim_l2,
 ]
 
 export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> = [
     undefined,
     complete_l1,
+    complete_l2,
+]
+
+export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
+    undefined,
+    undefined,
+    start_l2,
 ]
