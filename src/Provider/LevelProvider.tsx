@@ -12,7 +12,7 @@ export type LevelContextType = {
 }
 
 const defaultContext = {
-    running: 0,
+    running: -1,
     instanceAddress: '',
     hasCompleted: false,
     hasClaimed: false,
