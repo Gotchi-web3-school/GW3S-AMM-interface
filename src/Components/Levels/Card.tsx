@@ -7,7 +7,8 @@ import { ContractContext } from "../../Provider/ContractProvider"
 import { LevelCard } from "../../Constants/levels"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
-import { claims } from "../../Lib/Smart-contracts/Levels"
+import { CompleteTx, InitTx } from "../../Models"
+import { starts, completes, claims } from "../../Lib/Smart-contracts/Levels"
 const lockedChest = require("../../Assets/chests/lockedChest.png")
 const closeChest = require("../../Assets/chests/closedChest.png")
 const opennedChest = require("../../Assets/chests/opennedChest.png")
@@ -15,11 +16,31 @@ const opennedChest = require("../../Assets/chests/opennedChest.png")
 const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const { id } = useParams()
     const signer = useWeb3React()
-    const {running} = useContext(LevelContext)
     const toast = useToast()
+    const {running} = useContext(LevelContext)
     const {LevelFacets, LevelLoupeFacet} = useContext(ContractContext)
     const {hasClaimed, hasCompleted} = useContext(LevelContext)
     const {dispatch} = useContext(LevelContext)
+
+    const complete = () => {
+        const tx: CompleteTx = {
+            signer: signer,
+            Facet: LevelFacets[parseInt(id!)],
+            LoupeFacet: LevelLoupeFacet,
+            toast: toast,
+            dispatch: dispatch
+        }
+        completes[parseInt(id!)]!(tx)
+    }
+
+    const start = () => {
+        const tx: InitTx = {
+            Facet: LevelFacets[parseInt(id!)],
+            toast: toast,
+            dispatch: dispatch
+        }
+        starts[parseInt(id!)]!(tx)
+    }
 
     useEffect(() => {
         try {
@@ -67,9 +88,9 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 {running === parseInt(id ?? '-1') ? 
                     <HStack>
-                        <Button>Complete</Button>
+                        <Button onClick={complete}>Complete</Button>
                         <Spacer />
-                        <Button>Restart</Button>
+                        <Button onClick={start}>Restart</Button>
                         <Spacer />
                         <Box 
                         as="button" 
@@ -80,14 +101,14 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                             toast: toast
                             })
                         }>
-                            <Image src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
+                            <Image boxSize={100} src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
                         </Box>
                     </HStack>
                     :
                     <>
                         {id === '0'|| id === '1' ? '' :
                         <Center mt="4">
-                            <Button bg="teal.500" _hover={{background: "teal.600"}} onClick={() => "lfg"}>Start Level</Button>
+                            <Button bg="teal.500" _hover={{background: "teal.600"}} onClick={start}>Start Level</Button>
                         </Center>
                         }   
                     </>
