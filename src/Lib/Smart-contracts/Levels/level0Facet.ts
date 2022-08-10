@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
 interface ClaimTx {
-    ILevel0: ethers.Contract | undefined,
+    Facet: ethers.Contract | undefined,
     toast: any,
 }
 
@@ -13,10 +13,10 @@ export const claim_l0 = async(tx: ClaimTx) => {
         console.log("///////////////////////////////////////////////")
     
         //Estimation of the gas cost
-        const gas = await tx.ILevel0?.estimateGas.claim_l0() 
+        const gas = await tx.Facet?.estimateGas.claim_l0() 
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
-        const transaction = await tx.ILevel0?.claim_l0()
+        const transaction = await tx.Facet?.claim_l0()
     
         tx.toast({
             title: `Claim level 0`,
