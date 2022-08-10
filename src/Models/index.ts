@@ -159,3 +159,27 @@ export type PoolCardContextType = {
     dispatch: (action: any, state?: Object,) => void,
     setState: React.Dispatch<any>,
 }
+
+/**************************************/
+/*                                    */
+/*           Transactions             */
+/*                                    */
+/**************************************/
+export interface InitTx {
+    Facet: ethers.Contract | undefined,
+    toast: any,
+    dispatch: any,
+}
+
+export interface CompleteTx {
+    signer: any,
+    Facet: ethers.Contract | undefined,
+    LoupeFacet: ethers.Contract | undefined,
+    toast: any,
+    dispatch: any,
+}
+
+export interface ClaimTx {
+    Facet: ethers.Contract | undefined,
+    toast: any,
+}
