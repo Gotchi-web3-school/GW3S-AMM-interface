@@ -72,7 +72,7 @@ export const levels: LevelCard[] = [
         },
         ressources: null,
         description: "Your are given 10 DAI swap them against GHST tokens",
-        help: <Text>Look at the “pools” tab in the AMM, there are interesting informations !</Text>,
+        help: <Text px="5">Look at the “pools” tab in the AMM, there are interesting informations !</Text>,
     },
     {
         id: '5',
@@ -127,7 +127,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
         description: "Your given 25 USDC Become a millionnaire.",
-        help: <Text>Create token ERC 20 module</Text>,
+        help: <Text px="5">Create token ERC 20 module</Text>,
     },
     {
         id: '10',
