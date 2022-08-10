@@ -1,4 +1,6 @@
 import { ethers } from "ethers"
+import { claim_l0 } from "./level0Facet"
+import { claim_l1 } from "./level1Facet"
 
 export type LevelState = {
     running: BigInt,
@@ -28,3 +30,8 @@ export const fetchLevelState = async(LevelLoupeFacet: ethers.Contract, signer: a
         tokens: result[5]
     }
 }
+
+export const claims = [
+    claim_l0,
+    claim_l1,
+]
