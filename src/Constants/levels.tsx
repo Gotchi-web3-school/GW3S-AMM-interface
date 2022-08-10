@@ -1,10 +1,13 @@
+import { Link, Image, Center, Text} from "@chakra-ui/react"
+const metamask = require("../Assets/Metamask-face.png")
+
 export type LevelCard = {
     id: string,
     title: string,
     learn: {title: string, text: string | null},
     ressources: string[] | null,
     description: string,
-    help: string | null,
+    help: React.ReactElement<any, any>,
 }
 
 export const levels: LevelCard[] = [
@@ -20,7 +23,12 @@ export const levels: LevelCard[] = [
             "https://github.com/ethereumbook/ethereumbook/blob/develop/05wallets.asciidoc"
         ],
         description: "Connect your wallet.",
-        help: "https://metamask.io/",
+        help: 
+        <Link color="blue.300" href="https://metamask.io/" isExternal>
+            <Center>
+                <Image boxSize={20} src={metamask}/>
+            </Center>
+        </Link>,
     },
     {
         id: '1',
@@ -31,7 +39,7 @@ export const levels: LevelCard[] = [
         },
         ressources:["https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#private-keys"],
         description: "Sign a message with you wallet.",
-        help: null,
+        help: <></>,
     },
     {
         id: '2',
@@ -42,7 +50,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#private-keys"],
         description: "You are given 4 tokens, “FOMO”, “ALPHA”, “KEK”, “FUD” Approve them to John.gotchi in order to let him ship your tokens",
-        help: null,
+        help: <></>,
     },
     {
         id: '3',
@@ -53,7 +61,7 @@ export const levels: LevelCard[] = [
         },
         ressources: null,
         description: "Your are given 10 DAI swap them against GHST tokens",
-        help: null,
+        help: <></>,
     },
     {
         id: '4',
@@ -64,7 +72,7 @@ export const levels: LevelCard[] = [
         },
         ressources: null,
         description: "Your are given 10 DAI swap them against GHST tokens",
-        help: "Look at the “pools” tab in the AMM, there are interesting informations !",
+        help: <Text>Look at the “pools” tab in the AMM, there are interesting informations !</Text>,
     },
     {
         id: '5',
@@ -75,7 +83,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["https://mumbai.polygonscan.com/"],
         description: "You are given 1 CATCH token Find the address that sent you v",
-        help: "https://mumbai.polygonscan.com/",
+        help: <Link href="https://mumbai.polygonscan.com/">https://mumbai.polygonscan.com/</Link>,
     },
     {
         id: '6',
@@ -86,7 +94,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
         description: " You are given 10 GHST token You are given 0.001 DAI tokenSwap your 10 GHST to finish the level with at least 10.001 DAI token ",
-        help: "https://mumbai.polygonscan.com/",
+        help: <Link href="https://mumbai.polygonscan.com/">https://mumbai.polygonscan.com/</Link>,
     },
     {
         id: '7',
@@ -97,7 +105,7 @@ export const levels: LevelCard[] = [
         },
         ressources:["Liquidity is key in an AMM ! The more liquidity there is inside the less the price impact will be when exchanging large amount of token against another "],
         description: "Your are given 100 DAI Your are given 100 GHST A DAI/GHST pool is created. Quadruple (+300%) the price of GHST against DAI (no more than 5% of difference in final price allowed)",
-        help: "https://research.paradigm.xyz/amm-price-impact",
+        help: <Link href="https://research.paradigm.xyz/amm-price-impact">https://research.paradigm.xyz/amm-price-impact</Link>,
     },
     {
         id: '8',
@@ -108,7 +116,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
         description: " You are given 10 GHST token You are given 0.001 DAI tokenSwap your 10 GHST to finish the level with at least 10.001 DAI token ",
-        help: "https://mumbai.polygonscan.com/",
+        help: <></>,
     },
     {
         id: '9',
@@ -119,7 +127,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
         description: "Your given 25 USDC Become a millionnaire.",
-        help: "Create token ERC 20 module",
+        help: <Text>Create token ERC 20 module</Text>,
     },
     {
         id: '10',
@@ -130,7 +138,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
         description: "Your given 1 USDC Your given 1 GHST Become a GHST trillionnaire using your AMM.",
-        help: "Create token ERC 20 module",
+        help: <></>,
     },
     {
         id: '11',
@@ -141,7 +149,7 @@ export const levels: LevelCard[] = [
         },
         ressources: null,
         description: "Your are given 10.000.000 DAI Your are given 10.000.000 GHST A DAI/GHST pool is created. swap at least 10.000 GHST without causing more than 1% of price impact ",
-        help: null,
+        help: <></>,
     },
     {
         id: '12',
@@ -152,7 +160,7 @@ export const levels: LevelCard[] = [
         },
         ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
         description: "You are given 100 USDC Your are given 2 AMM with the same pool GHST/USDC finish the level with 200 USDC",
-        help: "Create token ERC 20 module",
+        help: <></>,
     },
     {
         id: '13',
@@ -163,6 +171,6 @@ export const levels: LevelCard[] = [
         },
         ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
         description: "You are given 1000 USDC You are given 1000 GHST You are given 2 AMM within one a pool USDC/GHST with a ratio 1/1 Decrease the value of GHST against USDC by at least 50% whitout making any swap",
-        help: null,
+        help: <></>,
     },
 ]
