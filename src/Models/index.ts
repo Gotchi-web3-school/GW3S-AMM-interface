@@ -165,6 +165,8 @@ export type PoolCardContextType = {
 /*           Transactions             */
 /*                                    */
 /**************************************/
+
+
 export interface InitTx {
     Facet: ethers.Contract | undefined,
     toast: any,
@@ -181,5 +183,13 @@ export interface CompleteTx {
 
 export interface ClaimTx {
     Facet: ethers.Contract | undefined,
+    toast: any,
+}
+
+export interface ApproveTx {
+    signer: any,
+    tokenAddress: string,
+    tokenName: string,
+    instanceAddress: string,
     toast: any,
 }
