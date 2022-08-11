@@ -1,6 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount } from 'gotchiw3s-sdk';
 import { abis, GlobalConst, ROUTER_ADDRESS, FACTORY_ADDRESS} from '../../Constants';
+import { interfaces } from '../../Constants/interfaces';
 import { ethers } from "ethers";
 import { SelectToken } from '../../Models';
 
@@ -38,10 +39,17 @@ export const fetchApprovedtokens = async(pair: Pair, userAdress: string, provide
     return ({token0: pair.reserve0.lessThan(approved0), token1: pair.reserve1.lessThan(approved1)})
 }
 
+// AMM 
 export const fetchApproveToken = async(token: Token, amount: TokenAmount, userAdress: string, provider: any): Promise<boolean> => {
     const erc20 = new ethers.Contract(token.address, abis.erc20, provider.getSigner(userAdress));
     const allowance: BigintIsh = await erc20.allowance(userAdress, ROUTER_ADDRESS);
     return (amount.lessThan(allowance))
+}
+// normal 
+export const fetchApprovedToken = async(tokenAddress: string, amount: number, operator: string, signer: any): Promise<boolean> => {
+    const token = new ethers.Contract(tokenAddress, interfaces.IToken, signer.library);
+    const allowance: number = parseInt(ethers.utils.formatEther(await token.allowance(signer.account, operator)));
+    return (amount < allowance)
 }
 
 export const isPoolCreated = async(pair: Pair, provider: any): Promise<{result: boolean, tokenAddress: any}> => {
