@@ -42,7 +42,6 @@ const Level1: React.FC = () => {
             console.log(error)
         }
     }, [LevelLoupeFacet, signer, dispatch])
-    console.log(hasCompleted)
     
     return (
     <Box margin={"auto"}>
