@@ -19,8 +19,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const toast = useToast()
     const {running} = useContext(LevelContext)
     const {LevelFacets, LevelLoupeFacet} = useContext(ContractContext)
-    const {hasClaimed, hasCompleted} = useContext(LevelContext)
-    const {dispatch} = useContext(LevelContext)
+    const {hasClaimed, hasCompleted, dispatch} = useContext(LevelContext)
 
     const complete = () => {
         const tx: CompleteTx = {
@@ -40,6 +39,18 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
             dispatch: dispatch
         }
         starts[parseInt(id!)]!(tx)
+    }
+
+    const restart = () => {
+        const tx: InitTx = {
+            Facet: LevelFacets[parseInt(id!)],
+            toast: toast,
+            dispatch: dispatch
+        }
+        starts[parseInt(id!)]!(tx).then(() => {
+            console.log("navigate")
+            window.location.reload()
+        })
     }
 
     useEffect(() => {
@@ -88,9 +99,9 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 {running === parseInt(id ?? '-1') ? 
                     <HStack>
-                        <Button onClick={complete}>Complete</Button>
+                        <Button bg={hasCompleted ? "green.500" : ""} border="2px solid green" onClick={complete}>Complete</Button>
                         <Spacer />
-                        <Button onClick={start}>Restart</Button>
+                        <Button bg="orange.500" onClick={restart}>Restart</Button>
                         <Spacer />
                         <Box 
                         as="button" 
@@ -98,7 +109,8 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                         margin="auto" 
                         onClick={() => claims[parseInt(id!)]({
                             Facet: LevelFacets[parseInt(id!)], 
-                            toast: toast
+                            toast: toast,
+                            dispatch: dispatch,
                             })
                         }>
                             <Image boxSize={100} src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
