@@ -17,8 +17,7 @@ const opennedChest = require("../../Assets/chests/opennedChest.png")
 const Level1: React.FC = () => {
     const signer = useWeb3React()
     const {ILevel1Facet, LevelLoupeFacet, LevelFacets} = useContext(ContractContext)
-    const {hasClaimed, hasCompleted} = useContext(LevelContext)
-    const {dispatch} = useContext(LevelContext)
+    const {hasClaimed, hasCompleted, dispatch} = useContext(LevelContext)
     const toast = useToast()
     const message = " I hereby confirm that i will pursue the challenges ahead and be devoted to protect the Gotchiverse against the baad lickuidators"
 
@@ -56,7 +55,7 @@ const Level1: React.FC = () => {
                     </Stack>
                 </Box>
             <Spacer />
-            <Box as="button" display={"flex"} margin="auto" onClick={() => claim_l1({Facet: ILevel1Facet, toast: toast})}>
+            <Box as="button" display={"flex"} margin="auto" onClick={() => claim_l1({Facet: ILevel1Facet, toast: toast, dispatch: dispatch})}>
                     <Image src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
                 </Box>
             <Spacer />

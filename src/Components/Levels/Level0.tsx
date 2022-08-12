@@ -14,8 +14,7 @@ const opennedChest = require("../../Assets/chests/opennedChest.png")
 const Level0: React.FC = () => {
     const signer = useWeb3React()
     const {ILevel0Facet, LevelLoupeFacet} = useContext(ContractContext)
-    const {hasClaimed} = useContext(LevelContext)
-    const {dispatch} = useContext(LevelContext)
+    const {hasClaimed, dispatch} = useContext(LevelContext)
     const toast = useToast()
 
     useEffect(() => {
@@ -33,7 +32,7 @@ const Level0: React.FC = () => {
         <Stack direction={"row"} m="5rem">
             <Spacer />
             {signer.active && signer.chainId === 80001 ? 
-                <Box as="button" display={"flex"} margin="auto" onClick={() => claim_l0({Facet: ILevel0Facet,toast: toast})}>
+                <Box as="button" display={"flex"} margin="auto" onClick={() => claim_l0({Facet: ILevel0Facet,toast: toast, dispatch: dispatch})}>
                     <Image src={hasClaimed ? opennedChest : closeChest}/>
                 </Box>
                 :

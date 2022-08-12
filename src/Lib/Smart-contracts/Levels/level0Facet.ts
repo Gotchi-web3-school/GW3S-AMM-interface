@@ -1,9 +1,5 @@
 import { ethers } from "ethers";
-
-interface ClaimTx {
-    Facet: ethers.Contract | undefined,
-    toast: any,
-}
+import { ClaimTx } from "../../../Models";
 
 export const claim_l0 = async(tx: ClaimTx) => {
     try {    
@@ -37,6 +33,8 @@ export const claim_l0 = async(tx: ClaimTx) => {
             isClosable: true,
             })
         console.log(receipt)
+
+        tx.dispatch({type: "CLAIM", payload: true})
         
     } catch (error: any) {
         console.log(error.error)
