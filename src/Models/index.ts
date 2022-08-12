@@ -174,7 +174,7 @@ export interface InitTx {
 }
 
 export interface CompleteTx {
-    signer: any,
+    signer: any
     Facet: ethers.Contract | undefined,
     LoupeFacet: ethers.Contract | undefined,
     toast: any,
@@ -184,6 +184,7 @@ export interface CompleteTx {
 export interface ClaimTx {
     Facet: ethers.Contract | undefined,
     toast: any,
+    dispatch: (state: any, action?: Object | undefined) => void
 }
 
 export interface ApproveTx {
