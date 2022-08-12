@@ -16,6 +16,8 @@ export const levelReducer = (state: LevelContextType, action: any): LevelContext
             factories: action.payload.factories,
             tokens: action.payload.tokens
           }
+        case "CLAIM":
+          return {...state, hasClaimed: action.payload}
 
         case "COMPLETED":
           return {...state, hasCompleted: action.payload}
