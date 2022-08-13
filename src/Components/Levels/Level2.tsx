@@ -20,7 +20,7 @@ const shipKeyFrames = keyframes `
     to {transform: translateX(100rem)} 
 `
 
-const shipAnimation = `${shipKeyFrames} 5s linear 0.5s 1 normal forwards`
+const shipAnimation = `${shipKeyFrames} 5s linear forwards`
 
 const Level2: React.FC = () => {
     const signer = useWeb3React();
