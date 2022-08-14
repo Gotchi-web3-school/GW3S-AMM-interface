@@ -8,6 +8,7 @@ import {
   useBreakpointValue,
   useColorMode,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import {  SunIcon, MoonIcon, } from '@chakra-ui/icons'
 import {useWeb3React} from '@web3-react/core';
 import { getChainIdName } from '../../Lib/Utils';
@@ -26,15 +27,17 @@ const Navbar: React.FC = () => {
         px={{ base: 4 }}
         align={'center'}>
         <Flex flex={{ base: 1 }} justify={{ base: 'left', md: 'start' }}>
-          <Text
-            fontFamily={"Tourney"}
-            fontStyle={"italic"}
-            fontWeight={"bold"}
-            fontSize={"3xl"}
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            color={useColorModeValue('gray.800', 'white')}>
-            Gotchi web3 school
-          </Text>
+          <Link to="/">
+            <Text
+              fontFamily={"Tourney"}
+              fontStyle={"italic"}
+              fontWeight={"bold"}
+              fontSize={"3xl"}
+              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+              color={useColorModeValue('gray.800', 'white')}>
+              Gotchi web3 school
+            </Text>
+          </Link>
         </Flex>
 
         <Stack
