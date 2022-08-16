@@ -194,18 +194,17 @@ export const interfaces = {
         `function getAmountsIn(uint amountOut, address[] memory path, address factory) external view returns (uint[] memory amounts)`
     ],
     ILevel0Facet: [
-        "function claim_l0() external"
+        "function openL0Chest() external returns(address[] memory loot, uint[] memory amount)"
     ],
     ILevel1Facet: [
         "function initLevel1() external",
-        "function complete_l1() external",
-        "function claim_l1() external",
+        "function completeL1() external returns (bool)",
+        "function openL1Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel2Facet: [
         "function initLevel2() external",
-        "function complete_l2() external",
-        "function claim_l2() external",
-        "function secretLevel() internal view returns(bool)"
+        "function completeL2() external returns (bool)",
+        "function openL2Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel2Instance: [
         "function player() external view returns (address)", 
@@ -218,60 +217,60 @@ export const interfaces = {
     ],
     ILevel3Facet: [
         "function initLevel3() external",
-        "function complete_l3() external",
-        "function claim_l3() external",
+        "function completeL3() external returns (bool)",
+        "function openL3Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel4Facet: [
         "function initLevel4() external",
-        "function complete_l4() external",
-        "function claim_l4() external",
+        "function completeL4() external returns (bool)",
+        "function openL4Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel5Facet: [
         "function initLevel5() external",
-        "function complete_l5() external",
-        "function claim_l5() external",
+        "function completeL5() external returns (bool)",
+        "function openL5Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel6Facet: [
         "function initLevel6() external",
-        "function complete_l6() external",
-        "function claim_l6() external",
+        "function completeL6() external returns (bool)",
+        "function openL6Chest() external returns(address[] memory loot, uint[] memory amount)",
         "function getTokens() external view returns(address[] memory)",
         "function getFactory() external view returns(address)",
         "function getPair(address token0, address token1) public returns(address pair)",
     ],
     ILevel7Facet: [
         "function initLevel7() external",
-        "function complete_l7() external",
-        "function claim_l7() external",
+        "function completeL7() external returns (bool)",
+        "function openL7Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel8Facet: [
         "function initLevel8() external",
-        "function complete_l8() external",
-        "function claim_l8() external",
+        "function completeL8() external returns (bool)",
+        "function openL8Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel9Facet: [
         "function initLevel9() external",
-        "function complete_l9() external",
-        "function claim_l9() external",
+        "function completeL9() external returns (bool)",
+        "function openL9Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel10Facet: [
         "function initLevel10() external",
-        "function complete_l10() external",
-        "function claim_l10() external",
+        "function completeL10() external returns (bool)",
+        "function openL10Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel11Facet: [
         "function initLevel11() external",
-        "function complete_l11() external",
-        "function claim_l11() external",
+        "function completeL11() external returns (bool)",
+        "function openL11Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel12Facet: [
         "function initLevel12() external",
-        "function complete_l12() external",
-        "function claim_l12() external",
+        "function completeL12() external returns (bool)",
+        "function openL12Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
     ILevel13Facet: [
         "function initLevel13() external",
-        "function complete_l13() external",
-        "function claim_l13() external",
+        "function completeL13() external returns (bool)",
+        "function openL13Chest() external returns(address[] memory loot, uint[] memory amount)",
     ],
 }
