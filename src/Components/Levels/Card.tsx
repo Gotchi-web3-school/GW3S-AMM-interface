@@ -8,7 +8,7 @@ import { LevelCard } from "../../Constants/levels"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
 import { CompleteTx, InitTx } from "../../Models"
-import { starts, completes, claims } from "../../Lib/Smart-contracts/Levels"
+import { starts, completes, opens } from "../../Lib/Smart-contracts/Levels"
 const lockedChest = require("../../Assets/chests/lockedChest.png")
 const closeChest = require("../../Assets/chests/closedChest.png")
 const opennedChest = require("../../Assets/chests/opennedChest.png")
@@ -107,7 +107,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                         as="button" 
                         display={"flex"} 
                         margin="auto" 
-                        onClick={() => claims[parseInt(id!)]({
+                        onClick={() => opens[parseInt(id!)]({
                             Facet: LevelFacets[parseInt(id!)], 
                             toast: toast,
                             dispatch: dispatch,

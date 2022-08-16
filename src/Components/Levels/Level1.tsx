@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core"
 import { Box, Spacer, Stack, Image, Text, useToast, Button, Center } from "@chakra-ui/react"
 import { levels } from "../../Constants/levels"
 import { ContractContext } from "../../Provider/ContractProvider"
-import { claim_l1 } from "../../Lib/Smart-contracts/Levels/level1Facet"
+import { openL1Chest } from "../../Lib/Smart-contracts/Levels/level1Facet"
 import { CompleteTx } from "../../Models"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
@@ -55,7 +55,7 @@ const Level1: React.FC = () => {
                     </Stack>
                 </Box>
             <Spacer />
-            <Box as="button" display={"flex"} margin="auto" onClick={() => claim_l1({Facet: ILevel1Facet, toast: toast, dispatch: dispatch})}>
+            <Box as="button" display={"flex"} margin="auto" onClick={() => openL1Chest({Facet: ILevel1Facet, toast: toast, dispatch: dispatch})}>
                     <Image src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
                 </Box>
             <Spacer />
