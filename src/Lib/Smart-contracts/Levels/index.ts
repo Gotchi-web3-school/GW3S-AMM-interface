@@ -1,7 +1,7 @@
 import { ethers } from "ethers"
-import { claim_l0 } from "./level0Facet"
-import { complete_l1, claim_l1 } from "./level1Facet"
-import { start_l2, complete_l2, claim_l2 } from "./level2Facet"
+import { openL0Chest } from "./level0Facet"
+import { completeL1, openL1Chest } from "./level1Facet"
+import { start_l2, completeL2, openL2Chest } from "./level2Facet"
 import { CompleteTx, InitTx } from "../../../Models"
 
 export type LevelState = {
@@ -33,16 +33,16 @@ export const fetchLevelState = async(LevelLoupeFacet: ethers.Contract, signer: a
     }
 }
 
-export const claims = [
-    claim_l0,
-    claim_l1,
-    claim_l2,
+export const opens = [
+    openL0Chest,
+    openL1Chest,
+    openL2Chest,
 ]
 
 export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> = [
     undefined,
-    complete_l1,
-    complete_l2,
+    completeL1,
+    completeL2,
 ]
 
 export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
