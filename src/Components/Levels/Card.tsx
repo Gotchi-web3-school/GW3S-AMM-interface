@@ -1,17 +1,16 @@
 import { useContext, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useWeb3React } from "@web3-react/core"
-import { Text, Box, Stack, Spacer, Center, Button, Container, HStack, Image, useToast } from "@chakra-ui/react"
-import Ressource from "./Ressources"
+import { Text, Box, Stack, Spacer, Center, Button, Container, HStack, useToast } from "@chakra-ui/react"
 import { ContractContext } from "../../Provider/ContractProvider"
 import { LevelCard } from "../../Constants/levels"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
 import { CompleteTx, InitTx } from "../../Models"
-import { starts, completes, opens } from "../../Lib/Smart-contracts/Levels"
-const lockedChest = require("../../Assets/chests/lockedChest.png")
-const closeChest = require("../../Assets/chests/closedChest.png")
-const opennedChest = require("../../Assets/chests/opennedChest.png")
+import { starts, completes } from "../../Lib/Smart-contracts/Levels"
+import Ressource from "./Ressources"
+import ChestLevel from "../Chests/ChestLevel"
+
 
 const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const { id } = useParams()
@@ -19,7 +18,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const toast = useToast()
     const {running} = useContext(LevelContext)
     const {LevelFacets, LevelLoupeFacet} = useContext(ContractContext)
-    const {hasClaimed, hasCompleted, dispatch} = useContext(LevelContext)
+    const { hasCompleted, dispatch} = useContext(LevelContext)
 
     const complete = () => {
         const tx: CompleteTx = {
@@ -103,18 +102,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                         <Spacer />
                         <Button bg="orange.500" onClick={restart}>Restart</Button>
                         <Spacer />
-                        <Box 
-                        as="button" 
-                        display={"flex"} 
-                        margin="auto" 
-                        onClick={() => opens[parseInt(id!)]({
-                            Facet: LevelFacets[parseInt(id!)], 
-                            toast: toast,
-                            dispatch: dispatch,
-                            })
-                        }>
-                            <Image boxSize={100} src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
-                        </Box>
+                        <ChestLevel id={parseInt(id!)} />
                     </HStack>
                     :
                     <>
