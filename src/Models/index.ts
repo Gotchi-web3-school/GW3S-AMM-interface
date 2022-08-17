@@ -159,6 +159,16 @@ export type PoolCardContextType = {
     dispatch: (action: any, state?: Object,) => void,
     setState: React.Dispatch<any>,
 }
+/**************************************/
+/*                                    */
+/*              Chests                */
+/*                                    */
+/**************************************/
+
+export type OpennedChest = {
+    addresses: Array<string>,
+    quantities: Array<BigInt> 
+}
 
 /**************************************/
 /*                                    */
