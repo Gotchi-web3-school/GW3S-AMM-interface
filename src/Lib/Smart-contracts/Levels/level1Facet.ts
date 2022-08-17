@@ -1,21 +1,22 @@
 import { ethers } from "ethers";
-import {CompleteTx, ClaimTx} from "../../../Models/index"
+import {CompleteTx, ClaimTx, OpennedChest} from "../../../Models/index"
 
-export const claim_l1 = async(tx: ClaimTx) => {
+export const openL1Chest = async(tx: ClaimTx): Promise<OpennedChest> => {
     try {    
-        console.warn("CLAIM")
+        console.warn("OPEN CHEST")
         console.log("///////////////////////////////////////////////")
         console.log("Level: " + 1)
         console.log("///////////////////////////////////////////////")
     
         //Estimation of the gas cost
-        const gas = await tx.Facet?.estimateGas.claim_l1() 
+        const gas = await tx.Facet?.estimateGas.openL1Chest()
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
-        
-        const transaction = await tx.Facet?.claim_l1()
+
+        const loots = await tx.Facet?.callStatic.openL1Chest()
+        const transaction = await tx.Facet?.openL1Chest()
     
         tx.toast({
-            title: `Claim level 1`,
+            title: `Open chest level 1`,
             description: `transaction pending at: ${transaction?.hash}`,
             position: "top-right",
             status: "warning",
@@ -25,7 +26,7 @@ export const claim_l1 = async(tx: ClaimTx) => {
         const receipt = await transaction.wait()
     
         tx.toast({
-            title: `Claim level 1`,
+            title: `Open chest level 1`,
             description: `Reward claimed successfully`,
             position: "top-right",
             status: "success",
@@ -35,22 +36,24 @@ export const claim_l1 = async(tx: ClaimTx) => {
         console.log(receipt)
 
         tx.dispatch({type: "CLAIM", payload: true})
-        
+
+        return loots
     } catch (error: any) {
         console.log(error.error)
         tx.toast({
             position: "bottom-right",
-            title: 'Claim level 1.',
+            title: 'Open chest level 1.',
             description: `${error.error.message}`,
             status: 'error',
             duration: 9000,
             isClosable: true,
           })
+        throw new Error(error.error)
     }
 }
 
 
-export const complete_l1 = async(tx: CompleteTx) => {
+export const completeL1 = async(tx: CompleteTx) => {
     try {    
         console.warn("COMPLETE")
         console.log("///////////////////////////////////////////////")
@@ -58,10 +61,10 @@ export const complete_l1 = async(tx: CompleteTx) => {
         console.log("///////////////////////////////////////////////")
     
         //Estimation of the gas cost
-        const gas = await tx.Facet?.estimateGas.complete_l1() 
+        const gas = await tx.Facet?.estimateGas.completeL1() 
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
-        const transaction = await tx.Facet?.complete_l1()
+        const transaction = await tx.Facet?.completeL1()
     
         tx.toast({
             title: `Complete level 1`,

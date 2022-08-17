@@ -1,21 +1,22 @@
 import { ethers } from "ethers";
-import { ClaimTx } from "../../../Models";
+import { ClaimTx, OpennedChest } from "../../../Models";
 
-export const claim_l0 = async(tx: ClaimTx) => {
+export const openL0Chest = async(tx: ClaimTx): Promise<OpennedChest> => {
     try {    
-        console.warn("CLAIM")
+        console.warn("OPEN CHEST")
         console.log("///////////////////////////////////////////////")
         console.log("Level: " + 0)
         console.log("///////////////////////////////////////////////")
     
         //Estimation of the gas cost
-        const gas = await tx.Facet?.estimateGas.claim_l0() 
+        const gas = await tx.Facet?.estimateGas.openL0Chest()
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
-        
-        const transaction = await tx.Facet?.claim_l0()
+
+        const loots = await tx.Facet?.callStatic.openL0Chest()
+        const transaction = await tx.Facet?.openL0Chest()
     
         tx.toast({
-            title: `Claim level 0`,
+            title: `Open chest level 0`,
             description: `transaction pending at: ${transaction?.hash}`,
             position: "top-right",
             status: "warning",
@@ -25,7 +26,7 @@ export const claim_l0 = async(tx: ClaimTx) => {
         const receipt = await transaction.wait()
     
         tx.toast({
-            title: `Claim level 0`,
+            title: `Open chest level 0`,
             description: `Reward claimed successfully`,
             position: "top-right",
             status: "success",
@@ -35,16 +36,18 @@ export const claim_l0 = async(tx: ClaimTx) => {
         console.log(receipt)
 
         tx.dispatch({type: "CLAIM", payload: true})
-        
+
+        return loots
     } catch (error: any) {
         console.log(error.error)
         tx.toast({
             position: "bottom-right",
-            title: 'Claim level 0.',
+            title: 'Open chest level 0.',
             description: `${error.error.message}`,
             status: 'error',
             duration: 9000,
             isClosable: true,
           })
+        throw new Error(error.error)
     }
 }

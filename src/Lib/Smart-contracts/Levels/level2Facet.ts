@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { CompleteTx, ClaimTx, InitTx, ApproveTx } from "../../../Models/index"
+import { CompleteTx, ClaimTx, InitTx, ApproveTx, OpennedChest } from "../../../Models/index"
 import { interfaces } from "../../../Constants/interfaces"
 import { GlobalConst, DIAMOND_ADDRESS } from "../../../Constants";
 import { fetchApprovedToken } from "../../Utils";
@@ -25,6 +25,7 @@ export const start_l2 = async(tx: InitTx) => {
         const gas = await tx.Facet?.estimateGas.initLevel2() 
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
+        const loots = await tx.Facet?.callStatic.claim_l2()
         const transaction = await tx.Facet?.initLevel2()
     
         tx.toast({
@@ -48,7 +49,8 @@ export const start_l2 = async(tx: InitTx) => {
         console.log(receipt)
 
         tx.dispatch({type: "INIT", payload: 2})
-        
+
+        return loots        
     } catch (error: any) {
         console.log(error.error)
         tx.toast({
@@ -62,7 +64,7 @@ export const start_l2 = async(tx: InitTx) => {
     }
 }
 
-export const complete_l2 = async(tx: CompleteTx) => {
+export const completeL2 = async(tx: CompleteTx) => {
     try {    
         console.warn("COMPLETE")
         console.log("///////////////////////////////////////////////")
@@ -70,10 +72,10 @@ export const complete_l2 = async(tx: CompleteTx) => {
         console.log("///////////////////////////////////////////////")
         
         //Estimation of the gas cost
-        const gas = await tx.Facet?.estimateGas.complete_l2() 
+        const gas = await tx.Facet?.estimateGas.completeL2() 
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
-        const transaction = await tx.Facet?.complete_l2()
+        const transaction = await tx.Facet?.completeL2()
         
         tx.toast({
             title: `Complete level 2`,
@@ -111,21 +113,22 @@ export const complete_l2 = async(tx: CompleteTx) => {
     }
 }
 
-export const claim_l2 = async(tx: ClaimTx) => {
+export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest> => {
     try {    
-        console.warn("CLAIM")
+        console.warn("OPEN CHEST")
         console.log("///////////////////////////////////////////////")
         console.log("Level: " + 2)
         console.log("///////////////////////////////////////////////")
-
+    
         //Estimation of the gas cost
-        const gas = await tx.Facet?.estimateGas.claim_l2() 
+        const gas = await tx.Facet?.estimateGas.openL2Chest()
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
-        
-        const transaction = await tx.Facet?.claim_l2()
+
+        const loots = await tx.Facet?.callStatic.openL2Chest()
+        const transaction = await tx.Facet?.openL2Chest()
     
         tx.toast({
-            title: `Claim level 2`,
+            title: `Open chest level 2`,
             description: `transaction pending at: ${transaction?.hash}`,
             position: "top-right",
             status: "warning",
@@ -135,7 +138,7 @@ export const claim_l2 = async(tx: ClaimTx) => {
         const receipt = await transaction.wait()
     
         tx.toast({
-            title: `Claim level 2`,
+            title: `Open chest level 2`,
             description: `Reward claimed successfully`,
             position: "top-right",
             status: "success",
@@ -145,17 +148,19 @@ export const claim_l2 = async(tx: ClaimTx) => {
         console.log(receipt)
 
         tx.dispatch({type: "CLAIM", payload: true})
-        
+
+        return loots
     } catch (error: any) {
         console.log(error.error)
         tx.toast({
             position: "bottom-right",
-            title: 'Claim level 2.',
+            title: 'Open chest level 2.',
             description: `${error.error.message}`,
             status: 'error',
             duration: 9000,
             isClosable: true,
           })
+        throw new Error(error.error)
     }
 }
 
