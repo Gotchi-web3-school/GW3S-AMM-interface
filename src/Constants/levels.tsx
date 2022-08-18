@@ -22,7 +22,7 @@ export const levels: LevelCard[] = [
             "https://beincrypto.com/learn/web3-wallet/", 
             "https://github.com/ethereumbook/ethereumbook/blob/develop/05wallets.asciidoc"
         ],
-        description: <Box><Text>Connect your wallet.</Text></Box>,
+        description: <Text>Connect your wallet.</Text>,
         help: 
         <Link color="blue.300" href="https://metamask.io/" isExternal>
             <Center>
@@ -38,7 +38,7 @@ export const levels: LevelCard[] = [
             text: ""
         },
         ressources:["https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#private-keys"],
-        description: <Box><Text>Sign a message with you wallet.</Text></Box>,
+        description: <Text>Sign a message with you wallet.</Text>,
         help: <></>,
     },
     {
@@ -51,12 +51,11 @@ export const levels: LevelCard[] = [
         ressources: ["https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#private-keys"],
         description: 
         <Box>
-            <Text mb="3" color={"teal.400"}>You are given 4 tokens, 
-                <Text display={"inline-block"} fontWeight={"bold"}>“FOMO”</Text>, 
-                <Text display={"inline-block"} fontWeight={"bold"}>“ALPHA”</Text>, 
-                <Text display={"inline-block"} fontWeight={"bold"}>“KEK”</Text>, 
-                <Text display={"inline-block"} fontWeight={"bold"}>“FUD”</Text>
-            </Text>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 4 tokens, </Text> 
+            <Text display={"inline-block"} fontWeight={"bold"}>“FOMO”</Text>, 
+            <Text display={"inline-block"} fontWeight={"bold"}>“ALPHA”</Text>, 
+            <Text display={"inline-block"} fontWeight={"bold"}>“KEK”</Text>, 
+            <Text display={"inline-block"} fontWeight={"bold"}>“FUD”</Text>
             <Text>Approve them to John.gotchi in order to let him ship your tokens</Text>
         </Box>,
         help: <></>,
