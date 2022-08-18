@@ -88,9 +88,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                     <Ressource  title={level.learn.title} text={level.learn.text} extraRessources={level.ressources}/>
                 </Stack>
                 <Spacer />
-                <Box alignItems="center">
-                    <Text textAlign={"center"}>{level.description}</Text>
-                </Box>
+                <Box textAlign={"center"}>{level.description}</Box>
                 <Spacer />
                 <Box marginX={"auto"} minH="5rem" background="rgba(153, 114, 193, 0.99)" border="3px solid #7F00FE" borderRadius="50px">
                     <Text ml="7" pt="1" fontSize={"xs"}>Things that might help</Text>
