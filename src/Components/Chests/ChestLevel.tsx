@@ -12,7 +12,7 @@ const opennedChest = require("../../Assets/chests/opennedChest.png")
 const ChestLevel: React.FC<{id: number}> = ({id}) => {
     const toast = useToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [loots, setLoots] = useState<OpennedChest>({addresses: [], quantities: []})
+    const [chest, setChest] = useState<OpennedChest>({loots: [], amounts: []})
     const {LevelFacets} = useContext(ContractContext)
     const {hasCompleted, dispatch} = useContext(LevelContext)
 
@@ -23,17 +23,19 @@ const ChestLevel: React.FC<{id: number}> = ({id}) => {
                 toast: toast,
                 dispatch: dispatch,
                 })
-                
-            setLoots(result)
-            onOpen()
+
+            if (result) {
+                setChest(result)
+                onOpen()
+            }
         } catch (error) {
-            console.log(error)
+            //Something went wrong
         }
     }
 
     return (
         <Box as="button" display={"flex"} margin="auto" onClick={openChest}>
-            <ModalChestOpen loots={loots} isOpen={isOpen} onClose={onClose} />
+            <ModalChestOpen chest={chest} isOpen={isOpen} onClose={onClose} />
             <Image boxSize={100} src={isOpen ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
         </Box>
     )
