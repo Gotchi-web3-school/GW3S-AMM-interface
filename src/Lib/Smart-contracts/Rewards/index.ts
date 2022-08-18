@@ -10,24 +10,26 @@ export interface Reward  {
     quantity: number
 }
 
-export const fetchLootsMetadatas = async(loots: OpennedChest, signer: any): Promise<Array<Reward | undefined>>  => {
-    const promises = []
-    const returnArr: Array<Reward> = []
-    for (const loot of loots.addresses) {
+export const fetchLootsMetadatas = async(chest: OpennedChest, signer: any): Promise<Array<Reward | undefined>>  => {
+    const returnArr: Array<Reward | undefined> = []
+
+    console.log("chest",chest)
+    // Get the metadatas of each loots in the chest
+    for (let i = 0; i < chest.loots.length; i++) {
         try {
             const contract = new ethers.Contract(
-                loot, 
-                "function getMetadas() public view returns(Metadatas memory metadatas)", 
+                chest.loots[i], 
+                ["function getMetadas() public view returns(Metadatas memory metadatas)"], 
                 signer.library.getSigner(signer.account)
             )
-            promises.push(contract.getMetadas())
+            const result = await contract.getMetadas()
+            returnArr.push({...result, quantity: chest.amounts[i]})
         } catch (error: any) {
             console.log(error.message)
-            promises.push(undefined)
+            returnArr.push(undefined)
         }
     }
-    const result = await Promise.all(promises)
-    result.map((elem, idx) => returnArr.push({...elem, quantity: loots.quantities[idx]}))
 
+    console.log(returnArr)
     return returnArr
 }
