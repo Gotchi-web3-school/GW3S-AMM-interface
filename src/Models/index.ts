@@ -166,8 +166,8 @@ export type PoolCardContextType = {
 /**************************************/
 
 export type OpennedChest = {
-    addresses: Array<string>,
-    quantities: Array<BigInt> 
+    loots: Array<string>,
+    amounts: Array<BigInt> 
 }
 
 /**************************************/
