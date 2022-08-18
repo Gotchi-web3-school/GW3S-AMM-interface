@@ -3,9 +3,9 @@ import { Box } from "@chakra-ui/react"
 /***********************************|
 |              FRONT                |
 |__________________________________*/
-export const UnknownFront: React.FC<{name?: any, color?: any, size?: any}> = ({ name, color, size = "150" }) => {
+export const UnknownFront: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
     return (
-        <svg width="634" height="789" viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 
         <path d="M604 0H30C13.4315 0 0 13.4315 0 30V759C0 775.569 13.4315 789 30 789H604C620.569 789 634 775.569 634 759V30C634 13.4315 620.569 0 604 0Z" fill="#A4BAD3"/>
         
@@ -121,9 +121,9 @@ export const UnknownFront: React.FC<{name?: any, color?: any, size?: any}> = ({ 
 /***********************************|
 |               BACK                |
 |__________________________________*/
-export const UnknownBack: React.FC<{name?: any, color?: any, size?: any}> = ({ name, color, size = "150" }) => {
+export const UnknownBack:React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
     return (
-        <svg width="634" height="789" viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
 
         <style>{`
         .gotchi-handsDownClosed, .gotchi-handsUp, .gotchi-handsDownOpen, .gotchi-handsDownClosed, .gotchi-body, .gotchi-eyeColor, .gotchi-collateral, .gotchi-cheek, .gotchi-primary-mouth, .gotchi-wearable, .gotchi-sleeves   {
@@ -162,8 +162,8 @@ export const UnknownBack: React.FC<{name?: any, color?: any, size?: any}> = ({ n
         `}
         </style>
         
-        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <rect width="634" height="789" rx="30" fill="#A4BAD3"/>
+        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <path d="M299.5 676V673H296.5V670H293.5V661H296.5V658H299.5V655H308.5V658H311.5V661H314.5V670H311.5V673H308.5V676H299.5ZM302.5 673H308.5V661H305.5V658H299.5V670H302.5V673ZM317.5 676V673H320.5V670H323.5V667H320.5V664H317.5V661H323.5V664H326.5V667H329.5V664H332.5V661H338.5V664H335.5V667H332.5V670H335.5V673H338.5V676H332.5V673H329.5V670H326.5V673H323.5V676H317.5Z" fill="#828282" fillOpacity="0.28"/>
         <path d="M476.656 196.5V176H454.969V155.5H411.594V135H368.219V114.5H259.781V135H216.406V155.5H173.031V176H151.344V196.5H129.656V616.75H173.031V596.25H227.25V616.75H281.469V596.25H346.531V616.75H400.75V596.25H454.969V616.75H498.344V196.5H476.656Z" fill="#64438E"/>
         <path d="M454.969 196.5V176H411.594V155.5H368.219V135H259.781V155.5H216.406V176H173.031V196.5H151.344V596.25H173.031V575.75H227.25V596.25H281.469V575.75H346.531V596.25H400.75V575.75H454.969V596.25H476.656V196.5H454.969Z" fill="#EDD3FD"/>
@@ -222,16 +222,15 @@ export const UnknownBack: React.FC<{name?: any, color?: any, size?: any}> = ({ n
 /***********************************|
 |              HOVERING             |
 |__________________________________*/
-export const UnknownHovering: React.FC = () => {
+export const UnknownHovering: React.FC<{size?: string}> = ({size = "300"}) => {
     return (
     <Box>
         <style>{`
-            div {border-radius: 30px;}
 
             .flip-card {
             background-color: transparent;
-            width: 300px;
-            height: 300px;
+            width: ${size}px;
+            height: ${(parseInt(size) * 1.23).toString()}px;
             perspective: 1000px;
             }
 
@@ -271,12 +270,12 @@ export const UnknownHovering: React.FC = () => {
 
             {/*FRONT CARD*/}
             <div className="flip-card-front">
-                <UnknownFront />
+                <UnknownFront size={size} />
             </div>
 
             {/*BACK CARD*/}
             <div className="flip-card-back">
-                <UnknownBack />
+                <UnknownBack size={size} />
             </div>
 
         </div>
@@ -284,7 +283,7 @@ export const UnknownHovering: React.FC = () => {
     </Box>)
 }
 
-export const UnknownSpinning: React.FC = () => {
+export const UnknownSpinning: React.FC<{size?: string}> = ({size = "300"}) => {
     return (
         <Box>
             <style>{`
@@ -292,8 +291,8 @@ export const UnknownSpinning: React.FC = () => {
     
                 .flip-card {
                     background-color: transparent;
-                    width: 300px;
-                    height: 300px;
+                    width: ${size}px;
+                    height: ${(parseInt(size) * 1.23).toString()}px;
                     perspective: 2000px;
                 }
                   
@@ -337,12 +336,12 @@ export const UnknownSpinning: React.FC = () => {
     
                 {/*FRONT CARD*/}
                 <div className="flip-card-front">
-                    <UnknownFront />
+                    <UnknownFront size={size} />
                 </div>
     
                 {/*BACK CARD*/}
                 <div className="flip-card-back">
-                    <UnknownBack />
+                    <UnknownBack size={size} />
                 </div>
     
             </div>
