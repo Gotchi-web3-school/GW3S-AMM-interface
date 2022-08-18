@@ -25,7 +25,6 @@ export const start_l2 = async(tx: InitTx) => {
         const gas = await tx.Facet?.estimateGas.initLevel2() 
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
         
-        const loots = await tx.Facet?.callStatic.claim_l2()
         const transaction = await tx.Facet?.initLevel2()
     
         tx.toast({
@@ -50,7 +49,6 @@ export const start_l2 = async(tx: InitTx) => {
 
         tx.dispatch({type: "INIT", payload: 2})
 
-        return loots        
     } catch (error: any) {
         console.log(error.error)
         tx.toast({
@@ -113,45 +111,50 @@ export const completeL2 = async(tx: CompleteTx) => {
     }
 }
 
-export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest> => {
+export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest | undefined> => {
+    let loots, amounts;
+
     try {    
         console.warn("OPEN CHEST")
         console.log("///////////////////////////////////////////////")
         console.log("Level: " + 2)
         console.log("///////////////////////////////////////////////")
-    
+        
         //Estimation of the gas cost
         const gas = await tx.Facet?.estimateGas.openL2Chest()
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
 
-        const loots = await tx.Facet?.callStatic.openL2Chest()
-        const transaction = await tx.Facet?.openL2Chest()
+        const chest = await tx.Facet?.callStatic.openL2Chest()
+        //const transaction = await tx.Facet?.openL2Chest()
     
-        tx.toast({
-            title: `Open chest level 2`,
-            description: `transaction pending at: ${transaction?.hash}`,
-            position: "top-right",
-            status: "warning",
-            isClosable: true,
-            })
+        // tx.toast({
+        //     title: `Open chest level 2`,
+        //     description: `transaction pending at: ${transaction?.hash}`,
+        //     position: "top-right",
+        //     status: "warning",
+        //     isClosable: true,
+        //     })
     
-        const receipt = await transaction.wait()
+        // const receipt = await transaction.wait()
     
-        tx.toast({
-            title: `Open chest level 2`,
-            description: `Reward claimed successfully`,
-            position: "top-right",
-            status: "success",
-            duration: 6000,
-            isClosable: true,
-            })
-        console.log(receipt)
+        // tx.toast({
+        //     title: `Open chest level 2`,
+        //     description: `Reward claimed successfully`,
+        //     position: "top-right",
+        //     status: "success",
+        //     duration: 6000,
+        //     isClosable: true,
+        //     })
+        // console.log(receipt)
 
         tx.dispatch({type: "CLAIM", payload: true})
+        
+        loots = chest.loots.filter((elem: any) => elem !== "0x0000000000000000000000000000000000000000")
+        amounts = chest.amounts.filter((elem: any) => ethers.utils.formatEther(elem) !== '0.0')
 
-        return loots
+        return {loots: loots, amounts: amounts}
     } catch (error: any) {
-        console.log(error.error)
+        console.log(error)
         tx.toast({
             position: "bottom-right",
             title: 'Open chest level 2.',
@@ -159,8 +162,8 @@ export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest> => {
             status: 'error',
             duration: 9000,
             isClosable: true,
-          })
-        throw new Error(error.error)
+        })
+        return undefined
     }
 }
 
