@@ -36,7 +36,7 @@ const Ressource: React.FC<RessourceParams> = ({title, text, extraRessources}) =>
             <ModalHeader fontSize="4xl">{title}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Text>{text}</Text>
+              <Box>{text}</Box>
             </ModalBody>
             <UnorderedList p="5">
               <Text mb="3" textAlign="center" fontSize={"xl"} fontWeight="bold">See more</Text>
