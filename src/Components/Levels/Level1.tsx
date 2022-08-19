@@ -1,23 +1,19 @@
 import { useContext, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core"
-import { Box, Spacer, Stack, Image, Text, useToast, Button, Center } from "@chakra-ui/react"
+import { Box, Spacer, Stack, Text, useToast, Button, Center } from "@chakra-ui/react"
 import { levels } from "../../Constants/levels"
 import { ContractContext } from "../../Provider/ContractProvider"
-import { openL1Chest } from "../../Lib/Smart-contracts/Levels/level1Facet"
 import { CompleteTx } from "../../Models"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
-import Card from "./Card"
 import { completes } from "../../Lib/Smart-contracts/Levels"
-
-const lockedChest = require("../../Assets/chests/lockedChest.png")
-const closeChest = require("../../Assets/chests/closedChest.png")
-const opennedChest = require("../../Assets/chests/opennedChest.png")
+import Card from "./Card"
+import ChestLevel from "../Chests/ChestLevel"
 
 const Level1: React.FC = () => {
     const signer = useWeb3React()
-    const {ILevel1Facet, LevelLoupeFacet, LevelFacets} = useContext(ContractContext)
-    const {hasClaimed, hasCompleted, dispatch} = useContext(LevelContext)
+    const {LevelLoupeFacet, LevelFacets} = useContext(ContractContext)
+    const {dispatch} = useContext(LevelContext)
     const toast = useToast()
     const message = " I hereby confirm that i will pursue the challenges ahead and be devoted to protect the Gotchiverse against the baad lickuidators"
 
@@ -55,9 +51,7 @@ const Level1: React.FC = () => {
                     </Stack>
                 </Box>
             <Spacer />
-            <Box as="button" display={"flex"} margin="auto" onClick={() => openL1Chest({Facet: ILevel1Facet, toast: toast, dispatch: dispatch})}>
-                    <Image src={hasClaimed ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
-                </Box>
+            <ChestLevel id={1} />
             <Spacer />
             <Card level={levels[1]}/>
         </Stack>

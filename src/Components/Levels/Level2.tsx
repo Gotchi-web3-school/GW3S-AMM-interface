@@ -110,7 +110,7 @@ const Level2: React.FC = () => {
                     </HStack>
                     <Button
                     bg={shipped ? "green.300" : "whiteAlpha.500"}
-                    disabled={!approved.KEK && !approved.ALPHA && !approved.FOMO && !approved.FUD} 
+                    disabled={!approved.KEK || !approved.ALPHA || !approved.FOMO || !approved.FUD} 
                     onClick={shipTx}>
                         Ship alchemicas
                     </Button>
