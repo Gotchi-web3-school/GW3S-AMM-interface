@@ -39,7 +39,7 @@ export const GeneralProvider = (props: any) => {
         try {
             tokens = JSON.parse(localStorage.getItem("tokens") ?? "")
         } catch (error) {
-            console.log("user has no tokens created")
+            //console.log("user has no tokens created")
         }
         setUserTokens(tokens)
     }, [])
