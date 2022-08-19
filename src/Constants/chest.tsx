@@ -10,28 +10,28 @@ import { UnknownSpinning, UnknownHovering, UnknownFront, UnknownBack } from "../
 export const chests = {
     unknown: [{
         spinning: <UnknownSpinning />,
-        hovering: UnknownHovering,
-        front: UnknownFront,
-        back: UnknownBack
+        hovering: <UnknownHovering />,
+        front: <UnknownFront />,
+        back: <UnknownBack />
     }],
     level: [
         {
             spinning: <Level0Spinning />,
-            hovering: Level0Hovering,
-            front: Level0Front,
-            back: Level0Back
+            hovering: <Level0Hovering />,
+            front: <Level0Front />,
+            back: <Level0Back />
         },
         {
             spinning: <Level1Spinning />,
-            hovering: Level1Hovering,
-            front: Level1Front,
-            back: Level1Back
+            hovering: <Level1Hovering />,
+            front: <Level1Front />,
+            back: <Level1Back />
         },
         {
             spinning: <Level2Spinning />,
-            hovering: Level2Hovering,
-            front: Level2Front,
-            back: Level2Back
+            hovering: <Level2Hovering />,
+            front: <Level2Front />,
+            back: <Level2Back />
         }
     ],
 }
