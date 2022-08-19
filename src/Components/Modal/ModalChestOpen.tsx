@@ -11,9 +11,12 @@ import {
   } from '@chakra-ui/react'
 import { Reward } from "../../Lib/Smart-contracts/Rewards"
 import { chests } from "../../Constants/chest"
+import useSound from 'use-sound'
 const emptyChest = require("../../Assets/chests/empty chest.png")
+const closingChestSound = require("../../Assets/sounds/closing chest.mp3")
 
 const ModalOpenChest: React.FC<{chest: Array<Reward | undefined>, isOpen: boolean, onClose: () => void}> = ({chest, isOpen, onClose}) => {
+  const [play] = useSound(closingChestSound, {volume: 0.6})
   return (
     <Modal
     onClose={onClose}
@@ -50,7 +53,7 @@ const ModalOpenChest: React.FC<{chest: Array<Reward | undefined>, isOpen: boolea
             <Image boxSize={"40vh"} src={emptyChest} />
           </Box>
         }
-      <Button mx="auto" mt="3rem" mb="1rem" bgColor={"red.500"} onClick={onClose}>Close</Button>
+      <Button mx="auto" mt="3rem" mb="1rem" bgColor={"red.500"} onClick={() => {play(); onClose()}}>Close</Button>
       </ModalContent>
     </Modal>
   )
