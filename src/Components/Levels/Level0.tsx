@@ -19,7 +19,7 @@ const openChestSound = require("../../Assets/sounds/openning chest.mp3")
 const Level0: React.FC = () => {
     const signer = useWeb3React()
     const {ILevel0Facet, LevelLoupeFacet} = useContext(ContractContext)
-    const {hasClaimed, dispatch} = useContext(LevelContext)
+    const {dispatch} = useContext(LevelContext)
     const {isOpen, onOpen, onClose } = useDisclosure()
     const [play] = useSound(openLockedChestSound, {volume: 0.6})
     const [play1] = useSound(openChestSound, {volume: 0.6})
