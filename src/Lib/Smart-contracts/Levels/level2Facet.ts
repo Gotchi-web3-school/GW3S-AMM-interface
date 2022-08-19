@@ -1,8 +1,10 @@
 import { ethers } from "ethers";
-import { CompleteTx, ClaimTx, InitTx, ApproveTx, OpennedChest } from "../../../Models/index"
+import { CompleteTx, ClaimTx, InitTx, ApproveTx } from "../../../Models/index"
 import { interfaces } from "../../../Constants/interfaces"
 import { GlobalConst, DIAMOND_ADDRESS } from "../../../Constants";
 import { fetchApprovedToken } from "../../Utils";
+import { fetchLootsMetadatas } from "../Rewards";
+import { Reward } from "../Rewards";
 
 const REQUIRED_ALLOWANCE = 10
 
@@ -111,10 +113,11 @@ export const completeL2 = async(tx: CompleteTx) => {
     }
 }
 
-export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest | undefined> => {
-    let loots, amounts;
+export const openL2Chest = async(tx: ClaimTx): Promise<Array<Reward | undefined>> => {
+    let rewards: Array<Reward | undefined> = []
+    let loots, amounts
 
-    try {    
+    try {   
         console.warn("OPEN CHEST")
         console.log("///////////////////////////////////////////////")
         console.log("Level: " + 2)
@@ -124,7 +127,7 @@ export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest | undefined>
         const gas = await tx.Facet?.estimateGas.openL2Chest()
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
 
-        const chest = await tx.Facet?.callStatic.openL2Chest()
+        const chestOpenned = await tx.Facet?.callStatic.openL2Chest()
         //const transaction = await tx.Facet?.openL2Chest()
     
         // tx.toast({
@@ -149,10 +152,12 @@ export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest | undefined>
 
         tx.dispatch({type: "CLAIM", payload: true})
         
-        loots = chest.loots.filter((elem: any) => elem !== "0x0000000000000000000000000000000000000000")
-        amounts = chest.amounts.filter((elem: any) => ethers.utils.formatEther(elem) !== '0.0')
-
-        return {loots: loots, amounts: amounts}
+        loots = chestOpenned.loots.filter((elem: any) => elem !== "0x0000000000000000000000000000000000000000")
+        amounts = chestOpenned.amounts.filter((elem: any) => ethers.utils.formatEther(elem) !== '0.0')
+        if (loots)
+            rewards = await fetchLootsMetadatas({loots: loots, amounts: amounts}, tx.signer)
+            
+        return rewards
     } catch (error: any) {
         console.log(error)
         tx.toast({
@@ -163,7 +168,7 @@ export const openL2Chest = async(tx: ClaimTx): Promise<OpennedChest | undefined>
             duration: 9000,
             isClosable: true,
         })
-        return undefined
+        return []
     }
 }
 

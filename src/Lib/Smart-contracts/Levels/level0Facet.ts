@@ -1,7 +1,12 @@
 import { ethers } from "ethers";
-import { ClaimTx, OpennedChest } from "../../../Models";
+import { ClaimTx } from "../../../Models";
+import { Reward } from "../Rewards";
+import { fetchLootsMetadatas } from "../Rewards";
 
-export const openL0Chest = async(tx: ClaimTx): Promise<OpennedChest> => {
+export const openL0Chest = async(tx: ClaimTx): Promise<Array<Reward | undefined>> => {
+    let rewards: Array<Reward | undefined> = []
+    let loots, amounts
+
     try {    
         console.warn("OPEN CHEST")
         console.log("///////////////////////////////////////////////")
@@ -12,32 +17,37 @@ export const openL0Chest = async(tx: ClaimTx): Promise<OpennedChest> => {
         const gas = await tx.Facet?.estimateGas.openL0Chest()
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
 
-        const loots = await tx.Facet?.callStatic.openL0Chest()
-        const transaction = await tx.Facet?.openL0Chest()
+        const chestOpenned = await tx.Facet?.callStatic.openL0Chest()
+        // const transaction = await tx.Facet?.openL0Chest()
     
-        tx.toast({
-            title: `Open chest level 0`,
-            description: `transaction pending at: ${transaction?.hash}`,
-            position: "top-right",
-            status: "warning",
-            isClosable: true,
-            })
+        // tx.toast({
+        //     title: `Open chest level 0`,
+        //     description: `transaction pending at: ${transaction?.hash}`,
+        //     position: "top-right",
+        //     status: "warning",
+        //     isClosable: true,
+        //     })
     
-        const receipt = await transaction.wait()
+        // const receipt = await transaction.wait()
     
-        tx.toast({
-            title: `Open chest level 0`,
-            description: `Reward claimed successfully`,
-            position: "top-right",
-            status: "success",
-            duration: 6000,
-            isClosable: true,
-            })
-        console.log(receipt)
+        // tx.toast({
+        //     title: `Open chest level 0`,
+        //     description: `Reward claimed successfully`,
+        //     position: "top-right",
+        //     status: "success",
+        //     duration: 6000,
+        //     isClosable: true,
+        //     })
+        // console.log(receipt)
 
         tx.dispatch({type: "CLAIM", payload: true})
 
-        return loots
+        loots = chestOpenned.loots.filter((elem: any) => elem !== "0x0000000000000000000000000000000000000000")
+        amounts = chestOpenned.amounts.filter((elem: any) => ethers.utils.formatEther(elem) !== '0.0')
+        if (loots)
+            rewards = await fetchLootsMetadatas({loots: loots, amounts: amounts}, tx.signer)
+            
+        return rewards
     } catch (error: any) {
         console.log(error.error)
         tx.toast({
