@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react"
 /***********************************|
 |              FRONT                |
 |__________________________________*/
-export const Level0Front: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const Level0Front: React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 
@@ -121,7 +121,7 @@ export const Level0Front: React.FC<{name?: any, color?: any, size: string}> = ({
 /***********************************|
 |               BACK                |
 |__________________________________*/
-export const Level0Back: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const Level0Back: React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -162,8 +162,8 @@ export const Level0Back: React.FC<{name?: any, color?: any, size: string}> = ({ 
         `}
         </style>
         
-        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <rect width="634" height="789" rx="30" fill="#A4BAD3"/>
+        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <path d="M299.5 676V673H296.5V670H293.5V661H296.5V658H299.5V655H308.5V658H311.5V661H314.5V670H311.5V673H308.5V676H299.5ZM302.5 673H308.5V661H305.5V658H299.5V670H302.5V673ZM317.5 676V673H320.5V670H323.5V667H320.5V664H317.5V661H323.5V664H326.5V667H329.5V664H332.5V661H338.5V664H335.5V667H332.5V670H335.5V673H338.5V676H332.5V673H329.5V670H326.5V673H323.5V676H317.5Z" fill="#828282" fillOpacity="0.28"/>
         <path d="M476.656 196.5V176H454.969V155.5H411.594V135H368.219V114.5H259.781V135H216.406V155.5H173.031V176H151.344V196.5H129.656V616.75H173.031V596.25H227.25V616.75H281.469V596.25H346.531V616.75H400.75V596.25H454.969V616.75H498.344V196.5H476.656Z" fill="#64438E"/>
         <path d="M454.969 196.5V176H411.594V155.5H368.219V135H259.781V155.5H216.406V176H173.031V196.5H151.344V596.25H173.031V575.75H227.25V596.25H281.469V575.75H346.531V596.25H400.75V575.75H454.969V596.25H476.656V196.5H454.969Z" fill="#EDD3FD"/>

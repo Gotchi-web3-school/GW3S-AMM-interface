@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react"
 /***********************************|
 |              FRONT                |
 |__________________________________*/
-export const Level2Front: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const Level2Front: React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 
@@ -154,7 +154,7 @@ export const Level2Front: React.FC<{name?: any, color?: any, size: string}> = ({
 /***********************************|
 |               BACK                |
 |__________________________________*/
-export const Level2Back: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const Level2Back: React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -195,8 +195,8 @@ export const Level2Back: React.FC<{name?: any, color?: any, size: string}> = ({ 
         `}
         </style>
         
-        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <rect width="634" height="789" rx="30" fill="#A4BAD3"/>
+        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <path d="M437.938 234.875V218.75H421.812V202.625H389.562V186.5H357.312V170.375H276.688V186.5H244.438V202.625H212.188V218.75H196.062V234.875H179.938V565.438H212.188V549.312H252.5V565.438H292.812V549.312H341.188V565.438H381.5V549.312H421.812V565.438H454.062V234.875H437.938Z" fill="#64438E"/>
         <path d="M421.812 234.875V218.75H389.562V202.625H357.312V186.5H276.688V202.625H244.438V218.75H212.188V234.875H196.062V549.312H212.188V533.188H252.5V549.312H292.812V533.188H341.188V549.312H381.5V533.188H421.812V549.312H437.938V234.875H421.812Z" fill="#EDD3FD"/>
         <path d="M204.125 517.062H220.25V509H236.375V517.062H252.5V533.188H292.812V517.062H308.938V509H325.062V517.062H341.188V533.188H381.5V517.062H397.625V509H413.75V517.062H421.812V234.875H389.562V218.75H357.312V202.625H317V194.562H276.688V210.688H244.438V226.812H212.188V242.938H204.125V517.062Z" fill="white"/>

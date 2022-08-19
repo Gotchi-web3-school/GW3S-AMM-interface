@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react"
 /***********************************|
 |              FRONT                |
 |__________________________________*/
-export const Level1Front: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const Level1Front: React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 
@@ -128,7 +128,7 @@ export const Level1Front: React.FC<{name?: any, color?: any, size: string}> = ({
 /***********************************|
 |               BACK                |
 |__________________________________*/
-export const Level1Back: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const Level1Back: React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -169,8 +169,8 @@ export const Level1Back: React.FC<{name?: any, color?: any, size: string}> = ({ 
         `}
         </style>
         
-        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <rect width="634" height="789" rx="30" fill="#A4BAD3"/>
+        <g className="gotchi-body" filter="url(#filter0_i_252_2281)">
         <path d="M448.25 237.5V220H430.75V202.5H395.75V185H360.75V167.5H273.25V185H238.25V202.5H203.25V220H185.75V237.5H168.25V596.25H203.25V578.75H247V596.25H290.75V578.75H343.25V596.25H387V578.75H430.75V596.25H465.75V237.5H448.25Z" fill="#64438E"/>
         <path d="M430.75 237.5V220H395.75V202.5H360.75V185H273.25V202.5H238.25V220H203.25V237.5H185.75V578.75H203.25V561.25H247V578.75H290.75V561.25H343.25V578.75H387V561.25H430.75V578.75H448.25V237.5H430.75Z" fill="#EDD3FD"/>
         <path d="M194.5 543.75H212V535H229.5V543.75H247V561.25H290.75V543.75H308.25V535H325.75V543.75H343.25V561.25H387V543.75H404.5V535H422V543.75H430.75V237.5H395.75V220H360.75V202.5H317V193.75H273.25V211.25H238.25V228.75H203.25V246.25H194.5V543.75Z" fill="white"/>

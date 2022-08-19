@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react"
 /***********************************|
 |              FRONT                |
 |__________________________________*/
-export const UnknownFront: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const UnknownFront: React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 
@@ -121,7 +121,7 @@ export const UnknownFront: React.FC<{name?: any, color?: any, size: string}> = (
 /***********************************|
 |               BACK                |
 |__________________________________*/
-export const UnknownBack:React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
+export const UnknownBack:React.FC<{name?: any, color?: any, size?: string}> = ({ name, color, size="300"}) => {
     return (
         <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
 
