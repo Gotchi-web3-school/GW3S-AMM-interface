@@ -1,10 +1,12 @@
 import { ethers } from "ethers"
 import { OpennedChest } from "../../../Models"
+import { interfaces } from "../../../Constants/interfaces"
 
 export interface Reward  {
+    ticker: string,
     svg: {front: string, back: string},
-    levelId: string,
-    type: "unknown" | "level",
+    levelId: number,
+    type_: "unknown" | "level",
     title: string,
     text: string,
     quantity: number
@@ -17,19 +19,25 @@ export const fetchLootsMetadatas = async(chest: OpennedChest, signer: any): Prom
     // Get the metadatas of each loots in the chest
     for (let i = 0; i < chest.loots.length; i++) {
         try {
-            const contract = new ethers.Contract(
+            const nft = new ethers.Contract(
                 chest.loots[i], 
-                ["function getMetadas() public view returns(Metadatas memory metadatas)"], 
+                interfaces.IERC721RewardLevel, 
                 signer.library.getSigner(signer.account)
             )
-            const result = await contract.getMetadas()
-            returnArr.push({...result, quantity: chest.amounts[i]})
+
+            const result = await nft.getMetadas()
+            const ticker = await nft.symbol()
+
+            returnArr.push({...result,
+                levelId: parseInt(result.levelId),  
+                quantity: parseInt(chest.amounts[i].toString()),
+                ticker: ticker
+            })
         } catch (error: any) {
-            console.log(error.message)
+            console.log(error)
             returnArr.push(undefined)
         }
     }
 
-    console.log(returnArr)
     return returnArr
 }
