@@ -3,9 +3,9 @@ import { Box } from "@chakra-ui/react"
 /***********************************|
 |              FRONT                |
 |__________________________________*/
-export const Level1Front: React.FC<{name?: any, color?: any, size?: any}> = ({ name, color, size = "150" }) => {
+export const Level1Front: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
     return (
-        <svg width="634" height="789" viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 
         <path d="M604 0H30C13.4315 0 0 13.4315 0 30V759C0 775.569 13.4315 789 30 789H604C620.569 789 634 775.569 634 759V30C634 13.4315 620.569 0 604 0Z" fill="#A4BAD3"/>
         
@@ -128,9 +128,9 @@ export const Level1Front: React.FC<{name?: any, color?: any, size?: any}> = ({ n
 /***********************************|
 |               BACK                |
 |__________________________________*/
-export const Level1Back: React.FC<{name?: any, color?: any, size?: any}> = ({ name, color, size = "150" }) => {
+export const Level1Back: React.FC<{name?: any, color?: any, size: string}> = ({ name, color, size}) => {
     return (
-        <svg width="634" height="789" viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width={size} height={(parseInt(size) * 1.23).toString()} viewBox="0 0 634 789" fill="none" xmlns="http://www.w3.org/2000/svg">
 
         <style>{`
         .gotchi-handsDownClosed, .gotchi-handsUp, .gotchi-handsDownOpen, .gotchi-handsDownClosed, .gotchi-body, .gotchi-eyeColor, .gotchi-collateral, .gotchi-cheek, .gotchi-primary-mouth, .gotchi-wearable, .gotchi-sleeves   {
@@ -238,7 +238,7 @@ export const Level1Back: React.FC<{name?: any, color?: any, size?: any}> = ({ na
 /***********************************|
 |              HOVERING             |
 |__________________________________*/
-export const Level1Hovering: React.FC = () => {
+export const Level1Hovering: React.FC<{size?: string}> = ({size = "300"}) => {
     return (
     <Box>
         <style>{`
@@ -246,8 +246,8 @@ export const Level1Hovering: React.FC = () => {
 
             .flip-card {
             background-color: transparent;
-            width: 300px;
-            height: 300px;
+            width: ${size}px;
+            height: ${(parseInt(size) * 1.23).toString()}px;
             perspective: 1000px;
             }
 
@@ -287,12 +287,12 @@ export const Level1Hovering: React.FC = () => {
 
             {/*FRONT CARD*/}
             <div className="flip-card-front">
-                <Level1Front />
+                <Level1Front size={size} />
             </div>
 
             {/*BACK CARD*/}
             <div className="flip-card-back">
-                <Level1Back />
+                <Level1Back size={size}/>
             </div>
 
         </div>
@@ -300,7 +300,7 @@ export const Level1Hovering: React.FC = () => {
     </Box>)
 }
 
-export const Level1Spinning: React.FC = () => {
+export const Level1Spinning: React.FC<{size?: string}> = ({size = "300"}) => {
     return (
         <Box>
             <style>{`
@@ -308,8 +308,8 @@ export const Level1Spinning: React.FC = () => {
     
                 .flip-card {
                     background-color: transparent;
-                    width: 300px;
-                    height: 300px;
+                    width: ${size}px;
+                    height: ${(parseInt(size) * 1.23).toString()}px;
                     perspective: 2000px;
                 }
                   
@@ -353,12 +353,12 @@ export const Level1Spinning: React.FC = () => {
     
                 {/*FRONT CARD*/}
                 <div className="flip-card-front">
-                    <Level1Front />
+                    <Level1Front size={size} />
                 </div>
-    
+
                 {/*BACK CARD*/}
                 <div className="flip-card-back">
-                    <Level1Back />
+                    <Level1Back size={size}/>
                 </div>
     
             </div>
