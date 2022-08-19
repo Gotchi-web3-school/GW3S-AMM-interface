@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react"
 import {
     Box,
     Text,
@@ -8,57 +7,50 @@ import {
     ModalHeader,
     Image,
     Button,
-    Center,
+    Stack,
   } from '@chakra-ui/react'
-import { fetchLootsMetadatas, Reward } from "../../Lib/Smart-contracts/Rewards"
-import { useWeb3React } from "@web3-react/core"
+import { Reward } from "../../Lib/Smart-contracts/Rewards"
 import { chests } from "../../Constants/chest"
-import { OpennedChest } from "../../Models"
 const emptyChest = require("../../Assets/chests/empty chest.png")
 
-const ModalOpenChest: React.FC<{chest: OpennedChest, isOpen: boolean, onClose: () => void}> = ({chest, isOpen, onClose}) => {
-  const signer = useWeb3React()
-  const [rewards, setRewards] = useState<Array<Reward | undefined>>([])
-
-  // Call the metatadas of all the loots (all the loots are NFTs)
-  useEffect(() => {
-    if (chest.loots.length > 0)
-      fetchLootsMetadatas(chest, signer).then(result => {console.log(result); setRewards(result)})
-  }, [chest, signer])
-  
+const ModalOpenChest: React.FC<{chest: Array<Reward | undefined>, isOpen: boolean, onClose: () => void}> = ({chest, isOpen, onClose}) => {
   return (
     <Modal
-      onClose={onClose}
-      isOpen={isOpen}
-      scrollBehavior="inside"
-      closeOnOverlayClick={false}
+    onClose={onClose}
+    isOpen={isOpen}
+    closeOnOverlayClick={false}
     >
       <ModalOverlay />
-      <ModalContent minW="50vh" bg="#323232" borderRadius={"50px"} maxH="50vh" top="15%">
-        <ModalHeader textAlign="center" fontSize={"2rem"}>{chest.loots.length > 0 ? "Congratulation !" : "Empty chest"}</ModalHeader>
-        <Box>
-          {rewards.length > 0 ?
-          <>
-            {rewards.map((reward, idx) => {
+      <ModalContent 
+      bg="#323232" 
+      top="15%"
+      px="10" 
+      borderRadius={"50px"}
+      minW={chest.length > 5 ? "90vw" : "max"} 
+      overflowX={"scroll"} 
+      >
+        <ModalHeader p="0" mt="5" textAlign="center" fontSize={"2rem"}>{chest.length > 0 ? "Congratulation !" : "Empty chest"}</ModalHeader>
+        <Text mb="5" textAlign={"center"} fontStyle="italic">{`You looted ${chest.length} items`}</Text>
+        {chest.length > 0 ?
+          <Stack direction="row" justifyContent={"center"} spacing="4rem">
+            {chest.map((reward, idx) => {
               if (reward === undefined) {
-                return (<Center key={idx}>{chests["unknown"][0].spinning}</Center>)
+                return chests["unknown"][0].spinning
               } else {
                 return(
                   <Box key={idx}>
-                    {chests[reward.type][parseInt(reward.levelId)].spinning}
-                    <Text>{reward.quantity}</Text>
-                  </Box>
-                  )
-                }
-              })}
-          </>
+                    {chests[reward.type_][reward.levelId].spinning}
+                    <Text mt="1rem" fontSize={"xl"} textAlign={"center"} fontWeight={"bold"}>{`${reward.ticker}   x ${reward.quantity}`}</Text>
+                  </Box>)
+              }
+            })}
+          </Stack>
           :
           <Box mt="-2rem" display={"flex"} justifyContent="center">
             <Image boxSize={"40vh"} src={emptyChest} />
           </Box>
         }
-        </Box>
-      <Button mx="auto" mb="5" p="5" onClick={onClose}>Close</Button>
+      <Button mx="auto" mt="3rem" mb="1rem" bgColor={"red.500"} onClick={onClose}>Close</Button>
       </ModalContent>
     </Modal>
   )
