@@ -3,7 +3,14 @@ export const interfaces = {
         "function safeMint(address to) external",
         "function supportsInterface(bytes4 interfaceId) external",
         "function getSvg() external view returns(string memory _svgFront, string memory _svgBack)",
-        "function getMetadas() external view returns(Metadatas memory metadatas)",
+        `function getMetadas() external view returns(
+            address front,
+            address back,
+            uint256 levelId,
+            string memory type_,
+            string memory title,
+            string memory text
+        )`,
 
         "function balanceOf(address owner) external view  returns (uint256)",
         "function ownerOf(uint256 tokenId) external view  returns (address)",
@@ -219,12 +226,12 @@ export const interfaces = {
         `function getAmountsIn(uint amountOut, address[] memory path, address factory) external view returns (uint[] memory amounts)`
     ],
     ILevel0Facet: [
-        "function openL0Chest() external returns(address[] memory loot, uint[] memory amount)"
+        "function openL0Chest() external returns(address[] memory loots, uint[] memory amounts)"
     ],
     ILevel1Facet: [
         "function initLevel1() external",
         "function completeL1() external returns (bool)",
-        "function openL1Chest() external returns(address[] memory loot, uint[] memory amount)",
+        "function openL1Chest() external returns(address[] memory loots, uint[] memory amounts)",
     ],
     ILevel2Facet: [
         "function initLevel2() external",
