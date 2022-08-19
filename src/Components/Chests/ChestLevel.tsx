@@ -1,5 +1,5 @@
 import { Box, Image, useToast, useDisclosure } from "@chakra-ui/react"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import useSound from 'use-sound';
 import { ContractContext } from "../../Provider/ContractProvider"
 import { LevelContext } from "../../Provider/LevelProvider"
@@ -12,7 +12,6 @@ const closeChest = require("../../Assets/chests/closedChest.png")
 const opennedChest = require("../../Assets/chests/opennedChest.png")
 const openLockedChestSound = require("../../Assets/sounds/openning locked chest.mp3")
 const openChestSound = require("../../Assets/sounds/openning chest.mp3")
-const closingChestSound = require("../../Assets/sounds/closing chest.mp3")
 
 const ChestLevel: React.FC<{id: number}> = ({id}) => {
     const toast = useToast()
