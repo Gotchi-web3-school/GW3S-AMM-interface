@@ -1,11 +1,10 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { useParams } from "react-router-dom"
 import { useWeb3React } from "@web3-react/core"
 import { Text, Box, Stack, Spacer, Center, Button, Container, HStack, useToast } from "@chakra-ui/react"
 import { ContractContext } from "../../Provider/ContractProvider"
 import { LevelCard } from "../../Constants/levels"
 import { LevelContext } from "../../Provider/LevelProvider"
-import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
 import { CompleteTx, InitTx } from "../../Models"
 import { starts, completes } from "../../Lib/Smart-contracts/Levels"
 import Ressource from "./Ressources"
@@ -51,17 +50,6 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
             window.location.reload()
         })
     }
-
-    useEffect(() => {
-        try {
-            fetchLevelState(LevelLoupeFacet!, signer, parseInt(id!)).then(result => {
-                dispatch({type: "SET_LEVEL_STATE", payload: result})
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }, [LevelLoupeFacet, signer, dispatch, id])
-    
 
     return (
         <Box

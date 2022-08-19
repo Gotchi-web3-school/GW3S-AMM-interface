@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import useSound from "use-sound"
 import { useWeb3React } from "@web3-react/core"
 import { Box, Spacer, Stack, Image, useToast, useDisclosure } from "@chakra-ui/react"
@@ -6,7 +6,6 @@ import { levels } from "../../Constants/levels"
 import { ContractContext } from "../../Provider/ContractProvider"
 import { openL0Chest } from "../../Lib/Smart-contracts/Levels/level0Facet"
 import { LevelContext } from "../../Provider/LevelProvider"
-import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
 import Card from "./Card"
 import { Reward } from "../../Lib/Smart-contracts/Rewards"
 import ConnectorButtonL0 from "../Buttons/ConnectorButtonL0"
@@ -18,7 +17,7 @@ const openChestSound = require("../../Assets/sounds/openning chest.mp3")
 
 const Level0: React.FC = () => {
     const signer = useWeb3React()
-    const {ILevel0Facet, LevelLoupeFacet} = useContext(ContractContext)
+    const {ILevel0Facet} = useContext(ContractContext)
     const {dispatch} = useContext(LevelContext)
     const {isOpen, onOpen, onClose } = useDisclosure()
     const [play] = useSound(openLockedChestSound, {volume: 0.6})
@@ -38,16 +37,6 @@ const Level0: React.FC = () => {
             }
         } catch (error) {} //Something went wrong
     }
-
-    useEffect(() => {
-        try {
-            fetchLevelState(LevelLoupeFacet!, signer, 0).then(result => {
-                dispatch({type: "SET_LEVEL_STATE", payload: result})
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }, [LevelLoupeFacet, signer, dispatch])
     
     return (
     <Box margin={"auto"}>
