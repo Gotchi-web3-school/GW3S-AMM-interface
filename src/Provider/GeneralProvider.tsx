@@ -28,9 +28,7 @@ export const GeneralProvider = (props: any) => {
     // If wallet detected, connect user
     useEffect(() => {
         const userWindow: any = window
-        if (userWindow.ethereum && !signer.active) {
-            connectUser(signer.activate)
-        }
+        if (userWindow.ethereum && !signer.active) setTimeout(() => connectUser(signer.activate), 500)
     }, [signer.activate, signer.active])
 
     // get the tokens created by the user in the local storage
