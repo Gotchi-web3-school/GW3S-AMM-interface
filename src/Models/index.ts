@@ -167,7 +167,7 @@ export type PoolCardContextType = {
 
 export type OpennedChest = {
     loots: Array<string>,
-    amounts: Array<BigInt> 
+    amounts: Array<ethers.BigNumberish> 
 }
 
 /**************************************/
@@ -192,6 +192,7 @@ export interface CompleteTx {
 }
 
 export interface ClaimTx {
+    signer: any,
     Facet: ethers.Contract | undefined,
     toast: any,
     dispatch: (state: any, action?: Object | undefined) => void
