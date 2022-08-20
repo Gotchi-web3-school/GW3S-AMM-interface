@@ -53,7 +53,7 @@ export const openL0Chest = async(tx: ClaimTx): Promise<Array<Reward | undefined>
         tx.toast({
             position: "bottom-right",
             title: 'Open chest level 0.',
-            description: `${error.error.message}`,
+            description: `${error.message}`,
             status: 'error',
             duration: 9000,
             isClosable: true,
