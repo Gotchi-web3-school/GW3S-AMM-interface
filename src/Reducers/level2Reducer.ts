@@ -17,7 +17,6 @@ export const level2Reducer = (state: any, action: any) => {
         }
             
         case "LOADING":
-            console.log(action.payload)
             switch (action.payload.token) {
                 case "KEK":
                     return {...state, KEK: {...state.KEK, loading: action.payload.isLoading}}    
@@ -43,7 +42,6 @@ export const level2Reducer = (state: any, action: any) => {
             }  
 
         case "LOADING_ALL":
-            console.log(state)
             return {
                 KEK: {...state.KEK, loading: !state.KEK.loading},
                 ALPHA: {...state.ALPHA, loading: !state.ALPHA.loading},
