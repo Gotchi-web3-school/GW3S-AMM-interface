@@ -61,6 +61,7 @@ export const start_l2 = async(tx: InitTx) => {
             duration: 9000,
             isClosable: true,
           })
+        throw new Error(error.error)
     }
 }
 
@@ -107,9 +108,10 @@ export const completeL2 = async(tx: CompleteTx) => {
                 title: 'Complete level 2.',
                 description: `${error.error.message}`,
                 status: 'error',
-            duration: 9000,
-            isClosable: true,
-        })
+                duration: 9000,
+                isClosable: true,
+            })
+            throw new Error(error.error)
     }
 }
 

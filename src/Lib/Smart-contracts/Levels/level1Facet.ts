@@ -109,5 +109,6 @@ export const completeL1 = async(tx: CompleteTx) => {
             duration: 9000,
             isClosable: true,
           })
+        throw new Error(error.error)
     }
 }

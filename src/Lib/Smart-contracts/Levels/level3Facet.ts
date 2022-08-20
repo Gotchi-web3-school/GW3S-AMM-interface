@@ -48,5 +48,6 @@ export const claim_l0 = async(tx: ClaimTx) => {
             duration: 9000,
             isClosable: true,
           })
+        throw new Error(error.error)
     }
 }
