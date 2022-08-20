@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useWeb3React } from "@web3-react/core"
 import { Text, Box, Stack, Spacer, Center, Button, Container, HStack, useToast } from "@chakra-ui/react"
@@ -18,6 +18,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
     const {running} = useContext(LevelContext)
     const {LevelFacets, LevelLoupeFacet} = useContext(ContractContext)
     const { hasCompleted, dispatch} = useContext(LevelContext)
+    const [loading, setLoading] = useState({complete: false, start: false, restart: false})
 
     const complete = () => {
         const tx: CompleteTx = {
@@ -27,7 +28,10 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
             toast: toast,
             dispatch: dispatch
         }
+        setLoading({...loading, complete: true})
         completes[parseInt(id!)]!(tx)
+        .then(() => setLoading({...loading, complete: false}))
+        .catch(() => setLoading({...loading, complete: false}))
     }
 
     const start = () => {
@@ -36,7 +40,10 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
             toast: toast,
             dispatch: dispatch
         }
+        setLoading({...loading, start: true})
         starts[parseInt(id!)]!(tx)
+        .then(() => setLoading({...loading, start: false}))
+        .catch(() => setLoading({...loading, start: false}))
     }
 
     const restart = () => {
@@ -45,10 +52,12 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
             toast: toast,
             dispatch: dispatch
         }
+        setLoading({...loading, restart: true})
         starts[parseInt(id!)]!(tx).then(() => {
-            console.log("navigate")
+            setLoading({...loading, restart: false})
             window.location.reload()
         })
+        .catch(() => setLoading({...loading, restart: false}))
     }
 
     return (
@@ -61,7 +70,7 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
         p="1rem"
         bg="rgba(0, 0, 0, 0.21)" 
         boxShadow="0px 0px 10px 7px #FFFFFF" 
-        backdropFilter=" blur(15px)" 
+        backdropFilter=" blur(15px)"
         borderRadius="20px"
         overflow={"hidden"}
         >
@@ -84,9 +93,16 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                 </Box>
                 {running === parseInt(id ?? '-1') ? 
                     <HStack>
-                        <Button bg={hasCompleted ? "green.500" : ""} border="2px solid green" onClick={complete}>Complete</Button>
+                        <Button 
+                        name="complete" 
+                        border="2px solid green" 
+                        bg={hasCompleted ? "green.500" : ""} 
+                        isLoading={loading.complete}
+                        onClick={complete}>
+                            Complete
+                        </Button>
                         <Spacer />
-                        <Button bg="orange.500" onClick={restart}>Restart</Button>
+                        <Button name="restart" bg="orange.500" isLoading={loading.restart} onClick={restart}>Restart</Button>
                         <Spacer />
                         <ChestLevel id={parseInt(id!)} />
                     </HStack>
@@ -94,7 +110,14 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                     <>
                         {id === '0'|| id === '1' ? '' :
                         <Center mt="4">
-                            <Button bg="teal.500" _hover={{background: "teal.600"}} onClick={start}>Start Level</Button>
+                            <Button 
+                            name="start" 
+                            bg="teal.500"
+                            isLoading={loading.start}
+                            _hover={{background: "teal.600"}} 
+                            onClick={start}>
+                                Start Level
+                            </Button>
                         </Center>
                         }   
                     </>
