@@ -87,13 +87,13 @@ const Level2: React.FC = () => {
     }, [LevelLoupeFacet, signer, dispatch, instanceAddress, running])
 
     return (
-    <Box margin={"auto"}>
+    <Box margin={"auto"} overflow="hidden" width={"100%"}>
         <Stack direction={"row"} m="5rem" align="center">
             <Spacer />
            {running === 2 && 
                 <Stack>
                     <Center>
-                        <Box animation={shipped ? shipAnimation : ''} position={"relative"}>
+                        <Box animation={shipped ? shipAnimation : ''} position={"relative"} >
                             <JohnAaveBoat size={"25rem"} />
                             <HStack position={"relative"} bottom="10rem" zIndex={1} ml="2rem">
                                 {approved.KEK && <Kek size={"5rem"} />}
