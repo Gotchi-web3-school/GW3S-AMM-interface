@@ -30,6 +30,7 @@ const Level2: React.FC = () => {
     const toast = useToast();
     const [shipped, setShipped] = useState(false);
     const [loading, setLoading] = useState({KEK: false, ALPHA: false, FOMO: false, FUD: false});
+    //const [loadingKEK, setLoadingKEK] = useState(false)
     const [approved, setApproved] = useState({KEK: false, ALPHA: false, FOMO: false, FUD: false});
 
     // Approve one of the four tokens
@@ -42,7 +43,7 @@ const Level2: React.FC = () => {
             instanceAddress: instanceAddress,
             toast: toast,
         }
-        
+
         setLoading({...loading, [`${e.target.name}`]: true})
         console.log(loading)
         
@@ -68,7 +69,7 @@ const Level2: React.FC = () => {
     // Fetch the state of the level
     useEffect(() => {
         try {
-            if (running === 2) {
+            if (signer.account && LevelLoupeFacet) {
                 setLoading({KEK: true, ALPHA: true, FOMO: true, FUD: true})
                 fetchLevel2State(signer, 2).then((result: Level2State) => {
                     dispatch({type: "SET_LEVEL_STATE", payload: result})
@@ -110,7 +111,7 @@ const Level2: React.FC = () => {
                     </HStack>
                     <Button
                     bg={shipped ? "green.300" : "whiteAlpha.500"}
-                    disabled={!approved.KEK || !approved.ALPHA || !approved.FOMO || !approved.FUD} 
+                    // disabled={!approved.KEK || !approved.ALPHA || !approved.FOMO || !approved.FUD} 
                     onClick={shipTx}>
                         Ship alchemicas
                     </Button>

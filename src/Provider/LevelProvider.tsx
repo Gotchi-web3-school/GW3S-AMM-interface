@@ -35,7 +35,7 @@ export const LevelProvider = (props: any) => {
   const {running, instanceAddress, hasCompleted, hasClaimed, factories, tokens} = level
 
   useEffect(() => {
-    if (LevelLoupeFacet && signer.account && id) {
+    if (LevelLoupeFacet && signer.account && id && id !== '2') {
       try {
         fetchLevelState(LevelLoupeFacet!, signer, parseInt(id)).then(result => {
             dispatch({type: "SET_LEVEL_STATE", payload: result})
