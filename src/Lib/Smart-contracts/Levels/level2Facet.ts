@@ -263,7 +263,7 @@ export const shipTokensTx = async(tx: ShipTokensTx) => {
         tx.toast({
             position: "bottom-right",
             title: `Ship tokens`,
-            description: `${error.error.message}`,
+            description: `${error.message}`,
             status: 'error',
             duration: 9000,
             isClosable: true,
