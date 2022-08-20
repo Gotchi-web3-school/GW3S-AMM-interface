@@ -128,27 +128,27 @@ export const openL2Chest = async(tx: ClaimTx): Promise<Array<Reward | undefined>
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
 
         const chestOpenned = await tx.Facet?.callStatic.openL2Chest()
-        //const transaction = await tx.Facet?.openL2Chest()
+        const transaction = await tx.Facet?.openL2Chest()
     
-        // tx.toast({
-        //     title: `Open chest level 2`,
-        //     description: `transaction pending at: ${transaction?.hash}`,
-        //     position: "top-right",
-        //     status: "warning",
-        //     isClosable: true,
-        //     })
+        tx.toast({
+            title: `Open chest level 2`,
+            description: `transaction pending at: ${transaction?.hash}`,
+            position: "top-right",
+            status: "warning",
+            isClosable: true,
+            })
     
-        // const receipt = await transaction.wait()
+        const receipt = await transaction.wait()
     
-        // tx.toast({
-        //     title: `Open chest level 2`,
-        //     description: `Reward claimed successfully`,
-        //     position: "top-right",
-        //     status: "success",
-        //     duration: 6000,
-        //     isClosable: true,
-        //     })
-        // console.log(receipt)
+        tx.toast({
+            title: `Open chest level 2`,
+            description: `Reward claimed successfully`,
+            position: "top-right",
+            status: "success",
+            duration: 6000,
+            isClosable: true,
+            })
+        console.log(receipt)
 
         tx.dispatch({type: "CLAIM", payload: true})
         
@@ -168,7 +168,7 @@ export const openL2Chest = async(tx: ClaimTx): Promise<Array<Reward | undefined>
             duration: 9000,
             isClosable: true,
         })
-        return []
+        throw new Error(error.error.message)
     }
 }
 
