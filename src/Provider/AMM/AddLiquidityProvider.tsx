@@ -1,9 +1,10 @@
 import { useWeb3React } from "@web3-react/core";
-import { createContext, useEffect, useContext, useReducer } from "react"
+import React, { createContext, useEffect, useContext, useReducer } from "react"
 import { addLiquidityReducer } from "../../Reducers/AMM/addLiquidityReducer";
 import { AddLiquidity } from "../../Models";
 import { fetchBalance, fetchApprovedtokens, isPoolCreated, fetchReserves } from "../../Lib/Utils";
 import { ContractContext } from "../ContractProvider";
+import { DEFAULT_FACTORY_ADDRESS, DEFAULT_INIT_CODE_HASH } from "../../Constants";
 
 const defaultContext = {
     token0: undefined, token0Logo: undefined, token0Balance: undefined, token0Amount: undefined,
@@ -12,15 +13,21 @@ const defaultContext = {
     isPool: false,
     reserves: undefined,
     isApproved: undefined,
+    initCode: undefined,
+    factoryAddess: undefined,
     dispatch: (state: {}, action: any) => {},
 } 
 
 export const AddLiquidityContext = createContext<AddLiquidity>(defaultContext);
 
-export const AddLiquidityProvider = (props: any) => {
+export const AddLiquidityProvider: React.FC<{initCode?: string, factoryAddress?: string, children: React.ReactNode}> = ({
+    initCode = DEFAULT_INIT_CODE_HASH,
+    factoryAddress = DEFAULT_FACTORY_ADDRESS, 
+    children
+}) => {
     const {library, account} = useWeb3React()
     const contract = useContext(ContractContext)
-    const [addLiquidity, dispatch] = useReducer(addLiquidityReducer, defaultContext)
+    const [addLiquidity, dispatch] = useReducer(addLiquidityReducer, {...defaultContext, factoryAddress: factoryAddress, initCode: initCode})
     const {token0, token0Logo, token0Balance, token0Amount, token1, token1Logo, token1Balance, token1Amount, pair, isPool, reserves, isApproved} = addLiquidity
 
     // update token 0
@@ -81,8 +88,10 @@ export const AddLiquidityProvider = (props: any) => {
             isPool, 
             isApproved, 
             reserves,
+            factoryAddress,
+            initCode,
             dispatch
         }}>
-        {props.children}
+        {children}
         </AddLiquidityContext.Provider>)
 }

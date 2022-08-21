@@ -127,6 +127,8 @@ export type AddLiquidity = {
     isPool: Boolean,
     isApproved: {token0: boolean, token1: boolean} | undefined,
     reserves: {tokenA: TokenAmount, tokenB: TokenAmount} | undefined,
+    factoryAddress?: string
+    initCode?: string
     dispatch: (action: any, state?: Object,) => void,
 }
 
