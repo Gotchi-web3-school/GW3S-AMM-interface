@@ -2,7 +2,7 @@ import { Box, Flex, Text, Spacer, Image, useColorModeValue } from "@chakra-ui/re
 import { BiTrendingDown } from "react-icons/bi"
 import { Percent } from "gotchiw3s-sdk"
 import { useContext } from "react"
-import { SwapContext } from "../../../Provider/SwapProvider"
+import { SwapContext } from "../../../Provider/AMM/SwapProvider"
 import { calculFee, getColorPriceImpact } from "../../../Lib/Utils/swap"
 import { QuestionIcon } from "@chakra-ui/icons"
 

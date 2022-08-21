@@ -1,7 +1,7 @@
 import { createContext } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers"
-import { GlobalConst, ROUTER_ADDRESS, FACTORY_ADDRESS, DIAMOND_ADDRESS } from "../Constants"
+import { GlobalConst, ROUTER_ADDRESS, DEFAULT_FACTORY_ADDRESS, DIAMOND_ADDRESS } from "../Constants"
 import { abis } from "../Constants/Abis/abis"
 import { interfaces } from "../Constants/interfaces";
 
@@ -55,7 +55,7 @@ export const ContractContext = createContext<ContractContextType>({
 
 export const ContractProvider = (props: any) => {
     const { library, account } = useWeb3React()
-    const factory = new ethers.Contract(FACTORY_ADDRESS, abis.factory, library?.getSigner(account) ?? library)
+    const factory = new ethers.Contract(DEFAULT_FACTORY_ADDRESS, abis.factory, library?.getSigner(account) ?? library)
     const router2 = new ethers.Contract(ROUTER_ADDRESS, abis.router2, library?.getSigner(account) ?? library)
     const pair = new ethers.Contract(GlobalConst.addresses.ZERO_ADDRESS, abis.pair, library?.getSigner(account) ?? library)
     const ERC20 = new ethers.Contract(GlobalConst.addresses.ZERO_ADDRESS, abis.erc20, library?.getSigner(account) ?? library)

@@ -17,12 +17,12 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
+import { DEFAULT_TOKEN_LIST } from "../../Constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../Lib/Utils"
 import TokenSelect from "../AMM/Pools/Addliquidity/Raw/TokenSelect"
 import { Token } from "gotchiw3s-sdk";
-import { SwapContext } from "../../Provider/SwapProvider";
+import { SwapContext } from "../../Provider/AMM/SwapProvider";
 import { GeneralContext } from "../../Provider/GeneralProvider";
 
 
@@ -30,7 +30,7 @@ const ModalSwap: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
   let { tokenA, tokenB, dispatch } = useContext(SwapContext)
   const { userTokens } = useContext(GeneralContext)
   const { library, chainId } = useWeb3React()
-  const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST_URL.tokens)
+  const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST)
   const [searchInput, setSearchInput] = useState("")
   const [isSearching, setIsSearching] = useState(false)
   const [searchedToken, setSearchedToken] = useState<SelectToken | null>(null)
@@ -101,7 +101,7 @@ const ModalSwap: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
                 <TabPanels>
                   <TabPanel>
                     <Stack>
-                    {DEFAULT_TOKEN_LIST_URL.tokens.map((token, key) => {
+                    {DEFAULT_TOKEN_LIST.map((token, key) => {
                       tokens[key] = token
                       const isDisabled = tokenA?.token?.address === token.address || tokenB?.token?.address === token.address
                         return (
@@ -112,7 +112,7 @@ const ModalSwap: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
                             key={key} 
                             onClick={() =>  {dispatch({type: "SET_TOKEN", payload: {id: idx, token: token}});  onClose()}}
                           >
-                            <TokenSelect token={new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)} img={token.logoURI} />
+                            <TokenSelect token={new Token(token.chainId, token.address, token.decimals, token.symbol, token.name)} img={token.logoURI ?? ""} />
                           </Button>
                         )
                       }

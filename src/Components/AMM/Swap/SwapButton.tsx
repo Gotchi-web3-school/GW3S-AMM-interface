@@ -10,7 +10,7 @@ import {
     swapExactTokensForETHSupportingFeeOnTransferTokensTx,
     ISwapExactETHForTokensTx,
 } from "../../../Lib/Smart-contracts/swap"
-import { SwapContext } from "../../../Provider/SwapProvider"
+import { SwapContext } from "../../../Provider/AMM/SwapProvider"
 import { getDeadLine } from "../../../Lib/Utils"
 import { GlobalConst } from "../../../Constants"
 import { handleApproveTx } from "../../../Lib/Handlers/smart_contract"

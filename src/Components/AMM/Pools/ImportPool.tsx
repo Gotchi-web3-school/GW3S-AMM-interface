@@ -2,7 +2,7 @@ import { useCallback, useContext, useState } from "react";
 import { Text, Button, Box, Image, Flex, useDisclosure, useColorModeValue } from "@chakra-ui/react";
 import { QuestionOutlineIcon } from "@chakra-ui/icons"
 import ModalPool from "../../Modal/ModalPool"
-import { PoolContext } from "../../../Provider/PoolsProvider";
+import { PoolContext } from "../../../Provider/AMM/PoolsProvider";
 
 const ImportPool: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
