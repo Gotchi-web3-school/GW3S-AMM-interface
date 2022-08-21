@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { Box, Text, Button, Input, Image, Flex, Stack, Spacer, useColorModeValue, useDisclosure} from "@chakra-ui/react"
 import { ArrowDownIcon, QuestionIcon } from "@chakra-ui/icons"
 import ModalSwap from "../../Modal/ModalSwap"
-import { SwapContext } from "../../../Provider/SwapProvider"
+import { SwapContext } from "../../../Provider/AMM/SwapProvider"
 
 const InputSwapA : React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

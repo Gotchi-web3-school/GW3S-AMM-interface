@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react"
 import { Text, Stack, Box, Center, Spacer } from "@chakra-ui/react"
-import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider"
+import { AddLiquidityContext } from "../../../../../Provider/AMM/AddLiquidityProvider"
 import { calculateShare, rate } from "../../../../../Lib/Utils"
 
 const PoolShare: React.FC = () => {

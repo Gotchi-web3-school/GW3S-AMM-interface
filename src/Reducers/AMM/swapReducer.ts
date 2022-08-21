@@ -1,7 +1,7 @@
 import { TokenAmount, JSBI, Route, TradeType, Token, Trade, CurrencyAmount } from "gotchiw3s-sdk";
 import { ethers, FixedNumber } from "ethers";
 import { parseEther } from "ethers/lib/utils";
-import { Swap } from "../Models/swap"
+import { Swap } from "../../Models/swap"
 
 export const swapReducer = (state: Swap, action: any): Swap => {
     let {tokenA, tokenB, route, pair, input, output} = state;

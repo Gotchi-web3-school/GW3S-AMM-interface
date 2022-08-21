@@ -5,8 +5,8 @@ import { approveTx } from "../Smart-contracts/approve"
 import { addLiquidityETH, addLiquidityTx } from "../Smart-contracts/addLiquidity"
 import { removeLiquidityETHTx, removeLiquidityTx} from "../Smart-contracts/removeLiquidity"
 import { ContractContextType } from "../../Provider/ContractProvider"
-import { SwapContextType } from "../../Provider/SwapProvider"
-import { PoolContextType } from "../../Provider/PoolsProvider"
+import { SwapContextType } from "../../Provider/AMM/SwapProvider"
+import { PoolContextType } from "../../Provider/AMM/PoolsProvider"
 import { PoolCardContextType } from "../../Models"
 
 export const handleApproveTx = async(token: Token, contract: ContractContextType, context: SwapContextType | PoolContextType | PoolCardContextType, toast: any) => {

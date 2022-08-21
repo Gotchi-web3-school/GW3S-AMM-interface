@@ -17,7 +17,7 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { AddLiquidityContext } from "../../Provider/AddLiquidityProvider"
+import { AddLiquidityContext } from "../../Provider/AMM/AddLiquidityProvider"
 import { GeneralContext } from "../../Provider/GeneralProvider";
 import { DEFAULT_TOKEN_LIST_URL } from "../../Constants/list"
 import { SelectToken } from "../../Models"

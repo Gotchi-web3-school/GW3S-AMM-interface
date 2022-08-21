@@ -1,7 +1,7 @@
 import { useState, useContext} from "react";
 import { Box, Accordion, Divider, Button, Text, Stack, HStack, Spacer} from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { PoolContext } from "../../../Provider/PoolsProvider";
+import { PoolContext } from "../../../Provider/AMM/PoolsProvider";
 import PoolCard from "./PoolCard"
 import ImportPool from "./ImportPool"
 import AddLiquidity from "./Addliquidity/Raw/AddLiquidity";

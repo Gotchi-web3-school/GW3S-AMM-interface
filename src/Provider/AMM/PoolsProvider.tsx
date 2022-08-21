@@ -1,8 +1,8 @@
 import { createContext, useReducer } from "react"
 import { Token} from "gotchiw3s-sdk";
-import { Pool, IPool } from "../Models";
-import { DEFAULT_POOLS } from "../Constants";
-import { poolReducer } from "../Reducers/poolReducer"
+import { Pool, IPool } from "../../Models";
+import { DEFAULT_POOLS } from "../../Constants";
+import { poolReducer } from "../../Reducers/AMM/poolReducer"
 
 export type PoolContextType = {
     tokenA: Token | undefined,

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { Button, Container, Spinner, Text, useToast } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
-import { AddLiquidityContext } from "../../../../../Provider/AddLiquidityProvider"
+import { AddLiquidityContext } from "../../../../../Provider/AMM/AddLiquidityProvider"
 import { isSufficientBalances } from "../../../../../Lib/Utils"
 import { ContractContext } from "../../../../../Provider/ContractProvider"
 import { addLiquidityTx } from "../../../../../Lib/Smart-contracts/addLiquidity"

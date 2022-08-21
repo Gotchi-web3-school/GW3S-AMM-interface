@@ -14,7 +14,7 @@ import { fetchPoolBalances, getLp} from "../../../Lib/Utils/pools";
 import { isPoolCreated } from "../../../Lib/Utils";
 import { useWeb3React } from "@web3-react/core";
 import { ContractContext } from "../../../Provider/ContractProvider";
-import { poolCardReducer } from "../../../Reducers/poolCardReducer";
+import { poolCardReducer } from "../../../Reducers/AMM/poolCardReducer";
 import PoolData from "./Pool/PoolData"
 import AddLiquidityPool from "./Addliquidity/PoolCard/AddLiquidityPool";
 import RemoveLiquidityPool from "./RemoveLiquidity/RemoveLiquidityPool";

@@ -1,9 +1,9 @@
 import { useWeb3React } from "@web3-react/core";
 import { createContext, useEffect, useContext, useReducer } from "react"
-import { addLiquidityReducer } from "../Reducers/addLiquidityReducer";
-import { AddLiquidity } from "../Models";
-import { fetchBalance, fetchApprovedtokens, isPoolCreated, fetchReserves } from "../Lib/Utils";
-import { ContractContext } from "./ContractProvider";
+import { addLiquidityReducer } from "../../Reducers/AMM/addLiquidityReducer";
+import { AddLiquidity } from "../../Models";
+import { fetchBalance, fetchApprovedtokens, isPoolCreated, fetchReserves } from "../../Lib/Utils";
+import { ContractContext } from "../ContractProvider";
 
 const defaultContext = {
     token0: undefined, token0Logo: undefined, token0Balance: undefined, token0Amount: undefined,

@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import { keccak256, arrayify } from "ethers/lib/utils";
 import { Token} from "gotchiw3s-sdk"
-import { Pool } from "../Models"
-import { PoolContextType } from "../Provider/PoolsProvider";
+import { Pool } from "../../Models"
+import { PoolContextType } from "../../Provider/AMM/PoolsProvider";
 import { FACTORY_ADDRESS, INIT_CODE_HASH } from "gotchiw3s-sdk";
 
 export const poolReducer = (state: PoolContextType, action: any): PoolContextType => {

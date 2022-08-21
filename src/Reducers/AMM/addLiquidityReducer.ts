@@ -1,4 +1,4 @@
-import { AddLiquidity } from "../Models"
+import { AddLiquidity } from "../../Models"
 import { Token, TokenAmount, JSBI, Pair } from "gotchiw3s-sdk"
 import { ethers, FixedNumber } from "ethers"
 import { FACTORY_ADDRESS, INIT_CODE_HASH } from "gotchiw3s-sdk"

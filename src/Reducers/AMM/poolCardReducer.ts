@@ -1,7 +1,7 @@
 import { TokenAmount, JSBI, Percent} from "gotchiw3s-sdk";
 import { FixedNumber } from "ethers";
 import { parseEther } from "ethers/lib/utils";
-import { IPool } from "../Models"
+import { IPool } from "../../Models"
 
 export const poolCardReducer = (state: IPool, action: any): IPool => {
     let {isPool, tokenA, tokenB, totalReserves, lpToken, loading, isFetchingPool } = state;

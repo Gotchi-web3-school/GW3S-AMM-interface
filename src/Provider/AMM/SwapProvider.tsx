@@ -1,12 +1,12 @@
 import { createContext, useReducer, useEffect, useContext } from "react"
 import { useWeb3React } from "@web3-react/core";
 import { Fetcher, TokenAmount, Pair, Route, Trade } from "gotchiw3s-sdk";
-import { TokenSwap } from "../Models/swap";
-import { swapReducer } from "../Reducers/swapReducer";
-import { ISwap } from "../Models/swap";
-import { fetchApproveToken, fetchBalance, isPoolCreated } from "../Lib/Utils";
-import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../Constants";
-import { ContractContext } from "./ContractProvider";
+import { TokenSwap } from "../../Models/swap";
+import { swapReducer } from "../../Reducers/AMM/swapReducer";
+import { ISwap } from "../../Models/swap";
+import { fetchApproveToken, fetchBalance, isPoolCreated } from "../../Lib/Utils";
+import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../../Constants";
+import { ContractContext } from "../ContractProvider";
 
 export type SwapContextType = {
     tokenA: TokenSwap
