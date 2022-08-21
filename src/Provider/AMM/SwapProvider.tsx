@@ -5,8 +5,10 @@ import { TokenSwap } from "../../Models/swap";
 import { swapReducer } from "../../Reducers/AMM/swapReducer";
 import { ISwap } from "../../Models/swap";
 import { fetchApproveToken, fetchBalance, isPoolCreated } from "../../Lib/Utils";
-import { FACTORY_ADDRESS, INIT_CODE_HASH} from "../../Constants";
+import { DEFAULT_FACTORY_ADDRESS, DEFAULT_INIT_CODE_HASH} from "../../Constants";
+import { DEFAULT_TOKEN_LIST } from "../../Constants/list";
 import { ContractContext } from "../ContractProvider";
+import { TokenList } from "../../Constants/list";
 
 export type SwapContextType = {
     tokenA: TokenSwap
@@ -19,6 +21,7 @@ export type SwapContextType = {
     isPool: boolean | undefined
     error: boolean
     loading: boolean
+    defaultTokenList: TokenList[]
     dispatch: (action: any, state?: Object,) => void,
 }
 
@@ -49,12 +52,18 @@ const defaultSwap: ISwap = {
 
 const defaultContext = {
     ...defaultSwap,
+    defaultTokenList: [],
     dispatch: (state: {}, action: any) => {},
 }
 
 export const SwapContext = createContext<SwapContextType>(defaultContext);
 
-export const SwapProvider = (props: any) => {
+export const SwapProvider: React.FC<{initCode?: string, factoryAddress?: string, defaultTokenList?: TokenList[], children: React.ReactNode}> = ({
+    initCode=DEFAULT_INIT_CODE_HASH, 
+    factoryAddress=DEFAULT_FACTORY_ADDRESS,
+    defaultTokenList=DEFAULT_TOKEN_LIST,
+    children
+}) => {
     const {library, account} = useWeb3React()
     const contract = useContext(ContractContext)
     const [swap, dispatch] = useReducer(swapReducer, defaultSwap)
@@ -84,13 +93,13 @@ export const SwapProvider = (props: any) => {
             console.log("new pair")
             const tokenAmountA = new TokenAmount(tokenA.token, "0")
             const tokenAmountB = new TokenAmount(tokenB.token, "0")
-            isPoolCreated(new Pair(tokenAmountA, tokenAmountB, FACTORY_ADDRESS, INIT_CODE_HASH), library).then(result => console.log(result))
-            Fetcher.fetchPairData(tokenA.token, tokenB.token, FACTORY_ADDRESS, INIT_CODE_HASH, library)
+            isPoolCreated(new Pair(tokenAmountA, tokenAmountB, factoryAddress, initCode), library).then(result => console.log(result))
+            Fetcher.fetchPairData(tokenA.token, tokenB.token, factoryAddress, initCode, library)
             .then(result => {console.log(result); dispatch({type: "SET_PAIR", payload: result})})
             .catch(error => {
                 const tokenAmountA = new TokenAmount(tokenA.token!, "0")
                 const tokenAmountB = new TokenAmount(tokenB.token!, "0")
-                const pair = new Pair(tokenAmountA, tokenAmountB, FACTORY_ADDRESS, INIT_CODE_HASH)
+                const pair = new Pair(tokenAmountA, tokenAmountB, factoryAddress, initCode)
                 isPoolCreated(pair, library).then(result => {
                     if (result.result)
                         dispatch({type: "SET_PAIR", payload: pair})
@@ -99,7 +108,7 @@ export const SwapProvider = (props: any) => {
                 })
             })
         }
-    }, [tokenA.token, tokenB.token, library, account, contract])
+    }, [tokenA.token, tokenB.token, library, account, contract, factoryAddress, initCode])
 
     // STEP3: Set Trade
     useEffect(() => {
@@ -124,8 +133,9 @@ export const SwapProvider = (props: any) => {
             trade,
             error,
             loading,
+            defaultTokenList,
             dispatch
         }}>
-        {props.children}
+        {children}
         </SwapContext.Provider>)
 }
