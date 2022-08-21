@@ -3,10 +3,18 @@ import Swap from "./Swap"
 import { AddLiquidityProvider } from "../../Provider/AMM/AddLiquidityProvider"
 import { SwapProvider } from "../../Provider/AMM/SwapProvider"
 import { PoolProvider } from "../../Provider/AMM/PoolsProvider";
+import { Pool } from "../../Models";
 
 import Pools from "./Pools"
+import { TokenList } from "../../Constants/list";
 
-const AMM: React.FC = () => {
+const AMM: React.FC<{initCode?: string, factoryAddress?: string, pools?: Pool[], tokenList?: TokenList[], bgImage?: string}> = ({
+    initCode, 
+    factoryAddress, 
+    pools,
+    tokenList,
+    bgImage
+}) => {
     return (
         <Flex textColor={useColorModeValue("black", "whiteAlpha.800")} flexDirection="column">
             <Tabs
@@ -50,12 +58,12 @@ const AMM: React.FC = () => {
 
                 <TabPanels >
                     <TabPanel>
-                        <SwapProvider>
+                        <SwapProvider initCode={initCode} factoryAddress={factoryAddress}>
                             <Swap />
                         </SwapProvider>
                     </TabPanel>
                     <TabPanel p="0">
-                        <PoolProvider>
+                        <PoolProvider pools={pools}>
                             <AddLiquidityProvider>
                                 <Pools />
                             </AddLiquidityProvider>
