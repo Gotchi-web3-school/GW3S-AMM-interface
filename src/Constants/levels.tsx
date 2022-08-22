@@ -52,10 +52,10 @@ export const levels: LevelCard[] = [
         description: 
         <Box>
             <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 4 tokens, </Text> 
-            <Text display={"inline-block"} fontWeight={"bold"}>“FOMO”</Text>, 
-            <Text display={"inline-block"} fontWeight={"bold"}>“ALPHA”</Text>, 
-            <Text display={"inline-block"} fontWeight={"bold"}>“KEK”</Text>, 
-            <Text display={"inline-block"} fontWeight={"bold"}>“FUD”</Text>
+            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“FOMO”</Text>, 
+            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“ALPHA”</Text>, 
+            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“KEK”</Text>, 
+            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“FUD”</Text>
             <Text>Approve them to John.gotchi in order to let him ship your tokens</Text>
         </Box>,
         help: <></>,
@@ -68,7 +68,11 @@ export const levels: LevelCard[] = [
             text: "As the tokens comes from a smart contract written in a virtual ledger securised by the blockchain the owner of a token need to “approve” an operator with a certain ammount in order to let him transfert your token to another address."
         },
         ressources: null,
-        description: <Box><Text>Your are given 10 DAI swap them against GHST tokens</Text></Box>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 10 DAI</Text>
+            <Text> swap them against GHST tokens</Text>
+        </Box>,
         help: <></>,
     },
     {

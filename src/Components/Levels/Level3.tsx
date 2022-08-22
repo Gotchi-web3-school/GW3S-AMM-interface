@@ -16,7 +16,7 @@ const Level3: React.FC = () => {
     const {amm, running, instanceAddress, factories, dispatch} = useContext(LevelContext)
 
     useEffect(() => {
-        if (running === 3 && instanceAddress !== GlobalConst.addresses.ZERO_ADDRESS) {
+        if (running === 3 && instanceAddress !== GlobalConst.addresses.ZERO_ADDRESS && factories) {
             fetchAMMState(signer, instanceAddress, factories[0])
             .then((result) => {
                 dispatch({type: "SET_AMM_STATE", payload: result})
