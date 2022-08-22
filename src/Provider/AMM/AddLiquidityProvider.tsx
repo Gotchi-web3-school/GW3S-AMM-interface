@@ -59,7 +59,7 @@ export const AddLiquidityProvider: React.FC<{initCode?: string, factoryAddress?:
     // Check if pool is already created from token0 & token1 if yes fetch the reserves associated
     useEffect(() => {
         if (pair) {
-            isPoolCreated(pair, library).then(isPool => {
+            isPoolCreated(pair, factoryAddress, library).then(isPool => {
                 if (isPool && token0) {
                     console.log("New pool found!")
                     dispatch({type: "SET_ISPOOL", payload: {isPool: true}})
@@ -70,7 +70,7 @@ export const AddLiquidityProvider: React.FC<{initCode?: string, factoryAddress?:
                 }
             })
         }
-    }, [pair, token0, library, contract])
+    }, [pair, token0, library, contract, factoryAddress])
     
     // Check for approval
     useEffect(() => {

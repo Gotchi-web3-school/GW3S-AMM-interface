@@ -40,7 +40,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
 
     useEffect(() => {
         if (account && pool.isPool === undefined) {
-            isPoolCreated(props.pool.pair, library).then((isPool: any) => {
+            isPoolCreated(props.pool.pair, props.pool.factory, library).then((isPool: any) => {
                 if (isPool.result) {
                     console.log(pool.name + ": Pool found!")
                     getLp(isPool.tokenAddress, contract).then((token: any) => {

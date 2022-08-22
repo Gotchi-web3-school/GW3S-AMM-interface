@@ -94,14 +94,14 @@ export const SwapProvider: React.FC<{initCode?: string, factory?: string, defaul
             console.log("new pair")
             const tokenAmountA = new TokenAmount(tokenA.token, "0")
             const tokenAmountB = new TokenAmount(tokenB.token, "0")
-            isPoolCreated(new Pair(tokenAmountA, tokenAmountB, factory, initCode), library).then(result => console.log(result))
+            isPoolCreated(new Pair(tokenAmountA, tokenAmountB, factory, initCode), factory, library).then(result => console.log(result))
             Fetcher.fetchPairData(tokenA.token, tokenB.token, factory, initCode, library)
             .then(result => {console.log(result); dispatch({type: "SET_PAIR", payload: result})})
             .catch(error => {
                 const tokenAmountA = new TokenAmount(tokenA.token!, "0")
                 const tokenAmountB = new TokenAmount(tokenB.token!, "0")
                 const pair = new Pair(tokenAmountA, tokenAmountB, factory, initCode)
-                isPoolCreated(pair, library).then(result => {
+                isPoolCreated(pair, factory, library).then(result => {
                     if (result.result)
                         dispatch({type: "SET_PAIR", payload: pair})
                     else
