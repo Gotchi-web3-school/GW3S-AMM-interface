@@ -138,3 +138,37 @@ export const level3List = [{
     "chainId": 80001,
     "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
 }]
+
+export const level4List = [
+    {
+    "name": "level4 GHST",
+    "address": "",
+    "symbol": "GHST",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+},
+{
+    "name": "level4 ETH",
+    "address": "",
+    "symbol": "ETH",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+},
+{
+    "name": "level4 AAVE",
+    "address": "",
+    "symbol": "AAVE",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://etherscan.io/token/images/aave_32.png"
+    },
+    {
+        "name": "level4 GHST",
+        "address": "",
+        "symbol": "GHST",
+        "decimals": 18,
+        "chainId": 80001,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+}]
