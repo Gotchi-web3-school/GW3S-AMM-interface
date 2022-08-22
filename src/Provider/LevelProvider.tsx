@@ -24,7 +24,7 @@ export type LevelContextType = {
 
 const defaultContext = {
     running: -1,
-    instanceAddress: '',
+    instanceAddress: "0x0000000000000000000000000000000000000000",
     hasCompleted: false,
     hasClaimed: false,
     factories: [],
@@ -44,8 +44,7 @@ export const LevelProvider: React.FC<{levelId: number, children: React.ReactNode
   useEffect(() => {
     if (contracts && signer.account && levelId && levelId !== 2) {
       try {
-        console.log("fetch")
-        fetchLevelState(signer, contracts, levelId).then(result => {
+          fetchLevelState(signer, contracts, levelId).then(result => {
             dispatch({type: "SET_LEVEL_STATE", payload: result})
         })
       } catch (error) {

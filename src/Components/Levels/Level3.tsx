@@ -8,6 +8,7 @@ import { fetchAMMState } from "../../Lib/Smart-contracts/Levels/level3Facet"
 import { useWeb3React } from "@web3-react/core"
 //import { ContractContext } from "../../Provider/ContractProvider"
 import { LevelContext } from "../../Provider/LevelProvider"
+import { GlobalConst } from "../../Constants"
 
 const Level3: React.FC = () => {
     const signer = useWeb3React()
@@ -15,7 +16,7 @@ const Level3: React.FC = () => {
     const {amm, running, instanceAddress, factories, dispatch} = useContext(LevelContext)
 
     useEffect(() => {
-        if (running === 3) {
+        if (running === 3 && instanceAddress !== GlobalConst.addresses.ZERO_ADDRESS) {
             fetchAMMState(signer, instanceAddress, factories[0])
             .then((result) => {
                 dispatch({type: "SET_AMM_STATE", payload: result})
