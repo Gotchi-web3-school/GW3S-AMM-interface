@@ -2,6 +2,7 @@ import { ethers } from "ethers"
 import { openL0Chest } from "./level0Facet"
 import { completeL1, openL1Chest } from "./level1Facet"
 import { start_l2, completeL2, openL2Chest } from "./level2Facet"
+import { start_l3, completeL3, openL3Chest } from "./level3Facet"
 import { CompleteTx, InitTx } from "../../../Models"
 
 export type LevelState = {
@@ -37,16 +38,19 @@ export const opens = [
     openL0Chest,
     openL1Chest,
     openL2Chest,
+    openL3Chest,
 ]
 
 export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> = [
     undefined,
     completeL1,
     completeL2,
+    completeL3,
 ]
 
 export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
     undefined,
     undefined,
     start_l2,
+    start_l3,
 ]

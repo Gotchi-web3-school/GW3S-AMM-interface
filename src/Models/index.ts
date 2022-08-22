@@ -183,6 +183,16 @@ export type OpennedChest = {
     amounts: Array<ethers.BigNumberish> 
 }
 
+export interface Reward  {
+    ticker: string,
+    svg: {front: string, back: string},
+    levelId: number,
+    type_: "unknown" | "level",
+    title: string,
+    text: string,
+    quantity: number
+}
+
 /**************************************/
 /*                                    */
 /*           Transactions             */
