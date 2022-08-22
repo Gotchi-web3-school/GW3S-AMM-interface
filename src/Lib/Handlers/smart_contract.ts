@@ -2,8 +2,8 @@ import { Token } from "gotchiw3s-sdk"
 import { Web3ReactContextInterface } from "@web3-react/core/dist/types"
 import { GlobalConst } from "../../Constants"
 import { approveTx } from "../Smart-contracts/approve"
-import { addLiquidityETH, addLiquidityTx } from "../Smart-contracts/addLiquidity"
-import { removeLiquidityETHTx, removeLiquidityTx} from "../Smart-contracts/removeLiquidity"
+import { addLiquidityETH, addLiquidityTx } from "../Smart-contracts/AMM/addLiquidity"
+import { removeLiquidityETHTx, removeLiquidityTx} from "../Smart-contracts/AMM/removeLiquidity"
 import { ContractContextType } from "../../Provider/ContractProvider"
 import { SwapContextType } from "../../Provider/AMM/SwapProvider"
 import { PoolContextType } from "../../Provider/AMM/PoolsProvider"
@@ -28,7 +28,7 @@ export const handleAddLiquidityTx = async (
     context: PoolCardContextType, 
     toast: any
     ) => {
-    const {tokenA, tokenB, pair} = context.pool
+    const {tokenA, tokenB, pair, factory} = context.pool
 
     context.dispatch({type: "LOADING", payload: true})
     if (tokenA.token.address === GlobalConst.addresses.WMATIC || tokenB.token.address === GlobalConst.addresses.WMATIC) {
@@ -38,6 +38,7 @@ export const handleAddLiquidityTx = async (
             tokenB: tokenB,
             to: signer.account!,
             toast: toast,
+            factory: factory,
         }, signer.library)
 
         context.dispatch({type: "LOADING", payload: false})
@@ -50,6 +51,7 @@ export const handleAddLiquidityTx = async (
             amount1: tokenB.inputAdd.amount!,
             userAddress: signer.account!,
             toast: toast,
+            factory: factory,
         }, signer.library)
 
         context.dispatch({type: "LOADING", payload: false})
@@ -63,7 +65,7 @@ export const handleRemoveLiquidityTx = async(
     context: PoolCardContextType, 
     toast: any
     ) => {
-    const {tokenA, tokenB, pair, lpToken} = context.pool
+    const {tokenA, tokenB, pair, lpToken, factory} = context.pool
 
     context.dispatch({type: "LOADING", payload: true})
     if (tokenA.token.address === GlobalConst.addresses.WMATIC || tokenB.token.address === GlobalConst.addresses.WMATIC) {
@@ -74,6 +76,7 @@ export const handleRemoveLiquidityTx = async(
             tokenB: tokenB,
             to: signer.account!,
             toast: toast,
+            factory: factory,
         }, signer.library)
 
         context.dispatch({type: "LOADING", payload: false})
@@ -87,6 +90,7 @@ export const handleRemoveLiquidityTx = async(
             amountBOut: tokenB.inputRemove.amount!,
             userAddress: signer.account!,
             toast: toast,
+            factory: factory,
         }, signer.library)
 
         context.dispatch({type: "LOADING", payload: false})

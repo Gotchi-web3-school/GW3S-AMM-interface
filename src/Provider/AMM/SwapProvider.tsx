@@ -22,6 +22,7 @@ export type SwapContextType = {
     error: boolean
     loading: boolean
     defaultTokenList: TokenList[]
+    factory?: string
     dispatch: (action: any, state?: Object,) => void,
 }
 
@@ -58,9 +59,9 @@ const defaultContext = {
 
 export const SwapContext = createContext<SwapContextType>(defaultContext);
 
-export const SwapProvider: React.FC<{initCode?: string, factoryAddress?: string, defaultTokenList?: TokenList[], children: React.ReactNode}> = ({
+export const SwapProvider: React.FC<{initCode?: string, factory?: string, defaultTokenList?: TokenList[], children: React.ReactNode}> = ({
     initCode=DEFAULT_INIT_CODE_HASH, 
-    factoryAddress=DEFAULT_FACTORY_ADDRESS,
+    factory=DEFAULT_FACTORY_ADDRESS,
     defaultTokenList=DEFAULT_TOKEN_LIST,
     children
 }) => {
@@ -93,13 +94,13 @@ export const SwapProvider: React.FC<{initCode?: string, factoryAddress?: string,
             console.log("new pair")
             const tokenAmountA = new TokenAmount(tokenA.token, "0")
             const tokenAmountB = new TokenAmount(tokenB.token, "0")
-            isPoolCreated(new Pair(tokenAmountA, tokenAmountB, factoryAddress, initCode), library).then(result => console.log(result))
-            Fetcher.fetchPairData(tokenA.token, tokenB.token, factoryAddress, initCode, library)
+            isPoolCreated(new Pair(tokenAmountA, tokenAmountB, factory, initCode), library).then(result => console.log(result))
+            Fetcher.fetchPairData(tokenA.token, tokenB.token, factory, initCode, library)
             .then(result => {console.log(result); dispatch({type: "SET_PAIR", payload: result})})
             .catch(error => {
                 const tokenAmountA = new TokenAmount(tokenA.token!, "0")
                 const tokenAmountB = new TokenAmount(tokenB.token!, "0")
-                const pair = new Pair(tokenAmountA, tokenAmountB, factoryAddress, initCode)
+                const pair = new Pair(tokenAmountA, tokenAmountB, factory, initCode)
                 isPoolCreated(pair, library).then(result => {
                     if (result.result)
                         dispatch({type: "SET_PAIR", payload: pair})
@@ -108,7 +109,7 @@ export const SwapProvider: React.FC<{initCode?: string, factoryAddress?: string,
                 })
             })
         }
-    }, [tokenA.token, tokenB.token, library, account, contract, factoryAddress, initCode])
+    }, [tokenA.token, tokenB.token, library, account, contract, factory, initCode])
 
     // STEP3: Set Trade
     useEffect(() => {
@@ -134,6 +135,7 @@ export const SwapProvider: React.FC<{initCode?: string, factoryAddress?: string,
             error,
             loading,
             defaultTokenList,
+            factory,
             dispatch
         }}>
         {children}

@@ -4,14 +4,22 @@ import { fetchLevelState } from "../Lib/Smart-contracts/Levels"
 import { ContractContext } from "./ContractProvider"
 import { useWeb3React } from "@web3-react/core"
 import { useParams } from "react-router-dom"
+import { TokenList } from "../Constants/list"
+import { Pool } from "../Models"
 
 export type LevelContextType = {
-    running: number,
+    running: number
     instanceAddress: string
-    hasCompleted: boolean,
-    hasClaimed: boolean,
-    factories: string[],
-    tokens: string[],
+    hasCompleted: boolean
+    hasClaimed: boolean
+    factories: string[]
+    tokens: string[]
+    amm: {
+      factory?: string
+      initCode?: string 
+      list?: TokenList[]
+      pools?: Pool[]
+    } | undefined,
     dispatch: (state: any, action?: Object) => void,
 }
 
@@ -22,6 +30,7 @@ const defaultContext = {
     hasClaimed: false,
     factories: [],
     tokens: [],
+    amm: undefined,
     dispatch: (state: {}, action: any) => {},
 } 
 
@@ -32,7 +41,7 @@ export const LevelProvider = (props: any) => {
   const { id } = useParams()
   const {LevelLoupeFacet} = useContext(ContractContext)
   const [level, dispatch] = useReducer(levelReducer, defaultContext)
-  const {running, instanceAddress, hasCompleted, hasClaimed, factories, tokens} = level
+  const {running, instanceAddress, hasCompleted, hasClaimed, factories, tokens, amm} = level
 
   useEffect(() => {
     if (LevelLoupeFacet && signer.account && id && id !== '2') {
@@ -47,7 +56,7 @@ export const LevelProvider = (props: any) => {
   }, [LevelLoupeFacet, signer, id, dispatch])
 
   return (
-    <LevelContext.Provider value={{running, instanceAddress, hasCompleted, hasClaimed, factories, tokens, dispatch}}>
+    <LevelContext.Provider value={{running, instanceAddress, hasCompleted, hasClaimed, factories, tokens, amm, dispatch}}>
     {props.children}
     </LevelContext.Provider>
   )

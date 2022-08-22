@@ -1,8 +1,8 @@
 import { Pair, TokenAmount, Percent, JSBI } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
-import { GlobalConst } from "../../Constants";
-import { calculateSlippageAmount } from "../Utils";
-import { TokenPool } from "../../Models";
+import { GlobalConst } from "../../../Constants";
+import { calculateSlippageAmount } from "../../Utils";
+import { TokenPool } from "../../../Models";
 
 interface AddLiquidityTx {
     router2: ethers.Contract | undefined,
@@ -11,6 +11,7 @@ interface AddLiquidityTx {
     amount1: TokenAmount,
     userAddress: string,
     toast: any,
+    factory: string,
 }
 
 export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
@@ -32,6 +33,7 @@ export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
         console.log("minimum amount B: " +  ethers.utils.parseEther(minAmount1[0]))
         console.log("userAddress address: " + tx.userAddress)
         console.log("deadline: " + deadline)
+        console.log("Factory: " + tx.factory)
         console.log("///////////////////////////////////////////////")
     
         //Estimation of the gas cost
@@ -43,6 +45,7 @@ export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
             ethers.utils.parseEther(minAmount0[0]),
             ethers.utils.parseEther(minAmount1[0]),
             tx.userAddress,
+            tx.factory,
             deadline,
         ) 
     
@@ -57,6 +60,7 @@ export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
             ethers.utils.parseEther(minAmount1[0]),
             tx.userAddress,
             deadline,
+            tx.factory,
             {gasLimit: gas}
         )
     
@@ -103,6 +107,7 @@ interface AddLiquidityETHTx {
     tokenB: TokenPool,
     to: string,
     toast: any,
+    factory: string,
 }
 
 export const addLiquidityETH = async(tx: AddLiquidityETHTx, provider: any) => {
@@ -123,6 +128,7 @@ export const addLiquidityETH = async(tx: AddLiquidityETHTx, provider: any) => {
         console.log("minimum amount MATIC: " +  ethers.utils.parseEther(minAmountEth[0]))
         console.log("userAddress address: " + tx.to)
         console.log("deadline: " + deadline)
+        console.log("Factory: " + tx.factory)
         console.log("///////////////////////////////////////////////")
         
         //Estimation of the gas cost
@@ -133,6 +139,7 @@ export const addLiquidityETH = async(tx: AddLiquidityETHTx, provider: any) => {
             ethers.utils.parseEther(minAmountEth[0]),
             tx.to,
             deadline,
+            tx.factory,
             {value: matic.inputAdd.amount?.raw.toString()}
             ) 
             
@@ -145,6 +152,7 @@ export const addLiquidityETH = async(tx: AddLiquidityETHTx, provider: any) => {
                 ethers.utils.parseEther(minAmountEth[0]),
                 tx.to,
                 deadline,
+                tx.factory,
                 {gasLimit: gas, value: matic.inputAdd.amount?.raw.toString()}
                 )
                 

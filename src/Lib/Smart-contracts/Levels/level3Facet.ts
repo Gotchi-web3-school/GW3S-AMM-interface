@@ -1,4 +1,11 @@
 import { ethers } from "ethers";
+import { TokenList } from "../../../Constants/list";
+import { ContractContextType } from "../../../Provider/ContractProvider";
+import { interfaces } from "../../../Constants/interfaces";
+import { level3List } from "../../../Constants/list"
+import { Pool } from "../../../Models";
+import { Token } from "gotchiw3s-sdk"
+import { DEFAULT_LOGOS } from "../../../Constants/index"
 
 interface ClaimTx {
     ILevel0: ethers.Contract | undefined,
@@ -49,5 +56,59 @@ export const claim_l0 = async(tx: ClaimTx) => {
             isClosable: true,
           })
         throw new Error(error.error)
+    }
+}
+
+export const fetchLevel3State = async(signer: any, contracts: ContractContextType): Promise<{
+    running: number,
+    instanceAddress: string,
+    hasCompleted: boolean,
+    hasClaimed: boolean,
+    factory: string, 
+    initCode: string,
+    list: TokenList[],
+    pools: Pool[] 
+} | undefined> => {
+    try {
+        const {LevelLoupeFacet} = contracts
+        let initCode = '';
+        let list: TokenList[] = level3List
+        let pools: Pool[] = []
+    
+        const instanceAddress: string = await LevelLoupeFacet!.getLevelInstanceByAddress(signer.account, 3)
+        const Level3Instance = new ethers.Contract(instanceAddress, interfaces.ILevel3Instance, signer.library)
+        
+        const running: BigInt = LevelLoupeFacet!.getRunningLevel(signer.account)
+        const hasCompleted: boolean = LevelLoupeFacet!.hasCompletedLevel(signer.account, 3)
+        const hasClaimed: boolean = LevelLoupeFacet!.hasClaimedLevel(signer.account, 3)
+        const factory: string = LevelLoupeFacet!.getFactoryLevel(3, 0)
+        
+        const result = await Promise.all([running, hasCompleted, hasClaimed, factory])
+        for(let i = 0; i < 2; i++) (
+            list[i].address = await Level3Instance.tokens(i)
+        )
+        const IFactory = new ethers.Contract(result[3], interfaces.IFactory, signer.library)
+        initCode = await IFactory.getInitCodeHash()
+
+        // Get the pool
+        let tokenA = new Token( signer.chainId, list[0].address, 18, list[0].symbol, list[0].name)
+        let tokenB = new Token( signer.chainId, list[1].address, 18, list[1].symbol, list[1].name)
+        pools.push(new Pool(0, `${list[0].symbol} - ${list[1].symbol}`, tokenA, tokenB,  result[3], initCode,  {tokenA: DEFAULT_LOGOS[2], tokenB: DEFAULT_LOGOS[1]}),)
+        
+        console.log(pools)
+        return {
+            running: parseInt(result[0].toString()),
+            instanceAddress: instanceAddress,
+            hasCompleted: result[1],
+            hasClaimed: result[2],
+            factory: result[3],
+            initCode: initCode,
+            list: list,
+            pools: pools
+        }
+        
+    } catch (error: any) {
+        console.log(error.message)
+        throw new Error("REKT")
     }
 }

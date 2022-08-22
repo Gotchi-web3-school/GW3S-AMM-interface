@@ -8,9 +8,9 @@ import { Pool } from "../../Models";
 import Pools from "./Pools"
 import { TokenList } from "../../Constants/list";
 
-const AMM: React.FC<{initCode?: string, factoryAddress?: string, pools?: Pool[], tokenList?: TokenList[], bgImage?: string}> = ({
+const AMM: React.FC<{initCode?: string, factory?: string, pools?: Pool[], tokenList?: TokenList[], bgImage?: string}> = ({
     initCode, 
-    factoryAddress, 
+    factory, 
     pools,
     tokenList,
     bgImage
@@ -58,13 +58,13 @@ const AMM: React.FC<{initCode?: string, factoryAddress?: string, pools?: Pool[],
 
                 <TabPanels >
                     <TabPanel>
-                        <SwapProvider initCode={initCode} factoryAddress={factoryAddress}>
+                        <SwapProvider initCode={initCode} factory={factory} defaultTokenList={tokenList}>
                             <Swap />
                         </SwapProvider>
                     </TabPanel>
                     <TabPanel p="0">
-                        <PoolProvider pools={pools}>
-                            <AddLiquidityProvider>
+                        <PoolProvider defaultPools={pools} initCode={initCode} factory={factory} defaultTokenList={tokenList}>
+                            <AddLiquidityProvider initCode={initCode} factoryAddress={factory}>
                                 <Pools />
                             </AddLiquidityProvider>
                         </PoolProvider>

@@ -1,7 +1,7 @@
 import { LevelContextType } from "../Provider/LevelProvider";
 
 export const levelReducer = (state: LevelContextType, action: any): LevelContextType => {
-  //let {running, instanceAddress, hasCompleted, hasClaimed, factories, tokens} = state;
+  //let {running, instanceAddress, hasCompleted, hasClaimed, factories, tokens, AMM} = state;
 
     // POOLS COMPONENT
     switch(action.type) {
@@ -16,6 +16,10 @@ export const levelReducer = (state: LevelContextType, action: any): LevelContext
             factories: action.payload.factories,
             tokens: action.payload.tokens
           }
+        case "SET_AMM_STATE":
+          const {factory, initCode, list, pools} = action.payload
+          return {...state, amm: {factory: factory, initCode: initCode, list: list, pools: pools}}
+          
         case "CLAIM":
           return {...state, hasClaimed: action.payload}
 

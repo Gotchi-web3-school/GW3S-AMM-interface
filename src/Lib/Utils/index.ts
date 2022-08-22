@@ -1,6 +1,6 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { BigintIsh, Fraction, Percent, Fetcher, Pair, Token, TokenAmount } from 'gotchiw3s-sdk';
-import { abis, GlobalConst, ROUTER_ADDRESS, FACTORY_ADDRESS} from '../../Constants';
+import { abis, GlobalConst, ROUTER_ADDRESS, DEFAULT_FACTORY_ADDRESS} from '../../Constants';
 import { interfaces } from '../../Constants/interfaces';
 import { ethers } from "ethers";
 import { SelectToken } from '../../Models';
@@ -53,7 +53,7 @@ export const fetchApprovedToken = async(tokenAddress: string, amount: number, op
 }
 
 export const isPoolCreated = async(pair: Pair, provider: any): Promise<{result: boolean, tokenAddress: any}> => {
-    const factory = new ethers.Contract(FACTORY_ADDRESS, abis.factory, provider);
+    const factory = new ethers.Contract(DEFAULT_FACTORY_ADDRESS, abis.factory, provider);
     const pool = await factory.getPair(pair.token0.address, pair.token1.address);
     return {result: pool !== GlobalConst.addresses.ZERO_ADDRESS, tokenAddress: pool};
 }

@@ -72,7 +72,8 @@ export const interfaces = {
         "function deployFactory(address player) external returns(address)",
         "function createPair(address, address) external returns (address)",
         "function setFeeTo(address) external",
-        "function setFeeToSetter(address) external"
+        "function setFeeToSetter(address) external",
+        "function getInitCodeHash() external pure returns(bytes32)",
     ],
     IPair: [
         "function name() external pure returns (string memory)",
@@ -251,6 +252,17 @@ export const interfaces = {
         "function initLevel3() external",
         "function completeL3() external returns (bool)",
         "function openL3Chest() external returns(address[] memory loot, uint[] memory amount)",
+    ],
+    ILevel3Instance: [
+        "function player() external view returns (address)", 
+        "function tokens(uint) external view returns (address)",
+        "function shipped() external view returns (bool)",
+        "function TOKENS_SYMBOL(uint) external view returns (string memory)",
+        "function TOKENS_NAME(uint) external view returns (string memory)",
+
+        "function factory() external view returns (address)",
+        "function router() external view returns (address)",
+        "function getPair() external returns(address pair)",
     ],
     ILevel4Facet: [
         "function initLevel4() external",

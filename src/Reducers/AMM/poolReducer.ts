@@ -3,10 +3,9 @@ import { keccak256, arrayify } from "ethers/lib/utils";
 import { Token} from "gotchiw3s-sdk"
 import { Pool } from "../../Models"
 import { PoolContextType } from "../../Provider/AMM/PoolsProvider";
-import { FACTORY_ADDRESS, INIT_CODE_HASH } from "gotchiw3s-sdk";
 
 export const poolReducer = (state: PoolContextType, action: any): PoolContextType => {
-    const {tokenA, tokenALogo, tokenB, tokenBLogo, pools, pool} = state;
+    const {tokenA, tokenALogo, tokenB, tokenBLogo, pools, pool, factory, initCode} = state;
 
     // POOLS COMPONENT
     switch(action.type) {
@@ -24,9 +23,9 @@ export const poolReducer = (state: PoolContextType, action: any): PoolContextTyp
             const addrA = arrayify(tokenA!.address)
             const addrB = arrayify(tokenB!.address)
             const bytesArray = ethers.utils.concat([addrA, addrB])
-            const newPool: Pool = new Pool(parseInt(keccak256(bytesArray)), name, tokenA!, tokenB!, FACTORY_ADDRESS, INIT_CODE_HASH, tokensUri)
+            const newPool: Pool = new Pool(parseInt(keccak256(bytesArray)), name, tokenA!, tokenB!, factory!, initCode!, tokensUri)
             pools.unshift(newPool)
-
+            
             const array: number[] = []
             // Filter all the similar pool element
             const newPools: Pool[] = pools.filter((prev) => {

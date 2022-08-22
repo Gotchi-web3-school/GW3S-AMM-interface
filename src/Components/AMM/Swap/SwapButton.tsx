@@ -9,7 +9,7 @@ import {
     swapExactETHForTokensSupportingFeeOnTransferTokensTx,
     swapExactTokensForETHSupportingFeeOnTransferTokensTx,
     ISwapExactETHForTokensTx,
-} from "../../../Lib/Smart-contracts/swap"
+} from "../../../Lib/Smart-contracts/AMM/swap"
 import { SwapContext } from "../../../Provider/AMM/SwapProvider"
 import { getDeadLine } from "../../../Lib/Utils"
 import { GlobalConst } from "../../../Constants"
@@ -19,7 +19,7 @@ const SwapButton: React.FC = () => {
     const { library, account } = useWeb3React()
     const contract = useContext(ContractContext)
     const context = useContext(SwapContext)
-    const { tokenA, tokenB, input, output, isPool, error, loading, trade, dispatch} = context
+    const { tokenA, tokenB, input, output, isPool, error, loading, trade, factory, dispatch} = context
     const toast = useToast()
 
     const handleSwapTx = async() => {
@@ -33,6 +33,7 @@ const SwapButton: React.FC = () => {
                 path: [tokenA.token?.address!, tokenB.token?.address!],
                 to: account ?? "",
                 deadline: await getDeadLine(library),
+                factory: factory!,
                 toast: toast,
                 dispatch: dispatch,
             }
@@ -59,6 +60,7 @@ const SwapButton: React.FC = () => {
                 to: account ?? "",
                 deadline: await getDeadLine(library),
                 toast: toast,
+                factory: factory!,
                 dispatch: dispatch,
             })
             .then(() => {

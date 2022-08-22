@@ -17,7 +17,6 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { DEFAULT_TOKEN_LIST } from "../../Constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../Lib/Utils"
 import TokenSelect from "../AMM/Pools/Addliquidity/Raw/TokenSelect"
@@ -27,10 +26,10 @@ import { GeneralContext } from "../../Provider/GeneralProvider";
 
 
 const ModalSwap: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
-  let { tokenA, tokenB, dispatch } = useContext(SwapContext)
+  let { tokenA, tokenB, defaultTokenList, dispatch } = useContext(SwapContext)
   const { userTokens } = useContext(GeneralContext)
   const { library, chainId } = useWeb3React()
-  const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST)
+  const [tokens] = useState<SelectToken[]>(defaultTokenList)
   const [searchInput, setSearchInput] = useState("")
   const [isSearching, setIsSearching] = useState(false)
   const [searchedToken, setSearchedToken] = useState<SelectToken | null>(null)
@@ -101,7 +100,7 @@ const ModalSwap: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
                 <TabPanels>
                   <TabPanel>
                     <Stack>
-                    {DEFAULT_TOKEN_LIST.map((token, key) => {
+                    {defaultTokenList.map((token, key) => {
                       tokens[key] = token
                       const isDisabled = tokenA?.token?.address === token.address || tokenB?.token?.address === token.address
                         return (

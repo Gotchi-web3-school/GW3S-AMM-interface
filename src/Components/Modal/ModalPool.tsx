@@ -19,7 +19,6 @@ import {
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { PoolContext } from "../../Provider/AMM/PoolsProvider"
 import { GeneralContext } from "../../Provider/GeneralProvider";
-import { DEFAULT_TOKEN_LIST } from "../../Constants/list"
 import { SelectToken } from "../../Models"
 import { fetchTokenData } from "../../Lib/Utils"
 import TokenSelect from "../AMM/Pools/Addliquidity/Raw/TokenSelect"
@@ -27,10 +26,10 @@ import { Token } from "gotchiw3s-sdk";
 
 
 const ModalPool: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> = ({isOpen, onClose, idx}) => {
-  let { tokenA, tokenB, dispatch } = useContext(PoolContext)
+  let { tokenA, tokenB, defaultTokenList, dispatch } = useContext(PoolContext)
   const { userTokens } = useContext(GeneralContext)
   const { library, chainId } = useWeb3React()
-  const [tokens] = useState<SelectToken[]>(DEFAULT_TOKEN_LIST)
+  const [tokens] = useState<SelectToken[]>(defaultTokenList)
   const [searchInput, setSearchInput] = useState("")
   const [isSearching, setIsSearching] = useState(false)
   const [searchedToken, setSearchedToken] = useState<SelectToken | null>(null)
@@ -101,7 +100,7 @@ const ModalPool: React.FC<{isOpen: boolean, onClose: () => void, idx: number}> =
                 <TabPanels>
                   <TabPanel>
                     <Stack >
-                      {DEFAULT_TOKEN_LIST.map((token, key) => {
+                      {defaultTokenList.map((token, key) => {
                         tokens[key] = token
                         const isDisabled = tokenA?.address === token.address || tokenB?.address === token.address
                           return (

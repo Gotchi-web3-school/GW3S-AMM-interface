@@ -1,6 +1,7 @@
 import { Token, TokenAmount, Pair, Fraction, Percent, JSBI } from "gotchiw3s-sdk";
 import { ethers } from "ethers";
 import React from "react";
+import { TokenList } from "../Constants/list";
 
 export type SelectToken = {
     name: string | undefined;
@@ -53,6 +54,7 @@ export interface IPool {
     isPool?: boolean | undefined
     tokenA: TokenPool
     tokenB: TokenPool
+    factory: string
 }
 
 export class Pool implements IPool {
@@ -66,6 +68,7 @@ export class Pool implements IPool {
     totalReserves: {tokenA: TokenAmount, tokenB: TokenAmount}
     tokenA: TokenPool 
     tokenB: TokenPool
+    factory: string
 
     constructor(id: number, name: string, tokenA: Token, tokenB: Token, factoryAddress: string, initCodeHash: string,  logoURI?: {tokenA?: string, tokenB?: string}) {
         this.id = id;
@@ -110,6 +113,7 @@ export class Pool implements IPool {
             logo: logoURI?.tokenB,
             loading: false,
         }
+        this.factory = factoryAddress
         
     }
 }
@@ -160,6 +164,13 @@ export type PoolCardContextType = {
     pool: IPool,
     dispatch: (action: any, state?: Object,) => void,
     setState: React.Dispatch<any>,
+}
+
+export type AMMLevel = {
+    factory: string
+    initCode: string
+    list: TokenList
+    pools: Pool[]
 }
 /**************************************/
 /*                                    */

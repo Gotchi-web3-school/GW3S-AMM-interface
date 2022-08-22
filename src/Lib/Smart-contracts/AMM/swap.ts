@@ -8,6 +8,7 @@ interface SwapExactTokenForTokenTx {
     path: string[],
     to: string,
     deadline: string,
+    factory: string
     toast: any,
     dispatch: (state: {}, action?: Object | undefined) => void,
 }
@@ -21,6 +22,7 @@ export const swapExactTokensForTokensSupportingFeeOnTransferTokensTx = async(tx:
         console.log("Path: " + tx.path)
         console.log("To: " + tx.to)
         console.log("Deadline: " +  tx.deadline)
+        console.log("Factory: " +  tx.factory)
         console.log("//////////////////////////////////////")
     
         //Estimation of the gas cost
@@ -30,6 +32,7 @@ export const swapExactTokensForTokensSupportingFeeOnTransferTokensTx = async(tx:
             tx.path,
             tx.to,
             tx.deadline,
+            tx.factory,
         ) 
     
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
@@ -40,6 +43,7 @@ export const swapExactTokensForTokensSupportingFeeOnTransferTokensTx = async(tx:
             tx.path!,
             tx.to,
             tx.deadline,
+            tx.factory,
             {gasLimit: gas}
         )
 
@@ -88,6 +92,7 @@ export interface ISwapExactETHForTokensTx {
     path: string[],
     to: string,
     deadline: string,
+    factory: string,
     toast: any,
     dispatch: (state: {}, action?: Object | undefined) => void,
 }
@@ -101,6 +106,7 @@ export const swapExactETHForTokensSupportingFeeOnTransferTokensTx = async(tx: IS
         console.log("Path: " + tx.path)
         console.log("To: " + tx.to)
         console.log("Deadline: " +  tx.deadline)
+        console.log("Factory: " +  tx.factory)
         console.log("//////////////////////////////////////")
 
         //Estimation of the gas cost
@@ -109,6 +115,7 @@ export const swapExactETHForTokensSupportingFeeOnTransferTokensTx = async(tx: IS
             tx.path,
             tx.to,
             tx.deadline,
+            tx.factory,
             {value: tx.amountIn.raw.toString()}
         )
         //const feeData = await tx.provider.getFeeData() 
@@ -120,6 +127,7 @@ export const swapExactETHForTokensSupportingFeeOnTransferTokensTx = async(tx: IS
             tx.path!,
             tx.to,
             tx.deadline,
+            tx.factory,
             {gasLimit: gas, value: tx.amountIn.raw.toString()}
         )
 
@@ -171,6 +179,7 @@ interface SwapExactTokenForETHTx {
     to: string,
     deadline: string,
     toast: any,
+    factory: string,
     dispatch: (state: {}, action?: Object | undefined) => void,
 }
 
@@ -183,6 +192,7 @@ export const swapExactTokensForETHSupportingFeeOnTransferTokensTx = async(tx: Sw
         console.log("Path: " + tx.path)
         console.log("To: " + tx.to)
         console.log("Deadline: " +  tx.deadline)
+        console.log("Factory: " +  tx.factory)
         console.log("//////////////////////////////////////")
 
         //Estimation of the gas cost
@@ -192,6 +202,7 @@ export const swapExactTokensForETHSupportingFeeOnTransferTokensTx = async(tx: Sw
             tx.path,
             tx.to,
             tx.deadline,
+            tx.factory,
         ) 
         const feeData = await tx.provider.getFeeData()
         console.log(feeData.gasPrice)
@@ -204,6 +215,7 @@ export const swapExactTokensForETHSupportingFeeOnTransferTokensTx = async(tx: Sw
             tx.path,
             tx.to,
             tx.deadline,
+            tx.factory,
             {...feeData, gasLimit: gas}
         )
 

@@ -4,13 +4,13 @@ import { useWeb3React } from "@web3-react/core"
 import { AddLiquidityContext } from "../../../../../Provider/AMM/AddLiquidityProvider"
 import { isSufficientBalances } from "../../../../../Lib/Utils"
 import { ContractContext } from "../../../../../Provider/ContractProvider"
-import { addLiquidityTx } from "../../../../../Lib/Smart-contracts/addLiquidity"
+import { addLiquidityTx } from "../../../../../Lib/Smart-contracts/AMM/addLiquidity"
 
 const MintButton: React.FC = () => {
     const contract = useContext(ContractContext)
     const { library, account } = useWeb3React()
     const toast = useToast()
-    const { isPool, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance, pair, dispatch } = useContext(AddLiquidityContext)
+    const { isPool, token0, token0Amount, token1, token1Amount, isApproved, token0Balance, token1Balance, pair, factoryAddress, dispatch } = useContext(AddLiquidityContext)
     const [loading, setLoading] = useState(false)
 
     const handleAddLiquidityTx = () => {
@@ -23,6 +23,7 @@ const MintButton: React.FC = () => {
                 amount1: token1Amount,
                 userAddress: account ?? "",
                 toast: toast,
+                factory: factoryAddress!,
             }, library)
             .then(() => {
                 setLoading(false)
