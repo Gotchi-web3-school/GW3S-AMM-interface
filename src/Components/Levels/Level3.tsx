@@ -3,29 +3,17 @@ import { levels } from "../../Constants/levels"
 import Card from "./Card"
 import AMM from "../AMM"
 import { useContext, useEffect } from "react"
-import { fetchLevel3State, fetchAMMState } from "../../Lib/Smart-contracts/Levels/level3Facet"
+import { fetchAMMState } from "../../Lib/Smart-contracts/Levels/level3Facet"
+//import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
 import { useWeb3React } from "@web3-react/core"
-import { ContractContext } from "../../Provider/ContractProvider"
+//import { ContractContext } from "../../Provider/ContractProvider"
 import { LevelContext } from "../../Provider/LevelProvider"
 
 const Level3: React.FC = () => {
     const signer = useWeb3React()
-    const contracts = useContext(ContractContext)
+    //const contracts = useContext(ContractContext)
     const {amm, running, instanceAddress, factories, dispatch} = useContext(LevelContext)
 
-    // 1st fetch Level states
-    useEffect(() => {
-        if (signer.account && contracts.LevelLoupeFacet) {
-            console.log("fetchState")
-            fetchLevel3State(signer, contracts)
-            .then(result => {
-                dispatch({type: "SET_LEVEL_STATE", payload: result})
-            })
-            .catch()
-        }
-    }, [signer, contracts, dispatch])
-
-    // 2nd fetch AMM state
     useEffect(() => {
         if (running === 3) {
             fetchAMMState(signer, instanceAddress, factories[0])

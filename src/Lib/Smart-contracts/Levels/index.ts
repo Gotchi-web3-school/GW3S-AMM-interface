@@ -1,36 +1,39 @@
-import { ethers } from "ethers"
 import { openL0Chest } from "./level0Facet"
 import { completeL1, openL1Chest } from "./level1Facet"
 import { start_l2, completeL2, openL2Chest } from "./level2Facet"
 import { start_l3, completeL3, openL3Chest } from "./level3Facet"
 import { CompleteTx, InitTx } from "../../../Models"
+import { ContractContextType } from "../../../Provider/ContractProvider";
 
-export type LevelState = {
+export const fetchLevelState = async(signer: any, contracts: ContractContextType, level: number): Promise<{
     running: number,
     instanceAddress: string,
     hasCompleted: boolean,
     hasClaimed: boolean,
-    factory: string,
-    tokens: string[]
-}
-
-export const fetchLevelState = async(LevelLoupeFacet: ethers.Contract, signer: any, id: number): Promise<LevelState> => {
-    const running: BigInt = LevelLoupeFacet!.getRunningLevel(signer.account)
-    const instanceAddress: string = LevelLoupeFacet!.getLevelInstanceByAddress(signer.account, id)
-    const hasCompleted: boolean = LevelLoupeFacet!.hasCompletedLevel(signer.account, id)
-    const hasClaimed: boolean = LevelLoupeFacet!.hasClaimedLevel(signer.account, id)
-    const factories: string = LevelLoupeFacet!.getFactoryLevel(id, 0)
-    const tokens: string[] = LevelLoupeFacet!.getTokensLevel(id)
-
-    const result = await Promise.all([running, instanceAddress, hasCompleted, hasClaimed, factories, tokens])
-
-    return {
-        running: parseInt(result[0].toString()),
-        instanceAddress: result[1],
-        hasCompleted: result[2],
-        hasClaimed: result[3],
-        factory: result[4],
-        tokens: result[5]
+    factories: string[],
+} | undefined> => {
+    try {
+        const {LevelLoupeFacet} = contracts
+        const instanceAddress: string = await LevelLoupeFacet!.getLevelInstanceByAddress(signer.account, level)
+        
+        const running: BigInt = LevelLoupeFacet!.getRunningLevel(signer.account)
+        const hasCompleted: boolean = LevelLoupeFacet!.hasCompletedLevel(signer.account, level)
+        const hasClaimed: boolean = LevelLoupeFacet!.hasClaimedLevel(signer.account, level)
+        const factory: string = LevelLoupeFacet!.getFactoryLevel(level, 0)
+        
+        const result = await Promise.all([running, hasCompleted, hasClaimed, factory])
+        
+        return {
+            running: parseInt(result[0].toString()),
+            instanceAddress: instanceAddress,
+            hasCompleted: result[1],
+            hasClaimed: result[2],
+            factories: [result[3]],
+        }
+        
+    } catch (error: any) {
+        console.log(error.message)
+        throw new Error("REKT")
     }
 }
 

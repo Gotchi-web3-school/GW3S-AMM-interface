@@ -12,7 +12,7 @@ import ChestLevel from "../Chests/ChestLevel"
 
 const Level1: React.FC = () => {
     const signer = useWeb3React()
-    const {LevelLoupeFacet, LevelFacets} = useContext(ContractContext)
+    const contracts = useContext(ContractContext)
     const {dispatch} = useContext(LevelContext)
     const toast = useToast()
     const message = " I hereby confirm that i will pursue the challenges ahead and be devoted to protect the Gotchiverse against the baad lickuidators"
@@ -20,23 +20,13 @@ const Level1: React.FC = () => {
     const complete = () => {
         const tx: CompleteTx = {
             signer: signer,
-            Facet: LevelFacets[1],
-            LoupeFacet: LevelLoupeFacet,
+            Facet: contracts.LevelFacets[1],
+            LoupeFacet: contracts.LevelLoupeFacet,
             toast: toast,
             dispatch: dispatch
         }
         completes[1]!(tx)
     }
-
-    useEffect(() => {
-        try {
-            fetchLevelState(LevelLoupeFacet!, signer, 1).then(result => {
-                dispatch({type: "SET_LEVEL_STATE", payload: result})
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }, [LevelLoupeFacet, signer, dispatch])
     
     return (
     <Box margin={"auto"}>
