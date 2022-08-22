@@ -42,7 +42,10 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
         }
         setLoading({...loading, start: true})
         starts[parseInt(id!)]!(tx)
-        .then(() => setLoading({...loading, start: false}))
+        .then(() => { 
+            setLoading({...loading, start: false})
+            dispatch({type: "SET_RUNNING", payload: parseInt(id!)})
+        })
         .catch(() => setLoading({...loading, start: false}))
     }
 
