@@ -102,9 +102,9 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
                             Complete
                         </Button>
                         <Spacer />
-                        <Button name="restart" bg="orange.500" isLoading={loading.restart} onClick={restart}>Restart</Button>
-                        <Spacer />
                         <ChestLevel id={parseInt(id!)} />
+                        <Spacer />
+                        <Button name="restart" bg="orange.500" isLoading={loading.restart} onClick={restart}>Restart</Button>
                     </HStack>
                     :
                     <>

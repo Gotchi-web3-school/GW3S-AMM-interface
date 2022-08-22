@@ -44,9 +44,9 @@ const ChestLevel: React.FC<{id: number}> = ({id}) => {
     }
 
     return (
-        <Box as="button" display={"flex"} margin="auto" onClick={openChest}>
+        <Box as="button" onClick={openChest}>
             <ModalChestOpen chest={chest} isOpen={isOpen} onClose={onClose} />
-            <Image boxSize={100} src={isOpen ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
+            <Image boxSize={100} mt="-8" src={isOpen ? opennedChest : hasCompleted ? closeChest : lockedChest}/>
         </Box>
     )
 }
