@@ -19,21 +19,24 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
             <Text mb="1" alignSelf={"center"} fontWeight={"bold"} fontSize={"lg"}>Total in pool</Text>
             <Flex>
                 <Box>
-                    <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>
-                        {isFetchingPool ? <Spinner /> : totalReserves.tokenA.lessThan("1") ?
-                                                        totalReserves.tokenA.toSignificant(18) : 
-                                                        totalReserves.tokenA.toFixed(2)
-                        }
-                    </Text>
+                    {isFetchingPool ? 
+                        <Spinner /> 
+                        : 
+                        <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>
+                            {totalReserves.tokenA.lessThan("1") ? totalReserves.tokenA.toSignificant(18) : totalReserves.tokenA.toFixed(2)}
+                        </Text>
+                    }
                     <Text fontSize={"xs"}>{tokenA.token.symbol}</Text>
                 </Box>
                 <Box  ml="4rem" >
-                    <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>
-                        {isFetchingPool ? <Spinner /> : totalReserves.tokenB.lessThan("1") ? 
-                                                        totalReserves.tokenB.toSignificant(18) : 
-                                                        totalReserves.tokenB.toFixed(2)
+                    
+                        {isFetchingPool ? 
+                            <Spinner /> 
+                            : 
+                            <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}> 
+                                {totalReserves.tokenB.lessThan("1") ? totalReserves.tokenB.toSignificant(18) : totalReserves.tokenB.toFixed(2)}
+                            </Text>
                         }
-                    </Text>
                     <Text fontSize={"xs"}>{tokenB.token.symbol}</Text>
                 </Box>
             </Flex>
