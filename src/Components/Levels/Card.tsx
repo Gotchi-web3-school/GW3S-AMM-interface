@@ -56,11 +56,15 @@ const Card: React.FC<{level: LevelCard}> = ({level}) => {
             dispatch: dispatch
         }
         setLoading({...loading, restart: true})
-        starts[parseInt(id!)]!(tx).then(() => {
+        starts[parseInt(id!)]!(tx)
+        .then(() => {
             setLoading({...loading, restart: false})
             window.location.reload()
         })
-        .catch(() => setLoading({...loading, restart: false}))
+        .catch(() => {
+            setLoading({...loading, restart: false})
+            window.location.reload()
+        })
     }
 
     return (
