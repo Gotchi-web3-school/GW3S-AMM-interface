@@ -51,7 +51,7 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                 }
             })
         }
-    }, [account, props.pool, pool, library, contract, expanded])
+    }, [account, props, pool, library, contract, expanded])
 
     useEffect(() => {
         if (pool.isPool && pool.lpToken.balance === undefined) {

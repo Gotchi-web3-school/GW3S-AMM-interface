@@ -14,10 +14,14 @@ export const levelReducer = (state: LevelContextType, action: any): LevelContext
             hasCompleted: action.payload.hasCompleted,
             hasClaimed: action.payload.hasClaimed,
             factories: action.payload.factories,
+            amm : {...state.amm, factory: action.payload.factories[0]}
           }
         case "SET_AMM_STATE":
-          const {factory, initCode, list, pools} = action.payload
-          return {...state, amm: {factory: factory, initCode: initCode, list: list, pools: pools}}
+          const {initCode, list, pools} = action.payload
+          return {...state, amm: {...state.amm, initCode: initCode, list: list, pools: pools}}
+        
+        case "SET_RUNNING":
+          return {...state, running: action.payload}
           
         case "CLAIM":
           return {...state, hasClaimed: action.payload}
