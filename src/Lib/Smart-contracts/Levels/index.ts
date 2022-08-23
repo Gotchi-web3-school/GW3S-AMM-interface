@@ -2,6 +2,7 @@ import { openL0Chest } from "./level0Facet"
 import { completeL1, openL1Chest } from "./level1Facet"
 import { start_l2, completeL2, openL2Chest } from "./level2Facet"
 import { start_l3, completeL3, openL3Chest } from "./level3Facet"
+import { start_l4, completeL4, openL4Chest } from "./level4Facet"
 import { CompleteTx, InitTx } from "../../../Models"
 import { ContractContextType } from "../../../Provider/ContractProvider";
 
@@ -42,6 +43,7 @@ export const opens = [
     openL1Chest,
     openL2Chest,
     openL3Chest,
+    openL4Chest,
 ]
 
 export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> = [
@@ -49,6 +51,7 @@ export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> =
     completeL1,
     completeL2,
     completeL3,
+    completeL4,
 ]
 
 export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
@@ -56,4 +59,5 @@ export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
     undefined,
     start_l2,
     start_l3,
+    start_l4,
 ]

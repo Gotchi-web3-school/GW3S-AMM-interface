@@ -83,7 +83,11 @@ export const levels: LevelCard[] = [
             text: "Sometimes you will want to swap a token against another but unfortunately the pool didn't exist yet 😱. Good news most of the main swap exchange include an auto routing which find amongst many other pairs the most efficient route (up to 7 tokens swap for 1 transactions !). But right now you have to find yourself the right route :)"
         },
         ressources: null,
-        description: <Box><Text>Your are given 10 DAI swap them against GHST tokens</Text></Box>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 10 DAI</Text>
+            <Text> swap them against GHST tokens</Text>
+        </Box>,
         help: <Text px="5">Look at the “pools” tab in the AMM, there are interesting informations !</Text>,
     },
     {

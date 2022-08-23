@@ -7,7 +7,6 @@ import { ContractContextType } from "../../../Provider/ContractProvider";
 import { interfaces } from "../../../Constants/interfaces";
 import { level4List } from "../../../Constants/list"
 import { Pool } from "../../../Models";
-import { DEFAULT_LOGOS } from "../../../Constants/index"
 import { fetchLootsMetadatas } from "../Rewards";
 
 
@@ -203,38 +202,6 @@ export const fetchLevel4State = async(signer: any, contracts: ContractContextTyp
     }
 }
 
-export const fetchLevelState = async(signer: any, contracts: ContractContextType, level: number): Promise<{
-    running: number,
-    instanceAddress: string,
-    hasCompleted: boolean,
-    hasClaimed: boolean,
-    factories: string[],
-} | undefined> => {
-    try {
-        const {LevelLoupeFacet} = contracts
-        const instanceAddress: string = await LevelLoupeFacet!.getLevelInstanceByAddress(signer.account, level)
-        
-        const running: BigInt = LevelLoupeFacet!.getRunningLevel(signer.account)
-        const hasCompleted: boolean = LevelLoupeFacet!.hasCompletedLevel(signer.account, level)
-        const hasClaimed: boolean = LevelLoupeFacet!.hasClaimedLevel(signer.account, level)
-        const factory: string = LevelLoupeFacet!.getFactoryLevel(level, 0)
-        
-        const result = await Promise.all([running, hasCompleted, hasClaimed, factory])
-        
-        return {
-            running: parseInt(result[0].toString()),
-            instanceAddress: instanceAddress,
-            hasCompleted: result[1],
-            hasClaimed: result[2],
-            factories: [result[3]],
-        }
-        
-    } catch (error: any) {
-        console.log(error.message)
-        throw new Error("REKT")
-    }
-}
-
 export const fetchAMMState = async(signer: any, instanceAddress: string, factory: string): Promise<{
     initCode: string,
     list: TokenList[],
@@ -246,10 +213,10 @@ export const fetchAMMState = async(signer: any, instanceAddress: string, factory
     let pools: Pool[] = []
 
     try {
-        const Level3Instance = new ethers.Contract(instanceAddress, interfaces.ILevel3Instance, signer.library)
+        const Level4Instance = new ethers.Contract(instanceAddress, interfaces.ILevel4Instance, signer.library)
     
-        for(let i = 0; i < 2; i++) (
-            list[i].address = await Level3Instance.tokens(i)
+        for(let i = 0; i < 4; i++) (
+            list[i].address = await Level4Instance.tokens(i)
         )
         const IFactory = new ethers.Contract(factory, interfaces.IFactory, signer.library)
         initCode = await IFactory.getInitCodeHash()
@@ -257,7 +224,11 @@ export const fetchAMMState = async(signer: any, instanceAddress: string, factory
         // Get the pool
         let tokenA = new Token( signer.chainId, list[0].address, 18, list[0].symbol, list[0].name)
         let tokenB = new Token( signer.chainId, list[1].address, 18, list[1].symbol, list[1].name)
-        pools.push(new Pool(0, `${list[0].symbol} - ${list[1].symbol}`, tokenA, tokenB,  factory, initCode,  {tokenA: DEFAULT_LOGOS[2], tokenB: DEFAULT_LOGOS[1]}))
+        let tokenC = new Token( signer.chainId, list[2].address, 18, list[2].symbol, list[2].name)
+        let tokenD = new Token( signer.chainId, list[3].address, 18, list[3].symbol, list[3].name)
+        pools.push(new Pool(0, `${list[0].symbol} - ${list[1].symbol}`, tokenA, tokenB,  factory, initCode,  {tokenA: list[0].logoURI, tokenB: list[1].logoURI}))
+        pools.push(new Pool(1, `${list[2].symbol} - ${list[1].symbol}`, tokenC, tokenB,  factory, initCode,  {tokenA: list[2].logoURI, tokenB: list[1].logoURI}))
+        pools.push(new Pool(2, `${list[3].symbol} - ${list[2].symbol}`, tokenD, tokenC,  factory, initCode,  {tokenA: list[3].logoURI, tokenB: list[2].logoURI}))
     } catch (error: any) {
         console.log(error.message)
         throw new Error(error.message)
