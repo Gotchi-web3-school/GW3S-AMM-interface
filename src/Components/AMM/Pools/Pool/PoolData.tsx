@@ -30,9 +30,7 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
                 </Box>
                 <Box  ml="4rem" >
                     
-                        {isFetchingPool ? 
-                            <Spinner /> 
-                            : 
+                        {isFetchingPool ? <Spinner /> : 
                             <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}> 
                                 {totalReserves.tokenB.lessThan("1") ? totalReserves.tokenB.toSignificant(18) : totalReserves.tokenB.toFixed(2)}
                             </Text>
@@ -45,12 +43,13 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
         <SimpleGrid columns={2} spacing={3} borderRadius={"3xl"} mx="1" p="5">
             <Text textAlign={"left"}>Your LP tokens:</Text>
             <Flex justifyContent={"right"}>
-                <Text position={"relative"} left="12px" textAlign={"right"} fontWeight="bold">
-                    {isFetchingPool ? <Spinner /> : pool?.lpToken.balance?.lessThan("1") ?? false ? 
-                                                    pool?.lpToken.balance?.toSignificant(2) ?? '0' : 
-                                                    pool?.lpToken.balance?.toFixed(2) ?? '0'
-                    }
-                </Text>
+                {isFetchingPool ? <Spinner /> : 
+                    <Text position={"relative"} left="12px" textAlign={"right"} fontWeight="bold"> 
+                    {pool?.lpToken.balance?.lessThan("1") ?? false ? 
+                        pool?.lpToken.balance?.toSignificant(2) ?? '0' : 
+                        pool?.lpToken.balance?.toFixed(2) ?? '0'}
+                    </Text>
+                }
                 {tokenA.logo ? 
                     <Image 
                     zIndex={1} 
