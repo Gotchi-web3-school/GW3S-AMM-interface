@@ -4,15 +4,12 @@ import Card from "./Card"
 import AMM from "../AMM"
 import { useContext, useEffect } from "react"
 import { fetchAMMState } from "../../Lib/Smart-contracts/Levels/level3Facet"
-//import { fetchLevelState } from "../../Lib/Smart-contracts/Levels"
 import { useWeb3React } from "@web3-react/core"
-//import { ContractContext } from "../../Provider/ContractProvider"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { GlobalConst } from "../../Constants"
 
 const Level3: React.FC = () => {
     const signer = useWeb3React()
-    //const contracts = useContext(ContractContext)
     const {amm, running, instanceAddress, factories, dispatch} = useContext(LevelContext)
 
     useEffect(() => {
