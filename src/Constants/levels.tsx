@@ -115,8 +115,13 @@ export const levels: LevelCard[] = [
             text: ""
         },
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
-        description: <Box><Text>You are given 10 GHST token You are given 0.001 DAI tokenSwap your 10 GHST to finish the level with at least 10.001 DAI token</Text></Box>,
-        help: <Link href="https://mumbai.polygonscan.com/">https://mumbai.polygonscan.com/</Link>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 10 GHST token</Text><br/>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 0.001 DAI token</Text>
+            <Text>Swap your GHST to finish the level with at least 1 DAI token</Text>
+        </Box>,
+        help: <Link target={"_blank"} href="https://mumbai.polygonscan.com/"><Image mt="1" width="40" src={polygonscan}/></Link>,
     },
     {
         id: '7',

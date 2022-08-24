@@ -4,7 +4,8 @@ import { start_l2, completeL2, openL2Chest } from "./level2Facet"
 import { start_l3, completeL3, openL3Chest } from "./level3Facet"
 import { start_l4, completeL4, openL4Chest } from "./level4Facet"
 import { start_l5, completeL5, openL5Chest } from "./level5Facet"
-import { InitTx } from "../../../Models"
+import { start_l6, completeL6, openL6Chest } from "./level6Facet"
+import { CompleteTx, InitTx } from "../../../Models"
 import { ContractContextType } from "../../../Provider/ContractProvider";
 
 export const fetchLevelState = async(signer: any, contracts: ContractContextType, level: number): Promise<{
@@ -13,6 +14,7 @@ export const fetchLevelState = async(signer: any, contracts: ContractContextType
     hasCompleted: boolean,
     hasClaimed: boolean,
     factories: string[],
+    tokens: string[]
 } | undefined> => {
     try {
         const {LevelLoupeFacet} = contracts
@@ -22,15 +24,16 @@ export const fetchLevelState = async(signer: any, contracts: ContractContextType
         const hasCompleted: boolean = LevelLoupeFacet!.hasCompletedLevel(signer.account, level)
         const hasClaimed: boolean = LevelLoupeFacet!.hasClaimedLevel(signer.account, level)
         const factory: string = LevelLoupeFacet!.getFactoryLevel(level, 0)
+        const tokens: string[] = LevelLoupeFacet!.getTokensLevel(level)
         
-        const result = await Promise.all([running, hasCompleted, hasClaimed, factory])
-        
+        const result = await Promise.all([running, hasCompleted, hasClaimed, factory, tokens])
         return {
             running: parseInt(result[0].toString()),
             instanceAddress: instanceAddress,
             hasCompleted: result[1],
             hasClaimed: result[2],
             factories: [result[3]],
+            tokens: result[4],
         }
         
     } catch (error: any) {
@@ -46,15 +49,17 @@ export const opens = [
     openL3Chest,
     openL4Chest,
     openL5Chest,
+    openL6Chest,
 ]
 
-export const completes = [
+export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> = [
     undefined,
     completeL1,
     completeL2,
     completeL3,
     completeL4,
     completeL5,
+    completeL6,
 ]
 
 export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
@@ -64,4 +69,5 @@ export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
     start_l3,
     start_l4,
     start_l5,
+    start_l6,
 ]

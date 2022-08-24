@@ -165,10 +165,60 @@ export const level4List = [
     "logoURI": "https://etherscan.io/token/images/aave_32.png"
     },
     {
-        "name": "level4 GHST",
+        "name": "level4 DAI",
         "address": "",
-        "symbol": "GHST",
+        "symbol": "DAI",
         "decimals": 18,
         "chainId": 80001,
         "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+}]
+
+export const level6List = [
+    {
+    "name": "level6 GHST",
+    "address": "",
+    "symbol": "GHST",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+},
+{
+    "name": "level6 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+},
+{
+    "name": "level6 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+},
+{
+    "name": "level6 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+},
+{
+    "name": "level6 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+},
+{
+    "name": "level6 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
 }]
