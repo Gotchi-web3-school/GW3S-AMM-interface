@@ -3,7 +3,6 @@ import { Token } from "gotchiw3s-sdk"
 import { TokenList } from "../../../Constants/list";
 import { CompleteTx, ClaimTx, InitTx } from "../../../Models/index"
 import { Reward } from "../../../Models";
-import { ContractContextType } from "../../../Provider/ContractProvider";
 import { interfaces } from "../../../Constants/interfaces";
 import { level4List } from "../../../Constants/list"
 import { Pool } from "../../../Models";
@@ -166,39 +165,6 @@ export const openL4Chest = async(tx: ClaimTx): Promise<Array<Reward | undefined>
             isClosable: true,
         })
         throw new Error(error.error.message)
-    }
-}
-
-
-export const fetchLevel4State = async(signer: any, contracts: ContractContextType): Promise<{
-    running: number,
-    instanceAddress: string,
-    hasCompleted: boolean,
-    hasClaimed: boolean,
-    factories: string[],
-} | undefined> => {
-    try {
-        const {LevelLoupeFacet} = contracts
-        const instanceAddress: string = await LevelLoupeFacet!.getLevelInstanceByAddress(signer.account, 4)
-        
-        const running: BigInt = LevelLoupeFacet!.getRunningLevel(signer.account)
-        const hasCompleted: boolean = LevelLoupeFacet!.hasCompletedLevel(signer.account, 4)
-        const hasClaimed: boolean = LevelLoupeFacet!.hasClaimedLevel(signer.account, 4)
-        const factory: string = LevelLoupeFacet!.getFactoryLevel(4, 0)
-        
-        const result = await Promise.all([running, hasCompleted, hasClaimed, factory])
-        
-        return {
-            running: parseInt(result[0].toString()),
-            instanceAddress: instanceAddress,
-            hasCompleted: result[1],
-            hasClaimed: result[2],
-            factories: [result[3]],
-        }
-        
-    } catch (error: any) {
-        console.log(error.message)
-        throw new Error("REKT")
     }
 }
 
