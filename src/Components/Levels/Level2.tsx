@@ -100,7 +100,7 @@ const Level2: React.FC = () => {
     // Fetch the state of the level
     useEffect(() => {
         try {
-            if (signer.account && LevelLoupeFacet) {
+            if (signer.account && LevelLoupeFacet && running === 2) {
                 dispatchL2({type: "LOADING_ALL"})
                 fetchLevel2State(signer, 2).then((result: Level2State) => {
                     dispatch({type: "SET_LEVEL_STATE", payload: result})
