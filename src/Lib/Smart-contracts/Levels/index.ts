@@ -3,7 +3,8 @@ import { completeL1, openL1Chest } from "./level1Facet"
 import { start_l2, completeL2, openL2Chest } from "./level2Facet"
 import { start_l3, completeL3, openL3Chest } from "./level3Facet"
 import { start_l4, completeL4, openL4Chest } from "./level4Facet"
-import { CompleteTx, InitTx } from "../../../Models"
+import { start_l5, completeL5, openL5Chest } from "./level5Facet"
+import { InitTx } from "../../../Models"
 import { ContractContextType } from "../../../Provider/ContractProvider";
 
 export const fetchLevelState = async(signer: any, contracts: ContractContextType, level: number): Promise<{
@@ -44,14 +45,16 @@ export const opens = [
     openL2Chest,
     openL3Chest,
     openL4Chest,
+    openL5Chest,
 ]
 
-export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> = [
+export const completes = [
     undefined,
     completeL1,
     completeL2,
     completeL3,
     completeL4,
+    completeL5,
 ]
 
 export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
@@ -60,4 +63,5 @@ export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
     start_l2,
     start_l3,
     start_l4,
+    start_l5,
 ]

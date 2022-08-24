@@ -280,6 +280,14 @@ export const interfaces = {
         "function completeL5() external returns (bool)",
         "function openL5Chest() external returns(address[] memory loots, uint[] memory amounts)",
     ],
+    ILevel5Instance: [
+        "function player() external view returns (address)", 
+        "function tokens(uint) external view returns (address)",
+        "function TOKENS_SYMBOL(uint) external view returns (string memory)",
+        "function TOKENS_NAME(uint) external view returns (string memory)",
+
+        "function insertAddress(address guess_) external",
+    ],
     ILevel6Facet: [
         "function initLevel6() external",
         "function completeL6() external returns (bool)",
