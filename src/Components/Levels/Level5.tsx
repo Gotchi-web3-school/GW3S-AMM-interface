@@ -9,7 +9,7 @@ import { InsertTx, insert } from "../../Lib/Smart-contracts/Levels/level5Facet"
 const Level5: React.FC = () => {
     const signer = useWeb3React()
     const toast = useToast()
-    const {instanceAddress} = useContext(LevelContext)
+    const {instanceAddress, running} = useContext(LevelContext)
     const [loading, setLoading] = useState(false)
     const [input, setInput] = useState("")
 
@@ -30,12 +30,12 @@ const Level5: React.FC = () => {
         <Box margin={"auto"}>
         <Stack direction={"row"} m="5rem" align="center">
             <Spacer />
-            <Stack w="26%" textAlign={"center"} >
+            {running === 5 && <Stack w="26%" textAlign={"center"} >
                 <Text>Catch me !</Text>
                 <Image src="" />
                 <Input onChange={(e) => setInput(e.target.value)} />
                 <Button isLoading={loading} onClick={insertTx}>insert</Button>
-            </Stack>
+            </Stack>}
             <Spacer />
             <Card level={levels[5]}/>
         </Stack>
