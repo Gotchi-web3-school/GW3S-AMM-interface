@@ -1,5 +1,7 @@
 import { Link, Image, Center, Text, Box, } from "@chakra-ui/react"
 const metamask = require("../Assets/general/Metamask-face.png")
+const polygonscan = require("../Assets/general/polygonscan.png")
+
 
 export type LevelCard = {
     id: string,
@@ -98,8 +100,12 @@ export const levels: LevelCard[] = [
             text: "One major key concept in the blockchain is that it is  100% transparent, yes ser you heard it you can see every single transactions that happenned since its creation ! Each blockchains/networks has its own “Ledger” and with it a “Block explorer” to naviguate through and find pertinent informations to the state of the ledger, you can find the Mumbai one here"
         },
         ressources: ["https://mumbai.polygonscan.com/"],
-        description: <Box><Text>You are given 1 CATCH token Find the address that sent you </Text></Box>,
-        help: <Link href="https://mumbai.polygonscan.com/">https://mumbai.polygonscan.com/</Link>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 1 CATCH token</Text>
+            <Text>Find the address of this token</Text>
+        </Box>,
+        help: <Link target={"_blank"} href="https://mumbai.polygonscan.com/"><Image mt="1" width="40" src={polygonscan}/></Link>,
     },
     {
         id: '6',
