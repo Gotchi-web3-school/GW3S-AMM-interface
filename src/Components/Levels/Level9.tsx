@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react"
 import { useWeb3React } from "@web3-react/core"
 import { LevelContext } from "../../Provider/LevelProvider"
 import { fetchAMMState } from "../../Lib/Smart-contracts/Levels/level9Facet"
-import {Box, Stack, Spacer} from "@chakra-ui/react"
+import {Box, Wrap, Spacer} from "@chakra-ui/react"
 import { levels } from "../../Constants/levels"
 import AMM from "../AMM"
 import Card from "./Card"
@@ -23,18 +23,17 @@ const Level9: React.FC = () => {
     }, [running, signer, instanceAddress, factories, dispatch])
 
     return (
-        <Box margin={"auto"}>
-        <Stack direction={"row"} m="5rem" align="center">
+    <Box margin={"auto"} display={["block", "block", "block", "flex"]}  justifyItems="center" alignItems="center">
+        <Wrap justify='center' align={"center"} spacing={"5rem"} p="3rem" >
             {amm?.pools && running === 9 &&
             <>
                 <Erc20Generator instanceLevel={9} instanceAddress={instanceAddress} />
-                <Spacer />
-                {<AMM factory={amm.factory} initCode={amm.initCode} tokenList={amm.list} pools={amm.pools} />}
+                <AMM factory={amm.factory} initCode={amm.initCode} tokenList={amm.list} pools={amm.pools} />
             </>
             }
             <Spacer />
             <Card level={levels[9]}/>
-        </Stack>
+        </Wrap>
     </Box>
     )
 }
