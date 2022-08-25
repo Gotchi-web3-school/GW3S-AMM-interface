@@ -301,10 +301,23 @@ export const interfaces = {
         "function completeL7() external returns (bool)",
         "function openL7Chest() external returns(address[] memory loots, uint[] memory amounts)",
     ],
+    ILevel7Instance: [
+        "function player() external view returns (address)", 
+        "function tokens(uint) external view returns (address)",
+        "function TOKENS_SYMBOL(uint) external view returns (string memory)",
+        "function TOKENS_NAME(uint) external view returns (string memory)",
+    ],
     ILevel8Facet: [
         "function initLevel8() external",
         "function completeL8() external returns (bool)",
         "function openL8Chest() external returns(address[] memory loots, uint[] memory amounts)",
+    ],
+    ILevel8Instance: [
+        "function player() external view returns (address)", 
+        "function tokens(uint) external view returns (address)",
+        "function TOKENS_SYMBOL(uint) external view returns (string memory)",
+        "function TOKENS_NAME(uint) external view returns (string memory)",
+        "function getPair() external returns(address pair)",
     ],
     ILevel9Facet: [
         "function initLevel9() external",

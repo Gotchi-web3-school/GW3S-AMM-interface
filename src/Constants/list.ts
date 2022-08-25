@@ -141,28 +141,28 @@ export const level3List = [{
 
 export const level4List = [
     {
-    "name": "level4 GHST",
-    "address": "",
-    "symbol": "GHST",
-    "decimals": 18,
-    "chainId": 80001,
-    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
-},
-{
-    "name": "level4 ETH",
-    "address": "",
-    "symbol": "ETH",
-    "decimals": 18,
-    "chainId": 80001,
-    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
-},
-{
-    "name": "level4 AAVE",
-    "address": "",
-    "symbol": "AAVE",
-    "decimals": 18,
-    "chainId": 80001,
-    "logoURI": "https://etherscan.io/token/images/aave_32.png"
+        "name": "level4 GHST",
+        "address": "",
+        "symbol": "GHST",
+        "decimals": 18,
+        "chainId": 80001,
+        "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+    },
+    {
+        "name": "level4 ETH",
+        "address": "",
+        "symbol": "ETH",
+        "decimals": 18,
+        "chainId": 80001,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+    },
+    {
+        "name": "level4 AAVE",
+        "address": "",
+        "symbol": "AAVE",
+        "decimals": 18,
+        "chainId": 80001,
+        "logoURI": "https://etherscan.io/token/images/aave_32.png"
     },
     {
         "name": "level4 DAI",
@@ -171,10 +171,10 @@ export const level4List = [
         "decimals": 18,
         "chainId": 80001,
         "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
-}]
-
-export const level6List = [
-    {
+    }]
+    
+    export const level6List = [
+        {
     "name": "level6 GHST",
     "address": "",
     "symbol": "GHST",
@@ -216,6 +216,40 @@ export const level6List = [
 },
 {
     "name": "level6 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+}]
+
+export const level7List = [{
+    "name": "level7 GHST",
+    "address": "",
+    "symbol": "GHST",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+},
+{
+    "name": "level7 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+}]
+
+export const level8List = [{
+    "name": "level7 GHST",
+    "address": "",
+    "symbol": "GHST",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+},
+{
+    "name": "level7 DAI",
     "address": "",
     "symbol": "DAI",
     "decimals": 18,

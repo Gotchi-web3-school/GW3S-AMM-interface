@@ -131,7 +131,11 @@ export const levels: LevelCard[] = [
             text: "We know it, DeFi everything is permissionless, that's also mean that anyone can become a market maker allowing other people swapping one token for another including a small fee for the persons who added liquidity for it."
         },
         ressources:["Liquidity is key in an AMM ! The more liquidity there is inside the less the price impact will be when exchanging large amount of token against another "],
-        description: <Box><Text>Your are given 100 DAI Your are given 100 GHST A DAI/GHST pool is created. Quadruple (+300%) the price of GHST against DAI (no more than 5% of difference in final price allowed)</Text></Box>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 100 DAI<br />Your are given 100 GHST</Text>
+            <Text>Create a liquidity pool with these two tokens</Text>
+        </Box>,
         help: <Link href="https://research.paradigm.xyz/amm-price-impact">https://research.paradigm.xyz/amm-price-impact</Link>,
     },
     {
@@ -142,7 +146,12 @@ export const levels: LevelCard[] = [
             text: ""
         },
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
-        description: <Box><Text>You are given 10 GHST token You are given 0.001 DAI tokenSwap your 10 GHST to finish the level with at least 10.001 DAI token</Text></Box>,
+        description:
+            <Box>
+                <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 100 DAI<br />Your are given 100 GHST<br />A DAI/GHST pool is created.</Text>
+                <Text>Quadruple (+300%) the price of GHST against DAI</Text>
+                <Text>(5% slippage allowed)</Text>
+            </Box>,
         help: <></>,
     },
     {
