@@ -1,17 +1,8 @@
 import { ethers } from "ethers";
 import { Token } from "gotchiw3s-sdk"
-import React from "react";
 import { byteCode } from "../../Constants"
 import { abis } from "../../Constants/Abis/abis";
-
-export interface IDeployErc20Tx {
-    signer: any,
-    name: string,
-    ticker: string,
-    supply: string,
-    toast: any,
-    setUserTokens: React.Dispatch<any>
-}
+import { IDeployErc20Tx } from "../../Models";
 
 export const deployErc20Tx = async(tx: IDeployErc20Tx) => {
     try {
