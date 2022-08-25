@@ -324,6 +324,14 @@ export const interfaces = {
         "function completeL9() external returns (bool)",
         "function openL9Chest() external returns(address[] memory loots, uint[] memory amounts)",
     ],
+    ILevel9Instance: [
+        "function player() external view returns (address)", 
+        "function tokens(uint) external view returns (address)",
+        "function TOKENS_SYMBOL(uint) external view returns (string memory)",
+        "function TOKENS_NAME(uint) external view returns (string memory)",
+        "function getPair() external returns(address pair)",
+        "function deployTokenWithFixedSupply(string memory name, string memory ticker, uint256 totalSupply, address to) external",
+    ],
     ILevel10Facet: [
         "function initLevel10() external",
         "function completeL10() external returns (bool)",

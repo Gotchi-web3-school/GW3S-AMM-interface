@@ -162,7 +162,11 @@ export const levels: LevelCard[] = [
             text: "What make the price of an asset ? Well by comparing with a another one ! :D",
         },
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
-        description: <Box><Text>Your given 25 USDC Become a millionnaire.</Text></Box>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 25 USDC</Text>
+            <Text>Become a millionnaire.</Text>
+        </Box>,
         help: <Text px="5">Create token ERC 20 module</Text>,
     },
     {

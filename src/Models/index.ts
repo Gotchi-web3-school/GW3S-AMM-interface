@@ -228,3 +228,12 @@ export interface ApproveTx {
     instanceAddress: string,
     toast: any,
 }
+
+export interface IDeployErc20Tx {
+    signer: any,
+    name: string,
+    ticker: string,
+    supply: string,
+    toast: any,
+    setUserTokens: React.Dispatch<any>
+}
