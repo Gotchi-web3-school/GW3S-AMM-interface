@@ -25,7 +25,7 @@ export const poolCardReducer = (state: IPool, action: any): IPool => {
            lpToken.share = action.payload.share
            totalReserves = action.payload.reserves
             //const TokenABalance = new TokenAmount(action.payload.token , ethers.utils.parseEther(action.payload.amount).toString())
-            return {...state, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB, totalReserves: totalReserves }
+            return {...state, lpToken: lpToken, tokenA: tokenA, tokenB: tokenB, totalReserves: totalReserves}
 
         case "FETCH_POOL_BALANCE":
             isFetchingPool = action.payload

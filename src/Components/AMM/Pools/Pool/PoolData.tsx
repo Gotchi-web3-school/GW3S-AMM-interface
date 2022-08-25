@@ -43,7 +43,7 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
         <SimpleGrid columns={2} spacing={3} borderRadius={"3xl"} mx="1" p="5">
             <Text textAlign={"left"}>Your LP tokens:</Text>
             <Flex justifyContent={"right"}>
-                {isFetchingPool ? <Spinner /> : 
+                {isFetchingPool ? <Spinner position={"relative"} left="12px" /> : 
                     <Text position={"relative"} left="12px" textAlign={"right"} fontWeight="bold"> 
                     {pool?.lpToken.balance?.lessThan("1") ?? false ? 
                         pool?.lpToken.balance?.toSignificant(2) ?? '0' : 
@@ -103,7 +103,7 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
 
             <Text textAlign={"left"} >Your pool share</Text>
             {isFetchingPool ? 
-                <Spinner mr="3"/> :
+                <Box><Spacer /><Spinner ml="3.7rem" /></Box> :
                 <Text textAlign={"right"} fontWeight="bold">{pool?.lpToken.share.toSignificant(2) ?? "0"}%</Text>
             }
         </SimpleGrid>
