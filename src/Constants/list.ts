@@ -282,3 +282,20 @@ export const level10List = [{
     "chainId": 80001,
     "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
 }]
+
+export const level11List = [{
+    "name": "level8 DAI",
+    "address": "",
+    "symbol": "DAI",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+},
+{
+    "name": "level10 GHST",
+    "address": "",
+    "symbol": "GHST",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+}]

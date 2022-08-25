@@ -349,6 +349,15 @@ export const interfaces = {
         "function completeL11() external returns (bool)",
         "function openL11Chest() external returns(address[] memory loots, uint[] memory amounts)",
     ],
+    ILevel11Instance: [
+        "function player() external view returns (address)", 
+        "function tokens(uint) external view returns (address)",
+        "function TOKENS_SYMBOL(uint) external view returns (string memory)",
+        "function TOKENS_NAME(uint) external view returns (string memory)",
+        "function getPair() external returns(address pair)",
+        "function swap(uint amountIn, uint amountOutMin, address[] calldata path) public returns(bool)",
+        "function getQuote() public returns(uint256 quote)",
+    ],
     ILevel12Facet: [
         "function initLevel12() external",
         "function completeL12() external returns (bool)",

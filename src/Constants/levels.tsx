@@ -192,7 +192,11 @@ export const levels: LevelCard[] = [
             text: "Liquidity is key in an AMM ! The more liquidity there is inside the less the price impact will be when exchanging large amount of token against another "
         },
         ressources: null,
-        description: <Box><Text>Your are given 10.000.000 DAI Your are given 10.000.000 GHST A DAI/GHST pool is created. swap at least 10.000 GHST without causing more than 1% of price impact</Text></Box>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100.000.000 DAI<br />Your given 100.000.000 GHST<br />A DAI/GHST pool is created.</Text>
+            <Text>Swap at least 10.000 GHST without causing more than 1% of price impact</Text>
+        </Box>,
         help: <></>,
     },
     {
