@@ -44,10 +44,11 @@ const PoolCard: React.FC<{pool: IPool, key: number}> = memo((props) => {
                 if (isPool.result) {
                     console.log(pool.name + ": Pool found!")
                     getLp(isPool.tokenAddress, contract).then((token: any) => {
-                        dispatch({type: "SET_ISPOOL", payload: {lp: token, isPool: true}})
+                        dispatch({type: "SET_ISPOOL", payload: {lp: token, isPool: true, isFetchingPool: false}})
                     })
                 } else {
-                    dispatch({type: "SET_ISPOOL", payload: {isPool: false}})
+                    console.log(pool.name + ": Pool not found")
+                    dispatch({type: "SET_ISPOOL", payload: {isPool: false, isFetchingPool: false}})
                 }
             })
         }
