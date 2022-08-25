@@ -23,7 +23,7 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
                         <Spinner /> 
                         : 
                         <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}>
-                            {totalReserves.tokenA.lessThan("1") ? totalReserves.tokenA.toSignificant(18) : totalReserves.tokenA.toFixed(2)}
+                            {totalReserves.tokenA.lessThan("1") ? totalReserves.tokenA.toSignificant(2) : totalReserves.tokenA.toFixed(2)}
                         </Text>
                     }
                     <Text fontSize={"xs"}>{tokenA.token.symbol}</Text>
@@ -32,7 +32,7 @@ const PoolData: React.FC<{context: PoolCardContextType}> = ({context}) => {
                     
                         {isFetchingPool ? <Spinner /> : 
                             <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"}> 
-                                {totalReserves.tokenB.lessThan("1") ? totalReserves.tokenB.toSignificant(18) : totalReserves.tokenB.toFixed(2)}
+                                {totalReserves.tokenB.lessThan("1") ? totalReserves.tokenB.toSignificant(2) : totalReserves.tokenB.toFixed(2)}
                             </Text>
                         }
                     <Text fontSize={"xs"}>{tokenB.token.symbol}</Text>
