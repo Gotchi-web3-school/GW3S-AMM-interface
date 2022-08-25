@@ -45,8 +45,8 @@ export const addLiquidityTx = async(tx: AddLiquidityTx, provider: any) => {
             ethers.utils.parseEther(minAmount0[0]),
             ethers.utils.parseEther(minAmount1[0]),
             tx.userAddress,
-            tx.factory,
             deadline,
+            tx.factory,
         ) 
     
         console.log("Gas cost: " + (ethers.utils.formatEther(gas?.toString() ?? "") + " MATIC"))
