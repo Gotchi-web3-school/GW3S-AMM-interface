@@ -8,6 +8,7 @@ import { start_l6, completeL6, openL6Chest } from "./level6Facet"
 import { start_l7, completeL7, openL7Chest } from "./level7Facet"
 import { start_l8, completeL8, openL8Chest } from "./level8Facet"
 import { start_l9, completeL9, openL9Chest, deployErc20ByInstance } from "./level9Facet"
+import { start_l10, completeL10, openL10Chest } from "./level10Facet"
 import { CompleteTx, InitTx } from "../../../Models"
 import { ContractContextType } from "../../../Provider/ContractProvider";
 
@@ -56,6 +57,7 @@ export const opens = [
     openL7Chest,
     openL8Chest,
     openL9Chest,
+    openL10Chest,
 ]
 
 export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> = [
@@ -69,6 +71,7 @@ export const completes: Array<undefined | ((tx: CompleteTx) => Promise<void>)> =
     completeL7,
     completeL8,
     completeL9,
+    completeL10,
 ]
 
 export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
@@ -82,6 +85,7 @@ export const starts: Array<undefined | ((tx: InitTx) => Promise<void>)> = [
     start_l7,
     start_l8,
     start_l9,
+    start_l10,
 ]
 
 export const deployErc20ByInstances = [

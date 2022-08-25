@@ -171,13 +171,17 @@ export const levels: LevelCard[] = [
     },
     {
         id: '10',
-        title: "The spread",
+        title: "The ratio",
         learn: {
             title: "Wallets",
             text: ""
         },
         ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
-        description: <Box><Text>Your given 1 USDC Your given 1 GHST Become a GHST trillionnaire using your AMM.</Text></Box>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 1 USDC<br />Your given 1 GHST</Text>
+            <Text>Make the GHST worth 1 trillion or more against USDC using the AMM.</Text>
+        </Box>,
         help: <></>,
     },
     {

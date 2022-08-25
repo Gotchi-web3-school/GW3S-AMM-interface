@@ -265,3 +265,20 @@ export const level9List = [{
     "chainId": 80001,
     "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
 }]
+
+export const level10List = [{
+    "name": "level10 USDC",
+    "address": "",
+    "symbol": "USDC",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+},
+{
+    "name": "level10 GHST",
+    "address": "",
+    "symbol": "GHST",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+}]
