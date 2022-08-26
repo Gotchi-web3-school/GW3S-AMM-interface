@@ -12,10 +12,10 @@ import {
 import { ArrowDownIcon, RepeatIcon } from "@chakra-ui/icons";
 import { useWeb3React } from "@web3-react/core"
 import { SwapContext } from "../../../Provider/AMM/SwapProvider";
-import InputSwapA from "./InputSwapA"
-import InputSwapB from "./InputSwapB"
-import SwapDetails from "./SwapDetails";
+import InputSwapA from "./InputSwapA";
+import InputSwapB from "./InputSwapB";
 import SwapButton from "./SwapButton";
+import SwapDetails from "./SwapDetails";
 import ConnectorButton from "../../Buttons/ConnectorButton";
 
 const Swap: React.FC = () => {

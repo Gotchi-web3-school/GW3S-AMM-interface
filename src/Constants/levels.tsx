@@ -207,7 +207,11 @@ export const levels: LevelCard[] = [
             text: ""
         },
         ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
-        description: <Box><Text>You are given 100 USDC Your are given 2 AMM with the same pool GHST/USDC finish the level with 200 USDC</Text></Box>,
+        description: 
+        <Box>
+            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100 USDC<br />Your are given 2 AMM with the same pool GHST/USDC</Text>
+            <Text>Finish the level with 200 USDC</Text>
+        </Box>,
         help: <></>,
     },
     {

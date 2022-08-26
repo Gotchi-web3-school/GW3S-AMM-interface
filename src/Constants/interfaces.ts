@@ -363,6 +363,13 @@ export const interfaces = {
         "function completeL12() external returns (bool)",
         "function openL12Chest() external returns(address[] memory loots, uint[] memory amounts)",
     ],
+    ILevel12Instance: [
+        "function player() external view returns (address)", 
+        "function tokens(uint) external view returns (address)",
+        "function TOKENS_SYMBOL(uint) external view returns (string memory)",
+        "function TOKENS_NAME(uint) external view returns (string memory)",
+        "function getPair() external returns(address pair)",
+    ],
     ILevel13Facet: [
         "function initLevel13() external",
         "function completeL13() external returns (bool)",

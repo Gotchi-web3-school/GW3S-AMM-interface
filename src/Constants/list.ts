@@ -284,7 +284,7 @@ export const level10List = [{
 }]
 
 export const level11List = [{
-    "name": "level8 DAI",
+    "name": "level11 DAI",
     "address": "",
     "symbol": "DAI",
     "decimals": 18,
@@ -292,7 +292,24 @@ export const level11List = [{
     "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
 },
 {
-    "name": "level10 GHST",
+    "name": "level11 GHST",
+    "address": "",
+    "symbol": "GHST",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://wiki.aavegotchi.com/ghst/ghst.gif"
+}]
+
+export const level12List = [{
+    "name": "level12 USDC",
+    "address": "",
+    "symbol": "USDC",
+    "decimals": 18,
+    "chainId": 80001,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+},
+{
+    "name": "level12 GHST",
     "address": "",
     "symbol": "GHST",
     "decimals": 18,

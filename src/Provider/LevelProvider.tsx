@@ -44,8 +44,8 @@ export const LevelProvider: React.FC<{levelId: number, children: React.ReactNode
   useEffect(() => {
     if (contracts && signer.account && levelId && levelId !== 2) {
       try {
-          fetchLevelState(signer, contracts, levelId).then(result => {
-            dispatch({type: "SET_LEVEL_STATE", payload: result})
+        fetchLevelState(signer, contracts, levelId).then(result => {
+          dispatch({type: "SET_LEVEL_STATE", payload: result})
         })
       } catch (error) {
           console.log(error)
