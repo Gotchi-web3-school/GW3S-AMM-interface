@@ -29,8 +29,8 @@ const Level12: React.FC = () => {
         <Box margin={"auto"}>
         <Stack direction={"row"} m="5rem" align="center">
             <Spacer />
-            {amm0?.pools && running === 12 && <AMM factory={amm0.factory} initCode={amm0.initCode} tokenList={amm0.list} pools={amm0.pools} />}
-            {amm1?.pools && running === 12 && <AMM factory={amm1.factory} initCode={amm1.initCode} tokenList={amm1.list} pools={amm1.pools} />}
+            {amm0?.pools && running === 12 && <AMM id={0} factory={amm0.factory} initCode={amm0.initCode} tokenList={amm0.list} pools={amm0.pools} />}
+            {amm1?.pools && running === 12 && <AMM id={1} factory={amm1.factory} initCode={amm1.initCode} tokenList={amm1.list} pools={amm1.pools} />}
             <Spacer />
             <Card level={levels[12]}/>
         </Stack>

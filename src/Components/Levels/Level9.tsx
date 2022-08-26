@@ -28,7 +28,7 @@ const Level9: React.FC = () => {
             {amm?.pools && running === 9 &&
             <>
                 <Erc20Generator instanceLevel={9} instanceAddress={instanceAddress} />
-                <AMM factory={amm.factory} initCode={amm.initCode} tokenList={amm.list} pools={amm.pools} />
+                <AMM id={0} factory={amm.factory} initCode={amm.initCode} tokenList={amm.list} pools={amm.pools} />
             </>
             }
             <Spacer />

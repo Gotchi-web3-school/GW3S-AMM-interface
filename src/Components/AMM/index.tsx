@@ -9,6 +9,7 @@ import { darkTab, lightTab } from "../../theme";
 import { TokenList } from "../../Constants/list";
 
 type AMMargs = {
+    id: number
     isSwap?: boolean
     isPool?: boolean
     initCode?: string
@@ -19,6 +20,7 @@ type AMMargs = {
 }
 
 const AMM: React.FC<AMMargs> = ({
+    id,
     isSwap = true,
     isPool = true,
     initCode, 
