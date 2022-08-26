@@ -14,7 +14,7 @@ const Playground: React.FC = () => {
           <Erc20Generator />
         </GridItem>
         <GridItem colStart={3}>
-          <AMM />
+          <AMM id={0} />
         </GridItem>
       </Grid>
     )
