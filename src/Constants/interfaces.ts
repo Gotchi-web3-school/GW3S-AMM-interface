@@ -3,9 +3,11 @@ export const interfaces = {
         "function safeMint(address to) external",
         "function supportsInterface(bytes4 interfaceId) external",
         "function getSvg() external view returns(string memory _svgFront, string memory _svgBack)",
-        `function getMetadas() external view returns(
+        `function getMetadatas() external view returns(
             address front,
             address back,
+            address left,
+            address right,
             uint256 levelId,
             string memory type_,
             string memory title,
