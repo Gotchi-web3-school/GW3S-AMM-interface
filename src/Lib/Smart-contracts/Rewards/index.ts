@@ -27,7 +27,7 @@ export const fetchLootsMetadatas = async(chest: OpennedChest, signer: any): Prom
 
             const result = await nft.getMetadatas()
             const ticker = await nft.symbol()
-
+                
             returnArr.push({...result,
                 levelId: parseInt(result.levelId),  
                 quantity: parseInt(chest.amounts[i].toString()),
