@@ -14,6 +14,7 @@ import Fomo from "../../Assets/sprites/Fomo";
 import Fud from "../../Assets/sprites/Fud";
 import JohnAaveBoat from "../../Assets/sprites/JohnAaveBoat";
 import { level2Reducer } from "../../Reducers/level2Reducer";
+import { useParams } from "react-router-dom";
 const oceanSfx = require("../../Assets/sounds/oceanWave.mp3")
 
 const shipKeyFrames = keyframes `
@@ -52,6 +53,7 @@ const defaultButtons = {
 }
 
 const Level2: React.FC = () => {
+    const {id} = useParams()
     const signer = useWeb3React();
     const toast = useToast();
     const {LevelLoupeFacet} = useContext(ContractContext);
@@ -60,7 +62,6 @@ const Level2: React.FC = () => {
     const [shipped, setShipped] = useState(false);
     const [buttons, dispatchL2] = useReducer(level2Reducer, defaultButtons)
     const {KEK, ALPHA, FOMO, FUD, SHIP} = buttons
-  
 
     // Approve one of the four tokens
     const approveTx = (e: any) => {
@@ -100,7 +101,8 @@ const Level2: React.FC = () => {
     // Fetch the state of the level
     useEffect(() => {
         try {
-            if (signer.account && LevelLoupeFacet && running === 2) {
+            if (signer.account && LevelLoupeFacet && parseInt(id ?? '-1') === 2) {
+                console.log("fetch state")
                 dispatchL2({type: "LOADING_ALL"})
                 fetchLevel2State(signer, 2).then((result: Level2State) => {
                     dispatch({type: "SET_LEVEL_STATE", payload: result})
@@ -115,7 +117,7 @@ const Level2: React.FC = () => {
         } catch (error) {
             console.log(error)
         }
-    }, [LevelLoupeFacet, signer, dispatch, instanceAddress, running])
+    }, [LevelLoupeFacet, signer, dispatch, instanceAddress, id])
 
     return (
     <Box margin={"auto"} overflow="hidden" width={"100%"}>

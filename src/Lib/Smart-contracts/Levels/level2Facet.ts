@@ -295,6 +295,7 @@ export interface Level2State {
     instanceAddress: string,
     hasCompleted: boolean,
     hasClaimed: boolean,
+    factories: Array<string>
     factory: string,
     tokens: string[],
     shipped: boolean
@@ -323,6 +324,7 @@ export const fetchLevel2State = async(signer: any, id: number): Promise<Level2St
         instanceAddress: instanceAddress,
         hasCompleted: result[1],
         hasClaimed: result[2],
+        factories: [],
         factory: result[3],
         tokens: result[4],
         shipped: result[5]
