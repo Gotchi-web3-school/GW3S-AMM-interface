@@ -13,13 +13,14 @@ export const deployErc20Tx = async(tx: IDeployErc20Tx) => {
         console.log("Supply: " + tx.supply)
         console.log("//////////////////////////////////////////////////////////")
         
-        const erc20 = new ethers.ContractFactory(abis.gw3sErc20, byteCode.gw3sErc20, tx.signer)
+        const erc20 = new ethers.ContractFactory(abis.gw3sErc20, byteCode.gw3sErc20, tx.signer.library.getSigner(tx.signer.account))
 
         const transaction = await erc20.deploy(tx.name, tx.ticker, ethers.utils.parseEther(tx.supply))
+        console.log(transaction)
     
         tx.toast({
             title: `Deploy token: ${tx.name}`,
-            description: `transaction pending at: ${transaction.hash}`,
+            description: `transaction pending at: ${transaction.deployTransaction.hash}`,
             position: "top-right",
             status: "warning",
             isClosable: true,
