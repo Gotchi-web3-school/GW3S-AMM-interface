@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { Box } from "@chakra-ui/react"
 import Level0 from "../Components/Levels/Level0"
 import Level1 from "../Components/Levels/Level1"
 import Level2 from "../Components/Levels/Level2"
@@ -23,11 +24,11 @@ const levels = [
 const Levels: React.FC = () => {
     const { id } = useParams()
     return (
-    <>
+    <Box height="100vh">
         {id && <LevelProvider levelId={parseInt(id)}>
         {levels[parseInt(id!)]}
         </LevelProvider>}
-    </>
+    </Box>
     )
 }
 
