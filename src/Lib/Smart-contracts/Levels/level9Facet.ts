@@ -208,6 +208,7 @@ export const deployErc20ByInstance = async(tx: IDeployErc20Tx, instanceAddress: 
         
         const ILevel9Instance = new ethers.Contract(instanceAddress, interfaces.ILevel9Instance, tx.signer.library.getSigner(tx.signer.account))
 
+        const tokenAddress = await ILevel9Instance.callStatic.deployTokenWithFixedSupply(tx.name, tx.ticker, tx.supply, tx.signer.account)
         const transaction = await ILevel9Instance.deployTokenWithFixedSupply(tx.name, tx.ticker, tx.supply, tx.signer.account)
     
         tx.toast({
@@ -237,7 +238,7 @@ export const deployErc20ByInstance = async(tx: IDeployErc20Tx, instanceAddress: 
         } catch (error) {
             tokens = []
         }
-        tokens.unshift(new Token(80001, transaction.address, 18, tx.ticker, tx.name))
+        tokens.unshift(new Token(80001, tokenAddress, 18, tx.ticker, tx.name))
         localStorage.setItem(`tokens`, JSON.stringify(tokens))
         tx.setUserTokens(tokens)
 
