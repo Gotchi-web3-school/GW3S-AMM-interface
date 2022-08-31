@@ -184,45 +184,45 @@ export const levels: LevelCard[] = [
         </Box>,
         help: <></>,
     },
-    {
-        id: '11',
-        title: "Price impact 2",
-        learn: {
-            title: "",
-            text: "Liquidity is key in an AMM ! The more liquidity there is inside the less the price impact will be when exchanging large amount of token against another "
-        },
-        ressources: null,
-        description: 
-        <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100.000.000 DAI<br />Your given 100.000.000 GHST<br />A DAI/GHST pool is created.</Text>
-            <Text>Swap at least 10.000 GHST without causing more than 1% of price impact</Text>
-        </Box>,
-        help: <></>,
-    },
-    {
-        id: '12',
-        title: "Arbitrage",
-        learn: {
-            title: "Wallets",
-            text: ""
-        },
-        ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
-        description: 
-        <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100 USDC<br />Your are given 2 AMM with the same pool GHST/USDC</Text>
-            <Text>Finish the level with 200 USDC</Text>
-        </Box>,
-        help: <></>,
-    },
-    {
-        id: '13',
-        title: "Kimchi premium",
-        learn: {
-            title: "Wallets",
-            text: ""
-        },
-        ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
-        description: <Box><Text>You are given 1000 USDC You are given 1000 GHST You are given 2 AMM within one a pool USDC/GHST with a ratio 1/1 Decrease the value of GHST against USDC by at least 50% whitout making any swap</Text></Box>,
-        help: <></>,
-    },
+    // {
+    //     id: '11',
+    //     title: "Price impact 2",
+    //     learn: {
+    //         title: "",
+    //         text: "Liquidity is key in an AMM ! The more liquidity there is inside the less the price impact will be when exchanging large amount of token against another "
+    //     },
+    //     ressources: null,
+    //     description: 
+    //     <Box>
+    //         <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100.000.000 DAI<br />Your given 100.000.000 GHST<br />A DAI/GHST pool is created.</Text>
+    //         <Text>Swap at least 10.000 GHST without causing more than 1% of price impact</Text>
+    //     </Box>,
+    //     help: <></>,
+    // },
+    // {
+    //     id: '12',
+    //     title: "Arbitrage",
+    //     learn: {
+    //         title: "Wallets",
+    //         text: ""
+    //     },
+    //     ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
+    //     description: 
+    //     <Box>
+    //         <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100 USDC<br />Your are given 2 AMM with the same pool GHST/USDC</Text>
+    //         <Text>Finish the level with 200 USDC</Text>
+    //     </Box>,
+    //     help: <></>,
+    // },
+    // {
+    //     id: '13',
+    //     title: "Kimchi premium",
+    //     learn: {
+    //         title: "Wallets",
+    //         text: ""
+    //     },
+    //     ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
+    //     description: <Box><Text>You are given 1000 USDC You are given 1000 GHST You are given 2 AMM within one a pool USDC/GHST with a ratio 1/1 Decrease the value of GHST against USDC by at least 50% whitout making any swap</Text></Box>,
+    //     help: <></>,
+    // },
 ]
