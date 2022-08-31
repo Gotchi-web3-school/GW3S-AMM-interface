@@ -53,11 +53,11 @@ export const levels: LevelCard[] = [
         ressources: ["https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#private-keys"],
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 4 tokens, </Text> 
-            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“FOMO”</Text>, 
-            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“ALPHA”</Text>, 
-            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“KEK”</Text>, 
-            <Text display={"inline-block"} color={"teal.400"} fontWeight={"bold"}>“FUD”</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>You are given 4 tokens, </Text> 
+            <Text display={"inline-block"} color={"teal.600"} fontWeight={"bold"}>“FOMO”</Text>, 
+            <Text display={"inline-block"} color={"teal.600"} fontWeight={"bold"}>“ALPHA”</Text>, 
+            <Text display={"inline-block"} color={"teal.600"} fontWeight={"bold"}>“KEK”</Text>, 
+            <Text display={"inline-block"} color={"teal.600"} fontWeight={"bold"}>“FUD”</Text>
             <Text>Approve them to John.gotchi in order to let him ship your tokens</Text>
         </Box>,
         help: <></>,
@@ -72,7 +72,7 @@ export const levels: LevelCard[] = [
         ressources: null,
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 10 DAI</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"}>Your are given 10 DAI</Text>
             <Text> swap them against GHST tokens</Text>
         </Box>,
         help: <></>,
@@ -87,7 +87,7 @@ export const levels: LevelCard[] = [
         ressources: null,
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 10 DAI</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your are given 10 DAI</Text>
             <Text> swap them against GHST tokens</Text>
         </Box>,
         help: <Text px="5">Look at the “pools” tab in the AMM, there are interesting informations !</Text>,
@@ -102,7 +102,7 @@ export const levels: LevelCard[] = [
         ressources: ["https://mumbai.polygonscan.com/"],
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 1 CATCH token</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>You are given 1 CATCH token</Text>
             <Text>Find the address of this token</Text>
         </Box>,
         help: <Link target={"_blank"} href="https://mumbai.polygonscan.com/"><Image mt="1" width="40" src={polygonscan}/></Link>,
@@ -117,8 +117,8 @@ export const levels: LevelCard[] = [
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 10 GHST token</Text><br/>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>You are given 0.001 DAI token</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>You are given 10 GHST token</Text><br/>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>You are given 0.001 DAI token</Text>
             <Text>Swap your GHST to finish the level with at least 1 DAI token</Text>
         </Box>,
         help: <Link target={"_blank"} href="https://mumbai.polygonscan.com/"><Image mt="1" width="40" src={polygonscan}/></Link>,
@@ -133,7 +133,7 @@ export const levels: LevelCard[] = [
         ressources:["Liquidity is key in an AMM ! The more liquidity there is inside the less the price impact will be when exchanging large amount of token against another "],
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 100 DAI<br />Your are given 100 GHST</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your are given 100 DAI<br />Your are given 100 GHST</Text>
             <Text>Create a liquidity pool with these two tokens</Text>
         </Box>,
         help: <Link href="https://research.paradigm.xyz/amm-price-impact">https://research.paradigm.xyz/amm-price-impact</Link>,
@@ -148,7 +148,7 @@ export const levels: LevelCard[] = [
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
         description:
             <Box>
-                <Text display={"inline-block"} mb="3" color={"teal.400"}>Your are given 100 DAI<br />Your are given 100 GHST<br />A DAI/GHST pool is created.</Text>
+                <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your are given 100 DAI<br />Your are given 100 GHST<br />A DAI/GHST pool is created.</Text>
                 <Text>Quadruple (+300%) the price of GHST against DAI</Text>
                 <Text>(5% slippage allowed)</Text>
             </Box>,
@@ -164,7 +164,7 @@ export const levels: LevelCard[] = [
         ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 25 USDC</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your given 25 USDC</Text>
             <Text>Become a millionnaire.</Text>
         </Box>,
         help: <Text px="5">Create token ERC 20 module</Text>,
@@ -179,7 +179,7 @@ export const levels: LevelCard[] = [
         ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 1 USDC<br />Your given 1 GHST</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your given 1 USDC<br />Your given 1 GHST</Text>
             <Text>Make the GHST worth 1 trillion or more against USDC using the AMM.</Text>
         </Box>,
         help: <></>,
@@ -194,7 +194,7 @@ export const levels: LevelCard[] = [
     //     ressources: null,
     //     description: 
     //     <Box>
-    //         <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100.000.000 DAI<br />Your given 100.000.000 GHST<br />A DAI/GHST pool is created.</Text>
+    //         <Text display={"inline-block"} mb="3" color={"teal.600"}>Your given 100.000.000 DAI<br />Your given 100.000.000 GHST<br />A DAI/GHST pool is created.</Text>
     //         <Text>Swap at least 10.000 GHST without causing more than 1% of price impact</Text>
     //     </Box>,
     //     help: <></>,
@@ -209,7 +209,7 @@ export const levels: LevelCard[] = [
     //     ressources: ["https://academy.binance.com/en/articles/what-is-an-automated-market-maker-amm"],
     //     description: 
     //     <Box>
-    //         <Text display={"inline-block"} mb="3" color={"teal.400"}>Your given 100 USDC<br />Your are given 2 AMM with the same pool GHST/USDC</Text>
+    //         <Text display={"inline-block"} mb="3" color={"teal.600"}>Your given 100 USDC<br />Your are given 2 AMM with the same pool GHST/USDC</Text>
     //         <Text>Finish the level with 200 USDC</Text>
     //     </Box>,
     //     help: <></>,
