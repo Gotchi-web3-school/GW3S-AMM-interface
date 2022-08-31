@@ -332,7 +332,7 @@ export const interfaces = {
         "function TOKENS_SYMBOL(uint) external view returns (string memory)",
         "function TOKENS_NAME(uint) external view returns (string memory)",
         "function getPair() external returns(address pair)",
-        "function deployTokenWithFixedSupply(string memory name, string memory ticker, uint256 totalSupply, address to) external",
+        "function deployTokenWithFixedSupply(string memory name, string memory ticker, uint256 totalSupply, address to) external returns(address)",
     ],
     ILevel10Instance: [
         "function player() external view returns (address)", 
