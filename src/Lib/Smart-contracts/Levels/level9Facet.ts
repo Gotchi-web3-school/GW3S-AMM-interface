@@ -198,7 +198,7 @@ export const fetchAMMState = async(signer: any, instanceAddress: string, factory
 
 export const deployErc20ByInstance = async(tx: IDeployErc20Tx, instanceAddress: string) => {
     try {
-        console.warn("DEPLOY ERC20")
+        console.warn("DEPLOY ERC20 WITH FIXED SUPPLY")
         console.log("//////////////////////////////////////////////////////////")
         console.log("Name: " + tx.name)
         console.log("Ticker: " + tx.ticker)
