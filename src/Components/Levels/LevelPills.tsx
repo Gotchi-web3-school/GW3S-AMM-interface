@@ -8,7 +8,7 @@ const LevelPills: React.FC = () => {
 
     return (
     <Box margin={"auto"} mt="2rem" maxW="85%" justifyContent={"center"}>
-        <Wrap spacing={"3rem"} p="0.3rem">
+        <Wrap spacing={"3rem"} p="0.3rem" justify='center'>
             {levels.map((level, idx) => {
                 return(
                     <Link key={idx} to={`level/${idx}`}>
