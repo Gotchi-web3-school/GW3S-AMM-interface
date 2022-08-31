@@ -6,7 +6,6 @@ import { useColorModeValue } from "@chakra-ui/react";
 import { deployErc20Tx } from "../../Lib/Smart-contracts/erc20"
 import { IDeployErc20Tx } from "../../Models";
 import { GeneralContext } from "../../Provider/GeneralProvider";
-import { deployErc20ByInstances } from "../../Lib/Smart-contracts/Levels";
 
 const Erc20Generator: React.FC<{instanceLevel?: number, instanceAddress?: string}> = ({instanceLevel, instanceAddress}) => {
     const signer = useWeb3React()
@@ -26,17 +25,8 @@ const Erc20Generator: React.FC<{instanceLevel?: number, instanceAddress?: string
             setUserTokens: setUserTokens,
         }
         setLoading(true)
-        if (instanceLevel) {
-            switch (instanceLevel){
-                case 9:
-                    deployErc20ByInstances[9]!(tx, instanceAddress!).then(() => setLoading(false))
-                    break
-                default:
-                    console.error("The instance doesn't include eth erc20 module");
-            }
-        }
-        else
-            deployErc20Tx(tx).then(() => setLoading(false))
+    
+        deployErc20Tx(tx).then(() => setLoading(false))
     }
     return (<>
         
