@@ -72,7 +72,7 @@ export const levels: LevelCard[] = [
         ressources: null,
         description: 
         <Box>
-            <Text display={"inline-block"} mb="3" color={"teal.600"}>Your are given 10 DAI</Text>
+            <Text display={"inline-block"} mb="3" color={"teal.600"}>You are given 10 DAI</Text>
             <Text> swap them against GHST tokens</Text>
         </Box>,
         help: <></>,
