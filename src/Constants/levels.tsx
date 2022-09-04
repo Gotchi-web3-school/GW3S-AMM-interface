@@ -90,14 +90,14 @@ export const levels: LevelCard[] = [
             <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your are given 10 DAI</Text>
             <Text> swap them against GHST tokens</Text>
         </Box>,
-        help: <Text px="5">Look at the “pools” tab in the AMM, there are interesting informations !</Text>,
+        help: <Text px="5">Look at the "pools" tab in the AMM, there's some interesting information</Text>,
     },
     {
         id: '5',
         title: "Catch me if you can",
         learn: {
             title: "Wallets",
-            text: "One major key concept in the blockchain is that it is  100% transparent, yes ser you heard it you can see every single transactions that happenned since its creation ! Each blockchains/networks has its own “Ledger” and with it a “Block explorer” to naviguate through and find pertinent informations to the state of the ledger, you can find the Mumbai one here"
+            text: "One major key concept in the blockchain is that it is 100% transparent, yes ser you heard it! You can see every single transactions that has happened since its creation ! Each blockchain/network has its own “Ledger” and with it a “Block explorer” to navigate through and find pertinent information to the state of the ledger, you can find the Mumbai one here."
         },
         ressources: ["https://mumbai.polygonscan.com/"],
         description: 
@@ -114,7 +114,7 @@ export const levels: LevelCard[] = [
             title: "Wallets",
             text: ""
         },
-        ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
+        ressources: ["Be careful some tokens can have the same name or the same symbol but that does not mean they are the same ! The only true and unique identifier is its address."],
         description: 
         <Box>
             <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>You are given 10 GHST token</Text><br/>
@@ -128,9 +128,9 @@ export const levels: LevelCard[] = [
         title: "Market maker",
         learn: {
             title: "",
-            text: "We know it, DeFi everything is permissionless, that's also mean that anyone can become a market maker allowing other people swapping one token for another including a small fee for the persons who added liquidity for it."
+            text: "We know it, in DeFi everything is permissionless, that also means that anyone can become a market maker. This allows people to swap one token for another and generates a small fee for the person who added liquidity for it."
         },
-        ressources:["Liquidity is key in an AMM ! The more liquidity there is inside the less the price impact will be when exchanging large amount of token against another "],
+        ressources:["Liquidity is key in an AMM ! The more liquidity there is inside, the less the price impact will be when exchanging large amounts of tokens against one another."],
         description: 
         <Box>
             <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your are given 100 DAI<br />Your are given 100 GHST</Text>
@@ -145,7 +145,7 @@ export const levels: LevelCard[] = [
             title: "Wallets",
             text: ""
         },
-        ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
+        ressources: ["Be careful some tokens can have the same name or the same symbol but that does not mean they are the same ! The only true and unique identifier is its address."],
         description:
             <Box>
                 <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your are given 100 DAI<br />Your are given 100 GHST<br />A DAI/GHST pool is created.</Text>
@@ -159,13 +159,13 @@ export const levels: LevelCard[] = [
         title: "Printer goes bRrRrRrRrRR",
         learn: {
             title: "",
-            text: "What make the price of an asset ? Well by comparing with a another one ! :D",
+            text: "What determines the price of an asset? Well, by comparing it with another one ! 😄",
         },
-        ressources: ["Be careful some token can have the same name or same symbol but that does not mean they are the same ! The only true and unique identifier is his address."],
+        ressources: ["Be careful some tokens can have the same name or the same symbol but that does not mean they are the same ! The only true and unique identifier is its address."],
         description: 
         <Box>
             <Text display={"inline-block"} mb="3" color={"teal.600"} fontWeight={"bold"}>Your given 25 USDC</Text>
-            <Text>Become a millionnaire.</Text>
+            <Text>Become a millionaire.</Text>
         </Box>,
         help: <Text px="5">Create token ERC 20 module</Text>,
     },
