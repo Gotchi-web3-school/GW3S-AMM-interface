@@ -7,6 +7,7 @@ import MaticFaucet from "./Components/Faucet/MaticFaucet"
 import LevelPills from "./Components/Levels/LevelPills"
 import Playground from "./Pages/Playground"
 import Levels from "./Pages/Levels"
+import ScavengerHunt from "./Pages/ScavengerHunt"
 
 const App: React.FC = () => {
   const {balance} = useContext(GeneralContext)
@@ -24,6 +25,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Playground />} />
           <Route path="/level/:id" element={<Levels />} />
+          <Route path="/chest/" element={<ScavengerHunt />} />
+          <Route path="/chest/:address" element={<ScavengerHunt />} />
         </Routes>
       </Router>
     </Box>

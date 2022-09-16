@@ -1,4 +1,7 @@
 export const interfaces = {
+    IChest: [
+        "function chest() external returns (struct)",
+    ],
     IERC721RewardLevel: [
         "function safeMint(address to) external",
         "function supportsInterface(bytes4 interfaceId) external",
