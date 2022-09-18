@@ -14,11 +14,12 @@ const ScavengerHunt: React.FC = () => {
   const [searchInput, setSeachInput] = useState("")
   const [loading, setLoading] = useState(false)
 
+
   useEffect(() => {
     if (address && signer.account) {
       setLoading(true)
       fetchChest(signer, address).then(result => {
-        setIsChest(result)
+        setIsChest(result.found)
         setLoading(false)
       })
     }
@@ -26,7 +27,7 @@ const ScavengerHunt: React.FC = () => {
 
   return (
   <Box h="100vh">
-    {true ? 
+    {isChest ? 
       <Center>
         <VStack maxW="50%" mt="15%">
           <Text>Chest found !</Text>

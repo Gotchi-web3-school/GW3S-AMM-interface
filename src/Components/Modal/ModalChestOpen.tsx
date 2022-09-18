@@ -15,7 +15,7 @@ import useSound from 'use-sound'
 const emptyChest = require("../../Assets/chests/empty chest.png")
 const closingChestSound = require("../../Assets/sounds/closing chest.mp3")
 
-const ModalOpenChest: React.FC<{chest: Array<Reward | undefined>, isOpen: boolean, onClose: () => void}> = ({chest, isOpen, onClose}) => {
+const ModalOpenLevelChest: React.FC<{chest: Array<Reward | undefined>, isOpen: boolean, onClose: () => void}> = ({chest, isOpen, onClose}) => {
   const [play] = useSound(closingChestSound, {volume: 0.6})
   return (
     <Modal
@@ -59,4 +59,4 @@ const ModalOpenChest: React.FC<{chest: Array<Reward | undefined>, isOpen: boolea
   )
 }
 
-export default ModalOpenChest;
+export default ModalOpenLevelChest;

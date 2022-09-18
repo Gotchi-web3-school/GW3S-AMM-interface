@@ -237,3 +237,16 @@ export interface IDeployErc20Tx {
     toast: any,
     setUserTokens: React.Dispatch<any>
 }
+
+/**************************************/
+/*                                    */
+/*              Chests                */
+/*                                    */
+/**************************************/
+
+export type LootPicked = {
+    items: string[];
+    tokenIds: ethers.BigNumberish[]; 
+    amounts: ethers.BigNumberish[];
+    type_: ethers.BigNumberish[];
+}

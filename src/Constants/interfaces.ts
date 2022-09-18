@@ -1,6 +1,16 @@
 export const interfaces = {
     IChest: [
-        "function chest() external returns (struct)",
+        "function chest() external view returns (struct)",
+        "function look() external view returns (struct)",
+        "function isInside(address) external returns(bool)", 
+        "function opennedBy() external returns(address)",
+        "function lastOpenned() external returns(uint256)",
+        "function opennedCounter() external returns(uint256)", 
+        
+        "function loot() external returns(struct)",
+        "function lootAll() external returns(struct)",
+        "function batchLoot(address[] memory items, uint256[] memory quantities) external returns(struct)",
+        "function deposit(address[] memory items, uint256[] memory quantities) external returns(address[] memory, uint256[] memory)",
     ],
     IERC721RewardLevel: [
         "function safeMint(address to) external",

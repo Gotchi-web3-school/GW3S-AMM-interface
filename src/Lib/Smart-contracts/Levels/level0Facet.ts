@@ -40,8 +40,6 @@ export const openL0Chest = async(tx: ClaimTx): Promise<Array<Reward | undefined>
             })
         console.log(receipt)
 
-        tx.dispatch({type: "CLAIM", payload: true})
-
         loots = chestOpenned.loots.filter((elem: any) => elem !== "0x0000000000000000000000000000000000000000")
         amounts = chestOpenned.amounts.filter((elem: any) => ethers.utils.formatEther(elem) !== '0.0')
         if (loots)

@@ -8,6 +8,7 @@ import LevelPills from "./Components/Levels/LevelPills"
 import Playground from "./Pages/Playground"
 import Levels from "./Pages/Levels"
 import ScavengerHunt from "./Pages/ScavengerHunt"
+import EventHunt from "./Pages/EventHunt"
 
 const App: React.FC = () => {
   const {balance} = useContext(GeneralContext)
@@ -26,6 +27,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Playground />} />
           <Route path="/level/:id" element={<Levels />} />
           <Route path="/chest/" element={<ScavengerHunt />} />
+          <Route path={`/chest/0x6e82D536a19057cE45B15505AE58d1cB75f3B06E`}  element={<EventHunt />} />
           <Route path="/chest/:address" element={<ScavengerHunt />} />
         </Routes>
       </Router>

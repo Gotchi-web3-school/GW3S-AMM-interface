@@ -10,6 +10,8 @@ import { Level8Spinning, Level8Hovering, Level8Front, Level8Back } from "../Asse
 import { Level9Spinning, Level9Hovering, Level9Front, Level9Back } from "../Assets/sprites/Rewards/Levels/common/Level9"
 import { Level10Spinning, Level10Hovering, Level10Front, Level10Back } from "../Assets/sprites/Rewards/Levels/common/Level10"
 import { UnknownSpinning, UnknownHovering, UnknownFront, UnknownBack } from "../Assets/sprites/Rewards/UnknownReward"
+import { EscapeGotchi1Front, EscapeGotchi1Back, EscapeGotchi1Hovering, EscapeGotchi1Spinning } from "../Assets/sprites/Rewards/Escape/EscapeGotchi1"
+import { Front, Back, Spinning, Hovering } from "../Assets/sprites/Rewards/Lands/8519"
 
 // to find the appropriate card reward to display in any chest you must call for the metadatas of the NFT reward.
 // 1: first indicate the type
@@ -21,6 +23,19 @@ export const chests = {
         hovering: <UnknownHovering />,
         front: <UnknownFront />,
         back: <UnknownBack />
+    }],
+    
+    land: [{
+        spinning: <Spinning />,
+        hovering: <Hovering />,
+        front: <Front />,
+        back: <Back />
+    }],
+    escape: [{
+        spinning: <EscapeGotchi1Spinning />,
+        hovering: <EscapeGotchi1Hovering />,
+        front: <EscapeGotchi1Front />,
+        back: <EscapeGotchi1Back />
     }],
     level: [
         {

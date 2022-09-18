@@ -13,6 +13,7 @@ import { start_l11, completeL11, openL11Chest } from "./level11Facet"
 import { start_l12, completeL12, openL12Chest } from "./level12Facet"
 import { CompleteTx, InitTx } from "../../../Models"
 import { ContractContextType } from "../../../Provider/ContractProvider";
+import {EscapeGotchi1} from "../Events/escapeGotchi1" 
 
 export const fetchLevelState = async(signer: any, contracts: ContractContextType, level: number): Promise<{
     running: number,
@@ -47,6 +48,10 @@ export const fetchLevelState = async(signer: any, contracts: ContractContextType
         throw new Error("REKT")
     }
 }
+
+export const events = [
+    EscapeGotchi1,
+]
 
 export const opens = [
     openL0Chest,
